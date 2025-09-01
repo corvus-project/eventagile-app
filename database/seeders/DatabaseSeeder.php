@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\EventRegistration;
 use App\Models\Event;
+use App\Models\Plan;
 use App\Models\User;
 use App\Models\Subscription;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -19,15 +20,16 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
-
-
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;'); 
+ 
+        ( config('database.default') != 'sqlite') ?? DB::statement('SET FOREIGN_KEY_CHECKS=0;'); 
         Model::unguard();
         User::truncate();
         Event::truncate();
+        Plan::truncate();
         Subscription::truncate();
         EventRegistration::truncate();
       
+        $this->call(PlanSeeder::class);
 
         $this->call(PermissionsTableSeeder::class);
         $this->call(RolesTableSeeder::class);
@@ -35,7 +37,7 @@ class DatabaseSeeder extends Seeder
         //$this->call('UsersTableSeeder');
 
         Model::reguard();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+          ( config('database.default') != 'sqlite') ?? DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         $organizerRole = config('roles.models.role')::where('name', '=', 'Organizer')->first();
         $organizers = User::factory(3)->create();

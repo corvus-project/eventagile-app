@@ -6,12 +6,17 @@ use App\Enums\RegistrationStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Contracts\Auditable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class EventRegistration extends Model implements Auditable
 {
+
+
     /** @use HasFactory<\Database\Factories\RegistrationFactory> */
     use HasFactory;
- use \OwenIt\Auditing\Auditable;
+    use \OwenIt\Auditing\Auditable;
+    use SoftDeletes;
+
     protected $fillable = [
         'event_id',
         'name',
@@ -34,7 +39,7 @@ class EventRegistration extends Model implements Auditable
         'event' => Event::class,
         'status' => RegistrationStatus::class,
     ];
- 
+
     public function event()
     {
         return $this->belongsTo(Event::class);

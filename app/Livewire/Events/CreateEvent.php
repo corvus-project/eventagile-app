@@ -48,6 +48,13 @@ class CreateEvent extends Component
 
         RateLimiter::increment('create-event:'.$user->id);
  
+        $createevet = $user->able('create-event');
+ 
+        if (!$createevet) {     
+            abort(403, 'You do not have permission to create events. Please upgrade your subscription.');
+        }
+
+
         return view('livewire.events.create-event');
     }
 }

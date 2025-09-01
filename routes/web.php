@@ -1,10 +1,10 @@
 <?php
- 
+
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Livewire\Client\EventRegistration;
 use Illuminate\Support\Facades\Route;
- 
+
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +18,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+
+Route::get('/debug',   function () {
+    $default = config('database.default');
+    $connection = config("database.connections.$default");
+    print_r([
+        'default' => $default,
+        'connection' => $connection
+    ]);
+    die();
+})->name('debug');
 
 Route::redirect('home', '/')->name('home');
 

@@ -16,14 +16,18 @@ class SubscriptionFactory extends Factory
      */
     public function definition(): array
     {
+        $plan = \App\Models\Plan::inRandomOrder()->first();
         return [
             'user_id' => \App\Models\User::factory(),
             'starts_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
             'ends_at' => $this->faker->dateTimeBetween('now', '+1 year'),
             'status' => $this->faker->randomElement(['active', 'inactive', 'cancelled']),
-            'plan_limitations' => json_encode(['max_events' => 10, 'max_registrations' => 100]),
-            'plan_name' => 'Free Plan',
-            'plan_description' => 'Access to all free features',
+            'plan_id' => $plan->id,
+            'interval' => $plan->interval,
+            'plan_limitations' => $plan->limitations,
+            'plan_features' => $plan->features,
+            'plan_name' => $plan->name,
+            'plan_description' => $plan->description,
         ];
     }
 }

@@ -32,7 +32,7 @@ class UpdateEvent extends Component
     public function save()
     {
          $user = auth()->user();
-        if (RateLimiter::tooManyAttempts('update-event:' . $user->id, 5)) {
+        if (RateLimiter::tooManyAttempts('update-event:' . $user->id, 15)) {
             throw new RateLimiterException('You are updating events too quickly. Please wait a moment before trying again.');
         }
 
@@ -52,7 +52,7 @@ class UpdateEvent extends Component
     {
         $user = auth()->user();
 
-        if (RateLimiter::tooManyAttempts('update-event:' . $user->id, $perMinute = 5)) {
+        if (RateLimiter::tooManyAttempts('update-event:' . $user->id, $perMinute = 15)) {
             throw new RateLimiterException('You are updating events too quickly. Please wait a moment before trying again.');
         }
 

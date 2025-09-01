@@ -6,6 +6,7 @@ use App\Enums\EventStatus;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
@@ -13,7 +14,7 @@ use Spatie\Sluggable\SlugOptions;
 class Event extends Model implements Auditable
 {
     /** @use HasFactory<\Database\Factories\EventFactory> */
-    use HasFactory, HasSlug;
+    use HasFactory, HasSlug, SoftDeletes;
 
     use \OwenIt\Auditing\Auditable;
 

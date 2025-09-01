@@ -4,6 +4,7 @@ namespace App\Livewire\Forms;
 
 use App\Enums\EventStatus;
 use App\Models\Event;
+use App\Rules\CapacityLimit;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
@@ -28,7 +29,7 @@ class EventForm extends Form
     #[Validate('required|string|max:255')]
     public string $organizer;
  
-    #[Validate('required|integer|min:1')]
+    #[Validate(['required','integer', new CapacityLimit()])]
     public $capacity;
 
     #[Validate('boolean')]
@@ -37,6 +38,7 @@ class EventForm extends Form
     #[Validate('required')]
     public $status;
 
+    
     public function setEvent(Event $event): void
     {
         $this->event = $event;
@@ -77,8 +79,7 @@ class EventForm extends Form
     {
         $this->validate();
         if ($this->event) {
-            
-
+             
             $status = EventStatus::fromName($this->status) ?? EventStatus::DRAFT;
  
             $this->event->update([
