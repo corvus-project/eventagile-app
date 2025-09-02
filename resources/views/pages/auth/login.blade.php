@@ -5,6 +5,7 @@ use Illuminate\Auth\Events\Login;
 use function Laravel\Folio\{middleware, name};
 use Livewire\Attributes\Validate;
 use Livewire\Volt\Component;
+use Illuminate\Validation\ValidationException;
 
 middleware(['guest']);
 name('login');
@@ -19,9 +20,25 @@ new class extends Component
 
     public $remember = false;
 
+    public ?string $captchaToken = null;
+
     public function authenticate()
     {
+        
+        $query = http_build_query([
+            'secret' => config('services.recaptcha.secret_key'),
+            'response' => $this->captchaToken,
+        ]);
+
+        $response = Http::post('https://www.google.com/recaptcha/api/siteverify?' . $query);
+        $captchaLevel = $response->json('score');
+
+        throw_if($captchaLevel <= 0.5, ValidationException::withMessages([
+            'captchaToken' => __('Error on captcha verification. Please, refresh the page and try again.')
+        ]));
+
         $this->validate();
+
 
         if (!Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
             $this->addError('email', trans('auth.failed'));
@@ -61,7 +78,12 @@ new class extends Component
         <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
             <div class="px-10 py-0 sm:py-8 sm:shadow-sm sm:bg-white dark:sm:bg-gray-950/50 dark:border-gray-200/10 sm:border sm:rounded-lg border-gray-200/60">
                 @volt('auth.login')
-                <form wire:submit="authenticate" class="space-y-6">
+
+
+                @error('captchaToken')
+                <div class="bg-red-300 text-red-700 p-3 rounded">{{ $message }}</div>
+                @enderror
+                <form wire:submit.prevent="authenticate" class="space-y-6">
 
                     <x-ui.input label="Email address" type="email" id="email" name="email" wire:model="email" />
                     <x-ui.input label="Password" type="password" id="password" name="password" wire:model="password" />
@@ -73,6 +95,22 @@ new class extends Component
 
                     <x-ui.button type="primary" rounded="md" submit="true">Sign in</x-ui.button>
                 </form>
+
+                <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.public_key') }}"></script>
+                <script>
+                    function handle(e) {
+                        grecaptcha.ready(function() {
+                            grecaptcha.execute('{{ config("services.recaptcha.public_key") }}', {
+                                    action: 'submit'
+                                })
+                                .then(function(token) {
+
+                                    @this.set('captchaToken', token);
+                                    @this.save()
+                                });
+                        })
+                    }
+                </script>
                 @endvolt
             </div>
         </div>
