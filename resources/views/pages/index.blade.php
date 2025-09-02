@@ -1,6 +1,6 @@
 <?php
 
-use function Laravel\Folio\{middleware, name};
+use function Laravel\Folio\{name};
 
 use App\Enums\EventStatus;
 use Livewire\Volt\Component;
@@ -76,7 +76,6 @@ new class extends Component
                     @scope('actions', $event)
                     <div class="flex space-x-2">
                         <x-button wire:click="register({{ $event['id'] }})" class="btn-ghost btn-sm text-red-600" icon="o-link" />
-
                     </div>
                     @endscope
                 </x-table>

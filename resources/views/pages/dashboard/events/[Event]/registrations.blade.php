@@ -92,6 +92,15 @@ new class extends Component {
     <div class="pb-5">
         <div class="mx-auto space-y-6">
             <x-card shadow>
+
+            @if($registrations->isEmpty())
+                <div class="p-6 text-center">
+                    <p class="text-gray-500">No registrations found for this event.</p>
+                </div>
+            @else
+                <div class="p-6 text-center">
+                    <p class="text-gray-500">Total Registrations: {{ $registrations->total() }}</p>
+                </div>
                 <x-table :headers="$headers" :rows="$registrations" :sort-by="$sortBy" with-pagination>
                     @scope('actions', $event)
                     <div class="flex space-x-2">
@@ -99,6 +108,7 @@ new class extends Component {
                     </div>
                     @endscope
                 </x-table>
+                @endif
             </x-card>
         </div>
     </div>

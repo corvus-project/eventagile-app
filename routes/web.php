@@ -29,7 +29,7 @@ Route::get('/debug',   function () {
     die();
 })->name('debug');
 
-Route::redirect('home', '/')->name('home');
+//Route::redirect('home', '/')->name('home');
 
 Route::get('events/{event:slug}/register', EventRegistration::class)->name('event.registration');
 

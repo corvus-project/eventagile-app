@@ -17,6 +17,7 @@
                 class="p-4 bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg dark:bg-gray-900/50 dark:border dark:border-gray-200/10">
                 <div class="w-full max-w-2xl mx-auto">
 
+                @if ($eventLimit)
 
                     <x-form wire:submit="save" class="mt-6 space-y-6">
 
@@ -39,6 +40,11 @@
                             <x-button label="Create" class="btn-seconday" type="primary" submit="true" spinner="save" />
                         </x-slot:actions>
                     </x-form>
+                    @else
+                        <div class="p-4 text-sm text-yellow-800 bg-yellow-50 rounded-lg dark:bg-gray-800/50 dark:text-yellow-300" role="alert">
+                            <span class="font-medium">You have reached the maximum number of events you can create. Please delete an existing event or contact support to increase your limit.</span>
+                        </div>
+                    @endif
                 </div>
             </section>
         </div>

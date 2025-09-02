@@ -17,6 +17,8 @@ class CreateEvent extends Component
 {
     public $status;
 
+    public $eventLimit = true;
+
     public EventForm $form;
 
     public function mount()
@@ -41,7 +43,7 @@ class CreateEvent extends Component
     public function render()
     {
         $user = auth()->user();
-
+        
         if (RateLimiter::tooManyAttempts('create-event:' . $user->id, $perMinute = 5)) {
             throw new RateLimiterException('You are creating events too quickly. Please wait a moment before trying again.');
         }
@@ -51,7 +53,7 @@ class CreateEvent extends Component
         $createevet = $user->able('create-event');
  
         if (!$createevet) {     
-            abort(403, 'You do not have permission to create events. Please upgrade your subscription.');
+            $this->eventLimit = false;
         }
 
 
