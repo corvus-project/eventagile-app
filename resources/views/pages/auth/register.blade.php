@@ -15,7 +15,8 @@ name('register');
 
 new class extends Component
 {
-        public ?string $captchaToken = null;
+    public ?string $captchaToken = null;
+
     #[Validate('required')]
     public $name = '';
 
@@ -47,8 +48,8 @@ new class extends Component
             'name' => $this->name,
             'password' => Hash::make($this->password),
         ]);
-
-        $user->assignRole('organizer');
+        $organizerRole = config('roles.models.role')::where('name', '=', 'Organizer')->first();
+        $user->attachRole($organizerRole);
         event(new Registered($user));
 
         Auth::login($user, true);
@@ -88,11 +89,11 @@ new class extends Component
                     <x-ui.input label="Email address" type="email" id="email" name="email" wire:model="email" />
                     <x-ui.input label="Password" type="password" id="password" name="password" wire:model="password" />
                     <x-ui.input label="Confirm Password" type="password" id="password_confirmation" name="password_confirmation" wire:model="passwordConfirmation" />
-                   
-                                 <x-button label="Register" rounded="md" class="btn-primary g-recaptcha" type="primary" submit="true"  
+
+                    <x-button label="Register" rounded="md" class="btn-primary g-recaptcha" type="primary" submit="true"
                         data-sitekey="{{ config('services.recaptcha.public_key') }}"
                         data-callback='handle'
-                        data-action='submit' />
+                        data-action='register' />
                 </form>
                 <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.public_key') }}"></script>
                 <script>
