@@ -6,6 +6,7 @@ use App\Enums\RegistrationStatus;
 use App\Livewire\Forms\EventRegistrationForm;
 use App\Models\Event;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -21,6 +22,7 @@ class EventRegistration extends Component
 {
     public $event;
     public ?string $captchaToken = null;
+
     public EventRegistrationForm $form;
 
     public function mount(Event $event)
@@ -36,6 +38,7 @@ class EventRegistration extends Component
             'response' => $this->captchaToken,
         ]);
 
+        Log::debug('Captcha query', ['query' => $query, 'captchaToken' => $this->captchaToken]);
         $response = Http::post('https://www.google.com/recaptcha/api/siteverify?' . $query);
         $captchaLevel = $response->json('score');
 

@@ -88,7 +88,11 @@ new class extends Component
                     <x-ui.input label="Email address" type="email" id="email" name="email" wire:model="email" />
                     <x-ui.input label="Password" type="password" id="password" name="password" wire:model="password" />
                     <x-ui.input label="Confirm Password" type="password" id="password_confirmation" name="password_confirmation" wire:model="passwordConfirmation" />
-                    <x-ui.button type="primary" rounded="md" submit="true">Register</x-ui.button>
+                   
+                                 <x-button label="Register" rounded="md" class="btn-primary g-recaptcha" type="primary" submit="true"  
+                        data-sitekey="{{ config('services.recaptcha.public_key') }}"
+                        data-callback='handle'
+                        data-action='submit' />
                 </form>
                 <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.public_key') }}"></script>
                 <script>
@@ -100,7 +104,7 @@ new class extends Component
                                 .then(function(token) {
 
                                     @this.set('captchaToken', token);
-                                    @this.save()
+                                    @this.register()
                                 });
                         })
                     }

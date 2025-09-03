@@ -1,6 +1,6 @@
 <?php
 
-use function Laravel\Folio\{name};
+use function Laravel\Folio\{name,middleware};
 
 use App\Enums\EventStatus;
 use Livewire\Volt\Component;
@@ -9,6 +9,7 @@ use Livewire\WithPagination;
 
 
 name('home');
+
 new class extends Component
 {
     use WithPagination;

@@ -3,15 +3,15 @@
 use App\Models\User;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 use function Laravel\Folio\{middleware, name};
 use Livewire\Attributes\Validate;
 use Livewire\Volt\Component;
 use Illuminate\Validation\ValidationException;
 
-middleware(['guest']);
+middleware(['throttle:5,1', 'authenticated_session']);
 name('login');
-
 new class extends Component
 {
     #[Validate('required|email')]
@@ -26,12 +26,11 @@ new class extends Component
 
     public function authenticate()
     {
-        
         $query = http_build_query([
             'secret' => config('services.recaptcha.secret_key'),
             'response' => $this->captchaToken,
         ]);
-
+ 
         $response = Http::post('https://www.google.com/recaptcha/api/siteverify?' . $query);
         $captchaLevel = $response->json('score');
 
@@ -58,7 +57,6 @@ new class extends Component
 
 <x-layouts.main>
 
-
     <x-slot name="title">
         Login
     </x-slot>
@@ -81,7 +79,6 @@ new class extends Component
             <div class="px-10 py-0 sm:py-8 sm:shadow-sm sm:bg-white dark:sm:bg-gray-950/50 dark:border-gray-200/10 sm:border sm:rounded-lg border-gray-200/60">
                 @volt('auth.login')
 
-
                 @error('captchaToken')
                 <div class="bg-red-300 text-red-700 p-3 rounded">{{ $message }}</div>
                 @enderror
@@ -94,8 +91,13 @@ new class extends Component
                         <x-ui.checkbox label="Remember me" id="remember" name="remember" wire:model="remember" />
                         <x-ui.text-link href="{{ route('password.request') }}">Forgot your password?</x-ui.text-link>
                     </div>
+ 
 
-                    <x-ui.button type="primary" rounded="md" submit="true">Sign in</x-ui.button>
+                    <x-button label="Login" rounded="md" class="btn-primary g-recaptcha" type="primary" submit="true"  
+                        data-sitekey="{{ config('services.recaptcha.public_key') }}"
+                        data-callback='handle'
+                        data-action='submit' />
+
                 </form>
 
                 <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.public_key') }}"></script>
@@ -105,10 +107,9 @@ new class extends Component
                             grecaptcha.execute('{{ config("services.recaptcha.public_key") }}', {
                                     action: 'submit'
                                 })
-                                .then(function(token) {
-
+                                .then(function(token) { 
                                     @this.set('captchaToken', token);
-                                    @this.save()
+                                    @this.authenticate()
                                 });
                         })
                     }

@@ -88,7 +88,15 @@ new class extends Component
                 @enderror
                 <form wire:submit="sendResetPasswordLink" class="space-y-6">
                     <x-ui.input label="Email address" type="email" id="email" name="email" wire:model="email" />
-                    <x-ui.button type="primary" rounded="md" submit="true">Send password reset link</x-ui.button>
+                    
+
+                                       
+                                 <x-button label="Send password reset link" rounded="md" class="btn-primary g-recaptcha" type="primary" submit="true"  
+                        data-sitekey="{{ config('services.recaptcha.public_key') }}"
+                        data-callback='handle'
+                        data-action='submit' />
+
+
                 </form>
                 <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.public_key') }}"></script>
                 <script>
@@ -100,7 +108,7 @@ new class extends Component
                                 .then(function(token) {
 
                                     @this.set('captchaToken', token);
-                                    @this.save()
+                                    @this.sendResetPasswordLink()
                                 });
                         })
                     }
