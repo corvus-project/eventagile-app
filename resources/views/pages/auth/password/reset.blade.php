@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Password;
 use function Laravel\Folio\name;
 use Livewire\Volt\Component;
 use Livewire\Attributes\Validate;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Http;
 
 name('password.request');
 
@@ -14,8 +16,19 @@ new class extends Component
 
     public $emailSentMessage = false;
 
+        public ?string $captchaToken = null;
     public function sendResetPasswordLink()
     {
+        $query = http_build_query([
+            'secret' => config('services.recaptcha.secret_key'),
+            'response' => $this->captchaToken,
+        ]);
+        $response = Http::post('https://www.google.com/recaptcha/api/siteverify?' . $query);
+        $captchaLevel = $response->json('score');
+
+        throw_if($captchaLevel <= 0.5, ValidationException::withMessages([
+            'captchaToken' => __('Error on captcha verification. Please, refresh the page and try again.')
+        ]));
         $this->validate();
 
         $response = Password::broker()->sendResetLink(['email' => $this->email]);
@@ -70,10 +83,28 @@ new class extends Component
                     </div>
                 </div>
                 @else
+                                @error('captchaToken')
+                <div class="bg-red-300 text-red-700 p-3 rounded">{{ $message }}</div>
+                @enderror
                 <form wire:submit="sendResetPasswordLink" class="space-y-6">
                     <x-ui.input label="Email address" type="email" id="email" name="email" wire:model="email" />
                     <x-ui.button type="primary" rounded="md" submit="true">Send password reset link</x-ui.button>
                 </form>
+                <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.public_key') }}"></script>
+                <script>
+                    function handle(e) {
+                        grecaptcha.ready(function() {
+                            grecaptcha.execute('{{ config("services.recaptcha.public_key") }}', {
+                                    action: 'submit'
+                                })
+                                .then(function(token) {
+
+                                    @this.set('captchaToken', token);
+                                    @this.save()
+                                });
+                        })
+                    }
+                </script>
                 @endif
             </div>
         </div>

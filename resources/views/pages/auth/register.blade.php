@@ -7,12 +7,15 @@ use Illuminate\Auth\Events\Registered;
 use Livewire\Volt\Component;
 use Livewire\Attributes\Validate;
 use function Laravel\Folio\{middleware, name};
+use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Http;
 
 middleware(['guest']);
 name('register');
 
 new class extends Component
 {
+        public ?string $captchaToken = null;
     #[Validate('required')]
     public $name = '';
 
@@ -27,8 +30,18 @@ new class extends Component
 
     public function register()
     {
-        $this->validate();
+        $query = http_build_query([
+            'secret' => config('services.recaptcha.secret_key'),
+            'response' => $this->captchaToken,
+        ]);
+        $response = Http::post('https://www.google.com/recaptcha/api/siteverify?' . $query);
+        $captchaLevel = $response->json('score');
 
+        throw_if($captchaLevel <= 0.5, ValidationException::withMessages([
+            'captchaToken' => __('Error on captcha verification. Please, refresh the page and try again.')
+        ]));
+
+        $this->validate();
         $user = User::create([
             'email' => $this->email,
             'name' => $this->name,
@@ -67,6 +80,9 @@ new class extends Component
         <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
             <div class="px-10 py-0 sm:py-8 sm:shadow-sm sm:bg-white dark:sm:bg-gray-950/50 dark:border-gray-200/10 sm:border sm:rounded-lg border-gray-200/60">
                 @volt('auth.register')
+                @error('captchaToken')
+                <div class="bg-red-300 text-red-700 p-3 rounded">{{ $message }}</div>
+                @enderror
                 <form wire:submit="register" class="space-y-6">
                     <x-ui.input label="Name" type="text" id="name" name="name" wire:model="name" />
                     <x-ui.input label="Email address" type="email" id="email" name="email" wire:model="email" />
@@ -74,6 +90,21 @@ new class extends Component
                     <x-ui.input label="Confirm Password" type="password" id="password_confirmation" name="password_confirmation" wire:model="passwordConfirmation" />
                     <x-ui.button type="primary" rounded="md" submit="true">Register</x-ui.button>
                 </form>
+                <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.public_key') }}"></script>
+                <script>
+                    function handle(e) {
+                        grecaptcha.ready(function() {
+                            grecaptcha.execute('{{ config("services.recaptcha.public_key") }}', {
+                                    action: 'submit'
+                                })
+                                .then(function(token) {
+
+                                    @this.set('captchaToken', token);
+                                    @this.save()
+                                });
+                        })
+                    }
+                </script>
                 @endvolt
             </div>
         </div>

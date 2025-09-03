@@ -2,6 +2,8 @@
 
 use App\Models\User;
 use Illuminate\Auth\Events\Login;
+use Illuminate\Support\Facades\Http;
+
 use function Laravel\Folio\{middleware, name};
 use Livewire\Attributes\Validate;
 use Livewire\Volt\Component;
