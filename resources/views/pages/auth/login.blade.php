@@ -10,7 +10,7 @@ use Livewire\Attributes\Validate;
 use Livewire\Volt\Component;
 use Illuminate\Validation\ValidationException;
 
-middleware(['throttle:5,1', 'authenticated_session']);
+middleware(['throttle:5,1']);
 name('login');
 new class extends Component
 {
