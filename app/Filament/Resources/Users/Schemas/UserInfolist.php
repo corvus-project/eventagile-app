@@ -2,11 +2,14 @@
 
 namespace App\Filament\Resources\User\Schemas;
 
+use App\Filament\Resources\Subscriptions\SubscriptionResource;
+use App\Models\Subscription;
 use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
+use Tiptap\Marks\Subscript;
 
 class UserInfolist
 {
@@ -48,8 +51,14 @@ class UserInfolist
                             ->label('Ends at')
                             ->dateTime(),
                         TextEntry::make('status'),
+
+                        TextEntry::make('id')
+                            ->label('View')
+                            ->url(fn ($record) => SubscriptionResource::getUrl('view', ['record' => $subscription = Subscription::find($record->id)]))
+                            ->icon(Heroicon::Eye),
+                
                     ])
-                    ->columns(3)
+                    ->columns(4)
             ])->columns(1);
     }
 }

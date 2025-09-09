@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Subscriptions;
 use App\Filament\Resources\Subscriptions\Pages\CreateSubscription;
 use App\Filament\Resources\Subscriptions\Pages\EditSubscription;
 use App\Filament\Resources\Subscriptions\Pages\ListSubscriptions;
+use App\Filament\Resources\Subscriptions\Pages\ViewSubscriptions;
 use App\Filament\Resources\Subscriptions\Schemas\SubscriptionForm;
 use App\Filament\Resources\Subscriptions\Tables\SubscriptionsTable;
 use App\Models\Subscription;
@@ -45,6 +46,7 @@ class SubscriptionResource extends Resource
             'index' => ListSubscriptions::route('/'),
             'create' => CreateSubscription::route('/create'),
             'edit' => EditSubscription::route('/{record}/edit'),
+            'view' => ViewSubscriptions::route('/{record}'),
         ];
     }
 }
