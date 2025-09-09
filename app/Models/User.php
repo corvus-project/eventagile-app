@@ -11,9 +11,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
 use App\Services\SubscriptionService;
+use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Support\Facades\Log;
+use Filament\Panel;
 
-class User extends Authenticatable  implements MustVerifyEmail
+class User extends Authenticatable  implements MustVerifyEmail, FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasRoleAndPermission;
@@ -67,5 +69,14 @@ class User extends Authenticatable  implements MustVerifyEmail
     {
         Log::info('Checking ability for user ID: ' . $this->id . ' and action: ' . $action);
         return app(SubscriptionService::class)->can($this, $action);
+    }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+/*         if ($panel->getId() === 'admin') {
+            return str_ends_with($this->email, '@yourdomain.com') && $this->hasVerifiedEmail();
+        } */
+
+        return true;
     }
 }

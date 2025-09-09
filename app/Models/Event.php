@@ -71,6 +71,11 @@ class Event extends Model implements Auditable
         return 'slug';
     }
 
+    public function organizer()
+    {
+        return $this->belongsTo(User::class, 'organizer_id');
+    }
+
     public function registrations()
     {
         return $this->hasMany(EventRegistration::class);

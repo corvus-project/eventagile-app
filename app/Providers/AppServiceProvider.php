@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Policies\EventPolicy;
 use App\Policies\UserPolicy;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\RateLimiter;
 
 class AppServiceProvider extends ServiceProvider
@@ -35,5 +37,14 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('view-any-event', [EventPolicy::class, 'viewAny']);
 
    
+        DB::listen(function($query) {
+            Log::info(
+                $query->sql,
+                [
+                    'bindings' => $query->bindings,
+                    'time' => $query->time
+                ]
+            );
+        });
     }
 }
