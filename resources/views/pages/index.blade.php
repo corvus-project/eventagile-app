@@ -9,7 +9,7 @@ use Livewire\WithPagination;
 
 
 name('home');
-
+middleware('web');
 new class extends Component
 {
     use WithPagination;
