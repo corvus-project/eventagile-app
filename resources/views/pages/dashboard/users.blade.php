@@ -15,7 +15,7 @@ new class extends Component {
     use Toast, ClearsFilters;
     use WithPagination;
 
-   
+
     public bool $drawer = false;
 
     public string $search = '';
@@ -32,7 +32,7 @@ new class extends Component {
         if (!empty($this->search)) {
             $count++;
         }
- 
+
 
         return $count;
     }
@@ -128,9 +128,10 @@ new class extends Component {
                     per-page="perPage"
                     :per-page-values="[3, 5, 10]">
                     @scope('actions', $user)
-                    <div class="flex space-x-2">
+                    <div class="flex space-x-2 justify-end">
                         <x-button wire:click="delete({{ $user['id'] }})" wire:confirm="Are you sure?" spinner class="btn-ghost btn-sm text-red-600" icon="o-trash" />
                         <x-button wire:click="edit({{ $user['id'] }})" class="btn-ghost btn-sm text-red-600" icon="c-pencil-square" />
+                          <x-button wire:click="show({{ $user['id'] }})" class="btn-ghost btn-sm text-red-600" icon="o-link" /> 
                     </div>
                     @endscope
                 </x-table>

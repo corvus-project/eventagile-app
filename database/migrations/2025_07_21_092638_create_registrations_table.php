@@ -1,6 +1,7 @@
 <?php
  
 use App\Enums\RegistrationStatus;
+use App\Models\Event;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('event_registrations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('event_id')->constrained()->onDelete('cascade');
+            $table->foreignIdFor(Event::class, 'event_id')->constrained()->onDelete('cascade');
             $table->string('name');
             $table->string('email');
             $table->string('phone')->nullable();

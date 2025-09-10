@@ -10,8 +10,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class EventRegistration extends Model implements Auditable
 {
-
-
     /** @use HasFactory<\Database\Factories\RegistrationFactory> */
     use HasFactory;
     use \OwenIt\Auditing\Auditable;
@@ -36,12 +34,27 @@ class EventRegistration extends Model implements Auditable
         'phone' => 'string',
         'notes' => 'string',
         'name' => 'string',
-        'event' => Event::class,
+        //'event' => Event::class,
         'status' => RegistrationStatus::class,
     ];
 
     public function event()
     {
-        return $this->belongsTo(Event::class);
+        return $this->hasOne(Event::class, 'id', 'event_id');
+    }
+
+    public function scopeAttending($query)
+    {
+        return $query->where('is_attending', true);
+    }
+
+    public function getEventTitleValue()
+    {
+        return $this->event->title;
+    }
+
+        public function getEventOrganizerValue()
+    {
+        return $this->event->organizer->name;
     }
 }

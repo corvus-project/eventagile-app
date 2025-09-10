@@ -20,13 +20,12 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/debug',   function () {
-    $default = config('database.default');
-    $connection = config("database.connections.$default");
-    print_r([
-        'default' => $default,
-        'connection' => $connection
-    ]);
-    die();
+    $query = App\Models\EventRegistration::query();
+    $rows = $query->with(['event'])->get();
+
+    foreach ($rows as $row) {
+        echo $row->name . ' - ' . $row->event_title  . $row->event->id . '<br>';
+    }
 })->name('debug');
 
 //Route::redirect('home', '/')->name('home');
