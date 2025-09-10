@@ -1,8 +1,6 @@
 <?php
 
 use App\Enums\EventStatus;
-use App\Models\Event;
-use App\Models\Plan;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -29,7 +27,6 @@ return new class extends Migration
             $table->integer('capacity')->default(0);
             $table->boolean('is_public')->default(true); 
             $table->foreignIdFor(User::class, 'organizer_id')->constrained()->onDelete('cascade');
-            $table->foreignIdFor((Plan::class), 'plan_id')->nullable()->constrained()->nullOnDelete();
             $table->enum('status', array_column(EventStatus::cases(), 'value'))->default(EventStatus::PENDING->value);
             $table->timestamps();
             $table->softDeletes();

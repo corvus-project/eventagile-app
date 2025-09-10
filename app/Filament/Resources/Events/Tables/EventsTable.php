@@ -72,6 +72,7 @@ class EventsTable
             ], layout: FiltersLayout::AboveContent)->filtersFormColumns(3)
             ->recordActions([
                 EditAction::make(),
+                ViewAction::make()
               
 
             ])

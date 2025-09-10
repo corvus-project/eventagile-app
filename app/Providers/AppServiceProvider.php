@@ -4,7 +4,9 @@ namespace App\Providers;
 
 use App\Policies\EventPolicy;
 use App\Policies\UserPolicy;
+use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
@@ -36,15 +38,16 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('view-event', [EventPolicy::class, 'view']);
         Gate::define('view-any-event', [EventPolicy::class, 'viewAny']);
 
-   
-        DB::listen(function($query) {
-            Log::info(
-                $query->sql,
-                [
-                    'bindings' => $query->bindings,
-                    'time' => $query->time
-                ]
-            );
+        if (app()->environment('local', 'staging')) {
+             DB::listen(function ($query) {
+                File::append(
+                    storage_path('/logs/query.log'),
+                    $query->sql . ' [' . implode(', ', $query->bindings) . ']' . PHP_EOL
+                );
+            }); 
+        }
+        RateLimiter::for('login', function (string $email, string $ip) {
+            return Limit::perMinute(5)->by($email.$ip);
         });
     }
 }

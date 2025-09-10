@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Subscriptions\Schemas;
 
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Schema;
@@ -13,9 +14,13 @@ class SubscriptionForm
     {
         return $schema
             ->components([
-                TextInput::make('user_id')
-                    ->required()
-                    ->numeric(),
+ 
+
+                Select::make('user_id')
+                    ->relationship('user', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->required(),    
                 TextInput::make('stripe_customer_id'),
                 TextInput::make('stripe_subscription_id'),
                 TextInput::make('stripe_price_id'),

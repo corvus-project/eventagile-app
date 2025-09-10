@@ -21,10 +21,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/debug',   function () {
     $query = App\Models\EventRegistration::query();
-    $rows = $query->with(['event', 'event.organizer'])->get();
+    $rows = $query->with(['event'])->get();
 
     foreach ($rows as $row) {
-        echo $row->name . ' - ' . $row->event_title . ' - ' . $row->event_organizer_name   . ' - ' . $row->event->id . '<br>';
+        echo $row->name . ' - ' . $row->event_title  . $row->event->id . '<br>';
     }
 })->name('debug');
 

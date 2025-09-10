@@ -9,8 +9,12 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
+use Filament\Actions\ViewAction;
+use Filament\Forms\Components\Select;
+use Filament\Schemas\Components\View;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
@@ -20,8 +24,8 @@ class EventRegistrationsTable
     public static function configure(Table $table): Table
     {
         $query = EventRegistration::query();
-        $rows = $query->with(['event', 'event.organizer'])->toSql();
- 
+
+
         return $table
             ->query($query->with(['event', 'event.organizer']))
             ->columns([
@@ -29,12 +33,12 @@ class EventRegistrationsTable
                     ->label('Event')
                     ->searchable()
                     ->sortable(),
-                 TextColumn::make('event.organizer.name')
+                TextColumn::make('event.organizer.name')
                     ->label('Organizer')
                     ->searchable()
                     ->sortable(),
-                    
-                 TextColumn::make('name')
+
+                TextColumn::make('name')
                     ->label('Name')
                     ->searchable(),
 
@@ -64,14 +68,34 @@ class EventRegistrationsTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                SelectFilter::make('event.organizer_id')
-                    ->relationship('organizer', 'name')
-                    ->label('Organizer')
+                SelectFilter::make('event_id')
+                    ->label('Event')
+                    ->options(Event::pluck('title', 'id'))
                     ->searchable()
-                    ->placeholder('All organizers'),
-            ])
+                    ->placeholder('All events'),
+
+                SelectFilter::make('status')
+                    ->options([
+                        'registered' => 'Registered',
+                        'attended' => 'Attended',
+                        'cancelled' => 'Cancelled',
+                        'no_show' => 'No Show',
+                    ])
+                    ->label('Status')
+                    ->placeholder('All statuses'),
+
+                SelectFilter::make('is_attending')
+                    ->options([
+                        1 => 'Attending',
+                        0 => 'Not attending',
+                    ])
+                    ->label('Attendance')
+                    ->placeholder('All attendance'),
+
+            ], layout: FiltersLayout::AboveContent)->filtersFormColumns(5)
             ->recordActions([
                 EditAction::make(),
+                ViewAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
