@@ -16,4 +16,10 @@ class EditUser extends EditRecord
             DeleteAction::make(),
         ];
     }
+
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        $data['password'] = $this->record->password;
+        return $data;
+    }
 }
