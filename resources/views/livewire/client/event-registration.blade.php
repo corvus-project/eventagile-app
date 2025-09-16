@@ -24,7 +24,7 @@
                     </div>
                     @elseif( $event->registration_ends_at < now())
                         <div class="alert alert-warning mb-4">
-                        Registration ends at {{ $event->registration_ends_at->format('d M Y H:i') }}.
+                        Registration ends at {{ $event->registration_ends_at?->format('d M Y H:i') }}.
             </div>
             @elseif($registrations_count >= $event->capacity)
             <div class="alert alert-warning mb-4">
@@ -43,7 +43,7 @@
                 <x-input label="Email" wire:model="form.email" />
                 <x-input label="Phone" wire:model="form.phone" />
 
-                @if(!$event->is_public)
+                @if(!$event->is_public == 0)
                 <x-input label="Registration Code" wire:model="form.registration_code" placeholder="Enter registration code" />
                 @endif
 
