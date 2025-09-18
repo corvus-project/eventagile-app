@@ -17,10 +17,7 @@
                 if ($user->isOrganizer() || $user->isAdmin()) {
                 $navLinks['Events'] ='/dashboard/events';
                 }
-
-                if ($user->isAdmin()) {
-                $navLinks['Users'] = '/dashboard/users';
-                }
+ 
 
                 
                 @endphp

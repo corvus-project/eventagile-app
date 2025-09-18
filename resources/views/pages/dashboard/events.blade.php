@@ -11,7 +11,7 @@ use App\Traits\ClearsFilters;
 use Illuminate\Support\Facades\Log;
 
 name('events.index');
-middleware(['auth', 'verified', 'role:admin,organizer']);
+middleware(['auth', 'verified', 'role:organizer']);
 new class extends Component {
 
     use Toast, ClearsFilters;
@@ -60,16 +60,11 @@ new class extends Component {
         return Event::query()
             ->withCount('registrations')             
             ->orderBy($this->sortBy['column'], $this->sortBy['direction'])
+            ->where('organizer_id', $user->id)
             ->when($this->search, function () {
                 return Event::where(fn($query) => $query->where('title', 'like', $this->search . '%')->orWhere('organizer', 'like', $this->search . '%'));
             })
-            ->where(function ($query) use ($user) {
-                if ($user->isOrganizer()) {
-                    return $query->where('organizer_id', $user->id);
-                } else {
-                    return $query;
-                }
-            })
+           
 
             ->paginate($this->perPage);
     }
@@ -87,9 +82,9 @@ new class extends Component {
     public function delete(int $id)
     {
         FacadesGate::authorize('delete-event', Event::findOrFail($id));
-        $product = Event::findOrFail($id);
-        $product->delete();
-        $this->toast('success', 'Product deleted successfully');
+        $event = Event::findOrFail($id);
+        $event->delete();
+        $this->toast('success', 'Event deleted successfully');
     }
 
     public function edit(int $id)

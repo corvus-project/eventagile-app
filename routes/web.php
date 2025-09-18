@@ -19,41 +19,37 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/debug',   function () {
-    $query = App\Models\EventRegistration::query();
-    $rows = $query->with(['event'])->get();
-
-    foreach ($rows as $row) {
-        echo $row->name . ' - ' . $row->event_title  . $row->event->id . '<br>';
-    }
-})->name('debug');
-
-//Route::redirect('home', '/')->name('home');
-
 Route::get('events/{event:slug}/register', EventRegistration::class)->name('event.registration');
 
 
-Route::middleware('auth')->group(function () {
 
-    Route::get('email/verify/{id}/{hash}', EmailVerificationController::class)
-        ->middleware('signed')
-        ->name('verification.verify');
 
-    Route::post('logout', LogoutController::class)
-        ->name('logout');
-});
+Route::group([
+    'middleware' => ['web']
+], function () {
 
-Route::middleware('auth', 'verified')->group(function () {
+    Route::middleware('auth')->group(function () {
 
-    Route::get('/dashboard/users/create', \App\Livewire\Users\CreateUser::class)
-        ->name('users.create');
+        Route::get('email/verify/{id}/{hash}', EmailVerificationController::class)
+            ->middleware('signed')
+            ->name('verification.verify');
 
-    Route::get('/dashboard/users/{user}/update', \App\Livewire\Users\UpdateUser::class)
-        ->name('users.update');
+        Route::post('logout', LogoutController::class)
+            ->name('logout');
+    });
 
-    Route::get('/events/create', \App\Livewire\Events\CreateEvent::class)
-        ->name('events.create');
+    Route::middleware('auth', 'verified')->group(function () {
 
-    Route::get('/events/{event}/update', \App\Livewire\Events\UpdateEvent::class)
-        ->name('events.update');
+        Route::get('/dashboard/users/create', \App\Livewire\Users\CreateUser::class)
+            ->name('users.create');
+
+        Route::get('/dashboard/users/{user}/update', \App\Livewire\Users\UpdateUser::class)
+            ->name('users.update');
+
+        Route::get('/events/create', \App\Livewire\Events\CreateEvent::class)
+            ->name('events.create');
+
+        Route::get('/events/{event}/update', \App\Livewire\Events\UpdateEvent::class)
+            ->name('events.update');
+    });
 });

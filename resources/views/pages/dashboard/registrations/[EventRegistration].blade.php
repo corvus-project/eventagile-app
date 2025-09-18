@@ -4,6 +4,8 @@ use App\Enums\RegistrationStatus;
 use App\Mail\EventRegistrationUpdated;
 use App\Models\Event;
 use App\Models\EventRegistration;
+
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Volt\Component;
 use function Laravel\Folio\{middleware, name};
@@ -27,6 +29,7 @@ new class extends Component {
 
     public function mount(EventRegistration $eventRegistration)
     {
+        Gate::authorize('view-event', $eventRegistration->event);
         $this->eventRegistration = $eventRegistration;
         $this->event = Event::findOrFail($eventRegistration->event_id);
         $this->status_options = RegistrationStatus::toCollection();

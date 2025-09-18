@@ -10,7 +10,7 @@ use Mary\Traits\Toast;
 use Livewire\WithPagination; 
 
 name('events.registrations');
-middleware(['auth', 'verified', 'role:admin,organizer']);
+middleware(['auth', 'verified', 'role:organizer']);
 new class extends Component {
 
     use Toast;

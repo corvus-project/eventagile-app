@@ -1,15 +1,13 @@
 <?php
 
-use App\Models\Event;
 use App\Models\EventRegistration;
-
 use function Laravel\Folio\{middleware, name};
 use Livewire\Volt\Component;
 use Mary\Traits\Toast;
 use Livewire\WithPagination;
 
 name('dashboard');
-middleware(['auth', 'verified', 'role:admin, organizer']);
+middleware(['auth', 'verified', 'role:organizer']);
 new class extends Component
 {
     use Toast;

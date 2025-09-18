@@ -12,7 +12,7 @@ use Livewire\WithPagination;
 use Illuminate\View\View;
 
 name('events.registrations.export');
-middleware(['auth', 'verified', 'role:admin,organizer']);
+middleware(['auth', 'verified', 'role:organizer']);
 new class extends Component {
 
     use Toast;

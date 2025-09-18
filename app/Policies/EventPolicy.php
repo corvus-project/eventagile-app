@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Event;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Log;
 
 class EventPolicy
 {
