@@ -82,9 +82,9 @@ new class extends Component {
     public function delete(int $id)
     {
         FacadesGate::authorize('delete-event', Event::findOrFail($id));
-        $product = Event::findOrFail($id);
-        $product->delete();
-        $this->toast('success', 'Product deleted successfully');
+        $event = Event::findOrFail($id);
+        $event->delete();
+        $this->toast('success', 'Event deleted successfully');
     }
 
     public function edit(int $id)
