@@ -25,6 +25,7 @@ return new class extends Migration
             $table->json('features')->nullable(); // JSON or comma-separated features
             $table->json('limitations')->nullable(); // JSON or comma-separated limitations
             $table->boolean('is_active')->default(true);
+            $table->boolean('is_default')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });
