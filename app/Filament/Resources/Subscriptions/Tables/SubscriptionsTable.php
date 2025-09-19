@@ -6,8 +6,11 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Forms\Components\Select;
 use Filament\Schemas\Components\View;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Enums\FiltersLayout;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class SubscriptionsTable
@@ -104,8 +107,30 @@ class SubscriptionsTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
-            ])
+                
+                SelectFilter::make('status')
+                    ->options([
+                        'active' => 'Active',
+                        'inactive' => 'Inactive',
+                        'cancelled' => 'Cancelled',
+                    ])
+                    ->label('Status')
+                    ->placeholder('All Statuses')
+                    ->searchable()
+                    ->multiple(),
+                SelectFilter::make('plan_id')
+                    ->relationship('plan', 'name')
+                    ->label('Plan')
+                    ->placeholder('All Plans')
+                    ->searchable()
+                    ->multiple(),
+                SelectFilter::make('user_id')
+                    ->relationship('user', 'name')
+                    ->label('User')
+                    ->placeholder('All Users')
+                    ->searchable()
+                    ->multiple(),
+            ], layout: FiltersLayout::AboveContent)->filtersFormColumns(3)
             ->recordActions([
                 EditAction::make(),
                 ViewAction::make(),
