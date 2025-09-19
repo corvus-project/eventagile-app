@@ -22,7 +22,7 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (RoleDeniedException $exception) {
-            return response()->view('errors.403', [], 403);
+            return response()->view('pages.errors.403', [], 403);
         });
 
         $exceptions->report(function (Exception $exception) {
