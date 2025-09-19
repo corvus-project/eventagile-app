@@ -24,6 +24,7 @@ class PlanSeeder extends Seeder
                 'features' => json_encode(['Access to basic features', 'Email support']),
                 'limitations' => json_encode(['max_events' => 1, 'max_registrations' => 100, 'sending_emails' => false]),
                 'is_active' => true,
+                'is_default' => true,
             ],
             [
                 'name' => 'Pro Plan',
@@ -36,6 +37,7 @@ class PlanSeeder extends Seeder
                 'features' => json_encode(['Access to all features', 'Priority email support', 'Team collaboration']),
                 'limitations' => json_encode(['Up to 50 events per month']),
                 'is_active' => false,
+                'is_default' => false,
             ],
             [
                 'name' => 'Enterprise Plan',
@@ -48,6 +50,7 @@ class PlanSeeder extends Seeder
                 'features' => json_encode(['Dedicated account manager', '24/7 support', 'Custom integrations']),
                 'limitations' => json_encode(['Unlimited events']),
                 'is_active' => false,
+                               'is_default' => false,
             ],
         ];
 
