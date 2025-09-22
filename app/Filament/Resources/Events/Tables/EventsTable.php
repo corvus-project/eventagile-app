@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Events\Tables;
 
 use App\Enums\EventStatus;
+use App\Filament\Resources\EventRegistrations\EventRegistrationResource;
 use App\Filament\Resources\Events\Pages\ViewRegistrations;
 use App\Models\Event;
 use Filament\Actions\BulkActionGroup;
@@ -72,7 +73,18 @@ class EventsTable
             ], layout: FiltersLayout::AboveContent)->filtersFormColumns(3)
             ->recordActions([
                 EditAction::make(),
-                ViewAction::make()
+                ViewAction::make(),
+                ViewAction::make('Registrations')
+                    ->label('Registrations')
+                    ->url(fn (Event $record): string => route('filament.admin.resources.event-registrations.index', [
+                        'filters' => [
+                            'event_id' => [
+                                'value' => $record->id,
+                            ],
+                        ],
+                    ]))
+                    ->icon('heroicon-o-users')
+                    //->openUrlInNewTab(),
               
 
             ])
