@@ -16,9 +16,7 @@ class EventRegistrationForm
     {
         return $schema
             ->components([
-                TextInput::make('event_id')
-                    ->required()
-                    ->numeric(),
+                TextInput::make('event.title')->disabledOn('edit')->label('Event'),
                 TextInput::make('name')
                     ->required(),
                 TextInput::make('email')
