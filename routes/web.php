@@ -1,8 +1,10 @@
 <?php
 
+use App\Events\EventRegistration as EventsEventRegistration;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Livewire\Client\EventRegistration;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
 
 
@@ -17,6 +19,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+Route::get('/debug', function () {
+
+        $event = \App\Models\Event::where('slug', 'birthday')->first();   
+
+        $eventRegistration = $event->registrations()->create([
+            'name' => fake()->name(),
+            'email' => fake()->unique()->safeEmail(),
+            'phone' => fake()->phoneNumber(),
+            'is_attending' => true, // Assuming default is attending
+            'registered_at' => Carbon::now(),
+        ]);
+
+
+        EventsEventRegistration::dispatch($eventRegistration);
+
+/*     $user = \App\Models\User::first();
+    $canNotify = $user->able('notify-event-registration');
+    return response()->json([
+        'time' => now()->toDateTimeString(),
+        'user_id' => $user->id,
+        'can_notify_event_registration' => $canNotify,
+    ]); */
+});
 
 
 Route::get('events/{event:slug}/register', EventRegistration::class)->name('event.registration');

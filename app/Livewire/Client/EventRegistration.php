@@ -38,7 +38,6 @@ class EventRegistration extends Component
             'response' => $this->captchaToken,
         ]);
 
-        Log::debug('Captcha query', ['query' => $query, 'captchaToken' => $this->captchaToken]);
         $response = Http::post('https://www.google.com/recaptcha/api/siteverify?' . $query);
         $captchaLevel = $response->json('score');
 

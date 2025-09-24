@@ -2,11 +2,12 @@
 
 namespace App\Livewire\Forms;
 
+use App\Events\EventRegistration;
 use App\Exceptions\RateLimiterException;
 use App\Mail\NewEventRegistration;
 use App\Models\Event;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Mail;
+
 use Illuminate\Support\Facades\RateLimiter;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
@@ -81,19 +82,17 @@ class EventRegistrationForm extends Form
 
         $this->validate();
 
-        $this->event->registrations()->create([
+        $eventRegistration = $this->event->registrations()->create([
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
             'is_attending' => true, // Assuming default is attending
             'registered_at' => Carbon::now(),
         ]);
-
-        Mail::to($this->email)->queue(new NewEventRegistration($this->event, [
-            'name' => $this->name,
-            'email' => $this->email,
-            'phone' => $this->phone
-        ]));
+  
+ 
+        EventRegistration::dispatch($eventRegistration);
+ 
 
         $this->reset(['name', 'email', 'phone', 'registration_code']);
 

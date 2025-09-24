@@ -73,8 +73,7 @@ class User extends Authenticatable  implements MustVerifyEmail, FilamentUser
 
     public function canAccessPanel(Panel $panel): bool
     {
-         if ($panel->getId() === 'panel') {
-            $this->load('roles');
+         if ($panel->getId() === 'admin') {
             // Allow access if user has 'admin' role
             if ($this->hasRole('admin')) {
                 return true;
