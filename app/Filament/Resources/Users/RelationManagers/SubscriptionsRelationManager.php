@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Shop\Orders\RelationManagers;
+namespace App\Filament\Resources\Users\RelationManagers;
 
 use Akaunting\Money\Currency;
 use Filament\Actions\CreateAction;

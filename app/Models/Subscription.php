@@ -35,8 +35,18 @@ class Subscription extends Model
         return $this->belongsTo(User::class);
     }
 
-        public function plan()
+    public function plan()
     {
         return $this->belongsTo(Plan::class);
     }
+
+    public function getPlanFeaturesListAttribute()
+    {
+        return is_array($this->plan_features) ? $this->plan_features : [];
+    }
+
+    public function getPlanLimitsAttribute()
+    {
+        return is_array($this->plan_limitations) ? $this->plan_limitations : [];
+    } 
 }
