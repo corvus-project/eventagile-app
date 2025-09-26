@@ -50,32 +50,28 @@ Route::get('events/{event:slug}/register', EventRegistration::class)->name('even
 
 
 
-Route::group([
-    'middleware' => ['web']
-], function () {
 
-    Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group(function () {
 
-        Route::get('email/verify/{id}/{hash}', EmailVerificationController::class)
-            ->middleware('signed')
-            ->name('verification.verify');
+    Route::get('email/verify/{id}/{hash}', EmailVerificationController::class)
+        ->middleware('signed')
+        ->name('verification.verify');
 
-        Route::post('logout', LogoutController::class)
-            ->name('logout');
-    });
+    Route::post('logout', LogoutController::class)
+        ->name('logout');
+});
 
-    Route::middleware('auth', 'verified')->group(function () {
+Route::middleware('auth', 'verified')->group(function () {
 
-        Route::get('/dashboard/users/create', \App\Livewire\Users\CreateUser::class)
-            ->name('users.create');
+    Route::get('/dashboard/users/create', \App\Livewire\Users\CreateUser::class)
+        ->name('users.create');
 
-        Route::get('/dashboard/users/{user}/update', \App\Livewire\Users\UpdateUser::class)
-            ->name('users.update');
+    Route::get('/dashboard/users/{user}/update', \App\Livewire\Users\UpdateUser::class)
+        ->name('users.update');
 
-        Route::get('/events/create', \App\Livewire\Events\CreateEvent::class)
-            ->name('events.create');
+    Route::get('/events/create', \App\Livewire\Events\CreateEvent::class)
+        ->name('events.create');
 
-        Route::get('/events/{event}/update', \App\Livewire\Events\UpdateEvent::class)
-            ->name('events.update');
-    });
+    Route::get('/events/{event}/update', \App\Livewire\Events\UpdateEvent::class)
+        ->name('events.update');
 });

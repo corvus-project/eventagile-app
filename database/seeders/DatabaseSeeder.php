@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
  
         ( config('database.default') != 'sqlite') ?? DB::statement('SET FOREIGN_KEY_CHECKS=0;'); 
         Model::unguard();
+        config('roles.models.role')::truncate();
         User::truncate();
         Event::truncate();
         Plan::truncate();

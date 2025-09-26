@@ -119,7 +119,7 @@ new class extends Component {
 
     @can('create-event')
     <div class="flex justify-end mb-4">
-        <x-ui.text-link href="{{ route('events.create') }}" class="btn-ghost btn-sm text-red-600">
+        <x-ui.text-link href="{{ route('events.create') }}" class="border-2 border-red-600 border-solid text-red-600 p-2">
             <x-icon name="o-plus" />
             Create Event
         </x-ui.text-link>

@@ -6,8 +6,11 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Forms\Components\Select;
 use Filament\Schemas\Components\View;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Enums\FiltersLayout;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class SubscriptionsTable
@@ -29,83 +32,41 @@ class SubscriptionsTable
                     ->sortable(),
                 TextColumn::make('status')
                     ->searchable(),
-                TextColumn::make('cancellation_reason')
-                    ->searchable(),
-                TextColumn::make('cancellation_requested_by')
-                    ->searchable(),
-                TextColumn::make('billing_address')
-                    ->searchable(),
-                TextColumn::make('payment_method')
-                    ->searchable(),
-                TextColumn::make('currency')
-                    ->searchable(),
-                TextColumn::make('amount')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('interval')
-                    ->searchable(),
-                TextColumn::make('interval_count')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('tax_rate')
-                    ->searchable(),
-                TextColumn::make('coupon')
-                    ->searchable(),
-                TextColumn::make('discount')
-                    ->searchable(),
-                TextColumn::make('next_billing_date')
-                    ->searchable(),
-                TextColumn::make('last_payment_date')
-                    ->searchable(),
-                TextColumn::make('last_payment_status')
-                    ->searchable(),
-                TextColumn::make('payment_gateway')
-                    ->searchable(),
-                TextColumn::make('external_id')
-                    ->searchable(),
-                TextColumn::make('plan_name')
-                    ->searchable(),
-                TextColumn::make('plan_description')
-                    ->searchable(),
-                TextColumn::make('plan_id')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('plan_features')
-                    ->searchable(),
-                TextColumn::make('renewal_status')
-                    ->searchable(),
-                TextColumn::make('renewal_date')
-                    ->searchable(),
-                TextColumn::make('cancellation_date')
-                    ->searchable(),
-                TextColumn::make('reactivation_date')
-                    ->searchable(),
-                TextColumn::make('source')
-                    ->searchable(),
-                TextColumn::make('utm_parameters')
-                    ->searchable(),
-                TextColumn::make('referral_code')
-                    ->searchable(),
-                TextColumn::make('affiliate_id')
-                    ->searchable(),
-                TextColumn::make('metadata')
+
+                TextColumn::make('plan.name')
                     ->searchable(),
                 TextColumn::make('deleted_at')
                     ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->sortable(), 
             ])
             ->filters([
-                //
-            ])
+                
+                SelectFilter::make('status')
+                    ->options([
+                        'active' => 'Active',
+                        'inactive' => 'Inactive',
+                        'cancelled' => 'Cancelled',
+                    ])
+                    ->label('Status')
+                    ->placeholder('All Statuses')
+                    ->searchable()
+                    ->multiple(),
+                SelectFilter::make('plan_id')
+                    ->relationship('plan', 'name')
+                    ->label('Plan')
+                    ->placeholder('All Plans')
+                    ->searchable()
+                    ->multiple(),
+                SelectFilter::make('user_id')
+                    ->relationship('user', 'name')
+                    ->label('User')
+                    ->placeholder('All Users')
+                    ->searchable()
+                    ->multiple(),
+            ], layout: FiltersLayout::AboveContent)->filtersFormColumns(3)
             ->recordActions([
                 EditAction::make(),
                 ViewAction::make(),

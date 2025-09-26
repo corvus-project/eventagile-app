@@ -1,12 +1,13 @@
 <?php
 
 use App\Enums\RegistrationStatus;
-use App\Mail\EventRegistrationUpdated;
+use App\Events\EventRegistrationUpdated;
 use App\Models\Event;
 use App\Models\EventRegistration;
 
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
+
 use Livewire\Volt\Component;
 use function Laravel\Folio\{middleware, name};
 use Mary\Traits\Toast;
@@ -25,6 +26,10 @@ new class extends Component {
 
     public $status;
 
+    public $notify = false;
+
+    public $canNotify = false;
+
     public $eventRegistrationModal = false;
 
     public function mount(EventRegistration $eventRegistration)
@@ -34,6 +39,8 @@ new class extends Component {
         $this->event = Event::findOrFail($eventRegistration->event_id);
         $this->status_options = RegistrationStatus::toCollection();
         $this->status = $eventRegistration->status->name;
+        $user = auth()->user();
+        $this->canNotify = $user->able('notify-event-registration');
     }
 
     public function with(): array
@@ -55,13 +62,11 @@ new class extends Component {
 
         $this->success('Registration updated successfully!');
         $this->eventRegistrationModal = false;
+        Log::debug('Sending email to ' . $this->eventRegistration->email . ' with status ' . $this->eventRegistration->status->value . ' and notify ' . ($this->notify ? 'true' : 'false'));
 
-        Mail::to($this->eventRegistration->email)->queue(new EventRegistrationUpdated($this->event, [
-            'name' => $this->eventRegistration->name,
-            'email' => $this->eventRegistration->email,
-            'phone' => $this->eventRegistration->phone,
-            'status' => $this->eventRegistration->status->value,
-        ]));
+        if ($this->notify && $this->canNotify) {
+            EventRegistrationUpdated::dispatch($this->eventRegistration);
+        }
     }
 }
 ?>
@@ -85,11 +90,11 @@ new class extends Component {
         </x-slot>
 
         <div class="flex justify-end mb-4">
-            <x-ui.text-link href="{{ route('events.show', ['event' => $event->slug]) }}" class="btn-ghost btn-sm text-red-600 p-2">
+            <x-ui.text-link href="{{ route('events.show', ['event' => $event->slug]) }}" class="border-2 border-red-600 border-solid text-red-600 p-2 m-1">
                 Visit back Event
             </x-ui.text-link>
 
-            <x-ui.text-link href="{{ route('events.registrations', ['event' => $event->slug]) }}" class="btn-ghost btn-sm text-red-600 p-2">
+            <x-ui.text-link href="{{ route('events.registrations', ['event' => $event->slug]) }}" class="border-2 border-red-600 border-solid text-red-600 p-2 m-1">
                 Registration List
             </x-ui.text-link>
 
@@ -125,14 +130,17 @@ new class extends Component {
         <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
             <h3 class="text-md font-semibold text-gray-800 dark:text-gray-200 mb-4">Registration Details</h3>
             <div class="flex justify-end mb-4">
-                <x-button label="Update the registration" @click="$wire.eventRegistrationModal = true" class="btn-ghost btn-sm text-red-600 p-2" />
+                <x-button label="Update the registration" @click="$wire.eventRegistrationModal = true" class="border-2 border-red-600 border-solid text-red-600 p-2" />
             </div>
             <x-modal wire:model="eventRegistrationModal" title="Update Registration Status" subtitle="Update Registration Status">
                 <x-form no-separator wire:submit="save">
                     <x-select label="Status" wire:model="status" :options="$status_options" />
 
+                    @if($canNotify)
+                    <x-checkbox label="" wire:model="notify" hint="Notify the user" />
+                    @endif
                     <x-slot:actions>
-                        <x-button label="Save" class="btn-ghost" type="primary" submit="true" spinner="save" />
+                        <x-button label="Save" class="border-2 border-red-600 border-solid text-red-600 p-2" type="primary" submit="true" spinner="save" />
                     </x-slot:actions>
                 </x-form>
             </x-modal>

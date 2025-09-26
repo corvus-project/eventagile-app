@@ -92,7 +92,7 @@ class EventRegistrationsTable
                     ->label('Attendance')
                     ->placeholder('All attendance'),
 
-            ], layout: FiltersLayout::AboveContent)->filtersFormColumns(5)
+            ], layout: FiltersLayout::AboveContent)->filtersFormColumns(3)
             ->recordActions([
                 EditAction::make(),
                 ViewAction::make(),

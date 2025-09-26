@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Filament\Resources\Users;
-
-use App\Filament\Resources\User\Schemas\UserInfolist;
+use App\Filament\Resources\Users\RelationManagers\SubscriptionsRelationManager;
+use App\Filament\Resources\Users\Schemas\UserInfolist;
 use App\Filament\Resources\Users\Pages\CreateUser;
 use App\Filament\Resources\Users\Pages\EditUser;
 use App\Filament\Resources\Users\Pages\ListUsers;
@@ -15,6 +15,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Tiptap\Marks\Subscript;
 
 class UserResource extends Resource
 {
@@ -30,20 +31,22 @@ class UserResource extends Resource
     }
 
 
-/*     public static function infolist(Schema $schema): Schema
+    public static function infolist(Schema $schema): Schema
     {
         return UserInfolist::configure($schema);
-    } */
+    }
 
     public static function table(Table $table): Table
     {
         return UsersTable::configure($table);
     }
 
+
+
     public static function getRelations(): array
     {
         return [
-            //
+            SubscriptionsRelationManager::class,
         ];
     }
 
@@ -54,7 +57,7 @@ class UserResource extends Resource
             'create' => CreateUser::route('/create'),
             'view' => ViewUser::route('/{record}'),
             'edit' => EditUser::route('/{record}/edit'),
-            
+
         ];
     }
 }
