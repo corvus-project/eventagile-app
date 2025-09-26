@@ -49,7 +49,7 @@ class AppServiceProvider extends ServiceProvider
             } catch (\Exception $e) {
                 Log::error('Failed to set up query logging: ' . $e->getMessage());
             }
-        }
+        } 
         RateLimiter::for('login', function (string $email, string $ip) {
             return Limit::perMinute(5)->by($email . $ip);
         });

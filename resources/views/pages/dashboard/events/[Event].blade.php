@@ -42,16 +42,16 @@ new class extends Component {
 
     <div class="flex justify-end mb-4">
         @can('view-event', $event)
-        <x-ui.text-link href="{{ route('events.registrations', ['event' => $event->slug]) }}" class="btn-ghost btn-sm text-red-600 p-2">
+        <x-ui.text-link href="{{ route('events.registrations', ['event' => $event->slug]) }}" class="border-2 border-red-600 border-solid text-red-600 p-2 m-1">
             Registrations
         </x-ui.text-link>
 
-        <x-ui.text-link href="{{ route('events.registrations.export', ['event' => $event->slug]) }}" class="btn-ghost btn-sm text-red-600 p-2">
+        <x-ui.text-link href="{{ route('events.registrations.export', ['event' => $event->slug]) }}" class="border-2 border-red-600 border-solid text-red-600 p-2 m-1">
             Export Registration List
         </x-ui.text-link>
         @endcan
         @can('update-event', $event)
-        <x-ui.text-link href="{{ route('events.update', ['event' => $event->slug]) }}" class="btn-ghost btn-sm text-red-600 p-2">
+        <x-ui.text-link href="{{ route('events.update', ['event' => $event->slug]) }}" class="border-2 border-red-600 border-solid text-red-600 p-2 m-1">
             Update Event
         </x-ui.text-link>
         @endcan

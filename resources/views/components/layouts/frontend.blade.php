@@ -1,7 +1,7 @@
 <x-layouts.main>
 
     <x-slot name="title">
-        {{ $title ?? 'CorvusApp' }}
+        {{ $title ?? 'EventAgile' }}
     </x-slot>
     
     <x-ui.frontend.header />

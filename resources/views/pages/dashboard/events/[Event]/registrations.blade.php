@@ -78,11 +78,11 @@ new class extends Component {
     </x-slot>
 
     <div class="flex justify-end mb-4">
-        <x-ui.text-link href="{{ route('events.show', ['event' => $event->slug]) }}" class="btn-ghost btn-sm text-red-600 p-2">
+        <x-ui.text-link href="{{ route('events.show', ['event' => $event->slug]) }}" class="border-2 border-red-600 border-solid text-red-600 p-2 m-1">
             Visit back Event
         </x-ui.text-link>
 
-        <x-ui.text-link href="{{ route('events.registrations.export', ['event' => $event->slug]) }}" class="btn-ghost btn-sm text-red-600 p-2">
+        <x-ui.text-link href="{{ route('events.registrations.export', ['event' => $event->slug]) }}" class="border-2 border-red-600 border-solid text-red-600 p-2 m-1">
             Export Registration List
         </x-ui.text-link>
 

@@ -18,13 +18,14 @@
                         {{ session('register-status') }}
                     </div>
                     @endif
+
                     @if( $event->status !== \App\Enums\EventStatus::SCHEDULED)
                     <div class="alert alert-warning mb-4">
                         This event is not open for registration.
                     </div>
-                    @elseif( $event->registration_ends_at < now())
+                    @elseif(  $event->registration_ends_at != null && $event->registration_ends_at < now())
                         <div class="alert alert-warning mb-4">
-                        Registration ends at {{ $event->registration_ends_at?->format('d M Y H:i') }}.
+                        Registration ends at {{ $event->registration_ends_at?->format('d M Y H:i') }}
             </div>
             @elseif($registrations_count >= $event->capacity)
             <div class="alert alert-warning mb-4">
@@ -49,7 +50,8 @@
 
                 <x-slot:actions>
                     <x-button label="Cancel" />
-                    <x-button label="Register" class="btn-seconday g-recaptcha" type="primary" submit="true" spinner="save"
+                    <x-button label="Register" class="btn-seconday g-recaptcha" 
+                        type="primary" submit="true"
                         data-sitekey="{{ config('services.recaptcha.public_key') }}"
                         data-callback='handle'
                         data-action='submit' />
