@@ -35,8 +35,8 @@ class SubscribeUser
                 'status' => 'active',
                 'plan_id' => $plan->id,
                 'interval' => $plan->interval,
-                'plan_limitations' => $plan->limitations,
-                'plan_features' => $plan->features,
+                'plan_limitations' => json_decode($plan->limitations),
+                'plan_features' => json_decode($plan->features),
                 'plan_name' => $plan->name,
                 'plan_description' => $plan->description,
 

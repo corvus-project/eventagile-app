@@ -42,21 +42,22 @@ new class extends Component {
 
     <div class="flex justify-end mb-4">
         @can('view-event', $event)
-        <x-ui.text-link href="{{ route('events.registrations', ['event' => $event->slug]) }}" class="border-2 border-red-600 border-solid text-red-600 p-2 m-1">
+        <x-ui.text-link href="{{ route('events.registrations', ['event' => $event->slug]) }}" class="border-1 no-underline hover:underline bg-slate-50 border-red-600 border-solid  rounded-lg text-red-600 p-2 m-1">
             Registrations
         </x-ui.text-link>
 
-        <x-ui.text-link href="{{ route('events.registrations.export', ['event' => $event->slug]) }}" class="border-2 border-red-600 border-solid text-red-600 p-2 m-1">
+        <x-ui.text-link href="{{ route('events.registrations.export', ['event' => $event->slug]) }}" class="border-1 no-underline hover:underline bg-slate-50 border-red-600 border-solid  rounded-lg text-red-600 p-2 m-1">
             Export Registration List
         </x-ui.text-link>
         @endcan
         @can('update-event', $event)
-        <x-ui.text-link href="{{ route('events.update', ['event' => $event->slug]) }}" class="border-2 border-red-600 border-solid text-red-600 p-2 m-1">
+        <x-ui.text-link href="{{ route('events.update', ['event' => $event->slug]) }}" class="border-1 no-underline hover:underline bg-slate-50 border-red-600 border-solid  rounded-lg text-red-600 p-2 m-1">
             Update Event
         </x-ui.text-link>
         @endcan
+ 
     </div>
- @volt('events.show')
+    @volt('events.show')
     <div class="bg-white dark:bg-gray-800 shadow rounded p-6">
         <div class="mb-4">
             <strong>{{ __('Title:') }}</strong> {{ $event->title }}
@@ -64,7 +65,7 @@ new class extends Component {
         <div class="mb-4">
             <strong>{{ __('Date:') }}</strong> {{ $event->start_time->format('F j, Y') }}
         </div>
-                <div class="mb-4">
+        <div class="mb-4">
             <strong>{{ __('Registration Ends At:') }}</strong> {{ $event->registration_ends_at?->format('F j, Y') }}
         </div>
         <div class="mb-4">
@@ -91,9 +92,9 @@ new class extends Component {
                 </x-ui.link>
             </p>
         </div>
-        
+
 
     </div>
-@endvolt
+    @endvolt
 
 </x-layouts.admin>

@@ -14,8 +14,8 @@
             </div>
         </header>
     @endif
+    <div class="mx-auto mt-5 max-w-7xl ">
     
-    <div class="mx-auto mt-5 max-w-7xl">
         <div class="sm:px-6 lg:px-8">
             {{ $slot }}
         </div>

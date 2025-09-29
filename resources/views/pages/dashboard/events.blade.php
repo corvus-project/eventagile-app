@@ -117,14 +117,7 @@ new class extends Component {
         </h2>
     </x-slot>
 
-    @can('create-event')
-    <div class="flex justify-end mb-4">
-        <x-ui.text-link href="{{ route('events.create') }}" class="border-2 border-red-600 border-solid text-red-600 p-2">
-            <x-icon name="o-plus" />
-            Create Event
-        </x-ui.text-link>
-    </div>
-    @endcan
+    
 
     @volt('events.index')
     <div class="pb-5">
@@ -134,9 +127,6 @@ new class extends Component {
                 <x-slot:middle class="!justify-end">
                     <x-input placeholder="Search..." wire:model.live.debounce="search" clearable icon="o-magnifying-glass" />
                 </x-slot:middle>
-                <x-slot:actions>
-                    <x-button label="Filters" @click="$wire.drawer = true" responsive icon="o-funnel" :badge="$filters" />
-                </x-slot:actions>
             </x-header>
 
             <x-card shadow>
@@ -154,8 +144,8 @@ new class extends Component {
                         <x-button wire:click="edit({{ $event['id'] }})" class="btn-ghost btn-sm text-red-600" icon="c-pencil-square" />
                         @endcan
                         @can('view-event', $event)
-                        <x-button wire:click="show({{ $event['id'] }})" class="btn-ghost btn-sm text-red-600" icon="o-link" />
                         <x-button wire:click="registrations({{ $event['id'] }})" class="btn-ghost btn-sm text-red-600" icon="o-user" />
+                        <x-button wire:click="show({{ $event['id'] }})" class="btn-ghost btn-sm text-red-600" icon="o-eye" />
                         @endcan
                     </div>
                     @endscope

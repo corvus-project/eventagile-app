@@ -1,8 +1,8 @@
 <div class="shadow-lg rounded-lg p-2 dark:bg-gray-800 dark:border dark:border-gray-200/10">
 
-    <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between space-y-4 lg:space-y-0  min-h-[400px]">
+    <div class="flex flex-col lg:flex-row items-start justify-between space-y-4 lg:space-y-0  min-h-[400px]">
 
-        <div class="lg:w-full mx-auto px-8 space-y-6">
+        <div class="lg:w-full mx-auto mt-8 px-8 space-y-6">
             <h3 class="text-2xl">{{ $event->title }}</h3>
             <p>{{ $event->description }}</p>
             <p>Location: {{ $event->location }}</p>

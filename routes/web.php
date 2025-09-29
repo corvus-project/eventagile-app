@@ -61,12 +61,12 @@ Route::middleware('auth')->group(function () {
         ->name('logout');
 });
 
-Route::middleware('auth', 'verified')->group(function () {
+Route::middleware('auth', 'verified')->prefix('dashboard')->group(function () {
 
-    Route::get('/dashboard/users/create', \App\Livewire\Users\CreateUser::class)
+    Route::get('/users/create', \App\Livewire\Users\CreateUser::class)
         ->name('users.create');
 
-    Route::get('/dashboard/users/{user}/update', \App\Livewire\Users\UpdateUser::class)
+    Route::get('/users/{user}/update', \App\Livewire\Users\UpdateUser::class)
         ->name('users.update');
 
     Route::get('/events/create', \App\Livewire\Events\CreateEvent::class)

@@ -3,7 +3,7 @@
     <x-slot name="title">
         {{ $title ?? 'EventAgile' }}
     </x-slot>
-    
+
     <x-ui.frontend.header />
 
     <!-- Page Heading -->
@@ -19,5 +19,6 @@
         <div class="sm:px-6 lg:px-8">
             {{ $slot }}
         </div>
-    </div>
+    </div>  
+
 </x-layouts.main>
