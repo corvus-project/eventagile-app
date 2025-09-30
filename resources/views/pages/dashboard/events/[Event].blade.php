@@ -33,32 +33,29 @@ new class extends Component {
     <x-slot name="title">
         {{ __('Event Detail: ') . $event->title }}
     </x-slot>
-
-    <x-slot name="header">
-        <h2 class="text-lg font-semibold leading-tight text-gray-800 dark:text-gray-200">
-            {{ __('Event Detail: ') . $event->title }}
-        </h2>
-    </x-slot>
-
-    <div class="flex justify-end mb-4">
-        @can('view-event', $event)
-        <x-ui.text-link href="{{ route('events.registrations', ['event' => $event->slug]) }}" class="border-1 no-underline hover:underline bg-slate-50 border-red-600 border-solid  rounded-lg text-red-600 p-2 m-1">
-            Registrations
-        </x-ui.text-link>
-
-        <x-ui.text-link href="{{ route('events.registrations.export', ['event' => $event->slug]) }}" class="border-1 no-underline hover:underline bg-slate-50 border-red-600 border-solid  rounded-lg text-red-600 p-2 m-1">
-            Export Registration List
-        </x-ui.text-link>
-        @endcan
-        @can('update-event', $event)
-        <x-ui.text-link href="{{ route('events.update', ['event' => $event->slug]) }}" class="border-1 no-underline hover:underline bg-slate-50 border-red-600 border-solid  rounded-lg text-red-600 p-2 m-1">
-            Update Event
-        </x-ui.text-link>
-        @endcan
  
-    </div>
+
     @volt('events.show')
     <div class="bg-white dark:bg-gray-800 shadow rounded p-6">
+
+        <div class="flex justify-end mb-4">
+            @can('view-event', $event)
+            <x-ui.text-link href="{{ route('events.registrations', ['event' => $event->slug]) }}" class="dark:bg-gray-900/40 font-sans text-sm border-1 no-underline hover:underline bg-slate-50 border-red-600 border-solid  rounded-lg text-red-600 p-2 m-1">
+                Registrations
+            </x-ui.text-link>
+
+            <x-ui.text-link href="{{ route('events.registrations.export', ['event' => $event->slug]) }}" class="dark:bg-gray-900/40 font-sans text-sm border-1 no-underline hover:underline bg-slate-50 border-red-600 border-solid  rounded-lg text-red-600 p-2 m-1">
+                Export Registration List
+            </x-ui.text-link>
+            @endcan
+            @can('update-event', $event)
+            <x-ui.text-link href="{{ route('events.update', ['event' => $event->slug]) }}" class="dark:bg-gray-900/40 font-sans text-sm border-1 no-underline hover:underline bg-slate-50 border-red-600 border-solid  rounded-lg text-red-600 p-2 m-1">
+                Update Event
+            </x-ui.text-link>
+            @endcan
+
+        </div>
+
         <div class="mb-4">
             <strong>{{ __('Title:') }}</strong> {{ $event->title }}
         </div>
@@ -78,7 +75,10 @@ new class extends Component {
             <strong>{{ __('Status:') }}</strong> {{ $event->status->value }}
         </div>
         <div class="mb-4">
-            <strong>{{ __('Visiblity:') }}</strong> {{ $event->public_status }} <span class="bg-slate-200 p-2 font-italic">{{ !$event->is_public ? 'Registration code: ' .$event->registration_code : '' }}</span>
+            <strong>{{ __('Visiblity:') }}</strong> {{ $event->public_status }}
+            @if($event->is_public == 0)
+            <span class="bg-slate-200 p-2 font-italic">{{ $event->is_public == 0  ? 'Registration code: ' . $event->registration_code : '' }}</span>
+            @endif
         </div>
         <div class="mb-4">
             <strong>{{ __('Description:') }}</strong>

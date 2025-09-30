@@ -40,6 +40,11 @@ class Event extends Model implements Auditable
         static::creating(function ($event) {
             $event->registration_code = strtoupper(bin2hex(random_bytes(4)));
         });
+
+        static::deleting(function($event)
+        {
+            $event->registrations()->delete();
+        });
     }
     
     protected $casts = [

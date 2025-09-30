@@ -51,27 +51,22 @@ new class extends Component {
     <x-slot name="title">
         Export Registrations for Event: {{ $event->title }}
     </x-slot>
-
-    <x-slot name="header">
-        <h2 class="text-lg font-semibold leading-tight text-gray-800 dark:text-gray-200">
-            Export Registrations for Event: {{ $event->title }}
-        </h2>
-    </x-slot>
-
-    <div class="flex justify-end mb-4">
-        <x-ui.text-link href="{{ route('events.show', ['event' => $event->slug]) }}" class="border-1 no-underline hover:underline bg-slate-50 border-red-600 border-solid  rounded-lg text-red-600 p-2 m-1">
-            Visit back Event
-        </x-ui.text-link>
-
-        <x-ui.text-link href="{{ route('events.registrations', ['event' => $event->slug]) }}" class="border-1 no-underline hover:underline bg-slate-50 border-red-600 border-solid  rounded-lg text-red-600 p-2 m-1">
-            Registration List
-        </x-ui.text-link>
-
-    </div>
-
+ 
     @volt('events.export')
 
     <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+
+        <div class="flex justify-end mb-4">
+            <x-ui.text-link href="{{ route('events.show', ['event' => $event->slug]) }}" class="dark:bg-gray-900/40 font-sans text-sm border-1 no-underline hover:underline bg-slate-50 border-red-600 border-solid  rounded-lg text-red-600 p-2 m-1">
+                Visit back Event
+            </x-ui.text-link>
+
+            <x-ui.text-link href="{{ route('events.registrations', ['event' => $event->slug]) }}" class="dark:bg-gray-900/40 font-sans text-sm border-1 no-underline hover:underline bg-slate-50 border-red-600 border-solid  rounded-lg text-red-600 p-2 m-1">
+                Registration List
+            </x-ui.text-link>
+
+        </div>
+
         <h3 class="text-md font-semibold text-gray-800 dark:text-gray-200 mb-4">Export Registrations</h3>
         <p class="mb-4">You can download the registration list for the event in CSV format.</p>
         <p class="mb-4">Click the button below to download the registration list.</p>

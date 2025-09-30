@@ -44,7 +44,7 @@
                 <x-input label="Email" wire:model="form.email" />
                 <x-input label="Phone" wire:model="form.phone" />
 
-                @if(!$event->is_public == 0)
+                @if($event->is_public == 0)
                 <x-input label="Registration Code" wire:model="form.registration_code" placeholder="Enter registration code" />
                 @endif
 

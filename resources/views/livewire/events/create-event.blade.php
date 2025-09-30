@@ -10,7 +10,7 @@
     </x-slot>
     <section
         class="bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg dark:bg-gray-900/50 dark:border dark:border-gray-200/10">
-        <div class="w-full max-w-3xl mx-auto">
+        <div class="w-full max-w-3xl mx-auto p-2">
 
             @if ($eventLimit)
 
@@ -19,9 +19,9 @@
                 <x-input label="Title" wire:model="form.title" />
                 <x-textarea label="Description" wire:model="form.description" rows="5" />
 
+                <x-datetime label="Event Date" wire:model="form.start_time" type="datetime-local" />
                 <x-datetime label="Registration Ends at" wire:model="form.registration_ends_at" type="datetime-local" />
 
-                <x-datetime label="Start Time" wire:model="form.start_time" type="datetime-local" />
 
                 <x-input label="Location" wire:model="form.location" />
                 <x-input label="Organizer" wire:model="form.organizer" />
