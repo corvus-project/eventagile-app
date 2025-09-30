@@ -103,7 +103,6 @@ new class extends Component
                                     action: 'submit'
                                 })
                                 .then(function(token) {
-
                                     @this.set('captchaToken', token);
                                     @this.register()
                                 });

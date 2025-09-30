@@ -49,7 +49,7 @@ new class extends Component {
                 class="p-4 bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg dark:bg-gray-900/50 dark:border dark:border-gray-200/10">
 
 
-                <div class="grid grid-cols-3 md:grid-cols-3 gap-6">
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
                     <div class="md:col-span-1">
                         <p class="text-gray-700 dark:text-gray-300">Plan name</p>
                     </div>
@@ -75,7 +75,7 @@ new class extends Component {
                     </div>
 
 
-                                        <div class="md:col-span-1">
+                    <div class="md:col-span-1">
                         <p class="text-gray-700 dark:text-gray-300 ">Ending at </p>
                     </div>
                     <div class="md:col-span-2">

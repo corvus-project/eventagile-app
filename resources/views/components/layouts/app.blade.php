@@ -20,4 +20,7 @@
             {{ $slot }}
         </div>
     </div>
+
+    <x-ui.frontend.footer />
+    
 </x-layouts.main>

@@ -42,11 +42,8 @@ new class extends Component {
     public function headers(): array
     {
         return [
-            ['key' => 'id', 'label' => '#', 'class' => 'w-1'],
             ['key' => 'title', 'label' => 'Title', 'class' => 'w-64'],
-            ['key' => 'start_time_formatted', 'label' => 'Start Date', 'class' => 'w-8'],
-            ['key' => 'organizer', 'label' => 'Organizer', 'class' => 'w-32'],
-            ['key' => 'capacity', 'label' => 'Capacity', 'class' => 'w-16'],
+            ['key' => 'start_time_formatted', 'label' => 'Event Date', 'class' => 'w-32'],
             ['key' => 'registrations_count', 'label' => 'Registrations', 'class' => 'w-16'],
             ['key' => 'status', 'label' => 'Status', 'class' => 'w-24'],
             ['key' => 'public_status', 'label' => 'Public', 'class' => 'w-16'],
@@ -111,20 +108,8 @@ new class extends Component {
     <x-slot name="title">
         {{ 'List all events' }}
     </x-slot>
-    <x-slot name="header">
-        <h2 class="text-lg font-semibold leading-tight text-gray-800 dark:text-gray-200">
-            {{ __('Events') }}
-        </h2>
-    </x-slot>
-
-    @can('create-event')
-    <div class="flex justify-end mb-4">
-        <x-ui.text-link href="{{ route('events.create') }}" class="border-2 border-red-600 border-solid text-red-600 p-2">
-            <x-icon name="o-plus" />
-            Create Event
-        </x-ui.text-link>
-    </div>
-    @endcan
+   
+    
 
     @volt('events.index')
     <div class="pb-5">
@@ -134,9 +119,6 @@ new class extends Component {
                 <x-slot:middle class="!justify-end">
                     <x-input placeholder="Search..." wire:model.live.debounce="search" clearable icon="o-magnifying-glass" />
                 </x-slot:middle>
-                <x-slot:actions>
-                    <x-button label="Filters" @click="$wire.drawer = true" responsive icon="o-funnel" :badge="$filters" />
-                </x-slot:actions>
             </x-header>
 
             <x-card shadow>
@@ -154,8 +136,8 @@ new class extends Component {
                         <x-button wire:click="edit({{ $event['id'] }})" class="btn-ghost btn-sm text-red-600" icon="c-pencil-square" />
                         @endcan
                         @can('view-event', $event)
-                        <x-button wire:click="show({{ $event['id'] }})" class="btn-ghost btn-sm text-red-600" icon="o-link" />
                         <x-button wire:click="registrations({{ $event['id'] }})" class="btn-ghost btn-sm text-red-600" icon="o-user" />
+                        <x-button wire:click="show({{ $event['id'] }})" class="btn-ghost btn-sm text-red-600" icon="o-eye" />
                         @endcan
                     </div>
                     @endscope
