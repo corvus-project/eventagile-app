@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Subscriptions\Schemas;
 
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
@@ -33,6 +34,12 @@ class SubscriptionForm
                         ->default('active'),
 
                 ])->columnSpanFull(),
+                Grid::make(1)->schema([
+                    KeyValue::make('plan_features'),
+                    KeyValue::make('plan_limitations')
+
+                ])->columnSpanFull(),
+
 
                 Textarea::make('notes')
                     ->columnSpanFull(),

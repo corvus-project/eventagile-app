@@ -94,8 +94,9 @@ class EventRegistrationsTable
 
             ], layout: FiltersLayout::AboveContent)->filtersFormColumns(3)
             ->recordActions([
+                                ViewAction::make(),
                 EditAction::make(),
-                ViewAction::make(),
+
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
