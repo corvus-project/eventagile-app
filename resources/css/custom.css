@@ -1,14 +1,9 @@
-    /* Center the top navigation */
-    .fi-topbar nav {
-        justify-content: center !important;
-    }
-    
-    /* Center the navigation items container */
-    .fi-topbar .fi-topbar-nav {
-        justify-content: center !important;
-    }
-    
-    /* Ensure the navigation list is centered */
-    .fi-topbar .fi-topbar-nav ul {
-        justify-content: center !important;
-    }
+ .fi-topbar {
+     background-color: cadetblue;
+ }
+
+ .fi-topbar-nav-groups {
+     margin-inline-start: auto;
+     background-color: burlywood;
+
+ }

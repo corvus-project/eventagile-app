@@ -8,6 +8,8 @@ use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Schemas\Components\View;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Enums\FiltersLayout;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class UsersTable
@@ -35,8 +37,14 @@ class UsersTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
-            ])
+
+                SelectFilter::make('roles')
+                    ->relationship('roles', 'name')
+                    ->multiple()
+                    ->preload(),
+
+
+            ], layout: FiltersLayout::AboveContent)
             ->recordActions([
                 EditAction::make(),
                 ViewAction::make(),
