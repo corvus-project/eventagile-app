@@ -28,7 +28,6 @@ class SubscribeUser
         $plan = \App\Models\Plan::where('is_default', true)->first();
         Subscription::create(
             [
-
                 'user_id' => $event->user->id,
                 'starts_at' => now(),
                 'ends_at' => now()->addMonth(),

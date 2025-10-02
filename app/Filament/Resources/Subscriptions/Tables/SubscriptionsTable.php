@@ -11,13 +11,15 @@ use Filament\Schemas\Components\View;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Filters\SelectFilter;
-use Filament\Tables\Table;
+use Filament\Tables\Table; 
+use Malzariey\FilamentDaterangepickerFilter\Filters\DateRangeFilter;
 
 class SubscriptionsTable
 {
     public static function configure(Table $table): Table
     {
         return $table
+            ->defaultSort('id', 'desc')
             ->columns([
                 TextColumn::make('user.name')
                     ->sortable(),
@@ -35,9 +37,7 @@ class SubscriptionsTable
 
                 TextColumn::make('plan.name')
                     ->searchable(),
-                TextColumn::make('deleted_at')
-                    ->dateTime()
-                    ->sortable(),
+               
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable(), 
@@ -66,6 +66,13 @@ class SubscriptionsTable
                     ->placeholder('All Users')
                     ->searchable()
                     ->multiple(),
+
+
+                DateRangeFilter::make('starts_at'),
+                DateRangeFilter::make('ends_at'),
+                DateRangeFilter::make('trial_ends_at'),
+ 
+
             ], layout: FiltersLayout::AboveContent)->filtersFormColumns(3)
             ->recordActions([
                 EditAction::make(),

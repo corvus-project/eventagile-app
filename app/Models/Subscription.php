@@ -23,12 +23,16 @@ class Subscription extends Model
         'plan_description',
     ];
 
-    protected $casts = [
-        'starts_at' => 'datetime',
-        'ends_at' => 'datetime',
-        'plan_limitations' => 'array',
-        'plan_features' => 'array',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'starts_at' => 'datetime',
+            'ends_at' => 'datetime',
+            'plan_limitations' => 'array',
+            'plan_features' => 'array',
+        ];
+    }
+
 
     public function user()
     {
@@ -48,5 +52,5 @@ class Subscription extends Model
     public function getPlanLimitsAttribute()
     {
         return is_array($this->plan_limitations) ? $this->plan_limitations : [];
-    } 
+    }
 }
