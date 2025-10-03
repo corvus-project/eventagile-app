@@ -18,38 +18,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+ 
 
-
-Route::get('/debug', function () {
-
-        $event = \App\Models\Event::where('slug', 'birthday')->first();   
-
-        $eventRegistration = $event->registrations()->create([
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'phone' => fake()->phoneNumber(),
-            'is_attending' => true, // Assuming default is attending
-            'registered_at' => Carbon::now(),
-        ]);
-
-
-        EventsEventRegistration::dispatch($eventRegistration);
-
-/*     $user = \App\Models\User::first();
-    $canNotify = $user->able('notify-event-registration');
-    return response()->json([
-        'time' => now()->toDateTimeString(),
-        'user_id' => $user->id,
-        'can_notify_event_registration' => $canNotify,
-    ]); */
-});
-
-
-Route::get('events/{event:slug}/register', EventRegistration::class)->name('event.registration');
-
-
-
-
+Route::get('events/{event:slug}', EventRegistration::class)->name('event.registration');
+ 
 
 Route::middleware('auth')->group(function () {
 
@@ -61,12 +33,12 @@ Route::middleware('auth')->group(function () {
         ->name('logout');
 });
 
-Route::middleware('auth', 'verified')->group(function () {
+Route::middleware('auth', 'verified')->prefix('dashboard')->group(function () {
 
-    Route::get('/dashboard/users/create', \App\Livewire\Users\CreateUser::class)
+    Route::get('/users/create', \App\Livewire\Users\CreateUser::class)
         ->name('users.create');
 
-    Route::get('/dashboard/users/{user}/update', \App\Livewire\Users\UpdateUser::class)
+    Route::get('/users/{user}/update', \App\Livewire\Users\UpdateUser::class)
         ->name('users.update');
 
     Route::get('/events/create', \App\Livewire\Events\CreateEvent::class)

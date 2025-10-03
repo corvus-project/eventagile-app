@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Policies\EventPolicy;
 use App\Policies\UserPolicy;
+use Filament\Support\Assets\Css;
+use Filament\Support\Facades\FilamentAsset;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -38,9 +40,24 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('view-event', [EventPolicy::class, 'view']);
         Gate::define('view-any-event', [EventPolicy::class, 'viewAny']);
 
+        FilamentAsset::register(
+            [
+                Css::make('/custom', __DIR__ .'/../../resources/css/custom.css')
+            ]
+        );
+
         if (app()->environment('local', 'staging')) {
             try {
                 DB::listen(function ($query) {
+                    // Skip logging if running database seeders
+                    if (
+                        app()->runningInConsole() &&
+                        (str_contains(request()->server('argv')[1] ?? '', 'db:seed') ||
+                            str_contains(request()->server('argv')[1] ?? '', 'migrate:fresh'))
+                    ) {
+                        return;
+                    }
+
                     File::append(
                         storage_path('/logs/query.log'),
                         $query->sql . ' [' . implode(', ', $query->bindings) . ']' . PHP_EOL
@@ -49,7 +66,7 @@ class AppServiceProvider extends ServiceProvider
             } catch (\Exception $e) {
                 Log::error('Failed to set up query logging: ' . $e->getMessage());
             }
-        } 
+        }
         RateLimiter::for('login', function (string $email, string $ip) {
             return Limit::perMinute(5)->by($email . $ip);
         });

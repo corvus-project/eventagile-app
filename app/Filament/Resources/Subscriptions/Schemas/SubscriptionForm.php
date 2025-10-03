@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Subscriptions\Schemas;
 
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
@@ -17,23 +18,41 @@ class SubscriptionForm
     {
         return $schema
             ->components([
+                Section::make('Subscription')->schema([
+                    Grid::make(2)->schema([
+                        Select::make('user_id')
+                            ->relationship('user', 'name')
+                            ->disabledOn('edit')
+                            ->searchable()
+                            ->columnSpanFull()
+                            ->required(),
+                        DateTimePicker::make('starts_at')->required(),
+                        DateTimePicker::make('ends_at'),
+                        DateTimePicker::make('trial_ends_at'),
 
-                Grid::make(2)->schema([
-                    Select::make('user_id')
-                        ->relationship('user', 'name')
-                        ->disabledOn('edit')
-                        ->searchable()
-                        ->columnSpanFull()
-                        ->required(),
-                    DateTimePicker::make('starts_at'),
-                    DateTimePicker::make('ends_at'),
-                    DateTimePicker::make('trial_ends_at'),
-                    TextInput::make('status')
-                        ->required()
-                        ->default('active'),
 
-                ])->columnSpanFull(),
+                        Select::make('status')
+                            ->options(
+                                [
+                                    'active' => 'Active',
+                                    'inactive' => 'Inactive'
+                                ]
+                            )->label('Status')->required()
 
+                    ])->columnSpanFull(),
+                ]),
+                Section::make('Plan Details')->schema([
+                    Grid::make(1)->schema([
+                        Select::make('plan_id')
+                            ->required()
+                            ->relationship('plan', 'name')
+                            ->label('Plan')->disabledOn('edit'),
+                        KeyValue::make('plan_features')->disabledOn('create'),
+                        KeyValue::make('plan_limitations')->disabledOn('create')
+
+                    ])->columnSpanFull(),
+
+                ]),
                 Textarea::make('notes')
                     ->columnSpanFull(),
 

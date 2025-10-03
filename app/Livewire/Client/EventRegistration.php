@@ -27,6 +27,11 @@ class EventRegistration extends Component
 
     public function mount(Event $event)
     {
+        if (!in_array($event->status->value, ['Scheduled', 'Completed']))
+        {
+            abort(404);
+        }
+
         $this->event = $event;
         $this->form->setEvent($event);
     }
