@@ -9,7 +9,7 @@
         {{ __('Create an event') }}
     </x-slot>
     <section
-        class="bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg dark:bg-gray-900/50 dark:border dark:border-gray-200/10">
+        class="shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg dark:bg-gray-900/50 dark:border dark:border-gray-200/10">
         <div class="w-full max-w-3xl mx-auto p-2">
 
             @if ($eventLimit)
