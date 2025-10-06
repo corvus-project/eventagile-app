@@ -36,7 +36,7 @@ class EventRegistrationForm extends Form
                 'required',
                 'email',
                 'max:255',
-                'unique:event_registrations,email,NULL,id,event_id,' . ($this->event?->id ?? 'NULL'),
+                'unique:registrations,email,NULL,id,event_id,' . ($this->event?->id ?? 'NULL'),
             ],
             'phone' => [
                 'required',
