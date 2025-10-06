@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\EventRegistration;
+use App\Models\Registration;
 use App\Models\Event;
 use App\Models\Plan;
 use App\Models\User;
@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
         Event::truncate();
         Plan::truncate();
         Subscription::truncate();
-        EventRegistration::truncate();
+        Registration::truncate();
       
         $this->call(PlanSeeder::class);
 

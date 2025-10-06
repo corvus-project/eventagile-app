@@ -3,8 +3,7 @@
 namespace App\Filament\Resources\Events\Tables;
 
 use App\Enums\EventStatus;
-use App\Filament\Resources\EventRegistrations\EventRegistrationResource;
-use App\Filament\Resources\Events\Pages\ViewRegistrations;
+
 use App\Models\Event;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
