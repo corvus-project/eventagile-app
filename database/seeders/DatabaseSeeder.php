@@ -50,7 +50,7 @@ class DatabaseSeeder extends Seeder
 
         $events = Event::factory(10)->recycle($organizers)->create();
 
-        EventRegistration::factory(500)->recycle($events)->create();
+        Registration::factory(500)->recycle($events)->create();
  
         $user = User::factory()->create([
             'name' => 'Test User',
