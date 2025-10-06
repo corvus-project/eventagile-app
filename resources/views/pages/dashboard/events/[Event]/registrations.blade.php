@@ -60,7 +60,7 @@ new class extends Component {
 
     public function show(int $id)
     {
-        return redirect()->route('events.registrations.show', ['EventRegistration' => $id]);
+        return redirect()->route('events.registrations.show', ['Registration' => $id]);
     }
 };
 ?>

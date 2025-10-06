@@ -1,9 +1,11 @@
 <?php
 
+use App\Events\EventRegistration as AppEventsEventRegistration;
 use App\Events\Registration as EventsEventRegistration;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Livewire\Client\EventRegistration;
+use App\Models\Registration;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
 
@@ -18,10 +20,30 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/debug', function () {
+
+    $event = \App\Models\Event::first();
+
+    $eventRegistration =  Registration::find(530);
  
 
+     $eventRegistration = Registration::create([
+        'name' => fake()->name(),
+        'email' => fake()->unique()->safeEmail(),
+        'phone' => fake()->phoneNumber(),
+        'is_attending' => true, // Assuming default is attending
+        'event_id' => $event->id,
+        'registered_at' => Carbon::now(),
+    ]);
+    
+
+    AppEventsEventRegistration::dispatch($eventRegistration);
+})->name('debug');
+
+
 Route::get('events/{event:slug}', EventRegistration::class)->name('event.registration');
- 
+
 
 Route::middleware('auth')->group(function () {
 

@@ -2,7 +2,7 @@
 
 namespace App\Events;
  
-use App\Models\Registration as ModelsEventRegistration;
+use App\Models\Registration;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -18,7 +18,7 @@ class EventRegistration
     /**
      * Create a new event instance.
      */
-    public function __construct(public ModelsEventRegistration $event)
+    public function __construct(public Registration $registration)
     {
         //
     }
