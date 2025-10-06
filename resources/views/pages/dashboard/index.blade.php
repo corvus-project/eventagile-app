@@ -32,7 +32,7 @@ new class extends Component
     {
         $user = auth()->user();
         return Registration::join('events', 'events.id', '=', 'registrations.event_id')
-            ->select('event_registrations.*', 'events.title as event_title')
+            ->select('registrations.*', 'events.title as event_title')
             ->where(function ($query) use ($user) {
                 if ($user->isOrganizer()) {
                     return $query->where('events.organizer_id', $user->id);
