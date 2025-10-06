@@ -2,9 +2,8 @@
 
 use App\Enums\RegistrationStatus;
 use App\Events\EventRegistrationUpdated;
-use App\Models\Event;
-use App\Models\EventRegistration;
-
+use App\Models\Event; 
+use App\Models\Registration;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 
@@ -18,7 +17,7 @@ new class extends Component {
 
     use Toast;
 
-    public EventRegistration $eventRegistration;
+    public Registration $eventRegistration;
 
     public Event $event;
 
@@ -32,7 +31,7 @@ new class extends Component {
 
     public $eventRegistrationModal = false;
 
-    public function mount(EventRegistration $eventRegistration)
+    public function mount(Registration $eventRegistration)
     {
         Gate::authorize('view-event', $eventRegistration->event);
         $this->eventRegistration = $eventRegistration;

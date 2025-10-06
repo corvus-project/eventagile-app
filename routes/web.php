@@ -1,6 +1,6 @@
 <?php
 
-use App\Events\EventRegistration as EventsEventRegistration;
+use App\Events\Registration as EventsEventRegistration;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Livewire\Client\EventRegistration;
