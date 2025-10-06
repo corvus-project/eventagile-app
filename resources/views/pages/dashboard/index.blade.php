@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\EventRegistration;
+use App\Models\Registration;
 use function Laravel\Folio\{middleware, name};
 use Livewire\Volt\Component;
 use Mary\Traits\Toast;
@@ -31,8 +31,8 @@ new class extends Component
     public function registrations()
     {
         $user = auth()->user();
-        return EventRegistration::join('events', 'events.id', '=', 'event_registrations.event_id')
-            ->select('event_registrations.*', 'events.title as event_title')
+        return Registration::join('events', 'events.id', '=', 'registrations.event_id')
+            ->select('registrations.*', 'events.title as event_title')
             ->where(function ($query) use ($user) {
                 if ($user->isOrganizer()) {
                     return $query->where('events.organizer_id', $user->id);

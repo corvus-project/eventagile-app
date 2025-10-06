@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Models\EventRegistration;
+use App\Models\Registration;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Excel;
 use Maatwebsite\Excel\Concerns\FromQuery;
@@ -16,7 +16,7 @@ class RegistrationsExport implements FromQuery,  WithHeadings
  
     public function query()
     {
-        return EventRegistration::query()->whereEventId($this->event_id)->select([
+        return Registration::query()->whereEventId($this->event_id)->select([
             'name',
             'email',
             'phone',

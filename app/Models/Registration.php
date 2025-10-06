@@ -8,12 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Contracts\Auditable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class EventRegistration extends Model implements Auditable
+class Registration extends Model implements Auditable
 {
     /** @use HasFactory<\Database\Factories\RegistrationFactory> */
     use HasFactory;
     use \OwenIt\Auditing\Auditable;
     use SoftDeletes;
+
+    protected $table = 'registrations';
 
     protected $fillable = [
         'event_id',
@@ -40,7 +42,7 @@ class EventRegistration extends Model implements Auditable
 
     public function event()
     {
-        return $this->hasOne(Event::class, 'id', 'event_id');
+        return $this->belongsTo(Event::class);
     }
 
     public function scopeAttending($query)

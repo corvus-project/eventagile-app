@@ -88,7 +88,7 @@ class Event extends Model implements Auditable
 
     public function registrations()
     {
-        return $this->hasMany(EventRegistration::class);
+        return $this->hasMany(Registration::class);
     }
 
     protected function status_value(): Attribute

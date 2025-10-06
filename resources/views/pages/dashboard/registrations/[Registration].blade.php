@@ -2,9 +2,8 @@
 
 use App\Enums\RegistrationStatus;
 use App\Events\EventRegistrationUpdated;
-use App\Models\Event;
-use App\Models\EventRegistration;
-
+use App\Models\Event; 
+use App\Models\Registration;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 
@@ -18,7 +17,7 @@ new class extends Component {
 
     use Toast;
 
-    public EventRegistration $eventRegistration;
+    public Registration $registration;
 
     public Event $event;
 
@@ -32,13 +31,15 @@ new class extends Component {
 
     public $eventRegistrationModal = false;
 
-    public function mount(EventRegistration $eventRegistration)
+    public function mount(Registration $registration)
     {
-        Gate::authorize('view-event', $eventRegistration->event);
-        $this->eventRegistration = $eventRegistration;
-        $this->event = Event::findOrFail($eventRegistration->event_id);
+        $event = Event::findOrFail($registration->event_id);
+       
+        Gate::authorize('view-event', $event);
+        $this->registration = $registration;
+        $this->event =  $event;
         $this->status_options = RegistrationStatus::toCollection();
-        $this->status = $eventRegistration->status->name;
+        $this->status = $registration->status->name;
         $user = auth()->user();
         $this->canNotify = $user->able('notify-event-registration');
     }
@@ -46,7 +47,7 @@ new class extends Component {
     public function with(): array
     {
         return [
-            'eventRegistration' => $this->eventRegistration,
+            'registration' => $this->registration,
             'event' => $this->event
         ];
     }
@@ -57,15 +58,15 @@ new class extends Component {
             'status' => 'required',
         ]);
 
-        $this->eventRegistration->status = RegistrationStatus::fromName($this->status);
-        $this->eventRegistration->save();
+        $this->registration->status = RegistrationStatus::fromName($this->status);
+        $this->registration->save();
 
         $this->success('Registration updated successfully!');
         $this->eventRegistrationModal = false;
-        Log::debug('Sending email to ' . $this->eventRegistration->email . ' with status ' . $this->eventRegistration->status->value . ' and notify ' . ($this->notify ? 'true' : 'false'));
+        Log::debug('Sending email to ' . $this->registration->email . ' with status ' . $this->registration->status->value . ' and notify ' . ($this->notify ? 'true' : 'false'));
 
         if ($this->notify && $this->canNotify) {
-            EventRegistrationUpdated::dispatch($this->eventRegistration);
+            EventRegistrationUpdated::dispatch($this->registration);
         }
     }
 }
@@ -147,19 +148,19 @@ new class extends Component {
             <dl class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-6">
                 <div>
                     <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Name</dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100">{{ $eventRegistration->name }}</dd>
+                    <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100">{{ $registration->name }}</dd>
                 </div>
                 <div>
                     <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Email</dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100">{{ $eventRegistration->email }}</dd>
+                    <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100">{{ $registration->email }}</dd>
                 </div>
                 <div>
                     <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Registered At</dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100">{{ $eventRegistration->created_at->format('F j, Y H:i') }}</dd>
+                    <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100">{{ $registration->created_at->format('F j, Y H:i') }}</dd>
                 </div>
                 <div>
                     <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Status</dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100">{{ $eventRegistration->status->value }}</dd>
+                    <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100">{{ $registration->status->value }}</dd>
                 </div>
                 <!-- Add more fields as needed -->
             </dl>
