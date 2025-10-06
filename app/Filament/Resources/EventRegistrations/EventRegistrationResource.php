@@ -7,7 +7,7 @@ use App\Filament\Resources\EventRegistrations\Pages\EditEventRegistration;
 use App\Filament\Resources\EventRegistrations\Pages\ListEventRegistrations;
 use App\Filament\Resources\EventRegistrations\Schemas\EventRegistrationForm;
 use App\Filament\Resources\EventRegistrations\Tables\EventRegistrationsTable;
-use App\Models\EventRegistration;
+use App\Models\Registration;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class EventRegistrationResource extends Resource
 {
-    protected static ?string $model = EventRegistration::class;
+    protected static ?string $model = Registration::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
