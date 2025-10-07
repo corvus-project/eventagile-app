@@ -4,12 +4,10 @@ namespace App\Livewire\Forms;
 
 use App\Events\EventRegistration;
 use App\Exceptions\RateLimiterException;
-use App\Mail\NewEventRegistration;
 use App\Models\Event;
 use Illuminate\Support\Carbon;
-
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\RateLimiter;
-use Livewire\Attributes\Validate;
 use Livewire\Form;
 
 class EventRegistrationForm extends Form
@@ -52,9 +50,16 @@ class EventRegistrationForm extends Form
                         $fail('The registration code is invalid.');
                     }
                 },
-            ],  
+            ],
         ];
     }
+
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+        Log::debug('validated'. $propertyName);
+    }
+
 
     public function messages(): array
     {
@@ -66,7 +71,6 @@ class EventRegistrationForm extends Form
             'phone.required' => 'Please enter your phone number.',
         ];
     }
-
 
     public function setEvent(Event $event): void
     {
@@ -89,10 +93,10 @@ class EventRegistrationForm extends Form
             'is_attending' => true, // Assuming default is attending
             'registered_at' => Carbon::now(),
         ]);
-  
- 
+
+
         EventRegistration::dispatch($eventRegistration);
- 
+
 
         $this->reset(['name', 'email', 'phone', 'registration_code']);
 

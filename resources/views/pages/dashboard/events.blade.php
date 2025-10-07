@@ -129,9 +129,7 @@ new class extends Component {
                     :per-page-values="[3, 5, 10]">
                     @scope('actions', $event)
                     <div class="flex space-x-2">
-                        @can('delete-event', $event)
-                        <x-button wire:click="delete({{ $event['id'] }})" wire:confirm="Are you sure?" spinner class="btn-ghost btn-sm text-red-600" icon="o-trash" />
-                        @endcan
+                   
                         @can('update-event', $event)
                         <x-button wire:click="edit({{ $event['id'] }})" class="btn-ghost btn-sm text-red-600" icon="c-pencil-square" />
                         @endcan

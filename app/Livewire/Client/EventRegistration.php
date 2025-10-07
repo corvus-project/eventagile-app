@@ -6,7 +6,6 @@ use App\Enums\RegistrationStatus;
 use App\Livewire\Forms\EventRegistrationForm;
 use App\Models\Event;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -22,6 +21,8 @@ class EventRegistration extends Component
 {
     public $event;
     public ?string $captchaToken = null;
+    public bool $isSubmitting = false;
+    public bool $isDirty = false;
 
     public EventRegistrationForm $form;
 
@@ -38,19 +39,30 @@ class EventRegistration extends Component
 
     public function save()
     {
-        $query = http_build_query([
-            'secret' => config('services.recaptcha.secret_key'),
-            'response' => $this->captchaToken,
-        ]);
+        $this->isSubmitting = true;
+        
+        try {
+            $query = http_build_query([
+                'secret' => config('services.recaptcha.secret_key'),
+                'response' => $this->captchaToken,
+            ]);
 
-        $response = Http::post('https://www.google.com/recaptcha/api/siteverify?' . $query);
-        $captchaLevel = $response->json('score');
+            $response = Http::post('https://www.google.com/recaptcha/api/siteverify?' . $query);
+            $captchaLevel = $response->json('score');
 
-        throw_if($captchaLevel <= 0.5, ValidationException::withMessages([
-            'captchaToken' => __('Error on captcha verification. Please, refresh the page and try again.')
-        ]));
+            throw_if($captchaLevel <= 0.5, ValidationException::withMessages([
+                'captchaToken' => __('Error on captcha verification. Please, refresh the page and try again.')
+            ]));
 
-        $this->form->store();
+            $this->form->store();
+        } catch (ValidationException $e) {
+            // Reset captcha token to allow resubmission
+            $this->captchaToken = null;
+            throw $e;
+        } finally {
+            $this->isSubmitting = false;
+            $this->isDirty = false;
+        }
     }
 
     public function render()
@@ -60,6 +72,6 @@ class EventRegistration extends Component
         return view('livewire.client.event-registration', [
             'event' => $this->event,
             'registrations_count' => $registrations_count,
-        ])->title('Event Registration - ' . $this->event->title);
+        ]);
     }
 }

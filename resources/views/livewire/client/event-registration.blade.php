@@ -23,7 +23,7 @@
                     <div class="alert alert-warning mb-4">
                         This event is not open for registration.
                     </div>
-                    @elseif(  $event->registration_ends_at != null && $event->registration_ends_at < now())
+                    @elseif( $event->registration_ends_at != null && $event->registration_ends_at < now())
                         <div class="alert alert-warning mb-4">
                         Registration ends at {{ $event->registration_ends_at?->format('d M Y H:i') }}
             </div>
@@ -39,23 +39,30 @@
             <div class="bg-red-300 text-red-700 p-3 rounded">{{ $message }}</div>
             @enderror
 
-            <x-form wire:submit.prevent="save" class="mt-1 space-y-2">
-                <x-input label="Name" wire:model="form.name" />
-                <x-input label="Email" wire:model="form.email" />
-                <x-input label="Phone" wire:model="form.phone" />
+            <x-form wire:submit="save" class="mt-1 space-y-2">
+                <x-input label="Name" wire:model.live="form.name" />
+                <x-input label="Email" wire:model.live="form.email" />
+                <x-input label="Phone" wire:model.live="form.phone" />
 
                 @if($event->is_public == 0)
                 <x-input label="Registration Code" wire:model="form.registration_code" placeholder="Enter registration code" />
                 @endif
+ 
+                <x-button
+                    label="{{ $isSubmitting ? 'Registering...' : 'Register' }}"
+                    id="registerBtn"
+                    class="btn-seconday g-recaptcha"
+                    type="primary"
+                    submit="true"
+ 
 
-                <x-slot:actions>
-                    <x-button label="Cancel" />
-                    <x-button label="Register" class="btn-seconday g-recaptcha" 
-                        type="primary" submit="true"
-                        data-sitekey="{{ config('services.recaptcha.public_key') }}"
-                        data-callback='handle'
-                        data-action='submit' />
-                </x-slot:actions>
+                    
+                    wire:dirty.remove.attr="disabled" 
+                   
+                    data-sitekey="{{ config('services.recaptcha.public_key') }}"
+                    data-callback='handle'
+                    data-action='submit'
+                    wire:target="save" />
             </x-form>
 
 
@@ -67,11 +74,14 @@
                                 action: 'submit'
                             })
                             .then(function(token) {
-
                                 @this.set('captchaToken', token);
-                                @this.save()
+                                @this.save();
+                            })
+                            .then(function() {
+                                console.log('renove');
+document.getElementById('registerBtn').removeAttribute('disabled');
                             });
-                    })
+                    });
                 }
             </script>
             @endif
