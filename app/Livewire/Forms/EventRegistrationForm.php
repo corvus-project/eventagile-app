@@ -4,13 +4,12 @@ namespace App\Livewire\Forms;
 
 use App\Events\EventRegistration;
 use App\Exceptions\RateLimiterException;
-use App\Mail\NewEventRegistration;
 use App\Models\Event;
 use Illuminate\Support\Carbon;
-
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\RateLimiter;
-use Livewire\Attributes\Validate;
 use Livewire\Form;
+use Illuminate\Support\Facades\Http;
 
 class EventRegistrationForm extends Form
 {
@@ -23,6 +22,7 @@ class EventRegistrationForm extends Form
     public string $phone = '';
 
     public ?string $registration_code = null;
+ 
 
     public function rules(): array
     {
@@ -52,7 +52,7 @@ class EventRegistrationForm extends Form
                         $fail('The registration code is invalid.');
                     }
                 },
-            ],  
+            ],
         ];
     }
 
@@ -67,20 +67,20 @@ class EventRegistrationForm extends Form
         ];
     }
 
-
     public function setEvent(Event $event): void
     {
         $this->event = $event;
     }
-
+ 
     public function store(): void
     {
-        if (RateLimiter::tooManyAttempts('register-event:' . request()->ip(), $perMinute = 3)) {
+        if (RateLimiter::tooManyAttempts('register-event:' . request()->ip(), $perMinute = 10)) {
             throw new RateLimiterException('You are registering events too quickly. Please wait a moment before trying again!.');
         }
         RateLimiter::increment('register-event:' . request()->ip());
 
         $this->validate();
+
 
         $eventRegistration = $this->event->registrations()->create([
             'name' => $this->name,
@@ -89,10 +89,10 @@ class EventRegistrationForm extends Form
             'is_attending' => true, // Assuming default is attending
             'registered_at' => Carbon::now(),
         ]);
-  
- 
+
+
         EventRegistration::dispatch($eventRegistration);
- 
+
 
         $this->reset(['name', 'email', 'phone', 'registration_code']);
 

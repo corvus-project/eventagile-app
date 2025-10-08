@@ -24,18 +24,28 @@ new class extends Component
 
     public ?string $captchaToken = null;
 
+    public string $siteKey = '';
+
+    public ?string $gRecaptchaResponse = null;
+
+    public function mount()
+    {
+        $this->siteKey = config('services.recaptcha.public_key');
+    }
+
     public function authenticate()
     {
+ 
         $query = http_build_query([
             'secret' => config('services.recaptcha.secret_key'),
-            'response' => $this->captchaToken,
+            'response' => $this->gRecaptchaResponse,
         ]);
- 
+
         $response = Http::post('https://www.google.com/recaptcha/api/siteverify?' . $query);
         $captchaLevel = $response->json('score');
 
         throw_if($captchaLevel <= 0.5, ValidationException::withMessages([
-            'captchaToken' => __('Error on captcha verification. Please, refresh the page and try again.')
+            'gRecaptchaResponse' => __('Error on captcha verification. Please, refresh the page and try again.')
         ]));
 
         $this->validate();
@@ -79,10 +89,10 @@ new class extends Component
             <div class="px-10 py-0 sm:py-8 sm:shadow-sm sm:bg-white dark:sm:bg-gray-950/50 dark:border-gray-200/10 sm:border sm:rounded-lg border-gray-200/60">
                 @volt('auth.login')
 
-                @error('captchaToken')
+                @error('gRecaptchaResponse')
                 <div class="bg-red-300 text-red-700 p-3 rounded">{{ $message }}</div>
                 @enderror
-                <form wire:submit.prevent="authenticate" class="space-y-6">
+                <form wire:submit="authenticate" wire:recaptcha class="space-y-6">
 
                     <x-ui.input label="Email address" type="email" id="email" name="email" wire:model="email" />
                     <x-ui.input label="Password" type="password" id="password" name="password" wire:model="password" />
@@ -91,29 +101,60 @@ new class extends Component
                         <x-ui.checkbox label="Remember me" id="remember" name="remember" wire:model="remember" />
                         <x-ui.text-link href="{{ route('password.request') }}">Forgot your password?</x-ui.text-link>
                     </div>
- 
 
-                    <x-button label="Login" rounded="md" class="btn-primary g-recaptcha" type="primary" submit="true"  
-                        data-sitekey="{{ config('services.recaptcha.public_key') }}"
-                        data-callback='handle'
-                        data-action='submit' />
+
+                    <x-button label="Login" rounded="md" class="btn-primary" type="primary" submit="true" />
 
                 </form>
 
-                <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.public_key') }}"></script>
                 <script>
-                    function handle(e) {
-                        grecaptcha.ready(function() {
-                            grecaptcha.execute('{{ config("services.recaptcha.public_key") }}', {
-                                    action: 'submit'
-                                })
-                                .then(function(token) { 
-                                    @this.set('captchaToken', token);
-                                    @this.authenticate()
+                    document.addEventListener('livewire:init', () => {
+                        Livewire.directive('recaptcha', ({
+                            el,
+                            directive,
+                            component,
+                            cleanup
+                        }) => {
+                            const submitExpression = (() => {
+                                for (const attr of el.attributes) {
+
+                                    if (attr.name.startsWith('wire:submit')) {
+
+                                        return attr.value;
+                                    }
+                                }
+                            })();
+
+                            const onSubmit = (e) => {
+                                e.preventDefault();
+                                e.stopImmediatePropagation();
+
+                                grecaptcha.ready(async () => {
+                                    const token = await grecaptcha.execute('{{$siteKey}}', {
+                                        action: 'submit'
+                                    }); 
+                                    component.$wire.$set('gRecaptchaResponse', token).then(() => {
+                                        Alpine.evaluate(el, "$wire." + submitExpression, {
+                                            scope: {
+                                                $event: e
+                                            }
+                                        });
+                                    });
+ 
                                 });
-                        })
-                    }
+                            }
+
+                            el.addEventListener('submit', onSubmit, {
+                                capture: true
+                            });
+                            cleanup(() => el.removeEventListener('submit', onSubmit, {
+                                capture: true
+                            }));
+                        });
+                    });
                 </script>
+                <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.public_key') }}"></script>
+
                 @endvolt
             </div>
         </div>

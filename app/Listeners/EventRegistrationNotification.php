@@ -24,15 +24,17 @@ class EventRegistrationNotification
      */
     public function handle(EventRegistration $eventRegistration): void
     {
-        $event = $eventRegistration->event->event;
+        $registration = $eventRegistration->registration;
+ 
+        $event = $registration->event;
         $user = $event->user;
-
+ 
         if ($user->able('notify-event-registration')) {
-            Log::info('Sending event registration notification to ' . $eventRegistration->event->email . ' for event ID: ' . $event->id);
-            Mail::to($eventRegistration->event->email)->queue(new NewEventRegistration($event, [
-                'name' => $eventRegistration->event->name,
-                'email' => $eventRegistration->event->email,
-                'phone' => $eventRegistration->event->phone
+            Log::info('Sending event registration notification to ' . $registration->email . ' for event ID: ' . $event->id);
+            Mail::to($registration->email)->queue(new NewEventRegistration($event, [
+                'name' => $registration->name,
+                'email' => $registration->email,
+                'phone' => $registration->phone
             ]));
         }
     }

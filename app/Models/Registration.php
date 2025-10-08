@@ -36,7 +36,7 @@ class Registration extends Model implements Auditable
         'phone' => 'string',
         'notes' => 'string',
         'name' => 'string',
-        'event' => Event::class,
+        //'event' => Event::class,
         'status' => RegistrationStatus::class,
     ];
 

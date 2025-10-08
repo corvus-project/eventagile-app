@@ -84,31 +84,64 @@ new class extends Component
                 @error('captchaToken')
                 <div class="bg-red-300 text-red-700 p-3 rounded">{{ $message }}</div>
                 @enderror
-                <form wire:submit="register" class="space-y-6">
+                <form wire:submit="register" wire:recaptcha class="space-y-6">
                     <x-ui.input label="Name" type="text" id="name" name="name" wire:model="name" />
                     <x-ui.input label="Email address" type="email" id="email" name="email" wire:model="email" />
                     <x-ui.input label="Password" type="password" id="password" name="password" wire:model="password" />
                     <x-ui.input label="Confirm Password" type="password" id="password_confirmation" name="password_confirmation" wire:model="passwordConfirmation" />
 
-                    <x-button label="Register" rounded="md" class="btn-primary g-recaptcha" type="primary" submit="true"
-                        data-sitekey="{{ config('services.recaptcha.public_key') }}"
-                        data-callback='handle'
-                        data-action='register' />
+                    <x-button label="Register" rounded="md" class="btn-primary" type="primary" submit="true" />
                 </form>
-                <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.public_key') }}"></script>
+      
                 <script>
-                    function handle(e) {
-                        grecaptcha.ready(function() {
-                            grecaptcha.execute('{{ config("services.recaptcha.public_key") }}', {
-                                    action: 'submit'
-                                })
-                                .then(function(token) {
-                                    @this.set('captchaToken', token);
-                                    @this.register()
+                    document.addEventListener('livewire:init', () => {
+                        Livewire.directive('recaptcha', ({
+                            el,
+                            directive,
+                            component,
+                            cleanup
+                        }) => {
+                            const submitExpression = (() => {
+                                for (const attr of el.attributes) {
+
+                                    if (attr.name.startsWith('wire:submit')) {
+
+                                        return attr.value;
+                                    }
+                                }
+                            })();
+
+                            const onSubmit = (e) => {
+                                e.preventDefault();
+                                e.stopImmediatePropagation();
+
+                                grecaptcha.ready(async () => {
+                                    const token = await grecaptcha.execute('{{$siteKey}}', {
+                                        action: 'submit'
+                                    });
+
+                                   
+                                    component.$wire.$set('captchaToken', token).then(() => {
+                                        Alpine.evaluate(el, "$wire." + submitExpression, {
+                                            scope: {
+                                                $event: e
+                                            }
+                                        });
+                                    });
+ 
                                 });
-                        })
-                    }
+                            }
+
+                            el.addEventListener('submit', onSubmit, {
+                                capture: true
+                            });
+                            cleanup(() => el.removeEventListener('submit', onSubmit, {
+                                capture: true
+                            }));
+                        });
+                    });
                 </script>
+                <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.public_key') }}"></script>
                 @endvolt
             </div>
         </div>

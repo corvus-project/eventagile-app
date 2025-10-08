@@ -18,6 +18,8 @@ class Event extends Model implements Auditable
 
     use \OwenIt\Auditing\Auditable;
 
+    protected $table = 'events';
+
     protected $fillable = [
         'title',
         'description',
@@ -41,12 +43,11 @@ class Event extends Model implements Auditable
             $event->registration_code = strtoupper(bin2hex(random_bytes(4)));
         });
 
-        static::deleting(function($event)
-        {
+        static::deleting(function ($event) {
             $event->registrations()->delete();
         });
     }
-    
+
     protected $casts = [
         'start_time' => 'datetime:Y-m-d H:i',
         'registration_ends_at' => 'datetime:Y-m-d H:i',
@@ -81,7 +82,7 @@ class Event extends Model implements Auditable
         return $this->belongsTo(User::class, 'organizer_id');
     }
 
-        public function user()
+    public function user()
     {
         return $this->belongsTo(User::class, 'organizer_id');
     }
