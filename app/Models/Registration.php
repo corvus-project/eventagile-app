@@ -36,13 +36,13 @@ class Registration extends Model implements Auditable
         'phone' => 'string',
         'notes' => 'string',
         'name' => 'string',
-        'event' => Event::class,
+        //'event' => Event::class,
         'status' => RegistrationStatus::class,
     ];
 
     public function event()
     {
-        return $this->hasOne(Event::class, 'id', 'event_id');
+        return $this->belongsTo(Event::class);
     }
 
     public function scopeAttending($query)
