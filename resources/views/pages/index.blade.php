@@ -2,10 +2,7 @@
 
 use function Laravel\Folio\{name,middleware};
 
-use App\Enums\EventStatus;
 use Livewire\Volt\Component;
-use App\Models\Event;
-use Livewire\WithPagination;
 
 
 name('home');
