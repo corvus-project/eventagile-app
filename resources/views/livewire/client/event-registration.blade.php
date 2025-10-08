@@ -39,51 +39,71 @@
             <div class="bg-red-300 text-red-700 p-3 rounded">{{ $message }}</div>
             @enderror
 
-            <x-form wire:submit="save" class="mt-1 space-y-2">
-                <x-input label="Name" wire:model.live="form.name" />
-                <x-input label="Email" wire:model.live="form.email" />
-                <x-input label="Phone" wire:model.live="form.phone" />
+            <x-form wire:submit="save" wire:recaptcha  class="mt-1 space-y-2">
+
+                <x-input label=" Name" wire:model="form.name" />
+                <x-input label="Email" wire:model="form.email" />
+                <x-input label="Phone" wire:model="form.phone" />
 
                 @if($event->is_public == 0)
                 <x-input label="Registration Code" wire:model="form.registration_code" placeholder="Enter registration code" />
                 @endif
- 
-                <x-button
-                    label="{{ $isSubmitting ? 'Registering...' : 'Register' }}"
-                    id="registerBtn"
-                    class="btn-seconday g-recaptcha"
-                    type="primary"
-                    submit="true"
- 
 
-                    
-                    wire:dirty.remove.attr="disabled" 
-                   
-                    data-sitekey="{{ config('services.recaptcha.public_key') }}"
-                    data-callback='handle'
-                    data-action='submit'
-                    wire:target="save" />
+                <x-button
+                    label="Register"
+                    class="btn-seconday"
+                    type="primary"
+                    submit="true" />
+
             </x-form>
 
-
-            <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.public_key') }}"></script>
             <script>
-                function handle(e) {
-                    grecaptcha.ready(function() {
-                        grecaptcha.execute('{{ config("services.recaptcha.public_key") }}', {
-                                action: 'submit'
-                            })
-                            .then(function(token) {
-                                @this.set('captchaToken', token);
-                                @this.save();
-                            })
-                            .then(function() {
-                                console.log('renove');
-document.getElementById('registerBtn').removeAttribute('disabled');
+                document.addEventListener('livewire:init', () => {
+                    Livewire.directive('recaptcha', ({
+                        el,
+                        directive,
+                        component,
+                        cleanup
+                    }) => {
+                        const submitExpression = (() => {
+                            for (const attr of el.attributes) {
+
+                                if (attr.name.startsWith('wire:submit')) {
+
+                                    return attr.value;
+                                }
+                            }
+                        })();
+
+                        const onSubmit = (e) => {
+                            e.preventDefault();
+                            e.stopImmediatePropagation();
+
+                            grecaptcha.ready(async () => {
+                                const token = await grecaptcha.execute('{{$siteKey}}', {
+                                    action: 'submit'
+                                });
+
+                            component.$wire.$set('captchaToken', token).then(() => {
+                                    Alpine.evaluate(el, "$wire." + submitExpression, {
+                                        scope: {
+                                            $event: e
+                                        }
+                                    });
+                                });
+
                             });
+                        }
+
+                        el.addEventListener('submit', onSubmit, {
+                            capture: true
+                        });
+                        
                     });
-                }
+                });
             </script>
+            <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.public_key') }}"></script>
+
             @endif
             </section>
         </div>
