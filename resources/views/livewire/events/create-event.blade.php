@@ -2,20 +2,20 @@
         <div class="flex flex-col  flex-1 pb-5 mx-auto  w-full">
             <div class="relative flex-1 w-full ">
                 <div class="flex justify-between items-center w-full bg-pink- overflow-hidden border border-dashed bg-gradient-to-br from-white to-zinc-50 rounded-lg border-zinc-200 dark:border-gray-700 dark:from-gray-950 dark:via-gray-900 dark:to-gray-800">
-                    <div class="flex relative flex-col p-10 h-full w-full">
-                        <div class="flex items-center pb-5 mb-5 space-x-1.5 text-lg font-bold text-gray-800 uppercase border-b border-dotted border-zinc-200 dark:border-gray-800 dark:text-gray-200">
-                            Create an event
+                       <div class="flex relative flex-col h-full w-full">
+                      <div class="flex items-center p-5 mb-5 space-x-1.5 text-lg font-bold text-gray-800 uppercase border-b border-dotted border-zinc-200 dark:border-gray-800 dark:text-gray-200"> 
+    Create an event
                         </div>
 
                         <div class="pb-5">
-                            <div class="mx-auto space-y-6">
+
                                 <section
-                                    class="shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg dark:bg-gray-900/50 dark:border dark:border-gray-200/10">
+                                    class="">
                                     <div class="w-full max-w-3xl mx-auto p-2">
 
                                         @if ($eventLimit)
 
-                                        <x-form wire:submit="save" class="space-y-3">
+                                        <x-form wire:submit="save">
 
                                             <x-input label="Title" wire:model="form.title" />
                                             <x-textarea label="Description" wire:model="form.description" rows="5" />
@@ -42,8 +42,7 @@
                                         @endif
                                     </div>
                                 </section>
-
-                            </div>
+ 
 
                         </div>
 
