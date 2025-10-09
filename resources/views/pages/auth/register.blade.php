@@ -84,7 +84,7 @@ new class extends Component
                 @error('captchaToken')
                 <div class="bg-red-300 text-red-700 p-3 rounded">{{ $message }}</div>
                 @enderror
-                <form wire:submit="register" wire:recaptcha  class="space-y-6">
+                <form wire:submit="register" wire:recaptcha class="space-y-6">
                     <x-ui.input label="Name" type="text" id="name" name="name" wire:model="name" />
                     <x-ui.input label="Email address" type="email" id="email" name="email" wire:model="email" />
                     <x-ui.input label="Password" type="password" id="password" name="password" wire:model="password" />
@@ -119,9 +119,9 @@ new class extends Component
                                     const token = await grecaptcha.execute('{{$siteKey}}', {
                                         action: 'submit'
                                     });
-                                    console.log('g-recaptcha-response', token);
+
                                    
-                                    component.$wire.$set('gRecaptchaResponse', token).then(() => {
+                                    component.$wire.$set('captchaToken', token).then(() => {
                                         Alpine.evaluate(el, "$wire." + submitExpression, {
                                             scope: {
                                                 $event: e

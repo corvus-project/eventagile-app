@@ -22,35 +22,42 @@ class EventRegistration extends Component
 {
     public $event;
     public ?string $captchaToken = null;
+    public string $siteKey = '';
 
     public EventRegistrationForm $form;
 
     public function mount(Event $event)
     {
-        if (!in_array($event->status->value, ['Scheduled', 'Completed']))
-        {
+        if (!in_array($event->status->value, ['Scheduled', 'Completed'])) {
             abort(404);
         }
 
         $this->event = $event;
         $this->form->setEvent($event);
+        $this->siteKey = config('services.recaptcha.public_key');
     }
 
     public function save()
     {
-        $query = http_build_query([
-            'secret' => config('services.recaptcha.secret_key'),
-            'response' => $this->captchaToken,
-        ]);
+        try {
+            $query = http_build_query([
+                'secret' => config('services.recaptcha.secret_key'),
+                'response' => $this->captchaToken,
+            ]);
 
-        $response = Http::post('https://www.google.com/recaptcha/api/siteverify?' . $query);
-        $captchaLevel = $response->json('score');
+            $response = Http::post('https://www.google.com/recaptcha/api/siteverify?' . $query);
+            $captchaLevel = $response->json('score');
+            
+            throw_if($captchaLevel <= 0.5, ValidationException::withMessages([
+                'captchaToken' => __('Error on captcha verification. Please, refresh the page and try again.')
+            ]));
+        } catch (ValidationException $e) {
+            // Reset captcha token to allow resubmission
 
-        throw_if($captchaLevel <= 0.5, ValidationException::withMessages([
-            'captchaToken' => __('Error on captcha verification. Please, refresh the page and try again.')
-        ]));
-
-        $this->form->store();
+            throw $e;
+        } finally {
+            $this->form->store();
+        }
     }
 
     public function render()
@@ -60,6 +67,6 @@ class EventRegistration extends Component
         return view('livewire.client.event-registration', [
             'event' => $this->event,
             'registrations_count' => $registrations_count,
-        ])->title('Event Registration - ' . $this->event->title);
+        ]);
     }
 }

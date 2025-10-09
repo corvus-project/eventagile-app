@@ -35,7 +35,7 @@ new class extends Component
 
     public function authenticate()
     {
-  
+ 
         $query = http_build_query([
             'secret' => config('services.recaptcha.secret_key'),
             'response' => $this->gRecaptchaResponse,
@@ -103,7 +103,7 @@ new class extends Component
                     </div>
 
 
-                    <x-button label="Login" rounded="md" class="btn-primary g-recaptcha" type="primary" submit="true" />
+                    <x-button label="Login" rounded="md" class="btn-primary" type="primary" submit="true" />
 
                 </form>
 
@@ -132,9 +132,7 @@ new class extends Component
                                 grecaptcha.ready(async () => {
                                     const token = await grecaptcha.execute('{{$siteKey}}', {
                                         action: 'submit'
-                                    });
-                                    console.log('g-recaptcha-response', token);
-                                   
+                                    }); 
                                     component.$wire.$set('gRecaptchaResponse', token).then(() => {
                                         Alpine.evaluate(el, "$wire." + submitExpression, {
                                             scope: {
