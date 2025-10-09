@@ -35,8 +35,7 @@ new class extends Component
 
     public function authenticate()
     {
- 
-        Log::info('captchaToken: ', [$this->gRecaptchaResponse]);
+  
         $query = http_build_query([
             'secret' => config('services.recaptcha.secret_key'),
             'response' => $this->gRecaptchaResponse,
