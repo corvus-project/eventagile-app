@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Filament\Resources\EventRegistrations\Pages;
+namespace App\Filament\Resources\Registrations\Pages;
 
-use App\Filament\Resources\EventRegistrations\EventRegistrationResource;
+use App\Filament\Resources\Registrations\RegistrationResource;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ForceDeleteAction;
 use Filament\Actions\RestoreAction;
 use Filament\Resources\Pages\EditRecord;
 
-class EditEventRegistration extends EditRecord
+class EditRegistration extends EditRecord
 {
-    protected static string $resource = EventRegistrationResource::class;
+    protected static string $resource = RegistrationResource::class;
 
     protected function getHeaderActions(): array
     {

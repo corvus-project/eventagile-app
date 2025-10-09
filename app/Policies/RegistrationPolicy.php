@@ -13,7 +13,7 @@ class RegistrationPolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return auth()->user()->hasRole('admin');
     }
 
     /**

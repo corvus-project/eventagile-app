@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\EventRegistrations\Schemas;
+namespace App\Filament\ResourcesEventRegistrations\Schemas;
 
 use App\Enums\RegistrationStatus;
 use Filament\Forms\Components\DateTimePicker;
@@ -10,7 +10,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Schema;
 
-class EventRegistrationForm
+class RegistrationForm
 {
     public static function configure(Schema $schema): Schema
     {
