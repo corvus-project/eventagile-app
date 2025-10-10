@@ -77,6 +77,11 @@ class Event extends Model implements Auditable
         return 'slug';
     }
 
+    public function getOrganizerNameAttribute()
+    {
+        return $this->user->name;
+    }
+
     public function organizer()
     {
         return $this->belongsTo(User::class, 'organizer_id');

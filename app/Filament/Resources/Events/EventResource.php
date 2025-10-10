@@ -23,7 +23,7 @@ class EventResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
-    protected static ?string $recordTitleAttribute = 'Events';
+    protected static ?string $recordTitleAttribute = 'title';
 
     protected static ?int $navigationSort = 3;
 
