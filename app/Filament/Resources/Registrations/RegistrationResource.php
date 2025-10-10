@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Filament\Resources\EventRegistrations;
+namespace App\Filament\Resources\Registrations;
 
-use App\Filament\Resources\EventRegistrations\Pages\CreateEventRegistration;
-use App\Filament\Resources\EventRegistrations\Pages\EditEventRegistration;
-use App\Filament\Resources\EventRegistrations\Pages\ListEventRegistrations;
-use App\Filament\Resources\EventRegistrations\Schemas\EventRegistrationForm;
-use App\Filament\Resources\EventRegistrations\Tables\EventRegistrationsTable;
+use App\Filament\Resources\EventRegistrations\Tables\RegistrationsTable;
+use App\Filament\Resources\Registrations\Pages\CreateRegistration;
+use App\Filament\Resources\Registrations\Pages\EditRegistration;
+use App\Filament\Resources\Registrations\Pages\ListRegistrations;
+use App\Filament\ResourcesEventRegistrations\Schemas\RegistrationForm;
 use App\Models\Registration;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -16,22 +16,24 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class EventRegistrationResource extends Resource
+class RegistrationResource extends Resource
 {
     protected static ?string $model = Registration::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+ 
+
     protected static ?int $navigationSort = 5   ;
 
     public static function form(Schema $schema): Schema
     {
-        return EventRegistrationForm::configure($schema);
+        return RegistrationForm::configure($schema);
     }
 
     public static function table(Table $table): Table
     {
-        return EventRegistrationsTable::configure($table);
+        return RegistrationsTable::configure($table);
     }
 
     public static function getRelations(): array
@@ -44,9 +46,9 @@ class EventRegistrationResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ListEventRegistrations::route('/'),
-            'create' => CreateEventRegistration::route('/create'),
-            'edit' => EditEventRegistration::route('/{record}/edit'),
+            'index' => ListRegistrations::route('/'),
+            'create' => CreateRegistration::route('/create'),
+            'edit' => EditRegistration::route('/{record}/edit'),
         ];
     }
 

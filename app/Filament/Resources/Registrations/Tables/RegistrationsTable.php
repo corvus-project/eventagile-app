@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\EventRegistrations\Tables;
 
 use App\Models\Event;
-use App\Models\EventRegistration;
+use App\Models\Registration;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -19,11 +19,11 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 
-class EventRegistrationsTable
+class RegistrationsTable
 {
     public static function configure(Table $table): Table
     {
-        $query = EventRegistration::query();
+        $query = Registration::query();
 
 
         return $table
