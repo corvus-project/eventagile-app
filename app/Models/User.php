@@ -65,6 +65,13 @@ class User extends Authenticatable  implements MustVerifyEmail, FilamentUser
         return $this->hasMany(Subscription::class);
     }
 
+    public function getIsEmailVerifiedAttribute(): bool
+    {
+        return !is_null($this->email_verified_at);
+    }
+
+
+
     public function able($action)
     {
         Log::info('Checking ability for user ID: ' . $this->id . ' and action: ' . $action);
@@ -73,13 +80,13 @@ class User extends Authenticatable  implements MustVerifyEmail, FilamentUser
 
     public function canAccessPanel(Panel $panel): bool
     {
-         if ($panel->getId() === 'admin') {
+        if ($panel->getId() === 'admin') {
             // Allow access if user has 'admin' role
             Log::info('Checking admin panel access for user ID: ' . $this->id);
             if ($this->hasRole('admin')) {
                 return true;
             }
-        } 
+        }
 
         return false;
     }

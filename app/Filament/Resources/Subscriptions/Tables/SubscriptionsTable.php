@@ -58,6 +58,7 @@ class SubscriptionsTable
                     ->relationship('plan', 'name')
                     ->label('Plan')
                     ->placeholder('All Plans')
+                    ->preload()
                     ->searchable()
                     ->multiple(),
                 SelectFilter::make('user_id')

@@ -25,7 +25,10 @@ class EventsTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->defaultSort('created_at', 'desc')
             ->columns([
+                TextColumn::make('id')
+                    ->sortable(),                
                 TextColumn::make('title')
                     ->searchable(),
                 TextColumn::make('organizer.name')
@@ -75,7 +78,7 @@ class EventsTable
                 ViewAction::make(),
                 ViewAction::make('Registrations')
                     ->label('Registrations')
-                    ->url(fn (Event $record): string => route('filament.admin.resources.event-registrations.index', [
+                    ->url(fn (Event $record): string => route('filament.admin.resources.registrations.index', [
                         'filters' => [
                             'event_id' => [
                                 'value' => $record->id,
