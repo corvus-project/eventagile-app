@@ -80,7 +80,7 @@ new class extends Component {
     <div class="flex flex-col flex-1">
         <div class="flex flex-col  flex-1 pb-5 mx-auto  w-full">
             <div class="relative flex-1 w-full ">
-                <div class="flex justify-between items-center w-full bg-pink- overflow-hidden border border-dashed bg-gradient-to-br from-white to-zinc-50 rounded-lg border-zinc-200 dark:border-gray-700 dark:from-gray-950 dark:via-gray-900 dark:to-gray-800">
+                <div class="flex justify-between items-center w-full bg-pink- overflow-">
                     <div class="flex relative flex-col p-10 h-full w-full">
       
 

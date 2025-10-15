@@ -29,6 +29,16 @@ new class extends Component
     #[Validate('required|min:8|same:password')]
     public $passwordConfirmation = '';
 
+
+    public string $siteKey = '';
+
+    public ?string $gRecaptchaResponse = null;
+
+    public function mount()
+    {
+        $this->siteKey = config('services.recaptcha.public_key');
+    }
+
     public function register()
     {
         $query = http_build_query([
