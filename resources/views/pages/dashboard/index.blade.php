@@ -75,43 +75,37 @@ new class extends Component
 
     @volt('dashboard')
     <div class="flex flex-col flex-1">
-        <div class="flex flex-col  flex-1 pb-5 mx-auto  w-full">
+        
             <div class="relative flex-1 w-full ">
-                <div class="flex justify-between items-center w-full bg-pink- overflow-hidden border border-dashed bg-gradient-to-br from-white to-zinc-50 rounded-lg border-zinc-200 dark:border-gray-700 dark:from-gray-950 dark:via-gray-900 dark:to-gray-800">
-                    <div class="flex relative flex-col p-10 h-full w-full">
-                        <div class="flex items-center pb-5 mb-5 space-x-1.5 text-lg font-bold text-gray-800 uppercase border-b border-dotted border-zinc-200 dark:border-gray-800 dark:text-gray-200">
-                            Welcome to Admin Dashboard
-                        </div>
+                <div class="flex relative flex-col  h-full w-full ">
 
-                        <div class="pb-5">
-                            <div class="mx-auto space-y-6">
-                                <x-card shadow>
+                    <div class="mx-auto">
+                        <x-card shadow>
 
-                                    @if($registrations && $registrations->count())
-                                    <x-table :headers="$headers" :rows="$registrations"
-                                        with-pagination
-                                        per-page="perPage"
-                                        :per-page-values="[3, 5, 10]">
-                                        @scope('actions', $registration)
-                                        <div class="flex space-x-2">
-                                            <x-button wire:click="show({{ $registration['id'] }})" class="btn-ghost btn-sm text-red-600" icon="o-link" />
-                                        </div>
-                                        @endscope
-                                    </x-table>
-                                    
-                                    @else
-                                    <div class="text-center text-gray-500 dark:text-gray-400">
-                                        No registrations found.
-                                    </div>
-                                    @endif
-                                </x-card>
+                            @if($registrations && $registrations->count())
+                            <x-table :headers="$headers" :rows="$registrations"
+                                with-pagination
+                                per-page="perPage"
+                                :per-page-values="[3, 5, 10]">
+                                @scope('actions', $registration)
+                                <div class="flex space-x-2">
+                                    <x-button wire:click="show({{ $registration['id'] }})" class="btn-ghost btn-sm text-red-600" icon="o-link" />
+                                </div>
+                                @endscope
+                            </x-table>
+
+                            @else
+                            <div class="text-center text-gray-500 dark:text-gray-400">
+                                No registrations found.
                             </div>
-                        </div>
-
+                            @endif
+                        </x-card>
                     </div>
                 </div>
-            </div>
+
+           
         </div>
     </div>
+
     @endvolt
 </x-layouts.admin>
