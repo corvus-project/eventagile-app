@@ -37,7 +37,7 @@ new class extends Component {
 
     <x-slot name="header">
         <h2 class="text-lg font-semibold leading-tight text-gray-800 dark:text-gray-200">
-            {{ __('Subscription') }}
+            {{ __('dashboard.Subscription') }}
         </h2>
     </x-slot>
 
@@ -51,7 +51,7 @@ new class extends Component {
 
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
                     <div class="md:col-span-1">
-                        <p class="text-gray-700 dark:text-gray-300">Plan name</p>
+                        <p class="text-gray-700 dark:text-gray-300">{{__('dashboard.Plan name')}}</p>
                     </div>
                     <div class="md:col-span-2">
                         <p class="text-gray-700 dark:text-gray-300"> {{ $subscription->plan_name }}
@@ -60,7 +60,7 @@ new class extends Component {
                     </div>
 
                     <div class="md:col-span-1">
-                        <p class="text-gray-700 dark:text-gray-300 ">Status</p>
+                        <p class="text-gray-700 dark:text-gray-300 ">{{__('dashboard.Status')}}</p>
                     </div>
                     <div class="md:col-span-2">
                         <p class="text-gray-700 dark:text-gray-300 capitalize"> {{ $subscription->status}}</p>
@@ -68,7 +68,7 @@ new class extends Component {
 
 
                     <div class="md:col-span-1">
-                        <p class="text-gray-700 dark:text-gray-300 ">Started at </p>
+                        <p class="text-gray-700 dark:text-gray-300 ">{{__('dashboard.Started at')}} </p>
                     </div>
                     <div class="md:col-span-2">
                         <p class="text-gray-700 dark:text-gray-300 capitalize"> {{ $subscription->starts_at->format('d M y H:i')  }}</p>
@@ -76,13 +76,13 @@ new class extends Component {
 
 
                     <div class="md:col-span-1">
-                        <p class="text-gray-700 dark:text-gray-300 ">Ending at </p>
+                        <p class="text-gray-700 dark:text-gray-300 ">{{__('dashboard.Ending at')}} </p>
                     </div>
                     <div class="md:col-span-2">
                         <p class="text-gray-700 dark:text-gray-300 capitalize"> {{ $subscription->ends_at->format('d M y H:i')  }}</p>
                     </div>
                     <div class="md:col-span-1">
-                        <p class="text-gray-700 dark:text-gray-300">Features & Limits</p>
+                        <p class="text-gray-700 dark:text-gray-300">{{__('dashboard.Features & Limits')}}</p>
                     </div>
                     <div class="md:col-span-2">
                         <p class="text-gray-700 dark:text-gray-300">

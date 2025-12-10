@@ -49,7 +49,7 @@ new class extends Component {
 <x-layouts.admin>
 
     <x-slot name="title">
-        Export Registrations for Event: {{ $event->title }}
+        {{__('dashboard.Export Registration List')}}: {{ $event->title }}
     </x-slot>
  
     @volt('events.export')
@@ -58,26 +58,25 @@ new class extends Component {
 
         <div class="flex justify-end mb-4">
             <x-ui.text-link href="{{ route('events.show', ['event' => $event->slug]) }}" class="dark:bg-gray-900/40 font-sans text-sm border-1 no-underline hover:underline bg-slate-50 border-red-600 border-solid  rounded-lg text-red-600 p-2 m-1">
-                Visit back Event
+                {{__('dashboard.Visit back Event')}}
             </x-ui.text-link>
 
             <x-ui.text-link href="{{ route('events.registrations', ['event' => $event->slug]) }}" class="dark:bg-gray-900/40 font-sans text-sm border-1 no-underline hover:underline bg-slate-50 border-red-600 border-solid  rounded-lg text-red-600 p-2 m-1">
-                Registration List
+                {{__('dashboard.Registration List')}}
             </x-ui.text-link>
 
         </div>
 
-        <h3 class="text-md font-semibold text-gray-800 dark:text-gray-200 mb-4">Export Registrations</h3>
-        <p class="mb-4">You can download the registration list for the event in CSV format.</p>
-        <p class="mb-4">Click the button below to download the registration list.</p>
+        <h3 class="text-md font-semibold text-gray-800 dark:text-gray-200 mb-4">{{__('dashboard.Export Registration List')}}</h3>
+        <p class="mb-4">{{__('dashboard.You can download the registration list for the event in CSV format. Click the button below to download the registration list.')}}</p>
 
         <div class="flex items-center py-2 border-b">
             <a href="#" wire:click.prevent="download({{ $event->id }}, 'excel')" class="btn btn-info btn-sm m-2">
-                Download Excel
+                {{__('dashboard.Download Excel')}}
             </a>
 
             <a href="#" wire:click.prevent="download({{ $event->id }}, 'csv')" class="btn btn-info btn-sm m-2">
-                Download CSV
+                {{__('dashboard.Download CSV')}}
             </a>
         </div>
     </div>

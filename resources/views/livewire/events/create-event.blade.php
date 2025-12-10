@@ -19,22 +19,19 @@
 
                                     <x-form wire:submit="save">
 
-                                        <x-input label="Title" wire:model="form.title" />
-                                        <x-textarea label="Description" wire:model="form.description" rows="5" />
+                                        <x-input label="{{ __('dashboard.Title') }}" wire:model="form.title" />
+                                        <x-textarea label="{{ __('dashboard.Description') }}" wire:model="form.description" rows="5" />
+                                        <x-datetime label="{{ __('dashboard.Event Date') }}" wire:model="form.start_time" type="datetime-local" />
+                                        <x-datetime label="{{ __('dashboard.Registration Ends at') }}" wire:model="form.registration_ends_at" type="datetime-local" />
+                                        <x-input label="{{ __('dashboard.Location') }}" wire:model="form.location" />
+                                        <x-input label="{{ __('dashboard.Organizer') }}" wire:model="form.organizer" />
+                                        <x-input label="{{ __('dashboard.Capacity') }}" wire:model="form.capacity" />
+                                        <x-checkbox label="{{ __('dashboard.Public') }}" wire:model="form.is_public" hint="Can everyone register this event?" />
 
-                                        <x-datetime label="Event Date" wire:model="form.start_time" type="datetime-local" />
-                                        <x-datetime label="Registration Ends at" wire:model="form.registration_ends_at" type="datetime-local" />
-
-
-                                        <x-input label="Location" wire:model="form.location" />
-                                        <x-input label="Organizer" wire:model="form.organizer" />
-                                        <x-input label="Capacity" wire:model="form.capacity" />
-                                        <x-checkbox label="Public" wire:model="form.is_public" hint="Can everyone register this event?" />
-
-                                        <x-select label="Status" wire:model="form.status" :options="$status" />
+                                        <x-select label="{{ __('dashboard.Status') }}" wire:model="form.status" :options="$status" />
 
                                         <x-slot:actions>
-                                            <x-button label="Create" class="btn-seconday" type="primary" submit="true" spinner="save" />
+                                            <x-button label="{{ __('dashboard.Create') }}" class="btn-seconday" type="primary" submit="true" spinner="save" />
                                         </x-slot:actions>
                                     </x-form>
                                     @else

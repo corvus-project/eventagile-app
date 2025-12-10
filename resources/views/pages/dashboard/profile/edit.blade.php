@@ -97,7 +97,7 @@ new class extends Component {
 
     <x-slot name="header">
         <h2 class="text-lg font-semibold leading-tight text-gray-800 dark:text-gray-200">
-            {{ __('Profile') }}
+            {{ __('dashboard.Profile') }}
         </h2>
     </x-slot>
 
@@ -110,19 +110,19 @@ new class extends Component {
                 class="p-4 bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg dark:bg-gray-900/50 dark:border dark:border-gray-200/10">
                 <div class="max-w-xl">
                     <header>
-                        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Profile Information') }}
+                        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('dashboard.Profile Information') }}
                         </h2>
                         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                            {{ __("Update your account's profile information and email address.") }}
+                            {{ __("dashboard.Update your account's profile information and email address.") }}
                         </p>
                     </header>
                     <form wire:submit="updateProfile" class="mt-6 space-y-6">
                         <x-ui.input label="Name" type="text" id="name" name="name" wire:model="name" />
-                        <x-ui.input label="Email address" type="email" id="email" name="email"
+                        <x-ui.input label="Email" type="email" id="email" name="email"
                             wire:model="email" />
                         <div class="flex items-start">
                             <div>
-                                <x-ui.button type="primary" submit="true">{{ __('Update') }}</x-ui.button>
+                                <x-ui.button type="primary" submit="true">{{ __('dashboard.Update') }}</x-ui.button>
                             </div>
                         </div>
                     </form>
@@ -135,10 +135,10 @@ new class extends Component {
                 class="p-4 bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg dark:bg-gray-900/50 dark:border dark:border-gray-200/10">
                 <div class="max-w-xl">
                     <header>
-                        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Update Password') }}
+                        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('dashboard.Update Password') }}
                         </h2>
                         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                            {{ __('Ensure your account is using a long, random password to stay secure.') }}
+                            {{ __('dashboard.Ensure your account is using a long, random password to stay secure.') }}
                         </p>
                     </header>
                     <form wire:submit="updatePassword" class="mt-6 space-y-6">
@@ -152,7 +152,7 @@ new class extends Component {
 
                         <div class="flex items-start">
                             <div>
-                                <x-ui.button type="primary" submit="true">{{ __('Update') }}</x-ui.button>
+                                <x-ui.button type="primary" submit="true">{{ __('dashboard.Update') }}</x-ui.button>
                             </div>
                         </div>
                     </form>
@@ -170,7 +170,7 @@ new class extends Component {
                             <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Delete Account') }}
                             </h2>
                             <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                                {{ __('After deleting your account, all data and resources are permanently removed. Enter your password to confirm deletion.') }}
+                                {{ __('dashboard.After deleting your account, all data and resources are permanently removed. Enter your password to confirm deletion.') }}
                             </p>
                         </header>
 

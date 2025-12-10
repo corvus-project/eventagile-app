@@ -42,11 +42,11 @@ new class extends Component {
     public function headers(): array
     {
         return [
-            ['key' => 'title', 'label' => 'Title', 'class' => 'w-64'],
-            ['key' => 'start_time_formatted', 'label' => 'Event Date', 'class' => 'w-32'],
-            ['key' => 'registrations_count', 'label' => 'Registrations', 'class' => 'w-16'],
-            ['key' => 'status', 'label' => 'Status', 'class' => 'w-24'],
-            ['key' => 'public_status', 'label' => 'Public', 'class' => 'w-16'],
+            ['key' => 'title', 'label' => __('dashboard.Title'), 'class' => 'w-64'],
+            ['key' => 'start_time_formatted', 'label' => __('dashboard.Event Date'), 'class' => 'w-32'],
+            ['key' => 'registrations_count', 'label' => __('dashboard.Registrations'), 'class' => 'w-16'],
+            ['key' => 'status', 'label' => __('dashboard.Status'), 'class' => 'w-24'],
+            ['key' => 'public_status', 'label' => __('dashboard.Public'), 'class' => 'w-16'],
         ];
     }
 
@@ -105,12 +105,12 @@ new class extends Component {
 <x-layouts.admin>
 
     <x-slot name="title">
-        {{ 'List all events' }}
+        {{ __('dashboard.List all events') }}
     </x-slot>
 
     <x-slot name="header">
         <h2 class="text-lg font-semibold leading-tight text-gray-800 dark:text-gray-200">
-            {{ __('Events') }}
+            {{ __('dashboard.Events') }}
         </h2>
     </x-slot>
 
