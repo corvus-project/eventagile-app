@@ -61,7 +61,7 @@ new class extends Component {
         $this->registration->status = RegistrationStatus::fromName($this->status);
         $this->registration->save();
 
-        $this->success('Registration updated successfully!');
+        $this->success(__('dashboard.Registration updated successfully!'));
         $this->eventRegistrationModal = false;
         Log::debug('Sending email to ' . $this->registration->email . ' with status ' . $this->registration->status->value . ' and notify ' . ($this->notify ? 'true' : 'false'));
 
@@ -160,7 +160,7 @@ new class extends Component {
                 </div>
                 <div>
                     <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{__('dashboard.Status')}}</dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100">{{ $registration->status->value }}</dd>
+                    <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100">{{ __('dashboard.'.$registration->status->value) }}</dd>
                 </div>
                 <!-- Add more fields as needed -->
             </dl>

@@ -14,7 +14,7 @@
                                     <div class="w-full max-w-3xl mx-auto p-2">
 
                                         <div class="flex items-center  b-5 space-x-1.5 text-lg font-bold text-gray-800 uppercase border-b border-dotted border-zinc-200 dark:border-gray-800 dark:text-gray-200">
-                                            Update the event
+                                            {{__('dashboard.Update the event')}}
                                         </div>
                                         <x-form wire:submit="save"> 
  

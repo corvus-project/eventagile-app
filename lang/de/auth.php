@@ -13,8 +13,8 @@ return [
     |
     */
 
-    'failed'   => 'Bu kimlik bilgileri kayıtlarımızla uyuşmuyor.',
-    'password' => 'Sağlanan şifre yanlış.',
-    'throttle' => 'Çok fazla giriş denemesi. Lütfen :seconds saniye sonra tekrar deneyin.',
+    'failed'   => 'Diese Anmeldeinformationen stimmen nicht mit unseren Aufzeichnungen überein.',
+    'password' => 'Das angegebene Passwort ist falsch.',
+    'throttle' => 'Zu viele Anmeldeversuche. Bitte versuchen Sie es in :seconds Sekunden erneut.',
 
 ];

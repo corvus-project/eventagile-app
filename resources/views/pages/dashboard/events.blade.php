@@ -1,14 +1,13 @@
 <?php
 
+use App\Enums\EventStatus;
 use App\Models\Event;
-use Illuminate\Auth\Access\Gate;
 use Illuminate\Support\Facades\Gate as FacadesGate;
 use Livewire\Volt\Component;
 use Mary\Traits\Toast;
 use Livewire\WithPagination;
 use function Laravel\Folio\{middleware, name};
-use App\Traits\ClearsFilters;
-use Illuminate\Support\Facades\Log;
+use App\Traits\ClearsFilters; 
 
 name('events.index');
 middleware(['auth', 'verified', 'role:organizer']);
@@ -45,8 +44,8 @@ new class extends Component {
             ['key' => 'title', 'label' => __('dashboard.Title'), 'class' => 'w-64'],
             ['key' => 'start_time_formatted', 'label' => __('dashboard.Event Date'), 'class' => 'w-32'],
             ['key' => 'registrations_count', 'label' => __('dashboard.Registrations'), 'class' => 'w-16'],
-            ['key' => 'status', 'label' => __('dashboard.Status'), 'class' => 'w-24'],
-            ['key' => 'public_status', 'label' => __('dashboard.Public'), 'class' => 'w-16'],
+            ['key' => 'status', 'label' => __('dashboard.Status'), 'class' => 'w-24', 'format' => fn($row, $field) => __('dashboard.'.($field)->value) ],
+            ['key' => 'public_status', 'label' => __('dashboard.Public'), 'class' => 'w-16', 'format' => fn($row, $field) => __('dashboard.'.($field))],
         ];
     }
 

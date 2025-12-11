@@ -72,7 +72,7 @@ new class extends Component {
             <strong>{{ __('dashboard.Organizer') }}:</strong> {{ $event->organizer }}
         </div>
         <div class="mb-4">
-            <strong>{{ __('dashboard.Status') }}:</strong> {{ $event->status->value }}
+            <strong>{{ __('dashboard.Status') }}:</strong> {{ __('dashboard.'.$event->status->value) }}
         </div>
         <div class="mb-4">
             <strong>{{ __('dashboard.Visiblity') }}:</strong> {{ $event->public_status }}

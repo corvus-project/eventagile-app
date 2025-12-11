@@ -12,7 +12,7 @@
 
 
                                     <div class="flex items-center  b-5 space-x-1.5 text-lg font-bold text-gray-800 uppercase border-b border-dotted border-zinc-200 dark:border-gray-800 dark:text-gray-200">
-                                        Create an event
+                                        {{__('dashboard.Create an event')}}
                                     </div>
 
                                     @if ($eventLimit)

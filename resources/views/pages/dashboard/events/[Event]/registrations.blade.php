@@ -27,13 +27,13 @@ new class extends Component {
     {
         return [
             ['key' => 'id', 'label' => '#', 'class' => 'w-1'],
-            ['key' => 'name', 'label' => 'Name', 'class' => 'w-64'],
-            ['key' => 'email', 'label' => 'Email', 'class' => 'w-8'],
-            ['key' => 'status', 'label' => 'Status', 'class' => 'w-8'],
-            ['key' => 'phone', 'label' => 'Phone', 'class' => 'w-32'],
-            ['key' => 'registered_at', 'label' => 'Registered At', 'class' => 'w-24'],
+            ['key' => 'name', 'label' => __('dashboard.Name'), 'class' => 'w-64'],
+            ['key' => 'email', 'label' =>  __('dashboard.Email'), 'class' => 'w-8'],
+            ['key' => 'status', 'label' =>  __('dashboard.Status'), 'format' => fn($row, $field) => __('dashboard.'.($field)->value), 'class' => 'w-8'],
+            ['key' => 'phone', 'label' =>  __('dashboard.Phone'), 'class' => 'w-32'],
+            ['key' => 'registered_at', 'label' =>  __('dashboard.registered_at'), 'class' => 'w-24'],
         ];
-    }
+    } 
 
     public function registrations()
     {
@@ -47,8 +47,6 @@ new class extends Component {
         Gate::authorize('view-event', $event);
         $this->event = $event;
     }
-
-
     public function with(): array
     {
         return [

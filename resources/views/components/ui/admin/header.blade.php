@@ -28,7 +28,6 @@
                     <x-ui.nav-link href="{{ $route }}">{{ __('dashboard.'.$title) }}</x-ui.nav-link>
                     @endforeach
                 </nav>
-
                 <div class="flex items-center">
                     <div class="hidden w-[38px] h-[38px] overflow-hidden rounded-full sm:block" x-cloak>
                         <x-ui.light-dark-switch></x-ui.light-dark-switch>
@@ -76,11 +75,16 @@
                             </div>
                         </div>
                     </div>
-
+                    <div class="hidden overflow-hidden sm:block" x-cloak>
+                        <x-ui.language-switcher />
+                    </div>
 
 
                     <!-- Mobile Switch and Hamburger -->
                     <div :class="{ 'right-4' : open, 'right-0' : !open }" class="absolute top-0 flex items-center mt-3 space-x-2 sm:right-0 sm:hidden">
+                        <div class="dropdown dropdown-end block">
+                            <x-ui.language-switcher />
+                        </div>
                         <div class="block w-10 h-10 overflow-hidden rounded-md" x-cloak>
                             <x-ui.light-dark-switch></x-ui.light-dark-switch>
                         </div>

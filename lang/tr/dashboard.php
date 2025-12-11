@@ -2,6 +2,8 @@
 
 return [
 
+    'welcome' => 'Hoşgeldiniz',
+    'Please, log in to see your events. If you want to register for an event, please go to the event page.' => 'Lütfen etkinliklerinizi görmek için giriş yapın. Bir etkinliğe kaydolmak istiyorsanız, lütfen etkinlik sayfasına gidin.',
     'Dashboard' => 'Kontrol Paneli',
     'Events' => 'Etkinlikler',
     'Create an Event' => 'Etkinlik Oluştur',
@@ -79,6 +81,7 @@ return [
     'No registrations found for this event' => 'Bu etkinlik için kayıt bulunamadı',
     'Total Registrations' => 'Toplam Kayıtlar',
     'Registration List' => 'Kayıt Listesi',
+    'Registration Ends at' => 'Kayıt Bitiş Tarihi',
 
     'Download Excel' => 'Excel İndir',
     'Download CSV' => 'CSV İndir',
@@ -88,4 +91,22 @@ return [
     'Update Registration Status' => 'Kayıt Durumunu Güncelle',
     
     
+    'Scheduled' => 'Planlanmış',
+    'Completed' => 'Tamamlandı',
+    'Cancelled' => 'İptal Edildi',
+    'Postponed' => 'Ertelendi',
+    'Archived' => 'Arşivlendi',
+    'Draft' => 'Taslak',
+    'Pending' => 'Beklemede',
+    'Waitlisted' => 'Bekleme Listesinde',
+    'Confirmed' => 'Onaylandı',
+
+    'Public' => 'Herkese Açık',
+    'Private' => 'Özel',
+
+    'Create an event' => 'Etkinlik oluştur',
+    'Update the event' => 'Etkinliği güncelle',
+
+    'Registration updated successfully!' => 'Kayıt başarıyla güncellendi!',
+
 ];
