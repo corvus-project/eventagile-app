@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Livewire\Client\EventRegistration;
 use App\Models\Registration;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 
@@ -69,3 +70,18 @@ Route::middleware('auth', 'verified')->prefix('dashboard')->group(function () {
     Route::get('/events/{event}/update', \App\Livewire\Events\UpdateEvent::class)
         ->name('events.update');
 });
+
+Route::get('locale/{locale}', function ($locale) {
+    $available = config('locales.supported', ['en']);
+    if (! in_array($locale, $available)) {
+        abort(404);
+    }
+
+    session(['locale' => $locale]);
+
+    if (auth()->check()) {
+        auth()->user()->update(['locale' => $locale]);
+    }
+
+    return redirect()->back();
+})->name('locale.switch');

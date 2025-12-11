@@ -22,6 +22,9 @@
             </div>
         </div>
         <div class="relative z-50 flex items-stretch space-x-3 text-neutral-800">
+            <div class="flex items-center w-auto">
+                <x-ui.language-switcher />
+            </div>
             <div x-data class="flex-shrink-0 hidden w-[38px] overflow-hidden rounded-full h-[38px] sm:block" x-cloak>
                 <x-ui.light-dark-switch></x-ui.light-dark-switch>
             </div>

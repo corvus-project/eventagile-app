@@ -14,11 +14,14 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+
+        $middleware->web( [
+            \App\Http\Middleware\SetLocale::class,
+        ]);
         $middleware->alias([
             'redirect-to-dashboard' => \App\Http\Middleware\RedirectToDashboard::class,
             'role' => \jeremykenedy\LaravelRoles\App\Http\Middleware\VerifyRole::class,
         ]);
-        //
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (RoleDeniedException $exception) {

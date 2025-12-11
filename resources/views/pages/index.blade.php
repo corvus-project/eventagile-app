@@ -1,7 +1,8 @@
 <?php
 
-use function Laravel\Folio\{name,middleware};
+use function Laravel\Folio\{name, middleware};
 
+use Illuminate\Support\Facades\Log;
 use Livewire\Volt\Component;
 
 
@@ -9,7 +10,10 @@ name('home');
 middleware('web');
 new class extends Component
 {
-   
+    public function mount()
+    {
+        Log::debug('Authenticated user ID: ' . (auth()->check() ? auth()->id() : 'guest'));
+    }
 };
 
 ?>
@@ -30,8 +34,8 @@ new class extends Component
         <div class="mx-auto space-y-6">
             <x-card shadow>
                 <div class="mb-3 text-lg font-medium text-gray-900 dark:text-gray-100 m-8 pt-18">
-                    Welcome to EventAgile!
-                     <p>Please, log in to see your events. If you want to register for an event, please go to the event page.</p>
+                    {{ __('dashboard.welcome') }},
+                    <p>{{__('dashboard.Please, log in to see your events. If you want to register for an event, please go to the event page.')}}</p>
                 </div>
 
             </x-card>
@@ -39,4 +43,4 @@ new class extends Component
     </div>
     @endvolt
 
-</x-layouts.frontend>
+    </x-layouts.frontend>

@@ -10,7 +10,7 @@
 <div>
     @if($label)
         <label for="{{ $id ?? '' }}" class="block text-sm font-medium leading-5 text-gray-700 dark:text-gray-300">
-            {{ $label  }}
+            {{ __('dashboard.'.$label)  }}
         </label>
     @endif
 
