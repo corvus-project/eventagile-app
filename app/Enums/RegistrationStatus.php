@@ -42,7 +42,7 @@ enum RegistrationStatus: string
         $return = collect(self::cases())->map(function ($case) {
             return [
                 'id' => $case->name,
-                'name' => $case->value,
+                'name' => __('dashboard.'. $case->value),
             ];
         });
 

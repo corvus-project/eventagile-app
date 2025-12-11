@@ -20,11 +20,11 @@ new class extends Component
     {
         return [
             ['key' => 'id', 'label' => '#', 'class' => 'w-1'],
-            ['key' => 'event_title', 'label' => 'Event', 'class' => 'w-64'],
-            ['key' => 'name', 'label' => 'Name', 'class' => 'w-64'],
-            ['key' => 'email', 'label' => 'Email', 'class' => 'w-8'],
-            ['key' => 'phone', 'label' => 'Phone', 'class' => 'w-32'],
-            ['key' => 'registered_at', 'label' => 'Registered At', 'class' => 'w-24'],
+            ['key' => 'event_title', 'label' =>  __('dashboard.Event'), 'class' => 'w-64'],
+            ['key' => 'name', 'label' => __('dashboard.Name'), 'class' => 'w-64'],
+            ['key' => 'email', 'label' => __('dashboard.Email'), 'class' => 'w-8'],
+            ['key' => 'phone', 'label' => __('dashboard.Phone'), 'class' => 'w-32'],
+            ['key' => 'registered_at', 'label' => __('dashboard.registered_at'), 'class' => 'w-24'],
         ];
     }
 
@@ -64,12 +64,12 @@ new class extends Component
 <x-layouts.admin>
 
     <x-slot name="title">
-        {{ __('Dashboard') }}
+        {{ __('dashboard.Dashboard') }}
     </x-slot>
 
     <x-slot name="header">
         <h2 class="text-lg font-semibold leading-tight text-gray-800 dark:text-gray-200">
-            {{ __('Dashboard') }}
+            {{ __('dashboard.Dashboard') }}
         </h2>
     </x-slot>
 
@@ -96,7 +96,8 @@ new class extends Component
 
                             @else
                             <div class="text-center text-gray-500 dark:text-gray-400">
-                                No registrations found.
+                                
+                                 {{ __('dashboard.No registrations found.') }}
                             </div>
                             @endif
                         </x-card>

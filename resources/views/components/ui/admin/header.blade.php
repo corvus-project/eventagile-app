@@ -17,19 +17,17 @@
                 if ($user->isOrganizer() || $user->isAdmin()) {
                 $navLinks['Events'] ='/dashboard/events';
                 $navLinks['Create an Event'] ='/dashboard/events/create';
-                
                 }
- 
 
-                
+
+
                 @endphp
                 <!-- Navigation Links -->
                 <nav :class="{'flex flex-col bg-white dark:bg-gray-900 relative z-50 w-full h-auto px-4 py-5 left-0 mt-16': open, 'hidden': ! open}" class="items-center space-y-3 sm:space-x-3 sm:space-y-0 sm:mt-0 sm:bg-transparent sm:p-0 sm:relative sm:flex sm:-my-px sm:ml-8" x-cloak>
                     @foreach($navLinks as $title => $route)
-                    <x-ui.nav-link href="{{ $route }}">{{ $title }}</x-ui.nav-link>
+                    <x-ui.nav-link href="{{ $route }}">{{ __('dashboard.'.$title) }}</x-ui.nav-link>
                     @endforeach
                 </nav>
-
                 <div class="flex items-center">
                     <div class="hidden w-[38px] h-[38px] overflow-hidden rounded-full sm:block" x-cloak>
                         <x-ui.light-dark-switch></x-ui.light-dark-switch>
@@ -56,13 +54,13 @@
                                         <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
                                         <circle cx="12" cy="7" r="4"></circle>
                                     </svg>
-                                    <span>Edit Profile</span>
+                                    <span>{{__('dashboard.Profile')}}</span>
                                 </a>
                                 <a href="{{ route('subscription.view') }}" class="relative flex cursor-pointer hover:text-gray-700 dark:hover:text-white/70 select-none hover:bg-gray-100/70 dark:hover:bg-gray-800/80 items-center rounded-full py-2 px-4 sm:px-2.5 sm:py-1.5 text-sm outline-none transition-colors data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
-                                   
-                                    <x-phosphor-ticket  width="24" height="24"  class="w-4 h-4 mr-2"/>
-                                    <span>Subscription</span>
-                                </a>                                
+
+                                    <x-phosphor-ticket width="24" height="24" class="w-4 h-4 mr-2" />
+                                    <span>{{__('dashboard.Subscription')}}</span>
+                                </a>
                                 <form method="POST" action="{{ route('logout') }}" class="w-full">
                                     @csrf
                                     <button onclick="event.preventDefault(); this.closest('form').submit();" class="relative w-full flex cursor-pointer hover:text-gray-700 dark:hover:text-white/70 select-none hover:bg-gray-100/70 dark:hover:bg-gray-800/80 items-center rounded-full py-2 px-4 sm:px-2.5 sm:py-1.5 text-sm outline-none transition-colors data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
@@ -71,17 +69,22 @@
                                             <polyline points="16 17 21 12 16 7"></polyline>
                                             <line x1="21" x2="9" y1="12" y2="12"></line>
                                         </svg>
-                                        <span>Log out</span>
+                                        <span>{{__('dashboard.Log Out')}}</span>
                                     </button>
                                 </form>
                             </div>
                         </div>
                     </div>
-
+                    <div class="hidden overflow-hidden sm:block" x-cloak>
+                        <x-ui.language-switcher />
+                    </div>
 
 
                     <!-- Mobile Switch and Hamburger -->
                     <div :class="{ 'right-4' : open, 'right-0' : !open }" class="absolute top-0 flex items-center mt-3 space-x-2 sm:right-0 sm:hidden">
+                        <div class="dropdown dropdown-end block">
+                            <x-ui.language-switcher />
+                        </div>
                         <div class="block w-10 h-10 overflow-hidden rounded-md" x-cloak>
                             <x-ui.light-dark-switch></x-ui.light-dark-switch>
                         </div>

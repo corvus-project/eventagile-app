@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\RegistrationStatus;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -58,5 +59,12 @@ class Registration extends Model implements Auditable
         public function getEventOrganizerValue()
     {
         return $this->event->organizer->name;
+    }
+
+        protected function status_value(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => RegistrationStatus::tryFrom($value)
+        );
     }
 }

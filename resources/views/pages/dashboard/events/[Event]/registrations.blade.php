@@ -27,13 +27,13 @@ new class extends Component {
     {
         return [
             ['key' => 'id', 'label' => '#', 'class' => 'w-1'],
-            ['key' => 'name', 'label' => 'Name', 'class' => 'w-64'],
-            ['key' => 'email', 'label' => 'Email', 'class' => 'w-8'],
-            ['key' => 'status', 'label' => 'Status', 'class' => 'w-8'],
-            ['key' => 'phone', 'label' => 'Phone', 'class' => 'w-32'],
-            ['key' => 'registered_at', 'label' => 'Registered At', 'class' => 'w-24'],
+            ['key' => 'name', 'label' => __('dashboard.Name'), 'class' => 'w-64'],
+            ['key' => 'email', 'label' =>  __('dashboard.Email'), 'class' => 'w-8'],
+            ['key' => 'status', 'label' =>  __('dashboard.Status'), 'format' => fn($row, $field) => __('dashboard.'.($field)->value), 'class' => 'w-8'],
+            ['key' => 'phone', 'label' =>  __('dashboard.Phone'), 'class' => 'w-32'],
+            ['key' => 'registered_at', 'label' =>  __('dashboard.registered_at'), 'class' => 'w-24'],
         ];
-    }
+    } 
 
     public function registrations()
     {
@@ -47,8 +47,6 @@ new class extends Component {
         Gate::authorize('view-event', $event);
         $this->event = $event;
     }
-
-
     public function with(): array
     {
         return [
@@ -69,11 +67,11 @@ new class extends Component {
 <x-layouts.admin>
 
     <x-slot name="title">
-        Registrations for Event: {{ $event->title }}
+        {{__('dashboard.Registrations for Event')}}: {{ $event->title }}
     </x-slot>
     <x-slot name="header">
         <h2 class="text-lg font-semibold leading-tight text-gray-800 dark:text-gray-200">
-            Registrations for Event: {{ $event->title }}
+            {{__('dashboard.Registrations for Event')}}: {{ $event->title }}
         </h2>
     </x-slot>
 
@@ -82,15 +80,15 @@ new class extends Component {
             <div class="relative flex-1 w-full ">
                 <div class="flex justify-between items-center w-full bg-pink- overflow-">
                     <div class="flex relative flex-col p-10 h-full w-full">
-      
+
 
                         <div class="flex justify-end mb-4">
                             <x-ui.text-link href="{{ route('events.show', ['event' => $event->slug]) }}" class="dark:bg-gray-900/40 font-sans text-sm border-1 no-underline hover:underline bg-slate-50 border-red-600 border-solid  rounded-lg text-red-600 p-2 m-1">
-                                Visit back Event
+                                {{__('dashboard.Visit back Event')}}
                             </x-ui.text-link>
 
                             <x-ui.text-link href="{{ route('events.registrations.export', ['event' => $event->slug]) }}" class="dark:bg-gray-900/40 font-sans text-sm border-1 no-underline hover:underline bg-slate-50 border-red-600 border-solid  rounded-lg text-red-600 p-2 m-1">
-                                Export Registration List
+                                {{__('dashboard.Export Registration List')}}
                             </x-ui.text-link>
 
                         </div>
@@ -102,11 +100,11 @@ new class extends Component {
 
                                     @if($registrations->isEmpty())
                                     <div class="p-6 text-center">
-                                        <p class="text-gray-500">No registrations found for this event.</p>
+                                        <p class="text-gray-500">{{__('dashboard.No registrations found for this event')}}.</p>
                                     </div>
                                     @else
                                     <div class="p-6 text-center">
-                                        <p class="text-gray-500">Total Registrations: {{ $registrations->total() }}</p>
+                                        <p class="text-gray-500">{{__('dashboard.Total Registrations')}}: {{ $registrations->total() }}</p>
                                     </div>
                                     <x-table :headers="$headers" :rows="$registrations" :sort-by="$sortBy" with-pagination>
                                         @scope('actions', $event)

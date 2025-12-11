@@ -61,7 +61,7 @@ new class extends Component {
         $this->registration->status = RegistrationStatus::fromName($this->status);
         $this->registration->save();
 
-        $this->success('Registration updated successfully!');
+        $this->success(__('dashboard.Registration updated successfully!'));
         $this->eventRegistrationModal = false;
         Log::debug('Sending email to ' . $this->registration->email . ' with status ' . $this->registration->status->value . ' and notify ' . ($this->notify ? 'true' : 'false'));
 
@@ -75,7 +75,7 @@ new class extends Component {
 
     <x-slot name="header">
         <h2 class="text-lg font-semibold leading-tight text-gray-800 dark:text-gray-200">
-            {{ __('Registration Detail:')  }}
+            {{ __('dashboard.Registration Detail')  }}
         </h2>
     </x-slot>
 
@@ -87,38 +87,38 @@ new class extends Component {
 
 
         <x-slot name="title">
-            Registrations for Event: {{ $event->title }}
+           {{__('dashboard.Registrations for Event')}}: {{ $event->title }}
         </x-slot>
 
         <div class="flex justify-end mb-4">
             <x-ui.text-link href="{{ route('events.show', ['event' => $event->slug]) }}" class="dark:bg-gray-900/40 font-sans text-sm border-1 no-underline hover:underline bg-slate-50 border-red-600 border-solid  rounded-lg text-red-600 p-2 m-1">
-                Visit back Event
+                {{__('dashboard.Visit back Event')}}
             </x-ui.text-link>
 
             <x-ui.text-link href="{{ route('events.registrations', ['event' => $event->slug]) }}" class="dark:bg-gray-900/40 font-sans text-sm border-1 no-underline hover:underline bg-slate-50 border-red-600 border-solid  rounded-lg text-red-600 p-2 m-1">
-                Registration List
+                {{__('dashboard.Registration List')}}
             </x-ui.text-link>
 
 
 
         </div>
         <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-            <h3 class="text-md font-semibold text-gray-800 dark:text-gray-200 mb-4">Event Details</h3>
+            <h3 class="text-md font-semibold text-gray-800 dark:text-gray-200 mb-4">{{__('dashboard.Event Details')}}</h3>
             <dl class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-6">
                 <div>
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Event Title</dt>
+                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{__('dashboard.Title')}}</dt>
                     <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100">{{ $event->title }}</dd>
                 </div>
                 <div>
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Event Date</dt>
+                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{__('dashboard.Date')}}</dt>
                     <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100">{{ $event->start_time->format('F j, Y') }}</dd>
                 </div>
                 <div>
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Location</dt>
+                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{__('dashboard.Location')}}</dt>
                     <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100">{{ $event->location }}</dd>
                 </div>
                 <div>
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Status</dt>
+                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{__('dashboard.Status')}}</dt>
                     <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100">{{ $event->status }}</dd>
                 </div>
                 <!-- Add more event fields as needed -->
@@ -129,38 +129,38 @@ new class extends Component {
     @volt('eventRegistrations.event.show')
     <div class="mt-6">
         <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-            <h3 class="text-md font-semibold text-gray-800 dark:text-gray-200 mb-4">Registration Details</h3>
+            <h3 class="text-md font-semibold text-gray-800 dark:text-gray-200 mb-4">{{__('dashboard.Registration Detail')}}</h3>
             <div class="flex justify-end mb-4">
-                <x-button label="Update the registration" @click="$wire.eventRegistrationModal = true" class="border-2 border-red-600 border-solid text-red-600 p-2" />
+                <x-button label="{{__('dashboard.Update Registration Status')}}" @click="$wire.eventRegistrationModal = true" class="border-2 border-red-600 border-solid text-red-600 p-2" />
             </div>
-            <x-modal wire:model="eventRegistrationModal" title="Update Registration Status" subtitle="Update Registration Status">
+            <x-modal wire:model="eventRegistrationModal" title="{{__('dashboard.Update Registration Status')}}" subtitle="{{__('dashboard.Update Registration Status')}}">
                 <x-form no-separator wire:submit="save">
-                    <x-select label="Status" wire:model="status" :options="$status_options" />
+                    <x-select label="{{__('dashboard.Status')}}" wire:model="status" :options="$status_options" />
 
                     @if($canNotify)
-                    <x-checkbox label="" wire:model="notify" hint="Notify the user" />
+                    <x-checkbox label="" wire:model="notify" hint="{{__('dashboard.Notify the user')}}" />
                     @endif
                     <x-slot:actions>
-                        <x-button label="Save" class="border-2 border-red-600 border-solid text-red-600 p-2" type="primary" submit="true" spinner="save" />
+                        <x-button label="{{__('dashboard.Update')}}" class="border-2 border-red-600 border-solid text-red-600 p-2" type="primary" submit="true" spinner="save" />
                     </x-slot:actions>
                 </x-form>
             </x-modal>
             <dl class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-6">
                 <div>
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Name</dt>
+                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{__('dashboard.Name')}}</dt>
                     <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100">{{ $registration->name }}</dd>
                 </div>
                 <div>
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Email</dt>
+                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{__('dashboard.Email')}}Email</dt>
                     <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100">{{ $registration->email }}</dd>
                 </div>
                 <div>
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Registered At</dt>
+                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{__('dashboard.registered_at')}}</dt>
                     <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100">{{ $registration->created_at->format('F j, Y H:i') }}</dd>
                 </div>
                 <div>
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Status</dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100">{{ $registration->status->value }}</dd>
+                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{__('dashboard.Status')}}</dt>
+                    <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100">{{ __('dashboard.'.$registration->status->value) }}</dd>
                 </div>
                 <!-- Add more fields as needed -->
             </dl>
