@@ -14,7 +14,6 @@ use Livewire\Attributes\Layout;
 
 middleware(['throttle:5,1']);
 name('login');
-
 new #[Layout('layouts.auth')] class extends Component
 {
     #[Validate('required|string|email')]
@@ -26,8 +25,6 @@ new #[Layout('layouts.auth')] class extends Component
     public $remember = false;
 
     public ?string $captchaToken = null;
-
-
 
     #[On('formSubmitted')]
     public function authenticate($token)

@@ -6,11 +6,10 @@ use App\Enums\EventStatus;
 use Livewire\Component;
 use App\Models\Event;
 use Livewire\WithPagination;
-
+use Livewire\Attributes\Layout;
 
 name('home');
-
-new class extends Component
+new #[Layout('layouts.main')]  class extends Component
 {
     use WithPagination;
 
@@ -58,31 +57,25 @@ new class extends Component
 
 ?>
 
-<x-layouts.frontend>
+<x-slot name="title">
+    {{ 'List all events' }}
+</x-slot>
+<x-slot name="header">
+    <h2 class="text-lg font-semibold leading-tight text-gray-800 dark:text-gray-200">
+        {{ __('Scheduled Public Events') }}
+    </h2>
+</x-slot>
 
-    <x-slot name="title">
-        {{ 'List all events' }}
-    </x-slot>
-    <x-slot name="header">
-        <h2 class="text-lg font-semibold leading-tight text-gray-800 dark:text-gray-200">
-            {{ __('Scheduled Public Events') }}
-        </h2>
-    </x-slot>
-
-    @volt('home.index')
-    <div class="pb-5">
-        <div class="mx-auto space-y-6">
-            <x-card shadow>
-                <x-table :headers="$headers" :rows="$events" :sort-by="$sortBy" with-pagination>
-                    @scope('actions', $event)
-                    <div class="flex space-x-2">
-                        <x-button wire:click="register({{ $event['id'] }})" class="btn-ghost btn-sm text-red-600" icon="o-link" />
-                    </div>
-                    @endscope
-                </x-table>
-            </x-card>
-        </div>
+<div class="pb-5">
+    <div class="mx-auto space-y-6">
+        <x-card shadow>
+            <x-table :headers="$headers" :rows="$events" :sort-by="$sortBy" with-pagination>
+                @scope('actions', $event)
+                <div class="flex space-x-2">
+                    <x-button wire:click="register({{ $event['id'] }})" class="btn-ghost btn-sm text-red-600" icon="o-link" />
+                </div>
+                @endscope
+            </x-table>
+        </x-card>
     </div>
-    @endvolt
-
-</x-layouts.frontend>
+</div>
