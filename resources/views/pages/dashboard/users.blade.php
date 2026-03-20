@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\User;
-use Livewire\Volt\Component;
+use Livewire\Component;
 use Mary\Traits\Toast;
 use Livewire\WithPagination;
 use function Laravel\Folio\{middleware, name};
@@ -131,7 +131,7 @@ new class extends Component {
                     <div class="flex space-x-2 justify-end">
                         <x-button wire:click="delete({{ $user['id'] }})" wire:confirm="Are you sure?" spinner class="btn-ghost btn-sm text-red-600" icon="o-trash" />
                         <x-button wire:click="edit({{ $user['id'] }})" class="btn-ghost btn-sm text-red-600" icon="c-pencil-square" />
-                          <x-button wire:click="show({{ $user['id'] }})" class="btn-ghost btn-sm text-red-600" icon="o-link" /> 
+                        <x-button wire:click="show({{ $user['id'] }})" class="btn-ghost btn-sm text-red-600" icon="o-link" />
                     </div>
                     @endscope
                 </x-table>

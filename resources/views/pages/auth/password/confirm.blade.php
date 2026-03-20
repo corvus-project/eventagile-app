@@ -1,7 +1,7 @@
 <?php
 
 use function Laravel\Folio\name;
-use Livewire\Volt\Component;
+use Livewire\Component;
 use Livewire\Attributes\Validate;
 
 name('password.confirm');

@@ -32,6 +32,7 @@ Route::get('/debug',   function () {
 
 Route::get('events/{event:slug}/register', EventRegistration::class)->name('event.registration');
 
+Route::livewire('/auth/login', 'pages::auth.login')->name('login');
 
 Route::middleware('auth')->group(function () {
 

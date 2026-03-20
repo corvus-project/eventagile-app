@@ -3,7 +3,7 @@
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Auth;
 use function Laravel\Folio\{middleware, name};
-use Livewire\Volt\Component;
+use Livewire\Component;
 
 middleware(['auth', 'throttle:6,1']);
 name('verification.notice');

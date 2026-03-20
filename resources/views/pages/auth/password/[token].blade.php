@@ -8,7 +8,7 @@ use Illuminate\Auth\Events\PasswordReset;
 
 use function Laravel\Folio\name;
 
-use Livewire\Volt\Component;
+use Livewire\Component;
 use Livewire\Attributes\Validate;
 
 name('password.reset');
@@ -67,8 +67,8 @@ new class extends Component
 ?>
 
 <x-layouts.main>
-     <x-slot name="title">
-     Reset password
+    <x-slot name="title">
+        Reset password
     </x-slot>
 
     <div class="flex flex-col items-stretch justify-center w-screen min-h-screen py-10 sm:items-center">

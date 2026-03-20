@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Password;
 use function Laravel\Folio\name;
-use Livewire\Volt\Component;
+use Livewire\Component;
 use Livewire\Attributes\Validate;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Http;
@@ -16,7 +16,7 @@ new class extends Component
 
     public $emailSentMessage = false;
 
-        public ?string $captchaToken = null;
+    public ?string $captchaToken = null;
     public function sendResetPasswordLink()
     {
         $query = http_build_query([
@@ -83,15 +83,15 @@ new class extends Component
                     </div>
                 </div>
                 @else
-                                @error('captchaToken')
+                @error('captchaToken')
                 <div class="bg-red-300 text-red-700 p-3 rounded">{{ $message }}</div>
                 @enderror
                 <form wire:submit="sendResetPasswordLink" class="space-y-6">
                     <x-ui.input label="Email address" type="email" id="email" name="email" wire:model="email" />
-                    
 
-                                       
-                                 <x-button label="Send password reset link" rounded="md" class="btn-primary g-recaptcha" type="primary" submit="true"  
+
+
+                    <x-button label="Send password reset link" rounded="md" class="btn-primary g-recaptcha" type="primary" submit="true"
                         data-sitekey="{{ config('services.recaptcha.public_key') }}"
                         data-callback='handle'
                         data-action='submit' />

@@ -3,7 +3,7 @@
 use App\Models\Event;
 use Illuminate\Auth\Access\Gate;
 use Illuminate\Support\Facades\Gate as FacadesGate;
-use Livewire\Volt\Component;
+use Livewire\Component;
 use Mary\Traits\Toast;
 use Livewire\WithPagination;
 use function Laravel\Folio\{middleware, name};
@@ -55,10 +55,9 @@ new class extends Component {
 
     public function events()
     {
-        $user = auth()->user();
-;
+        $user = auth()->user();;
         return Event::query()
-            ->withCount('registrations')             
+            ->withCount('registrations')
             ->orderBy($this->sortBy['column'], $this->sortBy['direction'])
             ->when($this->search, function () {
                 return Event::where(fn($query) => $query->where('title', 'like', $this->search . '%')->orWhere('organizer', 'like', $this->search . '%'));
@@ -145,7 +144,7 @@ new class extends Component {
             </x-header>
 
             <x-card shadow>
-                 @if($events && $events->count())
+                @if($events && $events->count())
                 <x-table :headers="$headers" :rows="$events" :sort-by="$sortBy" with-pagination
                     with-pagination
                     per-page="perPage"

@@ -5,9 +5,9 @@ use Illuminate\Support\Facades\Gate;
 
 use function Laravel\Folio\{middleware, name};
 use Livewire\Attributes\{Title, Layout};
-use Livewire\Volt\Component;
+use Livewire\Component;
 use Mary\Traits\Toast;
-use Livewire\WithPagination; 
+use Livewire\WithPagination;
 
 name('events.registrations');
 middleware(['auth', 'verified', 'role:admin,organizer']);
@@ -29,7 +29,7 @@ new class extends Component {
             ['key' => 'id', 'label' => '#', 'class' => 'w-1'],
             ['key' => 'name', 'label' => 'Name', 'class' => 'w-64'],
             ['key' => 'email', 'label' => 'Email', 'class' => 'w-8'],
-             ['key' => 'status', 'label' => 'Status', 'class' => 'w-8'],
+            ['key' => 'status', 'label' => 'Status', 'class' => 'w-8'],
             ['key' => 'phone', 'label' => 'Phone', 'class' => 'w-32'],
             ['key' => 'registered_at', 'label' => 'Registered At', 'class' => 'w-24'],
         ];
@@ -43,7 +43,7 @@ new class extends Component {
 
     #[Layout('components.layouts.admin')]
     public function mount(Event $event)
-    {   
+    {
         Gate::authorize('view-event', $event);
         $this->event = $event;
     }
@@ -64,7 +64,7 @@ new class extends Component {
     }
 };
 ?>
- 
+
 
 <x-layouts.admin>
 
@@ -93,11 +93,11 @@ new class extends Component {
         <div class="mx-auto space-y-6">
             <x-card shadow>
 
-            @if($registrations->isEmpty())
+                @if($registrations->isEmpty())
                 <div class="p-6 text-center">
                     <p class="text-gray-500">No registrations found for this event.</p>
                 </div>
-            @else
+                @else
                 <div class="p-6 text-center">
                     <p class="text-gray-500">Total Registrations: {{ $registrations->total() }}</p>
                 </div>

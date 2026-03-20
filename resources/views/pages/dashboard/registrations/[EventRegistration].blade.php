@@ -5,7 +5,7 @@ use App\Mail\EventRegistrationUpdated;
 use App\Models\Event;
 use App\Models\EventRegistration;
 use Illuminate\Support\Facades\Mail;
-use Livewire\Volt\Component;
+use Livewire\Component;
 use function Laravel\Folio\{middleware, name};
 use Mary\Traits\Toast;
 

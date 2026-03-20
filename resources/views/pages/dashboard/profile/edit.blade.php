@@ -6,7 +6,7 @@ use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use function Laravel\Folio\{middleware, name};
 use Illuminate\Validation\Rule;
-use Livewire\Volt\Component;
+use Livewire\Component;
 use Livewire\Attributes\Validate;
 use Livewire\Attributes\Locked;
 

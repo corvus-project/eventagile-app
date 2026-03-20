@@ -4,7 +4,7 @@ use App\Models\Event;
 use App\Models\EventRegistration;
 
 use function Laravel\Folio\{middleware, name};
-use Livewire\Volt\Component;
+use Livewire\Component;
 use Mary\Traits\Toast;
 use Livewire\WithPagination;
 
@@ -100,7 +100,7 @@ new class extends Component
                                         </div>
                                         @endscope
                                     </x-table>
-                                    
+
                                     @else
                                     <div class="text-center text-gray-500 dark:text-gray-400">
                                         No registrations found.

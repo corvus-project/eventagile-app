@@ -1,9 +1,9 @@
 <?php
 
-use function Laravel\Folio\{name,middleware};
+use function Laravel\Folio\{name, middleware};
 
 use App\Enums\EventStatus;
-use Livewire\Volt\Component;
+use Livewire\Component;
 use App\Models\Event;
 use Livewire\WithPagination;
 

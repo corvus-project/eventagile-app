@@ -6,7 +6,7 @@ use Illuminate\Auth\Access\Gate;
 use Illuminate\Support\Facades\Gate as FacadesGate;
 
 use function Laravel\Folio\{middleware, name};
-use Livewire\Volt\Component;
+use Livewire\Component;
 use Mary\Traits\Toast;
 use Livewire\WithPagination;
 use Illuminate\View\View;
