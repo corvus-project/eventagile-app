@@ -56,7 +56,7 @@ class AppServiceProvider extends ServiceProvider
 
 
 
-        if (app()->environment('local', 'staging') || !$this->isMigrationOrSeederCommand()) {
+        if (app()->environment('local', 'staging') && !$this->isMigrationOrSeederCommand()) {
             DB::listen(function ($query) {
                 File::append(
                     storage_path('/logs/query.log'),

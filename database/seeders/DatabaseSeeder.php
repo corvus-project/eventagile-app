@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Account;
 use App\Models\EventRegistration;
 use App\Models\Event;
 use App\Models\Plan;
@@ -20,15 +21,16 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
- 
-        ( config('database.default') != 'sqlite') ?? DB::statement('SET FOREIGN_KEY_CHECKS=0;'); 
+
+        (config('database.default') != 'sqlite') ?? DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         Model::unguard();
         User::truncate();
+        Account::truncate();
         Event::truncate();
         Plan::truncate();
         Subscription::truncate();
         EventRegistration::truncate();
-      
+
         $this->call(PlanSeeder::class);
 
         $this->call(PermissionsTableSeeder::class);
@@ -37,7 +39,7 @@ class DatabaseSeeder extends Seeder
         //$this->call('UsersTableSeeder');
 
         Model::reguard();
-          ( config('database.default') != 'sqlite') ?? DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        (config('database.default') != 'sqlite') ?? DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         $organizerRole = config('roles.models.role')::where('name', '=', 'Organizer')->first();
         $organizers = User::factory(3)->create();
@@ -50,7 +52,7 @@ class DatabaseSeeder extends Seeder
         $events = Event::factory(10)->recycle($organizers)->create();
 
         EventRegistration::factory(500)->recycle($events)->create();
- 
+
         $user = User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',

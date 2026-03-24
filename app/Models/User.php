@@ -78,4 +78,14 @@ class User extends Authenticatable  implements MustVerifyEmail, FilamentUser
         }
         return false;
     }
+
+    public function getMaxEventsAllowedAttribute()
+    {
+        $subscription = $this->subscriptions()->where('status', 'active')->latest()->first();
+        if ($subscription) {
+            $plan_limitations = json_decode($subscription->plan_limitations, true);
+            return $plan_limitations['max_events'] ?? 0;
+        }
+        return 0;
+    }
 }
