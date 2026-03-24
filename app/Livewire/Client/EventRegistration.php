@@ -17,7 +17,7 @@ use Livewire\Component;
  * This component handles the event registration process.
  * It uses the EventRegistrationForm for validation and submission.
  */
-#[Layout('components.layouts.frontend')]
+#[Layout('layouts.frontend')]
 class EventRegistration extends Component
 {
     public $event;

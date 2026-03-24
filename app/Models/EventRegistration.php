@@ -40,7 +40,7 @@ class EventRegistration extends Model implements Auditable
 
     public function event()
     {
-        return $this->hasOne(Event::class, 'id', 'event_id');
+        return $this->belongsTo(Event::class, 'event_id', 'id');
     }
 
     public function scopeAttending($query)
@@ -53,7 +53,7 @@ class EventRegistration extends Model implements Auditable
         return $this->event->title;
     }
 
-        public function getEventOrganizerValue()
+    public function getEventOrganizerValue()
     {
         return $this->event->organizer->name;
     }

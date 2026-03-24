@@ -12,7 +12,7 @@ use Livewire\Component;
 
 use Livewire\Attributes\Layout;
 
-#[Layout('components.layouts.admin')]
+#[Layout('layouts.admin')]
 class UpdateEvent extends Component
 {
     public $status;
@@ -31,12 +31,12 @@ class UpdateEvent extends Component
 
     public function save()
     {
-         $user = auth()->user();
+        $user = auth()->user();
         if (RateLimiter::tooManyAttempts('update-event:' . $user->id, 15)) {
             throw new RateLimiterException('You are updating events too quickly. Please wait a moment before trying again.');
         }
 
-        RateLimiter::increment('update-event:'.$user->id);
+        RateLimiter::increment('update-event:' . $user->id);
 
         $this->form->save();
 
@@ -56,7 +56,7 @@ class UpdateEvent extends Component
             throw new RateLimiterException('You are updating events too quickly. Please wait a moment before trying again.');
         }
 
-        RateLimiter::increment('update-event:'.$user->id);
+        RateLimiter::increment('update-event:' . $user->id);
 
         return view('livewire.events.update-event', [
             'event' => $this->event

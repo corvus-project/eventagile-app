@@ -1,10 +1,10 @@
-<header x-data="{ open: false }" class="bg-white border-b border-gray-200/80 dark:bg-gray-900/40 dark:border-gray-200/[15%]">
+<header x-data="{ open: false }" class="bg-fuchsia-600 border-b border-gray-200/80 dark:bg-gray-900/40 dark:border-gray-200/[15%]">
     <!-- Primary Navigation Menu -->
     <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <!-- Logo -->
             <a href="{{ route('dashboard') }}" class="flex items-center shrink-0">
-                <x-ui.logo class="block w-auto text-gray-800 fill-current h-7 dark:text-gray-200" />
+                <x-ui.logo class="block w-auto text-white fill-current h-7 dark:text-gray-200" />
             </a>
 
             <!-- Navigation -->
@@ -16,13 +16,16 @@
 
                 if ($user->isOrganizer() || $user->isAdmin()) {
                 $navLinks['Events'] ='/dashboard/events';
+                $navLinks['Users'] ='/dashboard/users';
+                $navLinks['Reports'] ='/dashboard/reports';
+                $navLinks['Settings'] ='/dashboard/settings';
                 }
 
                 if ($user->isAdmin()) {
                 $navLinks['Users'] = '/dashboard/users';
                 }
 
-                
+
                 @endphp
                 <!-- Navigation Links -->
                 <nav :class="{'flex flex-col bg-white dark:bg-gray-900 relative z-50 w-full h-auto px-4 py-5 left-0 mt-16': open, 'hidden': ! open}" class="items-center space-y-3 sm:space-x-3 sm:space-y-0 sm:mt-0 sm:bg-transparent sm:p-0 sm:relative sm:flex sm:-my-px sm:ml-8" x-cloak>

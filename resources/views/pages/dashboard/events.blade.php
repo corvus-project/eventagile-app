@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\EventStatus;
 use App\Models\Event;
 use Illuminate\Auth\Access\Gate;
 use Illuminate\Support\Facades\Gate as FacadesGate;
@@ -9,10 +10,11 @@ use Livewire\WithPagination;
 use function Laravel\Folio\{middleware, name};
 use App\Traits\ClearsFilters;
 use Illuminate\Support\Facades\Log;
+use Livewire\Attributes\Layout;
 
 name('events.index');
 middleware(['auth', 'verified', 'role:admin,organizer']);
-new class extends Component {
+new #[Layout('layouts.admin')] class extends Component {
 
     use Toast, ClearsFilters;
     use WithPagination;
@@ -45,7 +47,6 @@ new class extends Component {
             ['key' => 'id', 'label' => '#', 'class' => 'w-1'],
             ['key' => 'title', 'label' => 'Title', 'class' => 'w-64'],
             ['key' => 'start_time_formatted', 'label' => 'Start Date', 'class' => 'w-8'],
-            ['key' => 'organizer', 'label' => 'Organizer', 'class' => 'w-32'],
             ['key' => 'capacity', 'label' => 'Capacity', 'class' => 'w-16'],
             ['key' => 'registrations_count', 'label' => 'Registrations', 'class' => 'w-16'],
             ['key' => 'status', 'label' => 'Status', 'class' => 'w-24'],
@@ -56,7 +57,7 @@ new class extends Component {
     public function events()
     {
         $user = auth()->user();;
-        return Event::query()
+        /*         return Event::query()
             ->withCount('registrations')
             ->orderBy($this->sortBy['column'], $this->sortBy['direction'])
             ->when($this->search, function () {
@@ -69,8 +70,16 @@ new class extends Component {
                     return $query;
                 }
             })
+            ->paginate($this->perPage); */
 
-            ->paginate($this->perPage);
+        return Event::query()
+            ->withCount('registrations')
+            ->orderBy($this->sortBy['column'], $this->sortBy['direction'])
+            ->where('status', EventStatus::SCHEDULED)
+            ->where('organizer_id', auth()->user()->id)
+            ->when($this->search, function () {
+                return Event::where('title', 'like', $this->search . '%');
+            })->paginate($this->perPage);
     }
 
 
@@ -110,84 +119,78 @@ new class extends Component {
     }
 };
 ?>
-<x-layouts.admin>
+<x-slot name="title">
+    {{ 'List all events' }}
+</x-slot>
 
-    <x-slot name="title">
-        {{ 'List all events' }}
-    </x-slot>
-    <x-slot name="header">
-        <h2 class="text-lg font-semibold leading-tight text-gray-800 dark:text-gray-200">
-            {{ __('Events') }}
-        </h2>
-    </x-slot>
+<div class="flex flex-col flex-1">
+    <div class="flex flex-col  flex-1 pb-5 mx-auto  w-full">
+        <div class="relative flex-1 w-full ">
+            @can('create-event')
+            <div class="flex justify-end mb-4">
+                <x-ui.text-link href="{{ route('events.create') }}" class="btn-ghost btn-sm text-red-600">
+                    <x-icon name="o-plus" />
+                    Create Event
+                </x-ui.text-link>
+            </div>
+            @endcan
 
-    @can('create-event')
-    <div class="flex justify-end mb-4">
-        <x-ui.text-link href="{{ route('events.create') }}" class="btn-ghost btn-sm text-red-600">
-            <x-icon name="o-plus" />
-            Create Event
-        </x-ui.text-link>
-    </div>
-    @endcan
+            <div class="pb-5">
+                <div class="mx-auto space-y-6">
 
-    @volt('events.index')
-    <div class="pb-5">
-        <div class="mx-auto space-y-6">
+                    <x-header title="Events" separator progress-indicator>
+                        <x-slot:middle class="!justify-end">
+                            <x-input placeholder="Search..." wire:model.live.debounce="search" clearable icon="o-magnifying-glass" />
+                        </x-slot:middle>
+                        <x-slot:actions>
+                            <x-button label="Filters" @click="$wire.drawer = true" responsive icon="o-funnel" :badge="$filters" />
+                        </x-slot:actions>
+                    </x-header>
 
-            <x-header title="Events" separator progress-indicator>
-                <x-slot:middle class="!justify-end">
-                    <x-input placeholder="Search..." wire:model.live.debounce="search" clearable icon="o-magnifying-glass" />
-                </x-slot:middle>
-                <x-slot:actions>
-                    <x-button label="Filters" @click="$wire.drawer = true" responsive icon="o-funnel" :badge="$filters" />
-                </x-slot:actions>
-            </x-header>
+                    <x-card shadow>
+                        @if($events && $events->count())
+                        <x-table :headers="$headers" :rows="$events" :sort-by="$sortBy" with-pagination
+                            with-pagination
+                            per-page="perPage"
+                            :per-page-values="[3, 5, 10]">
+                            @scope('actions', $event)
+                            <div class="flex space-x-2">
+                                @can('delete-event', $event)
+                                <x-button wire:click="delete({{ $event['id'] }})" wire:confirm="Are you sure?" spinner class="btn-ghost btn-sm text-red-600" icon="o-trash" />
+                                @endcan
+                                @can('update-event', $event)
+                                <x-button wire:click="edit({{ $event['id'] }})" class="btn-ghost btn-sm text-red-600" icon="c-pencil-square" />
+                                @endcan
+                                @can('view-event', $event)
+                                <x-button wire:click="show({{ $event['id'] }})" class="btn-ghost btn-sm text-red-600" icon="o-link" />
+                                <x-button wire:click="registrations({{ $event['id'] }})" class="btn-ghost btn-sm text-red-600" icon="o-user" />
+                                @endcan
+                            </div>
+                            @endscope
+                        </x-table>
+                        @else
+                        <div class="text-center text-gray-500 dark:text-gray-400">
+                            No events found.
+                        </div>
+                        @endif
+                    </x-card>
 
-            <x-card shadow>
-                @if($events && $events->count())
-                <x-table :headers="$headers" :rows="$events" :sort-by="$sortBy" with-pagination
-                    with-pagination
-                    per-page="perPage"
-                    :per-page-values="[3, 5, 10]">
-                    @scope('actions', $event)
-                    <div class="flex space-x-2">
-                        @can('delete-event', $event)
-                        <x-button wire:click="delete({{ $event['id'] }})" wire:confirm="Are you sure?" spinner class="btn-ghost btn-sm text-red-600" icon="o-trash" />
-                        @endcan
-                        @can('update-event', $event)
-                        <x-button wire:click="edit({{ $event['id'] }})" class="btn-ghost btn-sm text-red-600" icon="c-pencil-square" />
-                        @endcan
-                        @can('view-event', $event)
-                        <x-button wire:click="show({{ $event['id'] }})" class="btn-ghost btn-sm text-red-600" icon="o-link" />
-                        <x-button wire:click="registrations({{ $event['id'] }})" class="btn-ghost btn-sm text-red-600" icon="o-user" />
-                        @endcan
-                    </div>
-                    @endscope
-                </x-table>
-                @else
-                <div class="text-center text-gray-500 dark:text-gray-400">
-                    No events found.
+                    <!-- FILTER DRAWER -->
+                    <x-drawer wire:model="drawer" title="Filters" right separator with-close-button class="lg:w-1/3">
+                        <div class="grid gap-5">
+                            <x-input placeholder="Search..." wire:model.live.debounce="search" icon="o-magnifying-glass"
+                                @keydown.enter="$wire.drawer = false" />
+
+                        </div>
+
+                        <x-slot:actions>
+                            <x-button label="Reset" icon="o-x-mark" wire:click="clear" spinner />
+                            <x-button label="Done" icon="o-check" class="btn-primary" @click="$wire.drawer = false" />
+                        </x-slot:actions>
+                    </x-drawer>
+
                 </div>
-                @endif
-            </x-card>
-
-            <!-- FILTER DRAWER -->
-            <x-drawer wire:model="drawer" title="Filters" right separator with-close-button class="lg:w-1/3">
-                <div class="grid gap-5">
-                    <x-input placeholder="Search..." wire:model.live.debounce="search" icon="o-magnifying-glass"
-                        @keydown.enter="$wire.drawer = false" />
-
-                </div>
-
-                <x-slot:actions>
-                    <x-button label="Reset" icon="o-x-mark" wire:click="clear" spinner />
-                    <x-button label="Done" icon="o-check" class="btn-primary" @click="$wire.drawer = false" />
-                </x-slot:actions>
-            </x-drawer>
-
+            </div>
         </div>
     </div>
-
-    @endvolt
-
-</x-layouts.admin>
+</div>

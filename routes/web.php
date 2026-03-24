@@ -18,21 +18,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-
-Route::get('/debug',   function () {
-    $query = App\Models\EventRegistration::query();
-    $rows = $query->with(['event'])->get();
-
-    foreach ($rows as $row) {
-        echo $row->name . ' - ' . $row->event_title  . $row->event->id . '<br>';
-    }
-})->name('debug');
-
-//Route::redirect('home', '/')->name('home');
-
 Route::get('events/{event:slug}/register', EventRegistration::class)->name('event.registration');
 
 Route::livewire('/auth/login', 'pages::auth.login')->name('login');
+Route::livewire('/', 'pages::index')->name('home');
 
 Route::middleware('auth')->group(function () {
 
@@ -44,7 +33,18 @@ Route::middleware('auth')->group(function () {
         ->name('logout');
 });
 
+
 Route::middleware('auth', 'verified')->group(function () {
+
+    Route::livewire('/dashboard', 'pages::dashboard')->name('dashboard');
+    Route::livewire('/dashboard/events', 'pages::dashboard.events')->name('dashboard.events');
+    Route::livewire('/dashboard/users', 'pages::dashboard.users')->name('dashboard.users');
+
+    Route::livewire('/dashboard/events/{event:slug}', 'pages::dashboard.events.[Event]')->name('dashboard.events.show');
+    Route::livewire('/dashboard/events/{event:slug}/registrations', 'pages::dashboard.events.[Event].registrations')->name('events.registrations.show');
+    Route::livewire('/dashboard/events/{event:slug}/export', 'pages::dashboard.events.[Event].export')->name('events.registrations.export');
+    Route::livewire('/dashboard/profile/edit', 'pages::dashboard.profile.edit')->name('profile.edit');
+
 
     Route::get('/dashboard/users/create', \App\Livewire\Users\CreateUser::class)
         ->name('users.create');

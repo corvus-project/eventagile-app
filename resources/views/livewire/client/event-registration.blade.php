@@ -24,7 +24,7 @@
                     </div>
                     @elseif( $event->registration_ends_at < now())
                         <div class="alert alert-warning mb-4">
-                        Registration ends at {{ $event->registration_ends_at->format('d M Y H:i') }}.
+                        Registration ends at {{ $event->registration_ends_at ? $event->registration_ends_at?->format('d M Y H:i') : 'N/A'   }}.
             </div>
             @elseif($registrations_count >= $event->capacity)
             <div class="alert alert-warning mb-4">

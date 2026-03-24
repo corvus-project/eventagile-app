@@ -9,7 +9,7 @@ use Livewire\WithPagination;
 use Livewire\Attributes\Layout;
 
 name('home');
-new #[Layout('layouts.main')]  class extends Component
+new #[Layout('layouts.frontend')]  class extends Component
 {
     use WithPagination;
 
@@ -65,7 +65,6 @@ new #[Layout('layouts.main')]  class extends Component
         {{ __('Scheduled Public Events') }}
     </h2>
 </x-slot>
-
 <div class="pb-5">
     <div class="mx-auto space-y-6">
         <x-card shadow>
