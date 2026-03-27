@@ -5,14 +5,11 @@ use App\Models\EventRegistration;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 
-use function Laravel\Folio\{middleware, name};
-use Livewire\Attributes\{Title, Layout};
+use Livewire\Attributes\{Computed, Title, Layout};
 use Livewire\Component;
 use Mary\Traits\Toast;
 use Livewire\WithPagination;
 
-name('events.registrations');
-middleware(['auth', 'verified', 'role:admin,organizer']);
 new #[Layout('layouts.admin')] class extends Component {
 
     use Toast;
@@ -42,29 +39,13 @@ new #[Layout('layouts.admin')] class extends Component {
         ];
     }
 
+    #[Computed()]
     public function registrations()
     {
-        /* return EventRegistration::query()
-            ->select('id', 'name')
-            ->orderBy($this->sortBy['column'], $this->sortBy['direction'])
-            ->where('event_id', $this->event->id)
-            ->paginate($this->perPage); */
-
-        return DB::table('event_registrations')
-            ->select('id', 'name', 'email', 'status', 'phone', 'registered_at')
+        return EventRegistration::query()
             ->where('event_id', $this->event->id)
             ->orderBy($this->sortBy['column'], $this->sortBy['direction'])
             ->paginate($this->perPage);
-    }
-
-
-    public function with(): array
-    {
-        return [
-            'registrations' => $this->registrations(),
-            'headers' => $this->headers(),
-            'event' => $this->event,
-        ];
     }
 
     public function show(int $id)
@@ -87,7 +68,7 @@ new #[Layout('layouts.admin')] class extends Component {
     <div class="flex flex-col  flex-1 pb-5 mx-auto  w-full">
         <div class="relative flex-1 w-full ">
             <div class="flex justify-end mb-4">
-                <x-ui.text-link href="{{ route('events.show', ['event' => $event->slug]) }}" class="btn-ghost btn-sm text-red-600 p-2">
+                <x-ui.text-link href="{{ route('dashboard.events.show', ['event' => $event->slug]) }}" class="btn-ghost btn-sm text-red-600 p-2">
                     Visit back Event
                 </x-ui.text-link>
 
@@ -100,27 +81,48 @@ new #[Layout('layouts.admin')] class extends Component {
             <div class="pb-5">
                 <div class="mx-auto space-y-6">
                     <x-card shadow>
-
-                        @if(empty($registrations) || $registrations->count() === 0)
-                        <div class="p-6 text-center">
-                            <p class="text-gray-500">No registrations found for this event.</p>
-                        </div>
-                        @else
-                        <div class="p-6 text-center">
-                            <p class="text-gray-500">Total Registrations: {{ $registrations->total() }}</p>
-                        </div>
-                        <x-table :headers="$headers" :rows="$registrations"
-                            :sort-by="$sortBy"
-                            with-pagination
-                            per-page="perPage"
-                            :per-page-values="[3, 5, 10]">
-                            @scope('actions', $registration)
-                            <div class="flex space-x-2">
-                                <x-button wire:click="show({{ $registration->id }})" class="btn-ghost btn-sm text-red-600" icon="o-link" />
+                        <div class="p-6">
+                            @if($this->registrations->isEmpty())
+                            <div class="text-center py-8 text-gray-500">
+                                No registrations found for this event.
                             </div>
-                            @endscope
-                        </x-table>
-                        @endif
+                            @else
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                                    <thead class="bg-gray-50 dark:bg-gray-900">
+                                        <tr>
+                                            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300">#</th>
+                                            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300">Name</th>
+                                            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300">Email</th>
+                                            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300">Phone</th>
+                                            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300">Status</th>
+                                            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300">Registered At</th>
+                                            <th class="px-4 py-3 text-right text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+                                        @foreach($this->registrations as $registration)
+                                        <tr>
+                                            <td class="px-4 py-4 text-sm text-gray-700 dark:text-gray-300">{{ $registration->id }}</td>
+                                            <td class="px-4 py-4 text-sm text-gray-700 dark:text-gray-300">{{ $registration->name }}</td>
+                                            <td class="px-4 py-4 text-sm text-gray-700 dark:text-gray-300">{{ $registration->email ?? 'N/A' }}</td>
+                                            <td class="px-4 py-4 text-sm text-gray-700 dark:text-gray-300">{{ $registration->phone ?? 'N/A' }}</td>
+                                            <td class="px-4 py-4 text-sm text-gray-700 dark:text-gray-300">{{ $registration->status ?? 'Unknown' }}</td>
+                                            <td class="px-4 py-4 text-sm text-gray-700 dark:text-gray-300">{{ optional($registration->registered_at)->format('F j, Y H:i') ?? 'N/A' }}</td>
+                                            <td class="px-4 py-4 text-right">
+                                                <button type="button" wire:click="show({{ $registration->id }})" class="btn-ghost btn-sm text-red-600">View</button>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="mt-6">
+                                {{ $this->registrations->links() }}
+                            </div>
+                            @endif
+                        </div>
                     </x-card>
                 </div>
             </div>

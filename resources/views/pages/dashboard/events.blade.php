@@ -2,6 +2,7 @@
 
 use App\Enums\EventStatus;
 use App\Models\Event;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate as FacadesGate;
 use Livewire\Component;
 use Mary\Traits\Toast;
@@ -14,12 +15,44 @@ new #[Layout('layouts.admin')] class extends Component {
     use Toast;
     use WithPagination;
 
+    public int $perPage = 10;
+    public string $search = '';
+    public array $sortBy = ['column' => 'start_time', 'direction' => 'desc'];
+
+    protected array $queryString = [
+        'search' => ['except' => ''],
+    ];
+
     #[Computed()]
     public function events()
     {
-        return Event::query()
+        return DB::table('events')
             ->where('organizer_id', auth()->user()->id)
-            ->paginate();
+            ->when($this->search, function ($query) {
+                $query->where(function ($query) {
+                    $query->where('title', 'like', '%' . $this->search . '%')
+                        ->orWhere('organizer', 'like', '%' . $this->search . '%')
+                        ->orWhere('location', 'like', '%' . $this->search . '%');
+                });
+            })
+            ->orderBy($this->sortBy['column'], $this->sortBy['direction'])
+            ->paginate($this->perPage);
+    }
+
+    public function updatedSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function sortByColumn(string $column): void
+    {
+        if ($this->sortBy['column'] === $column) {
+            $this->sortBy['direction'] = $this->sortBy['direction'] === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortBy = ['column' => $column, 'direction' => 'asc'];
+        }
+
+        $this->resetPage();
     }
 
 
@@ -73,29 +106,79 @@ new #[Layout('layouts.admin')] class extends Component {
 
 
                     <x-card shadow>
-                        @foreach($this->events as $event)
-                        <div class="p-4 bg-white rounded-lg shadow mt-8  dark:bg-gray-800 dark:border dark:border-gray-200/10">
+                        <div class="p-4 space-y-4">
+                            <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                                <div class="w-full md:w-1/2">
+                                    <x-ui.input
+                                        id="search"
+                                        type="search"
+                                        wire:model.debounce.300ms="search"
+                                        placeholder="Search events by title, organizer, or location"
+                                        class="w-full" />
+                                </div>
+                                <div class="flex flex-wrap items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+                                    <span class="font-medium">Sort by:</span>
+                                    <button type="button" wire:click="sortByColumn('title')" class="btn-ghost btn-xs">Title</button>
+                                    <button type="button" wire:click="sortByColumn('start_time')" class="btn-ghost btn-xs">Start date</button>
+                                    <button type="button" wire:click="sortByColumn('location')" class="btn-ghost btn-xs">Location</button>
+                                </div>
+                            </div>
 
-                            <a href="{{ route('dashboard.events.show', $event->slug) }}" class="text-blue-600 hover:underline">
-                                <h4 class="text-lg font-semibold">{{ $event->title }}</h4>
-                            </a>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full text-left divide-y divide-gray-200 dark:divide-gray-700">
+                                    <thead class="bg-gray-50 dark:bg-gray-900">
+                                        <tr>
+                                            <th scope="col" class="px-4 py-3 text-xs font-semibold tracking-wider uppercase cursor-pointer" wire:click="sortByColumn('title')">
+                                                Title
+                                                @if($sortBy['column'] === 'title')
+                                                <span>{{ $sortBy['direction'] === 'asc' ? '↑' : '↓' }}</span>
+                                                @endif
+                                            </th>
+                                            <th scope="col" class="px-4 py-3 text-xs font-semibold tracking-wider uppercase cursor-pointer" wire:click="sortByColumn('start_time')">
+                                                Start date
+                                                @if($sortBy['column'] === 'start_time')
+                                                <span>{{ $sortBy['direction'] === 'asc' ? '↑' : '↓' }}</span>
+                                                @endif
+                                            </th>
+                                            <th scope="col" class="px-4 py-3 text-xs font-semibold tracking-wider uppercase cursor-pointer" wire:click="sortByColumn('organizer')">
+                                                Organizer
+                                                @if($sortBy['column'] === 'organizer')
+                                                <span>{{ $sortBy['direction'] === 'asc' ? '↑' : '↓' }}</span>
+                                                @endif
+                                            </th>
+                                            <th scope="col" class="px-4 py-3 text-xs font-semibold tracking-wider uppercase cursor-pointer" wire:click="sortByColumn('location')">
+                                                Location
+                                                @if($sortBy['column'] === 'location')
+                                                <span>{{ $sortBy['direction'] === 'asc' ? '↑' : '↓' }}</span>
+                                                @endif
+                                            </th>
+                                            <th scope="col" class="px-4 py-3 text-xs font-semibold tracking-wider uppercase">Capacity</th>
+                                            <th scope="col" class="px-4 py-3 text-xs font-semibold tracking-wider uppercase">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+                                        @foreach($this->events as $event)
+                                        <tr>
+                                            <td class="px-4 py-4">
+                                                <a href="{{ route('dashboard.events.show', $event->slug) }}" class="font-medium text-blue-600 hover:underline">{{ $event->title }}</a>
+                                            </td>
+                                            <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                                {{ \Carbon\Carbon::parse($event->start_time)->format('F j, Y H:i') }}
+                                            </td>
+                                            <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-300">{{ $event->organizer }}</td>
+                                            <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-300">{{ $event->location }}</td>
+                                            <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-300">{{ $event->capacity }}</td>
 
+                                            @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="mt-4">
+                                {{ $this->events->links() }}
+                            </div>
 
-                            <p class="text-sm text-gray-600">
-                                Date: {{ $event->start_time->format('F j, Y H:i') }}
-                                Please register until {{ $event->registration_ends_at ? $event->registration_ends_at->format('F j, Y H:i') : 'N/A' }}.
-                            </p>
-                            <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                                <x-icon name="o-envelope" /> Organizer: {{ $event->organizer }}
-                                <x-icon name="o-map-pin" /> Location: {{ $event->location }}
-                                <x-icon name="o-users" /> Capacity: {{ $event->capacity }}
-                            </p>
-                            <blockquote class="mt-2">{{ $event->description }}</blockquote>
                         </div>
-                        @endforeach
-
                     </x-card>
-
 
                 </div>
             </div>

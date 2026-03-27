@@ -6,11 +6,8 @@ use App\Models\Event;
 use App\Models\EventRegistration;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
-use function Laravel\Folio\{middleware, name};
 use Mary\Traits\Toast;
 
-name('events.registrations.show');
-middleware(['auth', 'verified', 'role:admin,organizer']);
 new class extends Component {
 
     use Toast;
