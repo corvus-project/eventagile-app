@@ -1,14 +1,9 @@
 <?php
 
-use function Laravel\Folio\{name, middleware};
 
-use App\Enums\EventStatus;
 use Livewire\Component;
-use App\Models\Event;
-use Livewire\WithPagination;
 use Livewire\Attributes\Layout;
 
-name('home');
 new #[Layout('layouts.frontend')]  class extends Component {};
 
 ?>
@@ -24,7 +19,11 @@ new #[Layout('layouts.frontend')]  class extends Component {};
 <div class="pb-5">
     <div class="mx-auto space-y-6">
         <x-card shadow>
-
+            <div class="p-4 bg-white rounded-lg shadow mt-8  dark:bg-gray-800 dark:border dark:border-gray-200/10">
+                <p class="text-sm text-gray-600">
+                    {{ __('There are no public events scheduled at the moment. Please check back later.') }}
+                </p>
+            </div>
         </x-card>
     </div>
 </div>
