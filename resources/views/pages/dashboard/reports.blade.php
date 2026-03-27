@@ -3,12 +3,9 @@
 use Livewire\Component;
 use Mary\Traits\Toast;
 
-use function Laravel\Folio\{middleware, name};
 
 use Livewire\Attributes\Layout;
 
-name('reports.index');
-middleware(['auth', 'verified', 'role:admin,organizer']);
 new #[Layout('layouts.admin')] class extends Component {
 
     use Toast;

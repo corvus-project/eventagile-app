@@ -2,10 +2,6 @@
 
 use Livewire\Attributes\Layout;
 use Livewire\Component;
-use function Laravel\Folio\{middleware, name};
-
-name('settings');
-middleware(['auth', 'verified', 'role:admin,organizer']);
 
 new #[Layout('layouts.admin')] class extends  Component {};
 ?>

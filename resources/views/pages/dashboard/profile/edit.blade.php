@@ -1,18 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Password;
-use Illuminate\Auth\Events\PasswordReset;
-use Illuminate\Http\Request;
-use function Laravel\Folio\{middleware, name};
-use Illuminate\Validation\Rule;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\Attributes\Validate;
 use Livewire\Attributes\Locked;
 
-name('profile.edit');
-middleware(['auth', 'verified', 'role:admin,organizer']);
 new #[Layout('layouts.admin')]  class extends Component {
     #[Locked]
     public $user;

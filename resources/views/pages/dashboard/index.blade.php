@@ -2,52 +2,29 @@
 
 use App\Enums\EventStatus;
 use App\Models\Event;
-use function Laravel\Folio\{middleware, name};
 use Livewire\Component;
 use Mary\Traits\Toast;
 use Livewire\WithPagination;
 use Livewire\Attributes\Layout;
-use Illuminate\Pagination\LengthAwarePaginator;
+use Livewire\Attributes\Computed;
 
-name('dashboard');
-middleware(['auth', 'verified', 'role:admin, organizer']);
 new #[Layout('layouts.admin')]  class extends Component
 {
     use WithPagination;
     use Toast;
+    public $account;
 
-    public int $perPage = 10;
-    public string $search = '';
-    public array $sortBy = ['column' => 'title', 'direction' => 'desc'];
-
-
-    // Table headers
-    public function headers(): array
+    public function mount()
     {
-        return [
-            ['key' => 'title', 'label' => 'Title', 'class' => 'w-64'],
-            ['key' => 'start_time_formatted', 'label' => 'Event Date', 'class' => 'w-8'],
-            ['key' => 'organizer', 'label' => 'Organizer', 'class' => 'w-32'],
-        ];
+        $this->account = auth()->user()->account;
     }
 
-    public function events(): LengthAwarePaginator
+    #[Computed]
+    public function events()
     {
         return Event::query()
-            ->orderBy($this->sortBy['column'], $this->sortBy['direction'])
-            ->where('status', EventStatus::SCHEDULED)
             ->where('organizer_id', auth()->user()->id)
-            ->when($this->search, function () {
-                return Event::where('title', 'like', $this->search . '%');
-            })->paginate($this->perPage);
-    }
-
-    public function with(): array
-    {
-        return [
-            'events' => $this->events(),
-            'headers' => $this->headers()
-        ];
+            ->paginate();
     }
 
 
@@ -82,18 +59,32 @@ new #[Layout('layouts.admin')]  class extends Component
                         <div class="mx-auto space-y-6">
                             <x-card shadow>
 
-                                @if($events && $events->count() > 0)
-                                <x-table :headers="$headers" :rows="$events"
-                                    :sort-by="$sortBy"
-                                    with-pagination
-                                    per-page="perPage"
-                                    :per-page-values="[3, 5, 10]">
-                                    @scope('actions', $event)
-                                    <div class="flex space-x-2">
-                                        <x-button wire:click="show({{ $event['id'] }})" class="btn-ghost btn-sm text-red-600" icon="o-link" />
-                                    </div>
-                                    @endscope
-                                </x-table>
+                                @if($this->events && $this->events->count() > 0)
+
+                                @foreach($this->events as $event)
+                                <div class="p-4 bg-white rounded-lg shadow mt-8  dark:bg-gray-800 dark:border dark:border-gray-200/10">
+
+                                    <a href="{{ route('dashboard.events.show', $event->slug) }}" class="text-blue-600 hover:underline">
+                                        <h4 class="text-lg font-semibold">{{ $event->title }}</h4>
+                                    </a>
+
+
+                                    <p class="text-sm text-gray-600">
+                                        Date: {{ $event->start_time->format('F j, Y H:i') }}
+                                        Please register until {{ $event->registration_ends_at ? $event->registration_ends_at->format('F j, Y H:i') : 'N/A' }}.
+                                    </p>
+                                    <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                                        <x-icon name="o-envelope" /> Organizer: {{ $event->organizer }}
+                                        <x-icon name="o-map-pin" /> Location: {{ $event->location }}
+                                        <x-icon name="o-users" /> Capacity: {{ $event->capacity }}
+                                    </p>
+                                    <blockquote class="mt-2">{{ $event->description }}</blockquote>
+                                </div>
+                                @endforeach
+
+                                <div class="mt-4 flex justify-end-safe gap-1">
+                                    {{ $this->events->links() }}
+                                </div>
 
                                 @else
                                 <div class="text-center text-gray-500 dark:text-gray-400">
