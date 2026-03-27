@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Database\Eloquent\Model;
 use Filament\Support\Assets\Css;
 use Filament\Support\Facades\FilamentAsset;
+use Livewire\Livewire;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -53,7 +54,6 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('delete-event', [EventPolicy::class, 'delete']);
         Gate::define('view-event', [EventPolicy::class, 'view']);
         Gate::define('view-any-event', [EventPolicy::class, 'viewAny']);
-
 
 
         if (app()->environment('local', 'staging') && !$this->isMigrationOrSeederCommand()) {

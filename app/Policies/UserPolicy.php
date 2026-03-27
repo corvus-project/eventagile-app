@@ -20,7 +20,7 @@ class UserPolicy
      */
     public function view(User $user, User $model): bool
     {
-         return $user->hasRole('admin');
+        return $user->hasRole('admin');
     }
 
     /**
@@ -36,7 +36,7 @@ class UserPolicy
      */
     public function update(User $user, User $model): bool
     {
-        return $user->hasRole('admin');
+        return  $user->hasRole('admin') || $user->account_id === $model->account_id;
     }
 
     /**
@@ -44,7 +44,7 @@ class UserPolicy
      */
     public function delete(User $user, User $model): bool
     {
-         return $user->hasRole('admin');
+        return $user->hasRole('admin') || $user->account_id === $model->account_id;
     }
 
     /**
@@ -52,7 +52,7 @@ class UserPolicy
      */
     public function restore(User $user, User $model): bool
     {
-         return $user->hasRole('admin');
+        return $user->hasRole('admin') || $user->account_id === $model->account_id;
     }
 
     /**
@@ -60,6 +60,6 @@ class UserPolicy
      */
     public function forceDelete(User $user, User $model): bool
     {
-         return $user->hasRole('admin');
+        return $user->hasRole('admin');
     }
 }

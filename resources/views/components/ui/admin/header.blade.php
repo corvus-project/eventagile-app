@@ -14,14 +14,14 @@
                 $user = auth()->user();
                 $navLinks['Dashboard'] = '/dashboard';
 
-                if ($user->isOrganizer() || $user->isAdmin()) {
+                if ($user && ($user->isOrganizer() || $user->isAdmin())) {
                 $navLinks['Events'] ='/dashboard/events';
                 $navLinks['Users'] ='/dashboard/users';
                 $navLinks['Reports'] ='/dashboard/reports';
                 $navLinks['Settings'] ='/dashboard/settings';
                 }
 
-                if ($user->isAdmin()) {
+                if ($user && $user->isAdmin()) {
                 $navLinks['Users'] = '/dashboard/users';
                 }
 

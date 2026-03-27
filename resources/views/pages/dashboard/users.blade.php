@@ -1,15 +1,12 @@
 <?php
 
-use App\Enums\EventStatus;
-use App\Models\Event;
-use Illuminate\Auth\Access\Gate;
+use App\Models\User;
 use Illuminate\Support\Facades\Gate as FacadesGate;
 use Livewire\Component;
 use Mary\Traits\Toast;
 use Livewire\WithPagination;
 use function Laravel\Folio\{middleware, name};
 use App\Traits\ClearsFilters;
-use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Layout;
 
 name('users.index');
@@ -45,40 +42,19 @@ new #[Layout('layouts.admin')] class extends Component {
     {
         return [
             ['key' => 'id', 'label' => '#', 'class' => 'w-1'],
-            ['key' => 'title', 'label' => 'Title', 'class' => 'w-64'],
-            ['key' => 'start_time_formatted', 'label' => 'Start Date', 'class' => 'w-8'],
-            ['key' => 'capacity', 'label' => 'Capacity', 'class' => 'w-16'],
-            ['key' => 'registrations_count', 'label' => 'Registrations', 'class' => 'w-16'],
-            ['key' => 'status', 'label' => 'Status', 'class' => 'w-24'],
-            ['key' => 'public_status', 'label' => 'Public', 'class' => 'w-16'],
+            ['key' => 'name', 'label' => 'Name', 'class' => 'w-64'],
+            ['key' => 'email', 'label' => 'Email', 'class' => 'w-64'],
+            ['key' => 'created_at', 'label' => 'Created At', 'class' => 'w-24'],
+            ['key' => 'actions', 'label' => 'Actions', 'class' => 'w-24'],
         ];
     }
 
-    public function events()
+    public function users()
     {
-        $user = auth()->user();;
-        /*         return Event::query()
-            ->withCount('registrations')
-            ->orderBy($this->sortBy['column'], $this->sortBy['direction'])
+        return User::query()
+            ->where('account_id', auth()->user()->account_id)
             ->when($this->search, function () {
-                return Event::where(fn($query) => $query->where('title', 'like', $this->search . '%')->orWhere('organizer', 'like', $this->search . '%'));
-            })
-            ->where(function ($query) use ($user) {
-                if ($user->isOrganizer()) {
-                    return $query->where('organizer_id', $user->id);
-                } else {
-                    return $query;
-                }
-            })
-            ->paginate($this->perPage); */
-
-        return Event::query()
-            ->withCount('registrations')
-            ->orderBy($this->sortBy['column'], $this->sortBy['direction'])
-            ->where('status', EventStatus::SCHEDULED)
-            ->where('organizer_id', auth()->user()->id)
-            ->when($this->search, function () {
-                return Event::where('title', 'like', $this->search . '%');
+                return User::where('name', 'like', $this->search . '%');
             })->paginate($this->perPage);
     }
 
@@ -86,7 +62,7 @@ new #[Layout('layouts.admin')] class extends Component {
     public function with(): array
     {
         return [
-            'events' => $this->events(),
+            'users' => $this->users(),
             'headers' => $this->headers(),
             'filters' => $this->filters(),
         ];
@@ -94,43 +70,37 @@ new #[Layout('layouts.admin')] class extends Component {
 
     public function delete(int $id)
     {
-        FacadesGate::authorize('delete-event', Event::findOrFail($id));
-        $product = Event::findOrFail($id);
+        FacadesGate::authorize('delete-user', User::findOrFail($id));
+        $product = User::findOrFail($id);
         $product->delete();
-        $this->toast('success', 'Product deleted successfully');
+        $this->toast('success', 'User deleted successfully');
     }
 
     public function edit(int $id)
     {
-        $slug = Event::findOrFail($id);
-        return redirect()->route('events.update', ['event' => $slug]);
+        $slug = User::findOrFail($id);
+        return redirect()->route('users.update', ['user' => $slug]);
     }
 
     public function show(int $id)
     {
-        $slug = Event::findOrFail($id);
-        return redirect()->route('events.show', ['event' => $slug]);
-    }
-
-    public function registrations(int $id)
-    {
-        $slug = Event::findOrFail($id);
-        return redirect()->route('events.registrations', ['event' => $slug]);
+        $slug = User::findOrFail($id);
+        return redirect()->route('users.show', ['user' => $slug]);
     }
 };
 ?>
 <x-slot name="title">
-    {{ 'List all events' }}
+    {{ 'List all users' }}
 </x-slot>
 
 <div class="flex flex-col flex-1">
     <div class="flex flex-col  flex-1 pb-5 mx-auto  w-full">
         <div class="relative flex-1 w-full ">
-            @can('create-event')
+            @can('create-user')
             <div class="flex justify-end mb-4">
-                <x-ui.text-link href="{{ route('events.create') }}" class="btn-ghost btn-sm text-red-600">
+                <x-ui.text-link href="{{ route('users.create') }}" class="btn-ghost btn-sm text-red-600">
                     <x-icon name="o-plus" />
-                    Create Event
+                    Create User
                 </x-ui.text-link>
             </div>
             @endcan
@@ -138,7 +108,7 @@ new #[Layout('layouts.admin')] class extends Component {
             <div class="pb-5">
                 <div class="mx-auto space-y-6">
 
-                    <x-header title="Events" separator progress-indicator>
+                    <x-header title="Users" separator progress-indicator>
                         <x-slot:middle class="!justify-end">
                             <x-input placeholder="Search..." wire:model.live.debounce="search" clearable icon="o-magnifying-glass" />
                         </x-slot:middle>
@@ -148,29 +118,29 @@ new #[Layout('layouts.admin')] class extends Component {
                     </x-header>
 
                     <x-card shadow>
-                        @if($events && $events->count())
-                        <x-table :headers="$headers" :rows="$events" :sort-by="$sortBy" with-pagination
+                        @if($users && $users->count())
+                        <x-table :headers="$headers" :rows="$users" :sort-by="$sortBy" with-pagination
                             with-pagination
                             per-page="perPage"
                             :per-page-values="[3, 5, 10]">
-                            @scope('actions', $event)
+                            @scope('actions', $user)
                             <div class="flex space-x-2">
-                                @can('delete-event', $event)
-                                <x-button wire:click="delete({{ $event['id'] }})" wire:confirm="Are you sure?" spinner class="btn-ghost btn-sm text-red-600" icon="o-trash" />
+                                @can('delete-user', $user)
+                                <x-button wire:click="delete({{ $user['id'] }})" wire:confirm="Are you sure?" spinner class="btn-ghost btn-sm text-red-600" icon="o-trash" />
                                 @endcan
-                                @can('update-event', $event)
-                                <x-button wire:click="edit({{ $event['id'] }})" class="btn-ghost btn-sm text-red-600" icon="c-pencil-square" />
+                                @can('update-user', $user)
+                                <x-button wire:click="edit({{ $user['id'] }})" class="btn-ghost btn-sm text-red-600" icon="c-pencil-square" />
                                 @endcan
-                                @can('view-event', $event)
-                                <x-button wire:click="show({{ $event['id'] }})" class="btn-ghost btn-sm text-red-600" icon="o-link" />
-                                <x-button wire:click="registrations({{ $event['id'] }})" class="btn-ghost btn-sm text-red-600" icon="o-user" />
+                                @can('view-user', $user)
+                                <x-button wire:click="show({{ $user['id'] }})" class="btn-ghost btn-sm text-red-600" icon="o-link" />
+                                <x-button wire:click="registrations({{ $user['id'] }})" class="btn-ghost btn-sm text-red-600" icon="o-user" />
                                 @endcan
                             </div>
                             @endscope
                         </x-table>
                         @else
                         <div class="text-center text-gray-500 dark:text-gray-400">
-                            No events found.
+                            No users found.
                         </div>
                         @endif
                     </x-card>

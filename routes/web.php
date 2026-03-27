@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Livewire\Account\AccountHome;
 use App\Livewire\Client\EventRegistration;
 use Illuminate\Support\Facades\Route;
 
@@ -18,10 +20,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('events/{event:slug}/register', EventRegistration::class)->name('event.registration');
+
+Route::get('events/{event:slug}/register', EventRegistration::class)->name('event.show');
 
 Route::livewire('/auth/login', 'pages::auth.login')->name('login');
 Route::livewire('/', 'pages::index')->name('home');
+
+Route::livewire('u/{account:subdomain}', 'pages::accounts.home')->name('account.home');
+Route::livewire('u/{account:subdomain}/event/{event:slug}', 'pages::accounts.event')->name('account.event');
 
 Route::middleware('auth')->group(function () {
 
@@ -45,6 +51,8 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::livewire('/dashboard/events/{event:slug}/export', 'pages::dashboard.events.[Event].export')->name('events.registrations.export');
     Route::livewire('/dashboard/profile/edit', 'pages::dashboard.profile.edit')->name('profile.edit');
 
+    Route::livewire('/dashboard/reports', 'pages::dashboard.reports')->name('reports.index');
+    Route::livewire('/dashboard/settings', 'pages::dashboard.settings')->name('settings.index');
 
     Route::get('/dashboard/users/create', \App\Livewire\Users\CreateUser::class)
         ->name('users.create');

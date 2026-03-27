@@ -21,11 +21,11 @@ return new class extends Migration
             $table->string('slug')->unique()->nullable();
             $table->string('registration_code')->unique()->nullable();
             $table->dateTime('start_time');
-            $table->dateTime('registration_ends_at')->nullable();
+            $table->dateTime('registration_deadline')->nullable();
             $table->text('location')->nullable();
             $table->text('organizer')->nullable();
             $table->integer('capacity')->default(0);
-            $table->boolean('is_public')->default(true); 
+            $table->boolean('is_public')->default(true);
             $table->foreignIdFor(User::class, 'organizer_id')->constrained()->onDelete('cascade');
             $table->enum('status', array_column(EventStatus::cases(), 'value'))->default(EventStatus::PENDING->value);
             $table->timestamps();
