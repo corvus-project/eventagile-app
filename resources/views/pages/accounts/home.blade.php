@@ -1,6 +1,5 @@
 <?php
 
-use function Laravel\Folio\{name, middleware};
 
 use App\Models\Account;
 use App\Models\Event;
@@ -9,7 +8,6 @@ use Livewire\WithPagination;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Computed;
 
-name('account.home');
 new #[Layout('layouts.frontend')]  class extends Component
 {
     use WithPagination;

@@ -5,15 +5,13 @@ use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use function Laravel\Folio\{middleware, name};
 use Livewire\Attributes\Validate;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 
-middleware(['throttle:5,1']);
-name('login');
+
 new #[Layout('layouts.auth')] class extends Component
 {
     #[Validate('required|string|email')]

@@ -1,6 +1,5 @@
 <?php
 
-use function Laravel\Folio\{name, middleware};
 
 use App\Enums\RegistrationStatus;
 use App\Livewire\Forms\EventRegistrationForm;
@@ -13,7 +12,6 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\Attributes\Layout;
 
-name('account.event');
 new #[Layout('layouts.frontend')]  class extends Component
 {
     use WithPagination;

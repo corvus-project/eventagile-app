@@ -2,18 +2,14 @@
 
 use App\Exports\RegistrationsExport;
 use App\Models\Event;
-use Illuminate\Auth\Access\Gate;
-use Illuminate\Support\Facades\Gate as FacadesGate;
+use Illuminate\Support\Facades\Gate;
 
-use function Laravel\Folio\{middleware, name};
 use Livewire\Component;
 use Mary\Traits\Toast;
 use Livewire\WithPagination;
 use Illuminate\View\View;
 use Livewire\Attributes\Layout;
 
-name('events.registrations.export');
-middleware(['auth', 'verified', 'role:admin,organizer']);
 new #[Layout('layouts.admin')] class extends Component {
 
     use Toast;
@@ -30,7 +26,7 @@ new #[Layout('layouts.admin')] class extends Component {
     public function mount(Event $event)
     {
         $this->event = $event;
-        FacadesGate::authorize('view-event', $event);
+        Gate::authorize('view-event', $event);
         $this->registration = $event->registrations()
             ->orderBy('created_at', 'desc')->get();
     }
@@ -60,11 +56,11 @@ new #[Layout('layouts.admin')] class extends Component {
     <div class="flex flex-col  flex-1 pb-5 mx-auto  w-full">
         <div class="relative flex-1 w-full ">
             <div class="flex justify-end mb-4">
-                <x-ui.text-link href="{{ route('events.show', ['event' => $event->slug]) }}" class="btn-ghost btn-sm text-red-600 p-2">
-                    Visit back Event
+                <x-ui.text-link href="{{ route('dashboard.events.update', ['event' => $event->slug]) }}" class="btn-ghost btn-sm text-red-600 p-2">
+                    Update Event
                 </x-ui.text-link>
 
-                <x-ui.text-link href="{{ route('events.registrations', ['event' => $event->slug]) }}" class="btn-ghost btn-sm text-red-600 p-2">
+                <x-ui.text-link href="{{ route('dashboard.events.registrations.show', ['event' => $event->slug]) }}" class="btn-ghost btn-sm text-red-600 p-2">
                     Registration List
                 </x-ui.text-link>
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Events;
+namespace App\Livewire\Dashboard;
 
 use App\Enums\EventStatus;
 use App\Exceptions\RateLimiterException;

@@ -6,14 +6,11 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 use Livewire\Component;
 use Livewire\Attributes\Validate;
-use function Laravel\Folio\{middleware, name};
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Http;
+use Livewire\Attributes\Layout;
 
-middleware(['guest']);
-name('register');
-
-new class extends Component
+new #[Layout('layouts.auth')] class extends Component
 {
     public ?string $captchaToken = null;
 
