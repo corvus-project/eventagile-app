@@ -21,15 +21,15 @@ class EventForm extends Form
     public $start_time;
 
     #[Validate('nullable|date|after:today|before:start_time')]
-    public $registration_ends_at;
+    public $registration_deadline;
 
     #[Validate('required|string|max:255')]
     public string $location;
 
     #[Validate('required|string|max:255')]
     public string $organizer;
- 
-    #[Validate(['required','integer', new CapacityLimit()])]
+
+    #[Validate(['required', 'integer', new CapacityLimit()])]
     public $capacity;
 
     #[Validate('boolean')]
@@ -38,7 +38,7 @@ class EventForm extends Form
     #[Validate('required')]
     public $status;
 
-    
+
     public function setEvent(Event $event): void
     {
         $this->event = $event;
@@ -46,7 +46,7 @@ class EventForm extends Form
         $this->title = $event->title;
         $this->description = $event->description;
         $this->start_time =  $event->start_time->format('Y-m-d H:i'); //'2025-10-12 13:10'; //$event->start_time->format('dd/mm/Y h:i'); // Ensure the format is compatible with datetime-local input
-        $this->registration_ends_at = $event->registration_ends_at?->format('Y-m-d H:i');
+        $this->registration_deadline = $event->registration_deadline?->format('Y-m-d H:i');
         $this->location = $event->location;
         $this->organizer = $event->organizer;
         $this->capacity = $event->capacity;
@@ -64,7 +64,7 @@ class EventForm extends Form
             'title' => $this->title,
             'description' => $this->description,
             'start_time' => $this->start_time,
-            'registration_ends_at' => $this->registration_ends_at,
+            'registration_deadline' => $this->registration_deadline,
             'location' => $this->location,
             'organizer' => $this->organizer,
             'capacity' => $this->capacity,
@@ -72,21 +72,20 @@ class EventForm extends Form
             'status' => $status,
             'organizer_id' => $user->id,
         ]);
- 
     }
 
     public function save(): void
     {
         $this->validate();
         if ($this->event) {
-             
+
             $status = EventStatus::fromName($this->status) ?? EventStatus::DRAFT;
- 
+
             $this->event->update([
                 'title' => $this->title,
                 'description' => $this->description,
                 'start_time' => $this->start_time,
-                'registration_ends_at' => $this->registration_ends_at,
+                'registration_deadline' => $this->registration_deadline,
                 'location' => $this->location,
                 'organizer' => $this->organizer,
                 'capacity' => $this->capacity,

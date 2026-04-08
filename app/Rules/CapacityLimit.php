@@ -15,8 +15,8 @@ class CapacityLimit implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-      $user = auth()->user();
-        if ($user) {
+        $user = auth()->user();
+        /*         if ($user) {
             $maxCapacity = app('App\Services\SubscriptionService')->getRegistrationLimit($user);
             Log::info('User ID: ' . $user->id . ' has a max registration limit of: ' . $maxCapacity);
             if ($maxCapacity > 0 && $value > $maxCapacity) {
@@ -24,6 +24,6 @@ class CapacityLimit implements ValidationRule
             }
         } else {
             $fail("Unable to validate {$attribute} as user is not authenticated.");
-        }
+        } */
     }
 }

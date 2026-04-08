@@ -19,9 +19,7 @@ class EventRegistrationFactory extends Factory
     {
         return [
             'event_id' => \App\Models\Event::factory(),
-            'name' => $this->faker->name,
-            'email' => $this->faker->unique()->safeEmail,
-            'phone' => $this->faker->phoneNumber,
+            'user_id' => \App\Models\User::factory(),
             'is_attending' => $this->faker->boolean,
             'registered_at' => now(),
             'status' => fake()->randomElement(RegistrationStatus::cases())->value,

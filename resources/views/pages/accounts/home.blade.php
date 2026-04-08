@@ -1,8 +1,8 @@
 <?php
 
-
-use App\Models\Account;
 use App\Models\Event;
+use App\Models\Tenant;
+use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\Attributes\Layout;
@@ -12,43 +12,34 @@ new #[Layout('layouts.frontend')]  class extends Component
 {
     use WithPagination;
 
-    public $account;
-
-
-    public function mount(Account $account)
-    {
-        $this->account = $account;
-    }
+    public function mount() {}
 
     #[Computed]
     public function events()
     {
-        $users = $this->account->users()->pluck('id');
-
-        return Event::whereIn('organizer_id', $users)->paginate(2);
+        return Event::paginate();
     }
 }
 ?>
 <x-slot name="title">
-    {{ $account->name }}
+    {{ tenant('name') }} - Home
 </x-slot>
 <x-slot name="header">
     <h2 class="text-3xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-        <a href="{{ route('account.home', $account->subdomain) }}" class="text-blue-500 hover:text-blue-700">{{ $account->name }}</a>
+
     </h2>
 </x-slot>
 <div class="pb-5">
     <div class="mx-auto space-y-6">
 
+        <h2 class="text-3xl">Welcome to {{ tenant('name') }}</h2>
 
         @foreach($this->events as $event)
         <div class="p-4 bg-white rounded-lg shadow mt-8  dark:bg-gray-800 dark:border dark:border-gray-200/10">
 
-            <a href="{{ route('account.event', [$this->account->subdomain, $event->slug]) }}" class="text-blue-600 hover:underline">
+            <a href="{{ route('tenant.event.view', $event) }}" class="block">
                 <h4 class="text-lg font-semibold">{{ $event->title }}</h4>
             </a>
-
-
             <p class="text-sm text-gray-600">
                 Date: {{ $event->start_time->format('F j, Y H:i') }}
                 Please register until {{ $event->registration_ends_at ? $event->registration_ends_at->format('F j, Y H:i') : 'N/A' }}.

@@ -8,6 +8,7 @@ use App\Models\Event;
 use App\Models\Plan;
 use App\Models\User;
 use App\Models\Subscription;
+use App\Models\Tenant;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
@@ -25,34 +26,26 @@ class DatabaseSeeder extends Seeder
         (config('database.default') != 'sqlite') ?? DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         Model::unguard();
         User::truncate();
-        Account::truncate();
-        Event::truncate();
+
         Plan::truncate();
         Subscription::truncate();
-        EventRegistration::truncate();
+
+
+        $tenant1 = Tenant::create([
+            'id' => 'foo',
+            'name' => 'Foo Tenant',
+            'email' => 'foo@example.com',
+            'is_active' => true,
+        ]);
+        $tenant1->domains()->create(['domain' => 'foo.localhost']);
+
 
         $this->call(PlanSeeder::class);
-
         $this->call(PermissionsTableSeeder::class);
         $this->call(RolesTableSeeder::class);
         $this->call(ConnectRelationshipsSeeder::class);
-        //$this->call('UsersTableSeeder');
-
         Model::reguard();
         (config('database.default') != 'sqlite') ?? DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-
-        $organizerRole = config('roles.models.role')::where('name', '=', 'Organizer')->first();
-        $organizers = User::factory(3)->create();
-
-        $organizers->each(function ($user) use ($organizerRole) {
-            $user->attachRole($organizerRole);
-            Subscription::factory()->for($user, 'user')->create();
-        });
-
-        $events = Event::factory(10)->recycle($organizers)->create();
-
-        EventRegistration::factory(500)->recycle($events)->create();
-
         $user = User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',

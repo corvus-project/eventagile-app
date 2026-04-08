@@ -16,6 +16,7 @@
 
                 if ($user && ($user->isOrganizer() || $user->isAdmin())) {
                 $navLinks['Events'] ='/dashboard/events';
+                $navLinks['Create Event'] ='/dashboard/events/create';
                 $navLinks['Users'] ='/dashboard/users';
                 $navLinks['Reports'] ='/dashboard/reports';
                 $navLinks['Settings'] ='/dashboard/settings';

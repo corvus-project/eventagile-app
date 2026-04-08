@@ -2,6 +2,8 @@
 
 use App\Models\User;
 use Illuminate\Support\Facades\Gate as FacadesGate;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Mary\Traits\Toast;
 use Livewire\WithPagination;
@@ -14,16 +16,45 @@ new #[Layout('layouts.admin')] class extends Component {
     use Toast;
     use WithPagination;
 
+    public int $perPage = 10;
+
+    public string $search = '';
+    public array $sortBy = ['column' => 'start_time', 'direction' => 'desc'];
+
     #[Computed()]
     public function users()
     {
         return User::query()
-            ->where('account_id', auth()->user()->account_id)
-            ->paginate();
+            ->when($this->search, function ($query) {
+                $search = Str::lower($this->search);
+                Log::debug('Searching users with query', ['search' => $search]);
+                $query->where(function ($query) use ($search) {
+                    $query->whereRaw('LOWER(name) LIKE ?', ['%' . $search . '%'])
+                        ->orWhereRaw('LOWER(email) LIKE ?', ['%' . $search . '%']);
+                });
+            })
+            ->orderBy($this->sortBy['column'], $this->sortBy['direction'])
+            ->paginate($this->perPage);
     }
 
 
+    public function updatedSearch()
+    {
+        Log::debug('Search term updated', ['search' => $this->search]);
 
+        $this->resetPage();
+    }
+
+    public function sortByColumn(string $column): void
+    {
+        if ($this->sortBy['column'] === $column) {
+            $this->sortBy['direction'] = $this->sortBy['direction'] === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortBy = ['column' => $column, 'direction' => 'asc'];
+        }
+
+        $this->resetPage();
+    }
 
     public function delete(int $id)
     {
@@ -50,28 +81,85 @@ new #[Layout('layouts.admin')] class extends Component {
     {{ 'List all users' }}
 </x-slot>
 
+<x-slot name="header">
+    <h2 class="text-lg font-semibold leading-tight text-gray-800 dark:text-gray-200">
+        {{ __('Users') }}
+    </h2>
+</x-slot>
 <div class="flex flex-col flex-1">
     <div class="flex flex-col  flex-1 pb-5 mx-auto  w-full">
         <div class="relative flex-1 w-full ">
-            @can('create-user')
-            <div class="flex justify-end mb-4">
-                <x-ui.text-link href="{{ route('users.create') }}" class="btn-ghost btn-sm text-red-600">
-                    <x-icon name="o-plus" />
-                    Create User
-                </x-ui.text-link>
-            </div>
-            @endcan
 
-            <div class="pb-5">
-                <div class="mx-auto space-y-6">
+            <div class="mx-auto ">
+                <div class="shadow p-4 dark:bg-gray-800 sm:rounded-lg  bg-slate-50  rounded-lg dark:bg-gray-900/50 dark:border dark:border-gray-200/10">
+                    <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between ">
+                        <div class="w-full md:w-1/2">
+                            <x-ui.input
+                                id="search"
+                                type="search"
+                                wire:model.live.debounce.300ms="search"
+                                placeholder="Search users by name or email"
+                                class="w-full" />
+                        </div>
+                        <div class="flex flex-wrap items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+                            <span class="font-medium">Sort by:</span>
+                            <button type="button" wire:click="sortByColumn('name')" class="btn-ghost btn-xs">Name</button>
+                            <button type="button" wire:click="sortByColumn('email')" class="btn-ghost btn-xs">Email</button>
+                        </div>
+                    </div>
 
+                    <div class="overflow-x-auto ">
+                        <table class="min-w-full text-left divide-y divide-gray-200 dark:divide-gray-700">
+                            <thead class="bg-gray-50 dark:bg-gray-900">
+                                <tr>
+                                    <th scope="col" class="px-4 py-3 text-xs font-semibold tracking-wider uppercase cursor-pointer" wire:click="sortByColumn('title')">
+                                        Title
+                                        @if($sortBy['column'] === 'name')
+                                        <span>{{ $sortBy['direction'] === 'asc' ? '↑' : '↓' }}</span>
+                                        @endif
+                                    </th>
+                                    <th scope="col" class="px-4 py-3 text-xs font-semibold tracking-wider uppercase cursor-pointer" wire:click="sortByColumn('email')">
+                                        Start date
+                                        @if($sortBy['column'] === 'email')
+                                        <span>{{ $sortBy['direction'] === 'asc' ? '↑' : '↓' }}</span>
+                                        @endif
+                                    </th>
+                                    <th scope="col" class="px-4 py-3 text-xs font-semibold tracking-wider uppercase cursor-pointer" wire:click="sortByColumn('status')">
+                                        Organizer
+                                        @if($sortBy['column'] === 'verified')
 
-                    <x-card shadow>
-
-                    </x-card>
-
+                                        @endif
+                                    </th>
+                                    <th scope="col" class="px-4 py-3 text-xs font-semibold tracking-wider uppercase cursor-pointer">
+                                        Registration Date
+                                    </th>
+                                    <th scope="col" class="px-4 py-3 text-xs font-semibold tracking-wider uppercase">Registrations</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+                                @foreach($this->users as $user)
+                                <tr>
+                                    <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-300">{{ $user->name }}</td>
+                                    <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-300">{{ $user->email }}</td>
+                                    <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                        {{ $user->verified ? 'Verified' : 'Unverified' }}
+                                    </td>
+                                    <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-300"> {{ \Carbon\Carbon::parse($user->created_at)->format('F j, Y H:i') }}</td>
+                                    <td class="px-4 py-4 text-xs">
+                                        <a href="{{ route('dashboard.users.registrations', $user->id) }}" class="text-blue-600 no-underline  bg-blue-100 box-border border border-transparent hover:bg-brand-strong shadow-xs text-xs px-1.5 py-1.5 focus:outline-none">Registrations</a>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-4">
+                        {{ $this->users->links() }}
+                    </div>
 
                 </div>
+
+
             </div>
         </div>
     </div>

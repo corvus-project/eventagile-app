@@ -1,7 +1,8 @@
 <?php
- 
+
 use App\Enums\RegistrationStatus;
 use App\Models\Event;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,14 +17,11 @@ return new class extends Migration
         Schema::create('event_registrations', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Event::class, 'event_id')->constrained()->onDelete('cascade');
-            $table->string('name');
-            $table->string('email');
-            $table->string('phone')->nullable();
+            $table->foreignIdFor(User::class, 'user_id')->constrained()->onDelete('cascade');
             $table->boolean('is_attending')->default(false);
             $table->timestamp('registered_at')->useCurrent();
             $table->enum('status', array_column(RegistrationStatus::cases(), 'value'))->default(RegistrationStatus::PENDING->value);
             $table->text('notes')->nullable();
-            $table->unique(['event_id', 'email']);
             $table->timestamps();
             $table->softDeletes();
         });

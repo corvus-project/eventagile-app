@@ -19,9 +19,10 @@ return Application::configure(basePath: dirname(__DIR__))
             'redirect-to-dashboard' => \App\Http\Middleware\RedirectToDashboard::class,
             'role' => \jeremykenedy\LaravelRoles\App\Http\Middleware\VerifyRole::class,
         ]);
-
+        $middleware->group('universal', []);
         //
     })
+
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (RoleDeniedException $exception) {
             return response()->view('errors.403', [], 403);

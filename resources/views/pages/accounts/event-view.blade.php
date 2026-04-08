@@ -16,16 +16,13 @@ new #[Layout('layouts.frontend')]  class extends Component
 {
     use WithPagination;
 
-    public $account;
-
     public $event;
     public ?string $captchaToken = null;
     public EventRegistrationForm $form;
     public int $registrations_count = 0;
 
-    public function mount(Event $event, Account $account,)
+    public function mount(Event $event)
     {
-        $this->account = $account;
         $this->event = $event;
         $this->form->setEvent($event);
         $this->registrations_count = $this->event->registrations()->where('status', RegistrationStatus::CONFIRMED->value)->count();
@@ -38,7 +35,6 @@ new #[Layout('layouts.frontend')]  class extends Component
             'response' => $this->captchaToken,
         ]);
 
-        Log::debug('Captcha query', ['query' => $query, 'captchaToken' => $this->captchaToken]);
         $response = Http::post('https://www.google.com/recaptcha/api/siteverify?' . $query);
         $captchaLevel = $response->json('score');
 
@@ -47,15 +43,18 @@ new #[Layout('layouts.frontend')]  class extends Component
         ]));
 
         $this->form->store();
+        Log::info('User registered for event', ['event_id' => $this->event->id, 'registrations_count' => $this->registrations_count]);
+        session()->flash('register-status', 'You have successfully registered for the event. We will contact you with further details.');
+        return redirect()->route('tenant.event.view', $this->event);
     }
 }
 ?>
 <x-slot name="title">
-    {{ $account->name }} ~ {{ $event->title }}
+    {{ tenant('name') }} ~ {{ $event->title }}
 </x-slot>
 <x-slot name="header">
     <h2 class="text-3xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-        <a href="{{ route('account.home', $account->subdomain) }}" class="text-blue-500 hover:text-blue-700">{{ $account->name }}</a>
+        <a href="{{ route('tenant.home') }}" class="text-blue-500 hover:text-blue-700">{{ tenant('name') }}</a>
     </h2>
 </x-slot>
 <div class="shadow-lg rounded-lg p-2 bg-white dark:bg-gray-800 dark:border dark:border-gray-200/10">
@@ -76,7 +75,7 @@ new #[Layout('layouts.frontend')]  class extends Component
             </p>
         </div>
 
-        <div class="mx-auto px-1 lg:ml-8 lg:mt-0 mt-8 w-full lg:w-3/5 ">
+        <div class="mx-auto px-1 lg:ml-8 lg:mt-0 mt-8 w-full">
             <div class="mx-auto space-y-6">
                 <section
                     class="shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg  bg-blue-50 p-6 rounded-lg dark:bg-gray-900/50 dark:border dark:border-gray-200/10">
@@ -105,7 +104,7 @@ new #[Layout('layouts.frontend')]  class extends Component
             <div class="bg-red-300 text-red-700 p-3 rounded">{{ $message }}</div>
             @enderror
 
-            <x-form wire:submit.prevent="save" class="mt-1 space-y-2">
+            <form wire:submit.prevent="save" class="mt-1 space-y-2">
                 <x-input label="Name" wire:model="form.name" />
                 <x-input label="Email" wire:model="form.email" />
                 <x-input label="Phone" wire:model.live="form.phone" />
@@ -114,13 +113,12 @@ new #[Layout('layouts.frontend')]  class extends Component
                 <x-input label="Registration Code" wire:model="form.registration_code" placeholder="Enter registration code" />
                 @endif
 
-                <x-slot:actions>
-                    <x-button label="Register" class="btn-seconday g-recaptcha" type="primary" submit="true" spinner="save"
-                        data-sitekey="{{ config('services.recaptcha.public_key') }}"
-                        data-callback='handle'
-                        data-action='submit' />
-                </x-slot:actions>
-            </x-form>
+
+                <x-button label="Login" rounded="md" class="btn-primary g-recaptcha" type="primary" submit="true"
+                    data-sitekey="{{ config('services.recaptcha.public_key') }}"
+                    data-callback='handle'
+                    data-action='submit' />
+            </form>
 
 
             <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.public_key') }}"></script>
@@ -142,5 +140,4 @@ new #[Layout('layouts.frontend')]  class extends Component
             </section>
         </div>
     </div>
-</div>
 </div>

@@ -29,7 +29,7 @@ class Event extends Model implements Auditable
         'status',
         'organizer_id',
         'slug',
-        'registration_ends_at',
+        'registration_deadline',
     ];
 
 
@@ -41,10 +41,10 @@ class Event extends Model implements Auditable
             $event->registration_code = strtoupper(bin2hex(random_bytes(4)));
         });
     }
-    
+
     protected $casts = [
         'start_time' => 'datetime:Y-m-d H:i',
-        'registration_ends_at' => 'datetime:Y-m-d H:i',
+        'registration_deadline' => 'datetime:Y-m-d H:i',
         'is_public' => 'boolean',
         'status' => EventStatus::class,
         'capacity' => 'integer',

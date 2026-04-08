@@ -2,6 +2,7 @@
 
 use App\Enums\PlanInterval;
 use App\Models\Plan;
+use App\Models\Tenant;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -16,7 +17,7 @@ return new class extends Migration
     {
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class, 'user_id')->constrained()->onDelete('cascade');
+            $table->foreignIdFor(Tenant::class, 'tenant_id')->constrained()->onDelete('cascade');
 
 
             $table->string('stripe_customer_id')->nullable();
