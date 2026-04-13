@@ -3,7 +3,7 @@
         <div x-data="{ mobileMenuOpen: false }" class="relative flex items-center md:space-x-2 text-neutral-800">
 
             <div class="relative z-50 flex items-center w-auto h-full">
-                <a href="{{ route('home') }}" class="flex items-center mr-2 md:mr-5 shrink-0">
+                <a href="{{ '/' }}" class="flex items-center mr-2 md:mr-5 shrink-0">
                     <x-ui.logo class="block w-auto text-gray-800 fill-current h-7 dark:text-gray-200" />
                 </a>
                 <div @click="mobileMenuOpen=!mobileMenuOpen" class="relative flex items-center justify-center w-8 h-8 ml-5 overflow-hidden text-gray-500 bg-gray-100 rounded cursor-pointer md:hidden hover:text-gray-700 hover:bg-gray-200">
@@ -25,9 +25,15 @@
             <div x-data class="flex-shrink-0 hidden w-[38px] overflow-hidden rounded-full h-[38px] sm:block" x-cloak>
                 <x-ui.light-dark-switch></x-ui.light-dark-switch>
             </div>
-            @auth
+            @auth()
             <div class="flex items-center w-auto">
+                @role('admin')
                 <x-ui.button type="primary" submit="true" tag="a" href="{{ route('dashboard') }}">View Dashboard</x-ui.button>
+                @endrole
+                @role('user')
+                <x-ui.button type="primary" submit="true" tag="a" href="{{ route('tenant.my-page') }}">My Page</x-ui.button>
+                @endrole
+
             </div>
             @else
             <div class="flex items-center w-auto">

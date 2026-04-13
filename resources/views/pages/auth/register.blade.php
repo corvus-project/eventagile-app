@@ -45,8 +45,8 @@ new #[Layout('layouts.auth')] class extends Component
             'name' => $this->name,
             'password' => Hash::make($this->password),
         ]);
-        $organizerRole = config('roles.models.role')::where('name', '=', 'Organizer')->first();
-        $user->attachRole($organizerRole);
+        $userRole = config('roles.models.role')::where('name', '=', 'User')->first();
+        $user->attachRole($userRole);
         event(new Registered($user));
 
         Auth::login($user, true);

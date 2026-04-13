@@ -57,11 +57,11 @@ new #[Layout('layouts.admin')] class extends Component {
 
 
                         <div class="flex justify-end mb-4">
-                            <x-ui.text-link href="{{ route('dashboard.events.update', ['event' => $event->slug]) }}" class="btn-ghost btn-sm text-red-600 p-2">
+                            <x-ui.text-link href="{{ route('dashboard.events.update', ['event' => $event->slug]) }}" class="btn-ghost btn-sm text-sm text-blue-600 p-2">
                                 Update Event
                             </x-ui.text-link>
 
-                            <x-ui.text-link href="{{ route('dashboard.events.registrations.export', ['event' => $event->slug]) }}" class="btn-ghost btn-sm text-red-600 p-2">
+                            <x-ui.text-link href="{{ route('dashboard.events.registrations.export', ['event' => $event->slug]) }}" class="btn-ghost btn-sm text-sm text-blue-600 p-2">
                                 Export Registration List
                             </x-ui.text-link>
 

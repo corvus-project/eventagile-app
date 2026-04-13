@@ -2,13 +2,12 @@
 
 namespace App\Livewire\Forms;
 
-use App\Exceptions\RateLimiterException;
 use App\Mail\NewEventRegistration;
 use App\Models\Event;
+use App\Models\EventRegistration;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\RateLimiter;
-use Livewire\Attributes\Validate;
 use Livewire\Form;
 
 class EventRegistrationForm extends Form
@@ -16,31 +15,21 @@ class EventRegistrationForm extends Form
     public Event $event;
 
     public string $name = '';
-
     public string $email  = '';
-
     public string $phone = '';
-
+    public ?int $user_id = null;
     public ?string $registration_code = null;
 
     public function rules(): array
     {
         return [
-            'name' => [
-                'required',
-                'string',
-                'max:255',
-            ],
-            'email' => [
-                'required',
-                'email',
-                'max:255',
-                'unique:event_registrations,email,NULL,id,event_id,' . ($this->event?->id ?? 'NULL'),
-            ],
-            'phone' => [
-                'required',
-                'string',
-                'max:20',
+            'user_id' => [
+                'nullable',
+                function ($attribute, $value, $fail) {
+                    if ($value && EventRegistration::where('event_id', $this->event->id)->where('user_id', auth()->user()->id)->exists()) {
+                        Log::warning('Duplicate registration attempt', ['event_id' => $this->event->id, 'user_id' => $this->user_id]);
+                    }
+                },
             ],
             'registration_code' => [
                 'nullable',
@@ -51,7 +40,7 @@ class EventRegistrationForm extends Form
                         $fail('The registration code is invalid.');
                     }
                 },
-            ],  
+            ],
         ];
     }
 
@@ -74,14 +63,18 @@ class EventRegistrationForm extends Form
 
     public function store(): void
     {
-        if (RateLimiter::tooManyAttempts('register-event:' . request()->ip(), $perMinute = 3)) {
-            throw new RateLimiterException('You are registering events too quickly. Please wait a moment before trying again!.');
-        }
-        RateLimiter::increment('register-event:' . request()->ip());
-
         $this->validate();
 
+        $user = auth()->user();
+        if (EventRegistration::where('event_id', $this->event->id)->where('user_id', $this->user_id)->exists()) {
+            $this->addError('user_id', 'You have already registered for this event.');
+            Log::warning('Duplicate registration attempt', ['event_id' => $this->event->id, 'user_id' => $this->user_id]);
+            return;
+        }
+
+        Log::info('Storing event registration', ['event_id' => $this->event->id, 'user_id' => $user->id]);
         $this->event->registrations()->create([
+            'user_id' => $user->id,
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
@@ -90,12 +83,12 @@ class EventRegistrationForm extends Form
         ]);
 
         Mail::to($this->email)->queue(new NewEventRegistration($this->event, [
-            'name' => $this->name,
-            'email' => $this->email,
-            'phone' => $this->phone
+            'name' => $user->name,
+            'email' => $user->email,
+            'phone' => $user->phone
         ]));
 
-        $this->reset(['name', 'email', 'phone', 'registration_code']);
+        $this->reset(['registration_code']);
 
 
         session()->flash('register-status', 'Thank you for registering for the event!');

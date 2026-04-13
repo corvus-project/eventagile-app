@@ -3,7 +3,6 @@
 
 use App\Enums\RegistrationStatus;
 use App\Livewire\Forms\EventRegistrationForm;
-use App\Models\Account;
 use App\Models\Event;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -17,12 +16,16 @@ new #[Layout('layouts.frontend')]  class extends Component
     use WithPagination;
 
     public $event;
+    public $name;
     public ?string $captchaToken = null;
     public EventRegistrationForm $form;
     public int $registrations_count = 0;
 
     public function mount(Event $event)
     {
+        $this->form->name = auth()->user()->name ?? '';
+        $this->form->email = auth()->user()->email ?? '';
+        $this->form->user_id = auth()->id() ?? null;
         $this->event = $event;
         $this->form->setEvent($event);
         $this->registrations_count = $this->event->registrations()->where('status', RegistrationStatus::CONFIRMED->value)->count();
@@ -41,11 +44,8 @@ new #[Layout('layouts.frontend')]  class extends Component
         throw_if($captchaLevel <= 0.5, ValidationException::withMessages([
             'captchaToken' => __('Error on captcha verification. Please, refresh the page and try again.')
         ]));
-
-        $this->form->store();
         Log::info('User registered for event', ['event_id' => $this->event->id, 'registrations_count' => $this->registrations_count]);
-        session()->flash('register-status', 'You have successfully registered for the event. We will contact you with further details.');
-        return redirect()->route('tenant.event.view', $this->event);
+        $this->form->store();
     }
 }
 ?>
@@ -104,17 +104,20 @@ new #[Layout('layouts.frontend')]  class extends Component
             <div class="bg-red-300 text-red-700 p-3 rounded">{{ $message }}</div>
             @enderror
 
+            @error('form.user_id')
+            <div class="bg-red-300 text-red-700 p-3 rounded">{{ $message }}</div>
+            @enderror
+
             <form wire:submit.prevent="save" class="mt-1 space-y-2">
-                <x-input label="Name" wire:model="form.name" />
-                <x-input label="Email" wire:model="form.email" />
-                <x-input label="Phone" wire:model.live="form.phone" />
+                <x-input label="Name" wire:model="form.name" readonly />
+                <x-input label="Email" wire:model="form.email" value="{{ $this->user->email ?? '' }}" readonly />
 
                 @if(!$event->is_public)
                 <x-input label="Registration Code" wire:model="form.registration_code" placeholder="Enter registration code" />
                 @endif
 
 
-                <x-button label="Login" rounded="md" class="btn-primary g-recaptcha" type="primary" submit="true"
+                <x-button label="Register" rounded="md" class="btn-primary g-recaptcha" type="primary" submit="true"
                     data-sitekey="{{ config('services.recaptcha.public_key') }}"
                     data-callback='handle'
                     data-action='submit' />

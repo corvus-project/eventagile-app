@@ -32,14 +32,15 @@ Route::middleware([
 
     Route::middleware('auth', 'verified')->group(function () {
 
+
+        Route::livewire('/mypage', 'pages::accounts.mypage')->name('tenant.my-page');
+
         Route::livewire('/dashboard', 'pages::dashboard.home')->name('dashboard');
         Route::livewire('/dashboard/events', 'pages::dashboard.events')->name('dashboard.events');
         Route::livewire('/dashboard/users', 'pages::dashboard.users')->name('dashboard.users');
 
         Route::livewire('/dashboard/users/{user:id}/registrations', 'pages::dashboard.users.[User].registrations')->name('dashboard.users.registrations');
-
         Route::livewire('/dashboard/registration/{eventRegistration:id}/view', 'pages::dashboard.registration')->name('dashboard.registration.view');
-
 
 
         Route::livewire('/dashboard/events/create', 'pages::dashboard.events.create')->name('dashboard.events.create');
@@ -63,6 +64,7 @@ Route::middleware([
 
     Route::middleware('auth')->group(function () {
 
+        Route::livewire('/auth/verify', 'pages::auth.verify')->name('verification.notice');
         Route::get('email/verify/{id}/{hash}', EmailVerificationController::class)
             ->middleware('signed')
             ->name('verification.verify');

@@ -17,6 +17,7 @@ class EventRegistration extends Model implements Auditable
 
     protected $fillable = [
         'event_id',
+        'user_id',
         'name',
         'email',
         'phone',
