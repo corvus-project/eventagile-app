@@ -29,6 +29,7 @@ Route::middleware([
 
     Route::livewire('/', 'pages::accounts.home')->name('tenant.home');
     Route::livewire('/events/{event:slug}', 'pages::accounts.event-view')->name('tenant.event.view');
+    Route::livewire('/profile', 'pages::accounts.profile')->name('tenant.profile');
 
     Route::middleware('auth', 'verified')->group(function () {
 
