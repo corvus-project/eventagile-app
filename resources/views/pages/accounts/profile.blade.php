@@ -84,6 +84,10 @@ new #[Layout('layouts.frontend')]  class extends Component {
 };
 
 ?>
+
+<x-slot name="title">
+    {{ tenant('name') }} - Profile
+</x-slot>
 <x-slot name="header">
     <h2 class="text-lg font-semibold leading-tight text-gray-800 dark:text-gray-200">
         {{ __('Profile') }}
