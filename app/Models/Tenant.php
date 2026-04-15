@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Services\SubscriptionService;
+use Illuminate\Support\Facades\Log;
 use Stancl\Tenancy\Database\Models\Tenant as BaseTenant;
 use Stancl\Tenancy\Contracts\TenantWithDatabase;
 use Stancl\Tenancy\Database\Concerns\HasDatabase;
@@ -38,5 +40,11 @@ class Tenant extends BaseTenant implements TenantWithDatabase
     public function subscriptions()
     {
         return $this->hasMany(Subscription::class);
+    }
+
+    public function able($action)
+    {
+        Log::info('Checking ability for user ID: ' . $this->id . ' and action: ' . $action);
+        return app(SubscriptionService::class)->can($this, $action);
     }
 }

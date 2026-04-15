@@ -29,7 +29,7 @@ class EventPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasRole('organizer');
+        return $user->hasRole('admin');
     }
 
     /**
