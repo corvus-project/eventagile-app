@@ -11,7 +11,7 @@ class Subscription extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
+        'tenant_id',
         'starts_at',
         'ends_at',
         'status',
@@ -30,8 +30,13 @@ class Subscription extends Model
         'plan_features' => 'array',
     ];
 
-    public function user()
+    public function tenant()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Tenant::class);
+    }
+
+    public function plan()
+    {
+        return $this->belongsTo(Plan::class);
     }
 }

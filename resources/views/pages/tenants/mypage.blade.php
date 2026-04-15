@@ -6,7 +6,7 @@ use Livewire\WithPagination;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Computed;
 
-new #[Layout('layouts.frontend')]  class extends Component
+new #[Layout('layouts.tenant')]  class extends Component
 {
     use WithPagination;
 

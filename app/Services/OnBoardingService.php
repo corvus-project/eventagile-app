@@ -2,12 +2,14 @@
 
 namespace App\Services;
 
+use App\Models\Plan;
 use App\Models\Tenant;
 use App\Models\User;
+use Carbon\Carbon;
 
 class OnBoardingService
 {
-    public function process($tenant, $tenantData)
+    public function process($tenant, $tenantData): void
     {
         $tenant->run(function ($tenant) use ($tenantData) {
 
@@ -18,8 +20,7 @@ class OnBoardingService
                 'password' => $tenantData['admin_password'],
             ]);
         });
-
-        return $tenant;
+        $this->createSubscriptions($tenant);
     }
 
     private function createAdminUser(Tenant $tenant, $adminData)
@@ -55,5 +56,22 @@ class OnBoardingService
                 }
             }
         });
+    }
+
+    private function createSubscriptions(Tenant $tenant)
+    {
+        // Create default subscription for the tenant
+        $plan = Plan::where('slug', 'basic-plan')->first();
+        $tenant->subscriptions()->create([
+            'starts_at' => now(),
+            'ends_at' => Carbon::now()->addYear(),
+            'status' => 'active',
+            'plan_id' => $plan->id,
+            'interval' => $plan->interval,
+            'plan_limitations' => $plan->limitations,
+            'plan_features' => $plan->features,
+            'plan_name' => $plan->name,
+            'plan_description' => $plan->description,
+        ]);
     }
 }

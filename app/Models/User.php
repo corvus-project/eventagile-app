@@ -61,6 +61,11 @@ class User extends Authenticatable  implements MustVerifyEmail, FilamentUser
         return $this->belongsTo(Account::class);
     }
 
+    public function tenants()
+    {
+        return $this->hasMany(Tenant::class, 'user_id', 'id');
+    }
+
     public function events()
     {
         return $this->hasMany(Event::class, 'organizer_id');

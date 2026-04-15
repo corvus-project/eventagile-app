@@ -5,7 +5,7 @@ use Livewire\Component;
 use Livewire\Attributes\Validate;
 use Livewire\Attributes\Locked;
 
-new #[Layout('layouts.frontend')]  class extends Component {
+new #[Layout('layouts.tenant')]  class extends Component {
     #[Locked]
     public $user;
 

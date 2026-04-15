@@ -31,8 +31,23 @@ class DatabaseSeeder extends Seeder
         Subscription::truncate();
 
 
+
+        $this->call(PlanSeeder::class);
+        $this->call(PermissionsTableSeeder::class);
+        $this->call(RolesTableSeeder::class);
+        $this->call(ConnectRelationshipsSeeder::class);
+        Model::reguard();
+
+        $foo_user = User::factory()->create([
+            'name' => 'Foo User',
+            'email' => 'foo@example.com',
+        ]);
+        $role = config('roles.models.role')::where('name', '=', 'User')->first();
+        $foo_user->attachRole($role);
+
         $tenant1 = Tenant::create([
             'id' => 'foo',
+            'user_id' => $foo_user->id,
             'name' => 'Foo Tenant',
             'email' => 'foo@example.com',
             'is_active' => true,
@@ -40,11 +55,6 @@ class DatabaseSeeder extends Seeder
         $tenant1->domains()->create(['domain' => 'foo.localhost']);
 
 
-        $this->call(PlanSeeder::class);
-        $this->call(PermissionsTableSeeder::class);
-        $this->call(RolesTableSeeder::class);
-        $this->call(ConnectRelationshipsSeeder::class);
-        Model::reguard();
         (config('database.default') != 'sqlite') ?? DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         $user = User::factory()->create([
             'name' => 'Test User',

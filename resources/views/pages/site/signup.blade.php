@@ -47,15 +47,15 @@ new #[Layout('layouts.auth')] class extends Component
         //$this->validate();
 
         $user = User::create([
-            'email' => fake()->unique()->safeEmail(),
-            'name' => fake()->name(),
-            'password' => Hash::make('password'),
+            'email' => $this->email,
+            'name' => $this->name,
+            'password' => Hash::make($this->password),
         ]);
         $userRole = config('roles.models.role')::where('name', '=', 'User')->first();
         $user->attachRole($userRole);
 
         $tenant = Tenant::create([
-            'id' => $user->id,
+            'user_id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
             'is_active' => false,
