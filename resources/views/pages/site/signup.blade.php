@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Tenant;
 use App\Models\User;
+use App\Services\OnBoardingService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
@@ -17,7 +19,10 @@ new #[Layout('layouts.auth')] class extends Component
     #[Validate('required')]
     public $name = '';
 
-    #[Validate('required|email|unique:users')]
+    #[Validate('required|unique:tenants,domain')]
+    public $domain = '';
+
+    #[Validate('required|email|unique:tenants,email')]
     public $email = '';
 
     #[Validate('required|min:8|same:passwordConfirmation')]
@@ -39,7 +44,8 @@ new #[Layout('layouts.auth')] class extends Component
             'captchaToken' => __('Error on captcha verification. Please, refresh the page and try again.')
         ]));
 
-        $this->validate();
+        //$this->validate();
+
         $user = User::create([
             'email' => $this->email,
             'name' => $this->name,
@@ -47,11 +53,22 @@ new #[Layout('layouts.auth')] class extends Component
         ]);
         $userRole = config('roles.models.role')::where('name', '=', 'User')->first();
         $user->attachRole($userRole);
+
+        $tenant = Tenant::create([
+            'user_id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'is_active' => false,
+        ]);
+
+        $tenant->domains()->create([
+            'domain' => fake()->word(),
+        ]);
+
         event(new Registered($user));
 
-
         Auth::login($user, true);
-
+        session()->flash('message', 'Your account has been created, please verify your email using the link sent to your email address.');
         return redirect()->intended('/');
     }
 };
@@ -82,7 +99,17 @@ new #[Layout('layouts.auth')] class extends Component
             <div class="bg-red-300 text-red-700 p-3 rounded">{{ $message }}</div>
             @enderror
 
+
+            @if (session()->has('message'))
+            <div class="alert alert-success my-5 ">
+                {{ session('message') }}
+            </div>
+            @endif
+
+
             <form wire:submit="register" class="space-y-6">
+                <x-ui.input label="Domain" type="text" id="domain" name="domain" wire:model="domain" />
+
                 <x-ui.input label="Name" type="text" id="name" name="name" wire:model="name" />
                 <x-ui.input label="Email address" type="email" id="email" name="email" wire:model="email" />
                 <x-ui.input label="Password" type="password" id="password" name="password" wire:model="password" />

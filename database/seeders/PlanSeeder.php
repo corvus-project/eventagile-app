@@ -14,15 +14,15 @@ class PlanSeeder extends Seeder
     {
         $plans = [
             [
-                'name' => 'Basic Plan',
-                'slug' => 'basic-plan',
-                'description' => 'A basic plan for individual users.',
+                'name' => 'Free Plan',
+                'slug' => 'free-plan',
+                'description' => 'A free plan for individual users.',
                 'price' => 0.00,
                 'currency' => 'gbp',
                 'interval' => 'month',
                 'interval_count' => 1,
                 'features' => json_encode(['Access to basic features', 'Email support']),
-                'limitations' => json_encode(['max_events' => 100, 'max_registrations' => 100, 'sending_emails' => false]),
+                'limitations' => json_encode(['max_events' => 100, 'max_registrations' => 1000, 'sending_emails' => false]),
                 'is_active' => true,
             ],
             [

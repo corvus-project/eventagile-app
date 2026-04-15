@@ -8,6 +8,7 @@ use App\Livewire\Client\EventRegistration;
 use App\Livewire\Dashboard\DashboardHome;
 use App\Livewire\Dashboard\Events;
 use App\Models\Tenant;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
@@ -24,29 +25,36 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 */
 
 Route::get('/debug', function () {
-    $tenant = Tenant::first();
 
-    return 'This is a test route.';
-});
+    $tenant = Tenant::where('data->email', 'kemalyenilmez@yahoo.com')->first();
+
+    dd($tenant);
+})->name('welcome');
 
 foreach (config('tenancy.central_domains') as $domain) {
     Route::domain($domain)->group(function () {
+        Route::livewire('/', 'pages::site.home')->name('home');
+        Route::livewire('/signup', 'pages::site.signup')->name('signup');
 
-        Route::livewire('/', 'pages::index')->name('home');
+        Route::middleware('auth')->group(function () {
+
+            Route::get('email/verify/{id}/{hash}', EmailVerificationController::class)
+                ->middleware('signed')
+                ->name('verification.verify');
+
+            Route::post('logout', LogoutController::class)
+                ->name('logout');
+        });
     });
 }
 
-
-
-
-
 Route::livewire('/auth/login', 'pages::auth.login')->name('login');
-Route::livewire('/auth/register', 'pages::auth.register')->name('register');
+//Route::livewire('/auth/register', 'pages::auth.register')->name('register');
 
 Route::livewire('/auth/forget-password', 'pages::auth.reset')->name('password.request');
 
 
-Route::middleware('auth')->group(function () {
+/* Route::middleware('auth')->group(function () {
 
     Route::get('email/verify/{id}/{hash}', EmailVerificationController::class)
         ->middleware('signed')
@@ -54,4 +62,4 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', LogoutController::class)
         ->name('logout');
-});
+}); */

@@ -27,14 +27,15 @@ Route::middleware([
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
 
-    Route::livewire('/', 'pages::accounts.home')->name('tenant.home');
-    Route::livewire('/events/{event:slug}', 'pages::accounts.event-view')->name('tenant.event.view');
-    Route::livewire('/profile', 'pages::accounts.profile')->name('tenant.profile');
+    Route::livewire('/', 'pages::tenants.home')->name('tenant.home');
+    Route::livewire('/events/{event:slug}', 'pages::tenants.event-view')->name('tenant.event.view');
 
     Route::middleware('auth', 'verified')->group(function () {
 
 
-        Route::livewire('/mypage', 'pages::accounts.mypage')->name('tenant.my-page');
+        Route::livewire('/mypage', 'pages::tenants.mypage')->name('tenant.my-page');
+        Route::livewire('/profile', 'pages::tenants.profile')->name('tenant.profile');
+
 
         Route::livewire('/dashboard', 'pages::dashboard.home')->name('dashboard');
         Route::livewire('/dashboard/events', 'pages::dashboard.events')->name('dashboard.events');

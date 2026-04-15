@@ -14,11 +14,12 @@ use App\Services\SubscriptionService;
 use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Support\Facades\Log;
 use Filament\Panel;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable  implements MustVerifyEmail, FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasRoleAndPermission;
+    use HasFactory, Notifiable, HasRoleAndPermission, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -58,6 +59,11 @@ class User extends Authenticatable  implements MustVerifyEmail, FilamentUser
     public function account()
     {
         return $this->belongsTo(Account::class);
+    }
+
+    public function tenants()
+    {
+        return $this->hasMany(Tenant::class, 'user_id', 'id');
     }
 
     public function events()

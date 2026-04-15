@@ -12,7 +12,6 @@ class EmailVerificationController extends Controller
 {
     public function __invoke(string $id, string $hash): RedirectResponse
     {
-        dd($id, $hash, request()->fullUrl());
         if (! hash_equals((string) $id, (string) Auth::user()->getKey())) {
             throw new AuthorizationException();
         }
@@ -28,6 +27,8 @@ class EmailVerificationController extends Controller
         if (Auth::user()->markEmailAsVerified()) {
             event(new Verified(Auth::user()));
         }
+
+
 
         return redirect()->route('home');
     }

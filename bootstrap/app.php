@@ -20,7 +20,12 @@ return Application::configure(basePath: dirname(__DIR__))
             'role' => \jeremykenedy\LaravelRoles\App\Http\Middleware\VerifyRole::class,
         ]);
         $middleware->group('universal', []);
-        //
+        $middleware->trustProxies(at: [
+            '127.0.0.1',
+            'localhost',
+            '192.168.1.1',
+            '10.0.0.0/8',
+        ]);
     })
 
     ->withExceptions(function (Exceptions $exceptions) {
