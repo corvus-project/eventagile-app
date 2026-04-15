@@ -4,7 +4,7 @@
         {{ $title ?? 'CorvusApp' }}
     </x-slot>
 
-    <x-ui.frontend.header />
+    <x-ui.tenant.header />
 
     <!-- Page Heading -->
     @if (isset($header))

@@ -2,7 +2,6 @@
 
 namespace App\Listeners;
 
-use App\Events\Verified;
 use App\Models\Tenant;
 use App\Services\OnBoardingService;
 use Illuminate\Auth\Events\Verified as EventsVerified;

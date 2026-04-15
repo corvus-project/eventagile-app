@@ -9,7 +9,7 @@ use Carbon\Carbon;
 
 class OnBoardingService
 {
-    public function process($tenant, $tenantData): void
+    public function process($tenant, $tenantData)
     {
         $tenant->run(function ($tenant) use ($tenantData) {
 
