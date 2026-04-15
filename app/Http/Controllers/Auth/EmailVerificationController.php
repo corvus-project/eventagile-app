@@ -30,6 +30,6 @@ class EmailVerificationController extends Controller
 
 
 
-        return redirect()->route('home');
+        return redirect()->route('temporary')->with('verified', true);
     }
 }

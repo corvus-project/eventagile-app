@@ -36,6 +36,7 @@ foreach (config('tenancy.central_domains') as $domain) {
         Route::livewire('/', 'pages::site.home')->name('home');
         Route::livewire('/signup', 'pages::site.signup')->name('signup');
 
+        Route::livewire('/temporary', 'pages::site.temporary')->name('temporary');
         Route::middleware('auth')->group(function () {
 
             Route::get('email/verify/{id}/{hash}', EmailVerificationController::class)
@@ -47,6 +48,13 @@ foreach (config('tenancy.central_domains') as $domain) {
         });
     });
 }
+
+Route::livewire('/privacy', 'pages::site.privacy')->name('privacy');
+Route::livewire('/features', 'pages::site.features')->name('features');
+Route::livewire('/examples', 'pages::site.examples')->name('examples');
+Route::livewire('/contact', 'pages::site.contact')->name('contact');
+Route::livewire('/pricing', 'pages::site.pricing')->name('pricing');
+Route::livewire('/support', 'pages::site.support')->name('support');
 
 Route::livewire('/auth/login', 'pages::auth.login')->name('login');
 //Route::livewire('/auth/register', 'pages::auth.register')->name('register');

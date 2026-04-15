@@ -20,4 +20,14 @@
             {{ $slot }}
         </div>
     </div>
+    <footer class="pt-8 pb-8 bg-gray-100 mt-8">
+        <nav class="flex justify-center space-x-6">
+            <a href="/" class="text-gray-600 hover:text-primary">Home</a>
+            <a href="/features" class="text-gray-600 hover:text-primary">Features</a>
+            <a href="/examples" class="text-gray-600 hover:text-primary">Usage Examples</a>
+            <a href="/contact" class="text-gray-600 hover:text-primary">Contact</a>
+            <a href="/privacy" class="text-gray-600 hover:text-primary">Privacy Policy</a>
+        </nav>
+        <p class="mt-4 text-center text-xs text-gray-400">&copy; {{now()->year}} Event Agile. All rights reserved.</p>
+    </footer>
 </x-layouts.main>

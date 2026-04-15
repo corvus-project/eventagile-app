@@ -76,27 +76,11 @@ class User extends Authenticatable  implements MustVerifyEmail, FilamentUser
         return $this->hasMany(Subscription::class);
     }
 
-    public function able($action)
-    {
-        Log::info('Checking ability for user ID: ' . $this->id . ' and action: ' . $action);
-        return app(SubscriptionService::class)->can($this, $action);
-    }
-
     public function canAccessPanel(Panel $panel): bool
     {
         if ($this->hasRole('admin')) {
             return true;
         }
         return false;
-    }
-
-    public function getMaxEventsAllowedAttribute()
-    {
-        $subscription = $this->subscriptions()->where('status', 'active')->latest()->first();
-        if ($subscription) {
-            $plan_limitations = json_decode($subscription->plan_limitations, true);
-            return $plan_limitations['max_events'] ?? 0;
-        }
-        return 0;
     }
 }

@@ -98,6 +98,11 @@ new #[Layout('layouts.tenant')]  class extends Component
             </div>
             @else
             <h3 class="text-lg font-semibold mb-4">Register for Event</h3>
+
+            @if(!auth()->user())
+            <a href="{{ route("login") }}" class="text-blue-500 hover:text-blue-700">Please log in to register for the event.</a>
+            @else
+
             <p class="mb-4">Please fill in your details to register for the event.</p>
 
             @error('captchaToken')
@@ -107,6 +112,7 @@ new #[Layout('layouts.tenant')]  class extends Component
             @error('form.user_id')
             <div class="bg-red-300 text-red-700 p-3 rounded">{{ $message }}</div>
             @enderror
+
 
             <form wire:submit.prevent="save" class="mt-1 space-y-2">
                 <x-input label="Name" wire:model="form.name" readonly />
@@ -139,6 +145,7 @@ new #[Layout('layouts.tenant')]  class extends Component
                     })
                 }
             </script>
+            @endif
             @endif
             </section>
         </div>
