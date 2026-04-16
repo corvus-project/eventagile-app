@@ -15,10 +15,8 @@
     </div>
     @endif
 
-    <div class="mx-auto max-w-6xl">
-        <div class="sm:px-6 lg:px-8">
-            {{ $slot }}
-        </div>
+    <div class="mx-auto">
+        {{ $slot }}
     </div>
     <footer class="pt-8 pb-8 bg-gray-100 mt-8">
         <nav class="flex justify-center space-x-6">

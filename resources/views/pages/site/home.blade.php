@@ -12,33 +12,35 @@ new #[Layout('layouts.frontend')]  class extends Component {};
     {{ 'Event Agile ~ Alpha Release' }}
 </x-slot>
 
-<div class="pb-5">
-    <div class="hero bg-base-200">
-        <div class="hero-content flex-col lg:flex-row-reverse">
-            <img
-                class="mx-auto rounded-md w-full"
-                style="object-fit: cover;"
-                src='./assets/images/hero.webp'
-                alt="Power your events with EventAgile" />
+<div>
+    <div class="hero  min-h-screen bg-linear-to-b/lab from-sky-50 to-sky-200">
+        <div class="hero-content text-center">
+            <div class="max-w-fit">
+                <h1 class="text-3xl font-bold my-8">easy event management by <span class="text-primary">EventAgile</span></h1>
 
-            <div>
-                <h1 class="text-3xl font-bold">easy event management by <span class="text-primary">EventAgile</span></h1>
-                <p class="py-6">
-                    Effortlessly organize, promote, and manage your events—all in one place. EventAgile gives you the tools to streamline registrations, track
-                    attendance, and engage your audience with ease.
-                </p>
-                <a href="https://app.eventagile.com/" class="btn btn-primary">Get Started</a>
+                <img
+                    class="rounded-lg shadow-2xl"
+                    src='./assets/images/hero-image-alt.png'
+                    alt="Power your events with EventAgile" />
 
-                <a href="/features" class="btn btn-secondary ml-4">Learn More</a>
+                <div class="py-10">
+
+                    <p class="py-6 text-2xl">
+                        Effortlessly organize, promote, and manage your events—all in one place. EventAgile gives you the tools to streamline registrations, track
+                        attendance, and engage your audience with ease.
+                    </p>
+                    <a href="https://eventagile.com/signup" class="btn btn-primary">Get Started</a>
+
+                    <a href="/features" class="btn btn-secondary ml-4">Learn More</a>
+                </div>
             </div>
         </div>
     </div>
-
-    <div class="bg-primary-100 py-12 px-4">
+    <div class="bg-slate-50 py-12 px-4">
         <div class="max-w-screen-xl mx-auto">
             <div class="max-w-3xl mx-auto mb-16 text-center">
                 <h2 class="text-dark text-3xl lg:text-4xl font-bold text-center mb-4 leading-relaxed">Discover Exclusive Features</h2>
-                <p class="text-slate-800 group-hover:text-slate-600 text-sm leading-relaxed">
+                <p class="text-slate-800 group-hover:text-slate-600 text-md leading-relaxed">
                     Create the perfect registration experience with fully customizable, intuitive tools. Whether you need a simple sign-up or a multi-event
                     registration flow, our system adapts to your unique needs.
                 </p>
@@ -51,7 +53,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                             data-original="#000000"></path>
                     </svg>
                     <h3 class="text-lg font-semibold mb-3">Event Creation & Management</h3>
-                    <p class="text-secondary group-hover:text-slate-600 text-sm leading-relaxed">
+                    <p class="text-slate-600 text-sm leading-relaxed">
                         Effortlessly build a registration form that fits your event. Our intuitive tools let you customize everything from a simple sign-up to a
                         complex, multi-event flow—all in one place
                     </p>
@@ -86,7 +88,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                         </g>
                     </svg>
                     <h3 class="text-lg font-semibold mb-3">Simple Registration System</h3>
-                    <p class="text-secondary group-hover:text-slate-600 text-sm leading-relaxed">
+                    <p class="text-slate-600  text-sm leading-relaxed">
                         A streamlined and user-friendly process that allows attendees to register for an event with minimal effort, typically by providing just
                         their name and email address.
                     </p>
@@ -99,7 +101,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                             data-original="#000000"></path>
                     </svg>
                     <h3 class="text-lg font-semibold mb-3">Export the Registrations</h3>
-                    <p class="text-secondary group-hover:text-slate-600 text-sm leading-relaxed">
+                    <p class="text-slate-600  text-sm leading-relaxed">
                         The service allows organizers to download a comprehensive list of all registered attendees for a specific event into a standard format like
                         a CSV or excel file.
                     </p>
@@ -112,7 +114,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                             data-original="#000000"></path>
                     </svg>
                     <h3 class="text-lg font-semibold mb-3">Basic Reporting</h3>
-                    <p class="text-secondary group-hover:text-slate-600 text-sm leading-relaxed">
+                    <p class="text-slate-600  text-sm leading-relaxed">
                         Organizers with at-a-glance insights into their event's performance, such as the total number of registrations, which events have the most
                         sign-ups, and the status of each event (e.g., published, in-draft).
                     </p>
@@ -143,7 +145,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                         </g>
                     </svg>
                     <h3 class="text-lg font-semibold mb-3">Always Up-to-Date</h3>
-                    <p class="text-secondary group-hover:text-slate-600 text-sm leading-relaxed">
+                    <p class="text-slate-600  text-sm leading-relaxed">
                         As a SaaS solution, the system is continuously maintained and hosted on our servers, which means users always have access to the latest
                         version of the software.
                     </p>
@@ -169,7 +171,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                         </g>
                     </svg>
                     <h3 class="text-lg font-semibold mb-3">Easy and Affordable Management</h3>
-                    <p class="text-secondary group-hover:text-slate-600 text-sm leading-relaxed">
+                    <p class="text-slate-600  text-sm leading-relaxed">
                         It allows users to manage events efficiently without needing extensive technical knowledge or a large budget.
                     </p>
                 </div>

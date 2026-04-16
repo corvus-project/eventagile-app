@@ -62,7 +62,7 @@
                 </div>
                 @else
 
-                <a href="{{ route('signup') }}" class="px-4 py-2 text-sm rounded-full font-medium cursor-pointer tracking-wide text-white border bg-red-700 border-red-700 hover:bg-gray-50 hover:text-red-700 transition-all">Register</a>
+                <a href="{{ route('signup') }}" class="px-4 py-2 text-sm rounded-full font-medium cursor-pointer tracking-wide btn-primary btn transition-all">Signup</a>
                 @endif
                 <button id="toggleOpen" class="lg:hidden cursor-pointer">
                     <svg class="w-7 h-7" fill="#000" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
