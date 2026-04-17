@@ -19,7 +19,7 @@ new #[Layout('layouts.auth')] class extends Component
     #[Validate('required')]
     public $name = '';
 
-    #[Validate('required|unique:tenants,domain')]
+    #[Validate('required|unique:domains,domain')]
     public $domain = '';
 
     #[Validate('required|email|unique:tenants,email')]
