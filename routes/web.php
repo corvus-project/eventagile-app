@@ -56,7 +56,7 @@ Route::livewire('/contact', 'pages::site.contact')->name('contact');
 Route::livewire('/pricing', 'pages::site.pricing')->name('pricing');
 Route::livewire('/support', 'pages::site.support')->name('support');
 
-Route::livewire('/auth/login', 'pages::auth.login')->name('login');
+//Route::livewire('/auth/login', 'pages::auth.login')->name('login');
 //Route::livewire('/auth/register', 'pages::auth.register')->name('register');
 
 Route::livewire('/auth/forget-password', 'pages::auth.reset')->name('password.request');

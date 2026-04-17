@@ -69,7 +69,7 @@ new #[Layout('layouts.auth')] class extends Component
 
         Auth::login($user, true);
         session()->flash('message', 'Your account has been created, please verify your email using the link sent to your email address.');
-        return redirect()->intended('temporary');
+        return redirect()->intended('account-setup');
     }
 };
 
