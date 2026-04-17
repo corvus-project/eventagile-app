@@ -56,22 +56,22 @@ Route::middleware([
 
         Route::livewire('/dashboard/reports', 'pages::dashboard.reports')->name('reports.index');
         Route::livewire('/dashboard/settings', 'pages::dashboard.settings')->name('settings.index');
+    });
 
-        Route::livewire('/auth/login', 'pages::auth.login')->name('login');
-        Route::livewire('/auth/register', 'pages::auth.register')->name('register');
+    Route::livewire('/auth/login', 'pages::auth.login')->name('login');
+    Route::livewire('/auth/register', 'pages::auth.register')->name('register');
 
-        Route::livewire('/auth/forget-password', 'pages::auth.reset')->name('password.request');
+    Route::livewire('/auth/forget-password', 'pages::auth.reset')->name('password.request');
 
 
-        Route::middleware('auth')->group(function () {
+    Route::middleware('auth')->group(function () {
 
-            Route::livewire('/auth/verify', 'pages::auth.verify')->name('verification.notice');
-            Route::get('email/verify/{id}/{hash}', EmailVerificationController::class)
-                ->middleware('signed')
-                ->name('verification.verify');
+        Route::livewire('/auth/verify', 'pages::auth.verify')->name('verification.notice');
+        Route::get('email/verify/{id}/{hash}', EmailVerificationController::class)
+            ->middleware('signed')
+            ->name('verification.verify');
 
-            Route::post('logout', LogoutController::class)
-                ->name('logout');
-        });
+        Route::post('logout', LogoutController::class)
+            ->name('logout');
     });
 });
