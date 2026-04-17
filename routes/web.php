@@ -36,7 +36,7 @@ foreach (config('tenancy.central_domains') as $domain) {
         Route::livewire('/', 'pages::site.home')->name('home');
         Route::livewire('/signup', 'pages::site.signup')->name('signup');
 
-        Route::livewire('/temporary', 'pages::site.temporary')->name('temporary');
+        Route::livewire('/account-setup', 'pages::site.temporary')->name('temporary');
         Route::middleware('auth')->group(function () {
 
             Route::get('email/verify/{id}/{hash}', EmailVerificationController::class)

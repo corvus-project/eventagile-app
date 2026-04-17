@@ -61,7 +61,7 @@ class OnBoardingService
     private function createSubscriptions(Tenant $tenant)
     {
         // Create default subscription for the tenant
-        $plan = Plan::where('slug', 'basic-plan')->first();
+        $plan = Plan::where('slug', 'free-plan')->first();
         $tenant->subscriptions()->create([
             'starts_at' => now(),
             'ends_at' => Carbon::now()->addYear(),

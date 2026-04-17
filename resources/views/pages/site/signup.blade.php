@@ -62,7 +62,7 @@ new #[Layout('layouts.auth')] class extends Component
         ]);
 
         $tenant->domains()->create([
-            'domain' => fake()->word(),
+            'domain' => $this->domain,
         ]);
 
         event(new Registered($user));
@@ -86,10 +86,7 @@ new #[Layout('layouts.auth')] class extends Component
         </x-ui.link>
         <h2 class="mt-5 text-2xl font-extrabold leading-9 text-center text-gray-800 dark:text-gray-200">Create a new
             account</h2>
-        <div class="text-sm leading-5 text-center text-gray-600 dark:text-gray-400 space-x-0.5">
-            <span>Or</span>
-            <x-ui.text-link href="{{ route('login') }}">sign in to your account</x-ui.text-link>
-        </div>
+
     </div>
 
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
