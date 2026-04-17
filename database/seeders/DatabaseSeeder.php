@@ -31,7 +31,6 @@ class DatabaseSeeder extends Seeder
         Subscription::truncate();
 
 
-
         $this->call(PlanSeeder::class);
         $this->call(PermissionsTableSeeder::class);
         $this->call(RolesTableSeeder::class);
