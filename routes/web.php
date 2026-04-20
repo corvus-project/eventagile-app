@@ -9,6 +9,7 @@ use App\Livewire\Dashboard\DashboardHome;
 use App\Livewire\Dashboard\Events;
 use App\Models\Tenant;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
@@ -25,10 +26,7 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 */
 
 Route::get('/debug', function () {
-
-    $tenant = Tenant::where('data->email', 'kemalyenilmez@yahoo.com')->first();
-
-    dd($tenant);
+    return Carbon::now();
 })->name('welcome');
 
 foreach (config('tenancy.central_domains') as $domain) {

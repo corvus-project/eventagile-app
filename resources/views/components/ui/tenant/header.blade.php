@@ -83,7 +83,7 @@
                 <x-ui.button type="secondary" submit="true" tag="a" href="{{ route('login') }}">Login</x-ui.button>
             </div>
             <div class="flex items-center w-auto">
-                <x-ui.button type="primary" submit="true" tag="a" href="{{ route('signup') }}">Sign Up</x-ui.button>
+                <x-ui.button type="primary" submit="true" tag="a" href="{{ route('register') }}">Sign Up</x-ui.button>
             </div>
             @endauth
 

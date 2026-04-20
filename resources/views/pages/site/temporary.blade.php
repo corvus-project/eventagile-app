@@ -1,19 +1,25 @@
 <?php
 
 use App\Models\Tenant;
+use Illuminate\Http\Request;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
-use Stancl\Tenancy\Database\Models\Domain;
+use Illuminate\Support\Facades\Auth;
 
 new #[Layout('layouts.frontend')]  class extends Component {
 
     public string $domain;
 
-    public function mount()
+    public function mount(Request $request)
     {
-        if (auth()->user()->email) {
+        if (auth()->user()->hasVerifiedEmail()) {
             $tenant = Tenant::where('email', auth()->user()->email)->first();
             $this->domain = $tenant->domains()->first()->domain;
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            return redirect("https://{{$this->domain}}.eventagile.com");
         } else {
             $this->domain = '';
         }

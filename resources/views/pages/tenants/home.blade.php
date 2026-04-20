@@ -1,8 +1,8 @@
 <?php
 
 use App\Models\Event;
-use App\Models\Tenant;
-use App\Models\User;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\Attributes\Layout;
@@ -17,7 +17,15 @@ new #[Layout('layouts.tenant')]  class extends Component
     #[Computed]
     public function events()
     {
-        return Event::paginate();
+        try {
+            return Event::paginate();
+        } catch (QueryException $ex) {
+            Log::error('Tenant Id:' . tenant('id') .  $ex->getMessage());
+            abort(500, '');
+        } catch (Exception $ex) {
+            Log::error('Tenant Id:' . tenant('id') .  $ex->getMessage());
+            abort(500, '');
+        }
     }
 }
 ?>
