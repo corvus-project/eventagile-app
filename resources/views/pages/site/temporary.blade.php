@@ -19,7 +19,7 @@ new #[Layout('layouts.frontend')]  class extends Component {
             $request->session()->invalidate();
             $request->session()->regenerateToken();
 
-            return redirect("https://{{$this->domain}}.eventagile.com");
+            return redirect("https://{$this->domain}.eventagile.com");
         } else {
             $this->domain = '';
         }

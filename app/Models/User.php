@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
 use App\Services\SubscriptionService;
+use App\Services\VerifyEmailQueued;
 use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Support\Facades\Log;
 use Filament\Panel;
@@ -82,5 +83,11 @@ class User extends Authenticatable  implements MustVerifyEmail, FilamentUser
             return true;
         }
         return false;
+    }
+
+    public function sendEmailVerificationNotification()
+    {
+        Log::info('Sending email verification notification', ['user_id' => $this->id]);
+        $this->notify(new VerifyEmailQueued);
     }
 }

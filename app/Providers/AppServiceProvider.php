@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Policies\EventPolicy;
 use App\Policies\UserPolicy;
+use App\Services\Helper;
+use App\Services\VerifyEmailQueued;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -15,6 +17,8 @@ use Illuminate\Database\Eloquent\Model;
 use Filament\Support\Assets\Css;
 use Filament\Support\Facades\FilamentAsset;
 use Livewire\Livewire;
+use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Notifications\Messages\MailMessage;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -67,6 +71,25 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('login', function (string $email, string $ip) {
             return Limit::perMinute(5)->by($email . $ip);
         });
+
+
+        /*         VerifyEmail::toMailUsing(function (object $notifiable, string $url) {
+            Log::debug('URL: ' . $url);
+            Log::debug('Request Url:' . request()->url());
+            Log::debug('notifiable', [$notifiable]);
+
+            $tenant_domain = substr(request()->url(), 0, strpos(request()->url(), 'livewire/updat'));
+            $verify_url = substr($url, strpos($url, 'email/verify'), strlen($url));
+
+            $tenant_url = $tenant_domain  . $verify_url;
+            Log::debug('Tenant URL: ' . $tenant_url);
+            $verifiedUrl = Helper::tenantUrl();
+
+            return (new MailMessage)
+                ->subject('Verify Email Address')
+                ->line('Click the button below to verify your email address.')
+                ->action('Verify Email Address', $tenant_url);
+        }); */
     }
 
     private function isMigrationOrSeederCommand(): bool

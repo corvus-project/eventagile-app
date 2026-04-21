@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Auth\Events\Verified;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
 

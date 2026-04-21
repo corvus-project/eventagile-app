@@ -21,10 +21,10 @@ new #[Layout('layouts.tenant')]  class extends Component
             return Event::paginate();
         } catch (QueryException $ex) {
             Log::error('Tenant Id:' . tenant('id') .  $ex->getMessage());
-            abort(500, '');
+            abort(500, 'Tenant does not exist or database is not migrated.');
         } catch (Exception $ex) {
             Log::error('Tenant Id:' . tenant('id') .  $ex->getMessage());
-            abort(500, '');
+            abort(500, 'Tenant does not exist or database is not migrated!');
         }
     }
 }

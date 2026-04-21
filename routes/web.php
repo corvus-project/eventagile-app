@@ -26,6 +26,11 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 */
 
 Route::get('/debug', function () {
+
+    $url = 'http://127.0.0.1:8000/email/verify/2/12fcecd6021a53c4df89b2fa15b53439e7b0fcc0?expires=1776700752&signature=e55441dd2a493b66d138a171ab93d6d5840fcaf7bde33217daf0e3904fd38f9a';
+    $domain = substr($url, strpos($url, 'email/verify'), strlen($url));
+
+    dd($domain);
     return Carbon::now();
 })->name('welcome');
 

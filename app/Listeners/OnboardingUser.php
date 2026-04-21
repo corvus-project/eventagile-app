@@ -5,8 +5,6 @@ namespace App\Listeners;
 use App\Models\Tenant;
 use App\Services\OnBoardingService;
 use Illuminate\Auth\Events\Verified as EventsVerified;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Log;
 
 class OnboardingUser
@@ -24,7 +22,7 @@ class OnboardingUser
      */
     public function handle(EventsVerified $event): void
     {
-        Log::info('User email verified', ['user_id' => $event->user->id]);
+        Log::info('User email verified', ['user_id' => $event->user->id, $event]);
         $tenant = Tenant::where('email', $event->user->email)->first();
         if ($tenant) {
             $tenant->is_active = true;
