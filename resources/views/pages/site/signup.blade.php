@@ -62,7 +62,7 @@ new #[Layout('layouts.auth')] class extends Component
         ]);
 
         $tenant->domains()->create([
-            'domain' => $this->domain,
+            'domain' => str_slug($this->domain),
         ]);
 
         event(new Registered($user));

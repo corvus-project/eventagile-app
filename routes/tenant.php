@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\TenantEmailVerificationController;
 use App\Http\Controllers\Auth\TenantLogoutController;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomainOrSubdomain;
@@ -58,7 +59,7 @@ Route::middleware([
     Route::middleware('auth')->group(function () {
 
         Route::livewire('/auth/verify', 'pages::auth.verify')->name('verification.notice');
-        Route::get('email/verify/{id}/{hash}', EmailVerificationController::class)
+        Route::get('email/verify/{id}/{hash}', TenantEmailVerificationController::class)
             ->middleware('signed')
             ->name('tenant.verification.verify');
 
