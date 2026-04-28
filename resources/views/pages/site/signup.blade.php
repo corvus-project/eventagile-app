@@ -10,6 +10,7 @@ use Livewire\Component;
 use Livewire\Attributes\Validate;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Layout;
 
 new #[Layout('layouts.auth')] class extends Component
@@ -63,6 +64,12 @@ new #[Layout('layouts.auth')] class extends Component
 
         $tenant->domains()->create([
             'domain' => str_slug($this->domain),
+        ]);
+
+        Log::debug('Tenant Creation: ', [
+            'user' => $user->id,
+            'tenant' => $tenant->id,
+            'domain' =>  $this->domain
         ]);
 
         event(new Registered($user));

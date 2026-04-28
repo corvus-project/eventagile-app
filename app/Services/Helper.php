@@ -12,7 +12,6 @@ use Stancl\Tenancy\Database\Models\Domain;
 
 class Helper
 {
-
     public static function tenantUrl()
     {
         $disallowed = array('http://', 'https://');
