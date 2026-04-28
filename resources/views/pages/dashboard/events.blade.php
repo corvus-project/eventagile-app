@@ -80,7 +80,12 @@ new #[Layout('layouts.admin')]  class extends Component
 
 
                     <div class="mx-auto min-w-full">
-
+                        @if ($this->events->isEmpty())
+                        <div class="p-4 text-center text-gray-500 dark:text-gray-400
+                                ">
+                            No events found.
+                        </div>
+                        @else
                         <div class="shadow p-4 dark:bg-gray-800 sm:rounded-lg  bg-slate-50  rounded-lg dark:bg-gray-900/50 dark:border dark:border-gray-200/10">
                             <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between ">
                                 <div class="w-full md:w-1/2">
@@ -100,6 +105,7 @@ new #[Layout('layouts.admin')]  class extends Component
                             </div>
 
                             <div class="overflow-x-auto ">
+
                                 <table class="min-w-full text-left divide-y divide-gray-200 dark:divide-gray-700">
                                     <thead class="bg-gray-50 dark:bg-gray-900">
                                         <tr>
@@ -150,13 +156,14 @@ new #[Layout('layouts.admin')]  class extends Component
                                         @endforeach
                                     </tbody>
                                 </table>
+
                             </div>
                             <div class="mt-4">
                                 {{ $this->events->links() }}
                             </div>
 
                         </div>
-
+                        @endif
 
                     </div>
 

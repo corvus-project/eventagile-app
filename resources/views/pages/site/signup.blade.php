@@ -17,19 +17,19 @@ new #[Layout('layouts.auth')] class extends Component
     public ?string $captchaToken = null;
 
     #[Validate('required')]
-    public $name = '';
+    public string $name = '';
 
     #[Validate('required|unique:domains,domain')]
-    public $domain = '';
+    public string $domain = '';
 
     #[Validate('required|email|unique:tenants,email')]
-    public $email = '';
+    public string $email = '';
 
     #[Validate('required|min:8|same:passwordConfirmation')]
-    public $password = '';
+    public string $password = '';
 
     #[Validate('required|min:8|same:password')]
-    public $passwordConfirmation = '';
+    public string $passwordConfirmation = '';
 
     public function register()
     {
@@ -44,7 +44,7 @@ new #[Layout('layouts.auth')] class extends Component
             'captchaToken' => __('Error on captcha verification. Please, refresh the page and try again.')
         ]));
 
-        //$this->validate();
+        $this->validate();
 
         $user = User::create([
             'email' => $this->email,
