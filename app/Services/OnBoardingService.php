@@ -6,13 +6,13 @@ use App\Models\Plan;
 use App\Models\Tenant;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class OnBoardingService
 {
-    public function process($tenant, $tenantData)
+    public function process(Tenant $tenant, array $tenantData)
     {
         $tenant->run(function ($tenant) use ($tenantData) {
-
             $this->createRoles($tenant);
             $this->createAdminUser($tenant, [
                 'name' => $tenantData['admin_name'],
@@ -23,15 +23,20 @@ class OnBoardingService
         $this->createSubscriptions($tenant);
     }
 
-    private function createAdminUser(Tenant $tenant, $adminData)
+    private function createAdminUser(Tenant $tenant, array $adminData)
     {
-        $tenant->run(function ($tenant) use ($adminData) {
+        $tenant->run(function () use ($adminData) {
             $user = User::create([
                 'name' => $adminData['name'],
                 'email' => $adminData['email'],
                 'password' => bcrypt($adminData['password']),
+                'email_verified_at' => now(),
             ]);
-
+            Log::info('Tenant admin user is created: ', [
+                'id' => $user->id,
+                'email' => $user->email,
+                'email_verified_at' => $user->email_verified_at
+            ]);
             // Assign admin role to the user
             $role = config('roles.models.role')::where('name', '=', 'Admin')->first();
             $user->attachRole($role);
