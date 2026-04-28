@@ -12,7 +12,7 @@ new #[Layout('layouts.frontend')]  class extends Component {
 
     public function mount(Request $request)
     {
-        if (auth()->user()) {
+        if (auth()->user()?->hasVerifiedEmail()) {
             $tenant = Tenant::where('email', auth()->user()->email)->first();
             $this->domain = $tenant->domains()->first()->domain;
             Auth::logout();
