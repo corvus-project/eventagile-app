@@ -3,8 +3,11 @@
 namespace App\Filament\Resources\Tenants\Schemas;
 
 use App\Filament\Resources\Users\UserResource;
+use App\Models\Tenant;
+use Filament\Actions\Action;
 use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Components\Actions;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
@@ -22,6 +25,22 @@ class TenantInfolist
 
                     TextEntry::make('tenancy_db_name')
                         ->label('Tenant Database Name'),
+
+                    Actions::make([
+                        Action::make('login-account')
+                            ->modalDescription('Modified description')
+                            ->requiresConfirmation()
+                            ->action(function ($record) {
+
+                                // @TODO move the logic to a service and find the admin role in tenant db
+                                $tenant = Tenant::find($record->id);
+                                $redirectUrl = '/dashboard';
+                                $token = tenancy()->impersonate($tenant, 1, $redirectUrl);
+                                $tenant_domain = $tenant->primary_domain;
+                                $domain = str_replace(['http://', 'https://'], '', config('app.url'));
+                                return redirect("https://$tenant_domain.$domain/impersonate/{$token->token}");
+                            })
+                    ]),
                 ])->columns(2),
 
 
@@ -40,6 +59,7 @@ class TenantInfolist
                     ->label('Domains')
                     ->schema([
                         TextEntry::make('domain')->label('Domain'),
+
                     ])
                     ->columns(1),
 
@@ -50,6 +70,8 @@ class TenantInfolist
                     ])
                     ->columns(1)
 
-            ])->columns(1);
+            ])
+
+            ->columns(1);
     }
 }

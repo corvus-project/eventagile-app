@@ -34,8 +34,7 @@ class OnBoardingService
             ]);
             Log::info('Tenant admin user is created: ', [
                 'id' => $user->id,
-                'email' => $user->email,
-                'email_verified_at' => $user->email_verified_at
+                'email' => $user->email
             ]);
             // Assign admin role to the user
             $role = config('roles.models.role')::where('name', '=', 'Admin')->first();
