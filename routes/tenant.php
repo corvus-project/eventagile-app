@@ -36,6 +36,7 @@ Route::middleware([
         return UserImpersonation::makeResponse($token);
     });
 
+
     Route::middleware(['auth', 'verified'])->group(function () {
         Route::livewire('/mypage', 'pages::tenants.mypage')->name('tenant.my-page');
         Route::livewire('/profile', 'pages::tenants.profile')->name('tenant.profile');
@@ -56,8 +57,8 @@ Route::middleware([
 
     Route::livewire('/auth/login', 'pages::auth.login')->name('login');
     Route::livewire('/auth/register', 'pages::auth.register')->name('register');
-
-    Route::livewire('/auth/forget-password', 'pages::auth.reset')->name('password.request');
+    Route::livewire('/auth/forget-password', 'pages::auth.password.reset')->name('password.request');
+    Route::livewire('/auth/forget-reset/{token}', 'pages::auth.password.[token]')->name('password.reset');
 
 
     Route::middleware('auth')->group(function () {
@@ -67,7 +68,7 @@ Route::middleware([
             ->middleware('signed')
             ->name('tenant.verification.verify');
 
-        Route::post('logout', TenantLogoutController::class)
+        Route::post('t/logout', TenantLogoutController::class)
             ->name('tenant.logout');
     });
 });

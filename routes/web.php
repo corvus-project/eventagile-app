@@ -31,11 +31,6 @@ Route::get('/debug', function () {
 
     config(['database.connections.template_tenant_connection.database' => database_path($tenant->tenancy_db_name)]);
 
-    //    dd(config('database.connections.template_tenant_connection'));
-    //DB::connect('template_tenant_connection');
-    /*     $user = new User;
-    $user->setConnection('template_tenant_connection');
-    $users = $user->setConnection('template_tenant_connection')->query()->get(); */
     $users = User::on('template_tenant_connection')->with('roles')->get();
 
     return $users;
@@ -69,7 +64,7 @@ Route::livewire('/support', 'pages::site.support')->name('support');
 //Route::livewire('/auth/login', 'pages::auth.login')->name('login');
 //Route::livewire('/auth/register', 'pages::auth.register')->name('register');
 
-Route::livewire('/auth/forget-password', 'pages::auth.reset')->name('password.request');
+//Route::livewire('/auth/forget-password', 'pages::auth.reset')->name('password.request');
 
 
 /* Route::middleware('auth')->group(function () {
