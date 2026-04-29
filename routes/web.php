@@ -10,6 +10,7 @@ use App\Livewire\Dashboard\Events;
 use App\Models\Tenant;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
@@ -26,12 +27,18 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 */
 
 Route::get('/debug', function () {
+    $tenant = Tenant::query()->where('id', '17b645f6-c80e-466b-a4a7-8910c2e7a34e')->first();
 
-    $url = 'http://127.0.0.1:8000/email/verify/2/12fcecd6021a53c4df89b2fa15b53439e7b0fcc0?expires=1776700752&signature=e55441dd2a493b66d138a171ab93d6d5840fcaf7bde33217daf0e3904fd38f9a';
-    $domain = substr($url, strpos($url, 'email/verify'), strlen($url));
+    config(['database.connections.template_tenant_connection.database' => database_path($tenant->tenancy_db_name)]);
 
-    dd($domain);
-    return Carbon::now();
+    //    dd(config('database.connections.template_tenant_connection'));
+    //DB::connect('template_tenant_connection');
+    /*     $user = new User;
+    $user->setConnection('template_tenant_connection');
+    $users = $user->setConnection('template_tenant_connection')->query()->get(); */
+    $users = User::on('template_tenant_connection')->with('roles')->get();
+
+    return $users;
 })->name('welcome');
 
 foreach (config('tenancy.central_domains') as $domain) {
