@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\Auth\EmailVerificationController;
-use App\Http\Controllers\Auth\LogoutController;
+use Stancl\Tenancy\Features\UserImpersonation;
+
 use App\Http\Controllers\Auth\TenantEmailVerificationController;
 use App\Http\Controllers\Auth\TenantLogoutController;
 use Illuminate\Support\Facades\Route;
@@ -32,7 +32,12 @@ Route::middleware([
     Route::livewire('/', 'pages::tenants.home')->name('tenant.home');
     Route::livewire('/events/{event:slug}', 'pages::tenants.event-view')->name('tenant.event.view');
 
-    Route::middleware('auth', 'verified')->group(function () {
+    Route::get('/impersonate/{token}', function ($token) {
+        return UserImpersonation::makeResponse($token);
+    });
+
+
+    Route::middleware(['auth', 'verified'])->group(function () {
         Route::livewire('/mypage', 'pages::tenants.mypage')->name('tenant.my-page');
         Route::livewire('/profile', 'pages::tenants.profile')->name('tenant.profile');
         Route::livewire('/dashboard', 'pages::dashboard.home')->name('dashboard');
@@ -52,8 +57,8 @@ Route::middleware([
 
     Route::livewire('/auth/login', 'pages::auth.login')->name('login');
     Route::livewire('/auth/register', 'pages::auth.register')->name('register');
-
-    Route::livewire('/auth/forget-password', 'pages::auth.reset')->name('password.request');
+    Route::livewire('/auth/forget-password', 'pages::auth.password.reset')->name('password.request');
+    Route::livewire('/auth/forget-reset/{token}', 'pages::auth.password.[token]')->name('password.reset');
 
 
     Route::middleware('auth')->group(function () {
@@ -63,7 +68,7 @@ Route::middleware([
             ->middleware('signed')
             ->name('tenant.verification.verify');
 
-        Route::post('logout', TenantLogoutController::class)
+        Route::post('t/logout', TenantLogoutController::class)
             ->name('tenant.logout');
     });
 });
