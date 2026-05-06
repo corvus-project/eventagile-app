@@ -31,8 +31,12 @@ new #[Layout('layouts.tenant')]  class extends Component
         $this->registrations_count = $this->event->registrations()->where('status', RegistrationStatus::CONFIRMED->value)->count();
     }
 
-    public function save()
+    public function save($token = null)
     {
+        if ($token) {
+            $this->captchaToken = $token;
+        }
+
         $query = http_build_query([
             'secret' => config('services.recaptcha.secret_key'),
             'response' => $this->captchaToken,
@@ -114,7 +118,7 @@ new #[Layout('layouts.tenant')]  class extends Component
             @enderror
 
 
-            <form wire:submit.prevent="save" class="mt-1 space-y-2">
+            <form wire:submit.prevent="save" onsubmit="handleSubmit(event)" class="mt-1 space-y-2">
                 <x-input label="Name" wire:model="form.name" readonly />
                 <x-input label="Email" wire:model="form.email" value="{{ $this->user->email ?? '' }}" readonly />
 
@@ -123,24 +127,20 @@ new #[Layout('layouts.tenant')]  class extends Component
                 @endif
 
 
-                <x-button label="Register" rounded="md" class="btn-primary g-recaptcha" type="primary" submit="true"
-                    data-sitekey="{{ config('services.recaptcha.public_key') }}"
-                    data-callback='handle'
-                    data-action='submit' />
+                <x-button label="Register" rounded="md" class="btn-primary" type="primary" submit="true" />
             </form>
 
 
             <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.public_key') }}"></script>
             <script>
-                function handle(e) {
+                function handleSubmit(event) {
+                    event.preventDefault();
                     grecaptcha.ready(function() {
                         grecaptcha.execute('{{ config("services.recaptcha.public_key") }}', {
                                 action: 'submit'
                             })
                             .then(function(token) {
-
-                                @this.set('captchaToken', token);
-                                @this.save()
+                                @this.call('save', token);
                             });
                     })
                 }

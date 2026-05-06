@@ -2,7 +2,6 @@
 
 use App\Models\Tenant;
 use App\Models\User;
-use App\Services\OnBoardingService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
@@ -20,7 +19,7 @@ new #[Layout('layouts.auth')] class extends Component
     #[Validate('required')]
     public string $name = '';
 
-    #[Validate('required|unique:domains,domain')]
+    #[Validate('required|min:3|max:25|unique:domains,domain', message: 'Please, select a domain for your project!')]
     public string $domain = '';
 
     #[Validate('required|email|unique:tenants,email')]
@@ -32,20 +31,26 @@ new #[Layout('layouts.auth')] class extends Component
     #[Validate('required|min:8|same:password')]
     public string $passwordConfirmation = '';
 
-    public function register()
+    public function register($token = null)
     {
+        Log::debug('Starting registration process', ['email' => $this->email, 'domain' => $this->domain, 'token' => $token]);
+
+
+        if ($token) {
+            $this->captchaToken = $token;
+        }
+
         $query = http_build_query([
             'secret' => config('services.recaptcha.secret_key'),
             'response' => $this->captchaToken,
         ]);
         $response = Http::post('https://www.google.com/recaptcha/api/siteverify?' . $query);
         $captchaLevel = $response->json('score');
-
+        $this->validate();
+        Log::debug('Captcha verification result', ['email' => $this->email, 'captchaToken' => $this->captchaToken, 'captcha_score' => $captchaLevel]);
         throw_if($captchaLevel <= 0.5, ValidationException::withMessages([
             'captchaToken' => __('Error on captcha verification. Please, refresh the page and try again.')
         ]));
-
-        $this->validate();
 
         $user = User::create([
             'email' => $this->email,
@@ -111,30 +116,28 @@ new #[Layout('layouts.auth')] class extends Component
             @endif
 
 
-            <form wire:submit="register" class="space-y-6">
-                <x-ui.input label="Domain" type="text" id="domain" name="domain" wire:model="domain" />
+            <form onsubmit="handleSubmit(event)" class="space-y-6">
+                <x-input label="Domain" type="text" id="domain" name="domain" wire:model="domain" />
+                <x-input label="Name" type="text" id="name" name="name" wire:model="name" />
+                <x-input label="Email address" type="email" id="email" name="email" wire:model="email" />
+                <x-input label="Password" type="password" id="password" name="password" wire:model="password" />
+                <x-input label="Confirm Password" type="password" id="password_confirmation" name="password_confirmation" wire:model="passwordConfirmation" />
 
-                <x-ui.input label="Name" type="text" id="name" name="name" wire:model="name" />
-                <x-ui.input label="Email address" type="email" id="email" name="email" wire:model="email" />
-                <x-ui.input label="Password" type="password" id="password" name="password" wire:model="password" />
-                <x-ui.input label="Confirm Password" type="password" id="password_confirmation" name="password_confirmation" wire:model="passwordConfirmation" />
 
-                <x-button label="Register" rounded="md" class="btn-primary g-recaptcha" type="primary" submit="true"
-                    data-sitekey="{{ config('services.recaptcha.public_key') }}"
-                    data-callback='handle'
-                    data-action='register' />
+                <x-button label="Register" rounded="md" class="btn-primary"
+                    type="primary"
+                    submit="true" />
             </form>
             <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.public_key') }}"></script>
             <script>
-                function handle(e) {
+                function handleSubmit(event) {
+                    event.preventDefault();
                     grecaptcha.ready(function() {
                         grecaptcha.execute('{{ config("services.recaptcha.public_key") }}', {
-                                action: 'submit'
+                                action: 'register'
                             })
                             .then(function(token) {
-
-                                @this.set('captchaToken', token);
-                                @this.register()
+                                @this.call('register', token);
                             });
                     })
                 }
