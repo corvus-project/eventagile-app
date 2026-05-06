@@ -25,10 +25,12 @@ new #[Layout('layouts.auth')] class extends Component
     public ?string $captchaToken = null;
 
     #[On('formSubmitted')]
-    public function authenticate($token)
+    public function authenticate(?string $token = null)
     {
         $this->captchaToken = $token;
         Log::info('Starting authentication process for email: ' . $this->email);
+
+        Log::debug('Captcha token received', ['email' => $this->email, 'captchaToken' => $this->captchaToken]);
         $query = http_build_query([
             'secret' => config('services.recaptcha.secret_key'),
             'response' => $this->captchaToken,
@@ -84,7 +86,7 @@ new #[Layout('layouts.auth')] class extends Component
             @error('captchaToken')
             <div class="bg-red-300 text-red-700 p-3 rounded">{{ $message }}</div>
             @enderror
-            <form wire:submit.prevent="authenticate" onsubmit="handleSubmit(event)" class="space-y-6">
+            <form onsubmit="handleSubmit(event)" class="space-y-6">
 
                 <x-ui.input label="Email address" type="email" id="email" name="email" wire:model="email" />
                 <x-ui.input label="Password" type="password" id="password" name="password" wire:model="password" />

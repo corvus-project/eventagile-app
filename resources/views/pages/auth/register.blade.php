@@ -85,7 +85,7 @@ new #[Layout('layouts.auth')] class extends Component
             <div class="bg-red-300 text-red-700 p-3 rounded">{{ $message }}</div>
             @enderror
 
-            <form wire:submit.prevent="register" onsubmit="handleSubmit(event)" class="space-y-6">
+            <form onsubmit="handleSubmit(event)" class="space-y-6">
                 <x-ui.input label="Name" type="text" id="name" name="name" wire:model="name" />
                 <x-ui.input label="Email address" type="email" id="email" name="email" wire:model="email" />
                 <x-ui.input label="Password" type="password" id="password" name="password" wire:model="password" />

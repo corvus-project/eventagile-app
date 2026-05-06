@@ -34,7 +34,7 @@ new #[Layout('layouts.auth')] class extends Component
     public function register($token = null)
     {
         Log::debug('Starting registration process', ['email' => $this->email, 'domain' => $this->domain, 'token' => $token]);
-        $this->validate();
+
 
         if ($token) {
             $this->captchaToken = $token;
@@ -46,7 +46,7 @@ new #[Layout('layouts.auth')] class extends Component
         ]);
         $response = Http::post('https://www.google.com/recaptcha/api/siteverify?' . $query);
         $captchaLevel = $response->json('score');
-
+        $this->validate();
         Log::debug('Captcha verification result', ['email' => $this->email, 'captchaToken' => $this->captchaToken, 'captcha_score' => $captchaLevel]);
         throw_if($captchaLevel <= 0.5, ValidationException::withMessages([
             'captchaToken' => __('Error on captcha verification. Please, refresh the page and try again.')
