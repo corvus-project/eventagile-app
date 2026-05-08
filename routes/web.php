@@ -28,6 +28,8 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
 Route::get('/debug', function () {
 
+
+
     return Carbon::now()->toDateTimeString();
 })->name('welcome');
 
