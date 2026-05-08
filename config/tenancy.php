@@ -2,8 +2,18 @@
 
 declare(strict_types=1);
 
+use Illuminate\Support\Facades\App;
 use Stancl\Tenancy\Database\Models\Domain;
-use Stancl\Tenancy\Database\Models\Tenant;
+
+$env = [];
+if (env('APP_ENV') === 'local') {
+    $env = [
+        '127.0.0.1',
+        'localhost'
+    ];
+} else {
+    $env = ['eventagile.com'];
+}
 
 return [
     //'tenant_model' => Tenant::class,
@@ -17,11 +27,7 @@ return [
      *
      * Only relevant if you're using the domain or subdomain identification middleware.
      */
-    'central_domains' => [
-        '127.0.0.1',
-        'localhost',
-        'eventagile.com'
-    ],
+    'central_domains' => $env,
 
     /**
      * Tenancy bootstrappers are executed when tenancy is initialized.

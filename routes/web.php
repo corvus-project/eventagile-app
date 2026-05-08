@@ -27,6 +27,8 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 */
 
 Route::get('/debug', function () {
+
+    return env('APP_ENV');
     $tenant = Tenant::query()->where('id', '17b645f6-c80e-466b-a4a7-8910c2e7a34e')->first();
 
     config(['database.connections.template_tenant_connection.database' => database_path($tenant->tenancy_db_name)]);

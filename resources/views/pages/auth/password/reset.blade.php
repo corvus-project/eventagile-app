@@ -11,7 +11,7 @@ new #[Layout('layouts.auth')] class extends Component
 {
     #[Validate('required|email')]
     public ?string $email = null;
-    public bool $emailSentMessage = false;
+    public ?string $emailSentMessage = null;
     public ?string $captchaToken = null;
 
     public function sendResetPasswordLink($token = null)
@@ -35,8 +35,7 @@ new #[Layout('layouts.auth')] class extends Component
         $response = Password::broker()->sendResetLink(['email' => $this->email]);
 
         if ($response == Password::RESET_LINK_SENT) {
-            $this->emailSentMessage = trans($response);
-
+            $this->emailSentMessage = 'We have sent the your password reset link to your email address.';
             return;
         }
 
@@ -88,7 +87,7 @@ new #[Layout('layouts.auth')] class extends Component
             @error('captchaToken')
             <div class="bg-red-300 text-red-700 p-3 rounded">{{ $message }}</div>
             @enderror
-            <form wire:submit.prevent="sendResetPasswordLink" onsubmit="handleSubmit(event)" class="space-y-6">
+            <form onsubmit="handleSubmit(event)" class="space-y-6">
                 <x-ui.input label="Email address" type="email" id="email" name="email" wire:model="email" />
 
 
