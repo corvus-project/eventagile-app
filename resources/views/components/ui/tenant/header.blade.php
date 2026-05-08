@@ -1,4 +1,4 @@
-<header x-data="{ open: false }" class="bg-indigo-400 border-b border-gray-200/80 dark:bg-gray-900/40 dark:border-gray-200/[15%]">
+<header x-data="{ open: false }" class="bg-blue-500 border-b border-gray-200/80 dark:bg-gray-900/40 dark:border-gray-200/[15%]">
     <div class="relative z-20 flex items-center justify-between w-full h-20 max-w-6xl px-6 mx-auto">
         <div x-data="{ mobileMenuOpen: false }" class="relative flex items-center md:space-x-2 text-neutral-800">
 
