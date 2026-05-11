@@ -36,26 +36,26 @@
                 @php
 
                 $user = auth()->user();
-                $navLinks['Dashboard'] = ('dashboard');
+                $navLinks['Dashboard'] = ['route' => 'dashboard', 'icon'=>'s-home'];
 
                 if ($user && ($user->isOrganizer() || $user->isAdmin())) {
-                $navLinks['Events'] = ('dashboard.events');
-                $navLinks['Create Event'] = ('dashboard.events.create');
-                $navLinks['Users'] = ('dashboard.users');
-                $navLinks['Reports'] = ('reports.index');
-                $navLinks['Settings'] = ('settings.index');
+                $navLinks['Events'] = ['route' => 'dashboard.events', 'icon'=>'s-calendar'];
+                $navLinks['Create Event'] = ['route' => 'dashboard.events.create', 'icon'=>'s-plus'];
+                $navLinks['Users'] = ['route' => 'dashboard.users', 'icon'=>'s-users'];
+                $navLinks['Reports'] = ['route' => 'reports.index', 'icon'=>'s-chart-bar'];
+                $navLinks['Settings'] = ['route' => 'settings.index', 'icon'=>'s-cog'];
                 }
 
                 if ($user && $user->isAdmin()) {
-                $navLinks['Users'] = ('dashboard.users');
+                $navLinks['Users'] = ['route' => 'dashboard.users', 'icon'=>'s-users'];
                 }
                 @endphp
 
-                @foreach($navLinks as $title => $route)
-                @if(Request::path() === ltrim($route, '/'))
-                <x-menu-item icon="o-sparkles" route="{{ $route }}" active>{{ $title }}</x-menu-item>
+                @foreach($navLinks as $title => $value)
+                @if(Request::path() === ltrim($value['route'], '/'))
+                <x-menu-item icon="{{ $value['icon'] }}" route="{{ $value['route'] }}" active>{{ $title }}</x-menu-item>
                 @else
-                <x-menu-item icon="o-sparkles" route="{{ $route }}">{{ $title }}</x-menu-item>
+                <x-menu-item icon="{{ $value['icon'] }}" route="{{ $value['route'] }}">{{ $title }}</x-menu-item>
                 @endif
                 @endforeach
 

@@ -3,7 +3,6 @@
 use App\Enums\EventStatus;
 use App\Exceptions\RateLimiterException;
 use App\Livewire\Forms\EventForm;
-use App\Models\Subscription;
 use App\Models\Tenant;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\RateLimiter;
@@ -13,7 +12,6 @@ use Livewire\Attributes\Layout;
 
 new #[Layout('layouts.admin')]  class extends Component
 {
-
     use Toast;
     public $status;
 
