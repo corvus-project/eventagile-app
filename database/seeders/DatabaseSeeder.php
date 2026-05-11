@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        (config('database.default') != 'sqlite') ?? DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        /*         (config('database.default') != 'sqlite') ?? DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         Model::unguard();
         User::truncate();
 
@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionsTableSeeder::class);
         $this->call(RolesTableSeeder::class);
         $this->call(ConnectRelationshipsSeeder::class);
-        Model::reguard();
+        Model::reguard(); */
 
         $foo_user = User::factory()->create([
             'name' => 'Foo User',
