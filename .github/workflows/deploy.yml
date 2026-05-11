@@ -16,6 +16,7 @@ jobs:
                 key: ${{ secrets.SSH_PRIVATE_KEY }}
                 script: |
                     cd /home/ploi/eventagile.com
-                    git pull origin release
+                    git pull origin pre-release
                     composer install --no-dev --optimize-autoloader
                     php artisan optimize:clear   
+                    php artisan view:clear   

@@ -23,6 +23,7 @@
             <a href="/" class="text-gray-600 hover:text-primary">Home</a>
             <a href="/features" class="text-gray-600 hover:text-primary">Features</a>
             <a href="/examples" class="text-gray-600 hover:text-primary">Usage Examples</a>
+            <a href="/pricing" class="text-gray-600 hover:text-primary">Pricing</a>
             <a href="/contact" class="text-gray-600 hover:text-primary">Contact</a>
             <a href="/privacy" class="text-gray-600 hover:text-primary">Privacy Policy</a>
         </nav>
