@@ -13,14 +13,13 @@ new #[Layout('layouts.frontend')]  class extends Component {};
 </x-slot>
 
 <div>
-    <div class="hero  min-h-screen bg-linear-to-b/lab from-sky-50 to-sky-200">
+    <div class="hero  min-h-screen">
         <div class="hero-content text-center">
             <div class="max-w-fit">
-                <h1 class="text-3xl font-bold my-8">easy event management by <span class="text-primary">EventAgile</span></h1>
 
                 <img
                     class="rounded-lg shadow-2xl"
-                    src='./assets/images/hero-image-alt.png'
+                    src='./assets/images/hero.png'
                     alt="Power your events with EventAgile" />
 
                 <div class="py-10">
@@ -178,8 +177,8 @@ new #[Layout('layouts.frontend')]  class extends Component {};
             </div>
         </div>
     </div>
-    <div class="p-6">
-        <div class="max-w-4xl mx-auto">
+    <div class="p-6  bg-linear-to-b/lab from-sky-50 to-sky-200">
+        <div class="max-w-4xl mx-auto ">
             <h2 class="sm:text-3xl text-2xl font-semibold text-slate-700 mb-12">Frequently Asked Questions</h2>
             <div class="space-y-8">
                 <div class="flex items-start">

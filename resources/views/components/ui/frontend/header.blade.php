@@ -26,9 +26,7 @@
                             <span>EventAgile</span>
                         </a>
                     </li>
-                    <li class="max-lg:border-b max-lg:border-gray-300 max-lg:py-3 px-3">
-                        <a href="/" class="block font-medium text-[15px]">Home</a>
-                    </li>
+
                     <li class="max-lg:border-b max-lg:border-gray-300 max-lg:py-3 px-3">
                         <a href="/features" class="block font-medium text-[15px]">Features</a>
                     </li>
