@@ -39,7 +39,7 @@ new #[Layout('layouts.frontend')]  class extends Component {
     {{ 'Event Agile ~ Waiting for verification' }}
 </x-slot>
 
-<div class="pb-5">
+<div class="pb-5 h-screen">
     <div class="m-12 mb-5 bg-white border-b border-gray-200/80 dark:border-gray-200/10 dark:bg-gray-900/40">
         <div class="py-6 mx-auto max-w-6xl sm:px-6 lg:px-12">
 

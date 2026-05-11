@@ -12,7 +12,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
     {{ 'Event Agile ~ Contact' }}
 </x-slot>
 
-<div class="pb-5">
+<div class="pb-5 h-screen">
     <div class="p-4 mt-16">
         <div class="max-w-6xl max-lg:max-w-3xl mx-auto">
             <div class="text-center">
