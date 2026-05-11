@@ -29,13 +29,13 @@ class DatabaseSeeder extends Seeder
 
         Plan::truncate();
         Subscription::truncate();
-
+        Model::reguard(); */
 
         $this->call(PlanSeeder::class);
         $this->call(PermissionsTableSeeder::class);
         $this->call(RolesTableSeeder::class);
         $this->call(ConnectRelationshipsSeeder::class);
-        Model::reguard(); */
+
 
         $foo_user = User::factory()->create([
             'name' => 'Foo User',
