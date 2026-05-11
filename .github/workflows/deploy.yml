@@ -2,7 +2,7 @@ name: Deploy to the live
 on:
   push:
     branches:
-      - release
+      - pre-release
 jobs:  
     deploy: 
         runs-on: ubuntu-latest

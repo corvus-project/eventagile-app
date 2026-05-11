@@ -27,9 +27,6 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 */
 
 Route::get('/debug', function () {
-
-
-
     return Carbon::now()->toDateTimeString();
 })->name('welcome');
 
@@ -57,19 +54,3 @@ Route::livewire('/examples', 'pages::site.examples')->name('examples');
 Route::livewire('/contact', 'pages::site.contact')->name('contact');
 Route::livewire('/pricing', 'pages::site.pricing')->name('pricing');
 Route::livewire('/support', 'pages::site.support')->name('support');
-
-//Route::livewire('/auth/login', 'pages::auth.login')->name('login');
-//Route::livewire('/auth/register', 'pages::auth.register')->name('register');
-
-//Route::livewire('/auth/forget-password', 'pages::auth.reset')->name('password.request');
-
-
-/* Route::middleware('auth')->group(function () {
-
-    Route::get('email/verify/{id}/{hash}', EmailVerificationController::class)
-        ->middleware('signed')
-        ->name('verification.verify');
-
-    Route::post('logout', LogoutController::class)
-        ->name('logout');
-}); */
