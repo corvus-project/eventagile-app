@@ -28,7 +28,7 @@ class TenantInfolist
 
                     Actions::make([
                         Action::make('login-account')
-                            ->modalDescription('Modified description')
+                            ->modalDescription('Would you like to login to this tenant?')
                             ->requiresConfirmation()
                             ->action(function ($record) {
 
@@ -38,7 +38,14 @@ class TenantInfolist
                                 $token = tenancy()->impersonate($tenant, 1, $redirectUrl);
                                 $tenant_domain = $tenant->primary_domain;
                                 $domain = str_replace(['http://', 'https://'], '', config('app.url'));
-                                return redirect("https://$tenant_domain.$domain/impersonate/{$token->token}");
+
+                                if (env('APP_ENV') === 'local') {
+                                    $ssl = 'http://';
+                                } else {
+                                    $ssl = 'https://';
+                                }
+
+                                return redirect("{$ssl}{$tenant_domain}.{$domain}/impersonate/{$token->token}");
                             })
                     ]),
                 ])->columns(2),

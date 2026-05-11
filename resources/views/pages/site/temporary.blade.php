@@ -14,12 +14,11 @@ new #[Layout('layouts.frontend')]  class extends Component {
     {
         $env = null;
         if (env('APP_ENV') === 'local') {
-            $env = 'localhost:8000';
             $ssl = 'http://';
         } else {
-            $env = 'eventagile.com';
             $ssl = 'https://';
         }
+        $env = str_replace(['http://', 'https://'], '', config('app.url'));
         if (auth()->user()?->hasVerifiedEmail()) {
             $tenant = Tenant::where('email', auth()->user()->email)->first();
             $this->domain = $tenant->domains()->first()->domain;
