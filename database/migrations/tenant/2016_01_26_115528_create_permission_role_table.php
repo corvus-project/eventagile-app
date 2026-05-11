@@ -43,4 +43,4 @@ return new class extends Migration
         $table = config('roles.permissionsRoleTable');
         Schema::connection($connection)->dropIfExists($table);
     }
-}
+};
