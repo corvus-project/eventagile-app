@@ -1,13 +1,13 @@
 <x-layouts.admin>
 
     <x-slot name="title">
-        {{ $title ?? 'CorvusApp' }}
+        {{ $title ?? 'EventAgile' }}
     </x-slot>
 
     {{-- NAVBAR mobile only --}}
     <x-nav sticky class="lg:hidden">
         <x-slot:brand>
-            <div class="ml-5 pt-5">App</div>
+            <div class="ml-5 pt-5"> {{ $title ?? 'EventAgile' }}</div>
         </x-slot:brand>
 
         <x-slot:actions>
@@ -20,10 +20,11 @@
     {{-- MAIN --}}
     <x-main full-width>
         {{-- SIDEBAR --}}
-        <x-slot:sidebar drawer="main-drawer" collapsible class="bg-blue-100/20 lg:bg-blue-500">
+        {{ 'bg-base-100 lg:bg-inherit'}}
+        <x-slot:sidebar drawer="main-drawer" collapsible class="bg-base-100 lg:bg-blue-500">
 
             {{-- BRAND --}}
-            <div class="ml-5 pt-5 bg-blue-500/20 lg:bg-transparent">
+            <div class="p-5 bg-blue-500 lg:bg-transparent">
                 <a href="{{ route('dashboard') }}" class="flex items-center shrink-0">
                     <x-ui.logo class="block w-auto text-white fill-current h-7 dark:text-gray-200" />
                 </a>
@@ -31,7 +32,6 @@
 
             {{-- MENU --}}
             <x-menu activate-by-route>
-
 
                 @php
 
