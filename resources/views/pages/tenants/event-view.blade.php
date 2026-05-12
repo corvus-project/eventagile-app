@@ -15,17 +15,17 @@ new #[Layout('layouts.tenant')]  class extends Component
 {
     use WithPagination;
 
-    public $event;
-    public $name;
+    public Event $event;
+    public ?string $name;
     public ?string $captchaToken = null;
     public EventRegistrationForm $form;
     public int $registrations_count = 0;
 
     public function mount(Event $event)
     {
-        $this->form->name = auth()->user()->name ?? '';
-        $this->form->email = auth()->user()->email ?? '';
-        $this->form->user_id = auth()->id() ?? null;
+        $this->form->name = auth()?->user()->name ?? '';
+        $this->form->email = auth()?->user()->email ?? '';
+        $this->form->user_id = auth()?->id() ?? null;
         $this->event = $event;
         $this->form->setEvent($event);
         $this->registrations_count = $this->event->registrations()->where('status', RegistrationStatus::CONFIRMED->value)->count();
@@ -57,7 +57,7 @@ new #[Layout('layouts.tenant')]  class extends Component
     {{ tenant('name') }} ~ {{ $event->title }}
 </x-slot>
 <x-slot name="header">
-    <h2 class="text-3xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
+    <h2 class="text-3xl font-semibold leading-tight text-gray-800 dark:text-gray-20 px-6 lg:px-2">
         <a href="{{ route('tenant.home') }}" class="text-blue-500 hover:text-blue-700">{{ tenant('name') }}</a>
     </h2>
 </x-slot>
@@ -65,7 +65,7 @@ new #[Layout('layouts.tenant')]  class extends Component
 
     <div class="flex flex-col lg:flex-row items-start  justify-between space-y-4 lg:space-y-0  min-h-[400px] p-6">
 
-        <div class="mx-auto px-2 space-y-6 align-top text-base/8">
+        <div class="mx-auto px-2 space-y-6 align-top text-base/8 w-full lg:w-2/3">
 
             <h3 class="text-2xl">{{ $event->title }}</h3>
             <p>{{ $event->description }}</p>
@@ -75,11 +75,11 @@ new #[Layout('layouts.tenant')]  class extends Component
             <p><span class="font-bold">Start Time:</span> <br>{{ $event->start_time->format('d M Y H:i') }}</p>
 
             <p><span class="font-bold">Registration Deadline:</span> <br>
-                Please register until {{ $event->registration_ends_at ? $event->registration_ends_at->format('F j, Y H:i') : 'N/A' }}.
+                Please register until {{ $event->registration_deadline ? $event->registration_deadline->format('F j, Y H:i') : 'N/A' }}.
             </p>
         </div>
 
-        <div class="mx-auto px-1 lg:ml-8 lg:mt-0 mt-8 w-full">
+        <div class="mx-auto px-1 lg:ml-8 lg:mt-0 mt-8 w-full lg:w-1/3">
             <div class="mx-auto space-y-6">
                 <section
                     class="shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg  bg-blue-50 p-6 rounded-lg dark:bg-gray-900/50 dark:border dark:border-gray-200/10">
@@ -118,7 +118,7 @@ new #[Layout('layouts.tenant')]  class extends Component
             @enderror
 
 
-            <form wire:submit.prevent="save" onsubmit="handleSubmit(event)" class="mt-1 space-y-2">
+            <form onsubmit="handleSubmit(event)" class="mt-1 space-y-2">
                 <x-input label="Name" wire:model="form.name" readonly />
                 <x-input label="Email" wire:model="form.email" value="{{ $this->user->email ?? '' }}" readonly />
 

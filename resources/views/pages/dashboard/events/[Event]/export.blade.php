@@ -55,31 +55,39 @@ new #[Layout('layouts.admin')] class extends Component {
 <div class="flex flex-col flex-1">
     <div class="flex flex-col  flex-1 pb-5 mx-auto  w-full">
         <div class="relative flex-1 w-full ">
-            <div class="flex justify-end mb-4">
-                <x-ui.text-link href="{{ route('dashboard.events.update', ['event' => $event->slug]) }}" class="btn-ghost btn-sm text-red-600 p-2">
-                    Update Event
-                </x-ui.text-link>
 
-                <x-ui.text-link href="{{ route('dashboard.events.registrations.show', ['event' => $event->slug]) }}" class="btn-ghost btn-sm text-red-600 p-2">
-                    Registration List
-                </x-ui.text-link>
+            <div class="pb-5">
+                <div class="mx-auto space-y-6">
+                    <x-card shadow>
 
-            </div>
+                        <div class="flex justify-end mb-4">
+                            <x-ui.text-link href="{{ route('dashboard.events.update', ['event' => $event->slug]) }}" class="btn-ghost btn-sm text-sm text-blue-600 p-2">
+                                Update Event
+                            </x-ui.text-link>
+
+                            <x-ui.text-link href="{{ route('dashboard.events.registrations.show', ['event' => $event->slug]) }}" class="btn-ghost btn-sm text-sm text-blue-600 p-2">
+                                Registration List
+                            </x-ui.text-link>
+
+                        </div>
 
 
-            <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-                <h3 class="text-md font-semibold text-gray-800 dark:text-gray-200 mb-4">Export Registrations</h3>
-                <p class="mb-4">You can download the registration list for the event in CSV format.</p>
-                <p class="mb-4">Click the button below to download the registration list.</p>
+                        <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+                            <h3 class="text-md font-semibold text-gray-800 dark:text-gray-200 mb-4">Export Registrations</h3>
+                            <p class="mb-4">You can download the registration list for the event in CSV format.</p>
+                            <p class="mb-4">Click the button below to download the registration list.</p>
 
-                <div class="flex items-center py-2 border-b">
-                    <a href="#" wire:click.prevent="download({{ $event->id }}, 'excel')" class="btn btn-info btn-sm m-2">
-                        Download Excel
-                    </a>
+                            <div class="flex items-center py-2 border-b">
+                                <a href="#" wire:click.prevent="download({{ $event->id }}, 'excel')" class="btn btn-info btn-sm m-2">
+                                    Download Excel
+                                </a>
 
-                    <a href="#" wire:click.prevent="download({{ $event->id }}, 'csv')" class="btn btn-info btn-sm m-2">
-                        Download CSV
-                    </a>
+                                <a href="#" wire:click.prevent="download({{ $event->id }}, 'csv')" class="btn btn-info btn-sm m-2">
+                                    Download CSV
+                                </a>
+                            </div>
+                        </div>
+                    </x-card>
                 </div>
             </div>
         </div>
