@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\EventStatus;
 use App\Models\Event;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -58,6 +59,20 @@ new #[Layout('layouts.admin')]  class extends Component
     {
         $slug = Event::findOrFail($id);
         return redirect()->route('events.show', ['event' => $slug]);
+    }
+
+    public function cloneEvent(int $id)
+    {
+        $event = Event::findOrFail($id);
+
+        $clonedEvent = $event->replicate();
+        $clonedEvent->title = $event->title . ' (Copy)';
+        $clonedEvent->slug = null; // Ensure slug is regenerated
+        $clonedEvent->status = EventStatus::DRAFT->value; // Set status to draft for cloned event
+        $clonedEvent->save();
+
+        $this->toast('success', 'Event cloned successfully');
+        return redirect()->route('dashboard.events.update', ['event' => $clonedEvent->slug]);
     }
 };
 ?>
@@ -150,7 +165,13 @@ new #[Layout('layouts.admin')]  class extends Component
                                             <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-300">{{ $event->status }}</td>
                                             <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-300">{{ $event->capacity }}</td>
                                             <td class="px-4 py-4 text-xs">
-                                                <a href="{{ route('dashboard.events.registrations.show', $event->slug) }}" class="text-blue-600 no-underline  bg-blue-100 box-border border border-transparent hover:bg-brand-strong shadow-xs text-xs px-1.5 py-1.5 focus:outline-none">Registrations</a>
+
+                                                <x-button label="Update" link="{{ route('dashboard.events.update', $event->slug) }}" class="btn-active btn-sm" icon="o-pencil" tooltip="Update Event!" />
+
+
+                                                <x-button label="Registrations" link="{{ route('dashboard.events.registrations.show', $event->slug) }}" class="btn-info btn-sm" icon="o-users" tooltip="Registrations!" />
+
+                                                <x-button icon="o-clipboard-document" class="btn-warning btn-sm" wire:click="cloneEvent({{ $event->id }})" label="Clone" tooltip="Clone Event!" />
                                             </td>
                                         </tr>
                                         @endforeach
