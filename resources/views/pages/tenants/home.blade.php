@@ -12,7 +12,13 @@ new #[Layout('layouts.tenant')]  class extends Component
 {
     use WithPagination;
 
-    public function mount() {}
+    public function mount()
+    {
+        if (!tenant()) {
+            Log::error('No tenant context found when fetching events.');
+            $this->redirect(route('tenant.notenant'));
+        }
+    }
 
     #[Computed]
     public function events()

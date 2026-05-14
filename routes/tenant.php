@@ -29,6 +29,7 @@ Route::middleware([
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
 
+    Route::livewire('/notenant', 'pages::tenants.notenant')->name('tenant.notenant');
     Route::livewire('/', 'pages::tenants.home')->name('tenant.home');
     Route::livewire('/events/{event:slug}', 'pages::tenants.event-view')->name('tenant.event.view');
 
