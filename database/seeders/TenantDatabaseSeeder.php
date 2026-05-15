@@ -21,13 +21,10 @@ class TenantDatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-
-
         (config('database.default') != 'sqlite') ?? DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         Model::unguard();
 
         echo 'Truncating tables...' . PHP_EOL;
-
 
         $this->call(RolesTableSeeder::class);
 

@@ -109,49 +109,62 @@ new #[Layout('layouts.admin')] class extends Component {
                     </div>
 
                     <div class="overflow-x-auto ">
-                        <table class="min-w-full text-left divide-y divide-gray-200 dark:divide-gray-700">
-                            <thead class="bg-gray-50 dark:bg-gray-900">
-                                <tr>
-                                    <th scope="col" class="px-4 py-3 text-xs font-semibold tracking-wider uppercase cursor-pointer" wire:click="sortByColumn('title')">
+                        <table class="min-w-full text-left divide-y divide-gray-200 dark:divide-gray-700 block sm:table">
+                            <thead class="bg-gray-50 dark:bg-gray-900 hidden sm:table-header-group">
+                                <tr class="sm:table-row">
+                                    <th scope="col" class="px-4 py-3 text-xs font-semibold tracking-wider uppercase cursor-pointer block sm:table-cell" wire:click="sortByColumn('name')">
                                         Name
                                         @if($sortBy['column'] === 'name')
                                         <span>{{ $sortBy['direction'] === 'asc' ? '↑' : '↓' }}</span>
                                         @endif
                                     </th>
-                                    <th scope="col" class="px-4 py-3 text-xs font-semibold tracking-wider uppercase cursor-pointer" wire:click="sortByColumn('email')">
+                                    <th scope="col" class="px-4 py-3 text-xs font-semibold tracking-wider uppercase cursor-pointer block sm:table-cell" wire:click="sortByColumn('email')">
                                         Email
                                         @if($sortBy['column'] === 'email')
                                         <span>{{ $sortBy['direction'] === 'asc' ? '↑' : '↓' }}</span>
                                         @endif
                                     </th>
-                                    <th scope="col" class="px-4 py-3 text-xs font-semibold tracking-wider uppercase cursor-pointer" wire:click="sortByColumn('status')">
+                                    <th scope="col" class="px-4 py-3 text-xs font-semibold tracking-wider uppercase cursor-pointer block sm:table-cell" wire:click="sortByColumn('status')">
                                         Status
                                         @if($sortBy['column'] === 'email_verified_at')
                                         @endif
                                     </th>
-                                    <th scope="col" class="px-4 py-3 text-xs font-semibold tracking-wider uppercase cursor-pointer">
+                                    <th scope="col" class="px-4 py-3 text-xs font-semibold tracking-wider uppercase block sm:table-cell">
                                         Registration Date
                                     </th>
-                                    <th scope="col" class="px-4 py-3 text-xs font-semibold tracking-wider uppercase cursor-pointer">
+                                    <th scope="col" class="px-4 py-3 text-xs font-semibold tracking-wider uppercase block sm:table-cell">
                                         Role
                                     </th>
-                                    <th scope="col" class="px-4 py-3 text-xs font-semibold tracking-wider uppercase">Registrations</th>
+                                    <th scope="col" class="px-4 py-3 text-xs font-semibold tracking-wider uppercase text-right block sm:table-cell">Registrations</th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+                            <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700 block sm:table-row-group">
                                 @foreach($this->users as $user)
-                                <tr>
-                                    <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-300">{{ $user->name }}</td>
-                                    <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-300">{{ $user->email }}</td>
-                                    <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                <tr class="block sm:table-row">
+                                    <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-300 block sm:table-cell">
+                                        <span class="font-semibold text-gray-500 dark:text-gray-400 sm:hidden">Name:</span>
+                                        {{ $user->name }}
+                                    </td>
+                                    <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-300 block sm:table-cell">
+                                        <span class="font-semibold text-gray-500 dark:text-gray-400 sm:hidden">Email:</span>
+                                        {{ $user->email }}
+                                    </td>
+                                    <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-300 block sm:table-cell">
+                                        <span class="font-semibold text-gray-500 dark:text-gray-400 sm:hidden">Status:</span>
                                         {{ $user->email_verified_at ? 'Verified' : 'Unverified' }}
                                     </td>
-                                    <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-300"> {{ \Carbon\Carbon::parse($user->created_at)->format('F j, Y H:i') }}</td>
-                                    <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-300"> {{ $user->roles->pluck('name')->join(', ') }}</td>
+                                    <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-300 block sm:table-cell">
+                                        <span class="font-semibold text-gray-500 dark:text-gray-400 sm:hidden">Registration Date:</span>
+                                        {{ \Carbon\Carbon::parse($user->created_at)->format('F j, Y H:i') }}
+                                    </td>
+                                    <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-300 block sm:table-cell">
+                                        <span class="font-semibold text-gray-500 dark:text-gray-400 sm:hidden">Role:</span>
+                                        {{ $user->roles->pluck('name')->join(', ') }}
+                                    </td>
 
-                                    <td class="px-4 py-4 text-xs">
+                                    <td class="px-4 py-4 text-xs text-left sm:text-right text-gray-600 dark:text-gray-300 block sm:table-cell">
+                                        <span class="font-semibold text-gray-500 dark:text-gray-400 sm:hidden">Registrations:</span>
                                         <x-button label="Registrations" link="{{ route('dashboard.users.registrations', $user->id) }}" class="btn-info btn-sm" icon="o-users" tooltip="Registrations!" />
-
                                     </td>
                                 </tr>
                                 @endforeach
