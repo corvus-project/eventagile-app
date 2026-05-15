@@ -21,7 +21,7 @@ class EventRegistrationFactory extends Factory
             'event_id' => \App\Models\Event::factory(),
             'user_id' => \App\Models\User::factory(),
             'is_attending' => $this->faker->boolean,
-            'registered_at' => now(),
+            'registered_at' => $this->faker->dateTimeBetween('+1 week', '+1 month'),
             'status' => fake()->randomElement(RegistrationStatus::cases())->value,
             'notes' => $this->faker->optional()->text,
         ];
