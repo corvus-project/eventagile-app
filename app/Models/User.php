@@ -12,6 +12,7 @@ use Illuminate\Notifications\Notifiable;
 use jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
 use App\Services\SubscriptionService;
 use App\Services\VerifyEmailQueued;
+use Database\Factories\UserFactory;
 use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Support\Facades\Log;
 use Filament\Panel;
@@ -89,5 +90,21 @@ class User extends Authenticatable  implements MustVerifyEmail, FilamentUser
     {
         Log::info('Sending email verification notification', ['user_id' => $this->id]);
         $this->notify(new VerifyEmailQueued);
+    }
+
+    public function configure()
+    {
+        return $this->afterMaking(function (User $user) {
+            return $user->assignRole('User');
+        });
+    }
+
+    /**
+     * @return UserFactory
+     */
+    private function assignRole(string $role): UserFactory
+    {
+        $userRole = config('roles.models.role')::where('name', '=', $role)->first();
+        return $this->afterCreating(fn(User $user) => $user->attachRole($userRole));
     }
 }

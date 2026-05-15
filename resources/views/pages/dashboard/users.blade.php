@@ -113,25 +113,27 @@ new #[Layout('layouts.admin')] class extends Component {
                             <thead class="bg-gray-50 dark:bg-gray-900">
                                 <tr>
                                     <th scope="col" class="px-4 py-3 text-xs font-semibold tracking-wider uppercase cursor-pointer" wire:click="sortByColumn('title')">
-                                        Title
+                                        Name
                                         @if($sortBy['column'] === 'name')
                                         <span>{{ $sortBy['direction'] === 'asc' ? '↑' : '↓' }}</span>
                                         @endif
                                     </th>
                                     <th scope="col" class="px-4 py-3 text-xs font-semibold tracking-wider uppercase cursor-pointer" wire:click="sortByColumn('email')">
-                                        Start date
+                                        Email
                                         @if($sortBy['column'] === 'email')
                                         <span>{{ $sortBy['direction'] === 'asc' ? '↑' : '↓' }}</span>
                                         @endif
                                     </th>
                                     <th scope="col" class="px-4 py-3 text-xs font-semibold tracking-wider uppercase cursor-pointer" wire:click="sortByColumn('status')">
-                                        Organizer
-                                        @if($sortBy['column'] === 'verified')
-
+                                        Status
+                                        @if($sortBy['column'] === 'email_verified_at')
                                         @endif
                                     </th>
                                     <th scope="col" class="px-4 py-3 text-xs font-semibold tracking-wider uppercase cursor-pointer">
                                         Registration Date
+                                    </th>
+                                    <th scope="col" class="px-4 py-3 text-xs font-semibold tracking-wider uppercase cursor-pointer">
+                                        Role
                                     </th>
                                     <th scope="col" class="px-4 py-3 text-xs font-semibold tracking-wider uppercase">Registrations</th>
                                 </tr>
@@ -142,11 +144,14 @@ new #[Layout('layouts.admin')] class extends Component {
                                     <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-300">{{ $user->name }}</td>
                                     <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-300">{{ $user->email }}</td>
                                     <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-300">
-                                        {{ $user->verified ? 'Verified' : 'Unverified' }}
+                                        {{ $user->email_verified_at ? 'Verified' : 'Unverified' }}
                                     </td>
                                     <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-300"> {{ \Carbon\Carbon::parse($user->created_at)->format('F j, Y H:i') }}</td>
+                                    <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-300"> {{ $user->roles->pluck('name')->join(', ') }}</td>
+
                                     <td class="px-4 py-4 text-xs">
-                                        <a href="{{ route('dashboard.users.registrations', $user->id) }}" class="text-blue-600 no-underline  bg-blue-100 box-border border border-transparent hover:bg-brand-strong shadow-xs text-xs px-1.5 py-1.5 focus:outline-none">Registrations</a>
+                                        <x-button label="Registrations" link="{{ route('dashboard.users.registrations', $user->id) }}" class="btn-info btn-sm" icon="o-users" tooltip="Registrations!" />
+
                                     </td>
                                 </tr>
                                 @endforeach

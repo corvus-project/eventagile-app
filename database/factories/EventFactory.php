@@ -17,12 +17,17 @@ class EventFactory extends Factory
      */
     public function definition(): array
     {
+
+        $startTime = $this->faker->dateTimeBetween('+1 week', '+1 month');
+        $registrationDeadline = $this->faker->dateTimeBetween('now', $startTime);
         return [
-            'title' => $this->faker->sentence,
+            'title' => $this->faker->randomElement(['Toga for Beginners', 'Advanced Toga Techniques', 'Toga Party Planning', 'Toga History and Culture']),
             'description' => $this->faker->paragraph,
             //'slug' => $this->faker->unique()->slug,
-            'start_time' => $this->faker->dateTimeBetween('+1 week', '+1 month'),
-            'location' => $this->faker->address,
+            'start_time' => $startTime,
+            'registration_deadline' => $registrationDeadline,
+
+            'location' => $this->faker->randomElement(['Studio', 'Main Hall', 'Outdoor Venue', 'Virtual']),
             'organizer' => $this->faker->name,
             'capacity' => $this->faker->numberBetween(10, 100),
             'is_public' => $this->faker->boolean(80), // 80%
