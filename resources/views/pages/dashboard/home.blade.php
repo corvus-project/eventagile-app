@@ -16,19 +16,8 @@ new #[Layout('layouts.admin')] class extends Component {
     public array $dashboardData = [];
 
     public array $eventStatusChart = [];
-    /*     public array $eventStatusChart = [
-        'type' => 'pie',
-        'data' => [
-            'labels' => ['Mary', 'Joe', 'Ana'],
-            'datasets' => [
-                [
-                    'label' => '# of Votes',
-                    'data' => [12, 19, 3],
-                ]
-            ]
-        ]
-    ];
- */
+    public array $dailyRegistrationsChart = [];
+
     public function mount()
     {
         $service = new DashboardService();
@@ -40,6 +29,19 @@ new #[Layout('layouts.admin')] class extends Component {
         $this->attendanceStatus = $service->getAttendanceStatus();
         $this->recentRegistrations = $service->getRecentRegistrations();
         $this->recentEvents = $service->getRecentEvents();
+
+        $this->dailyRegistrationsChart = [
+            'type' => 'bar',
+            'data' => [
+                'labels' => $this->dailyRegistrations['dates'] ?? ['No Data'],
+                'datasets' => [
+                    [
+                        'label' => 'Daily Registrations',
+                        'data' => $this->dailyRegistrations['counts'] ?? [0],
+                    ]
+                ]
+            ]
+        ];
 
         $this->eventStatusChart = [
             'type' => 'pie',
@@ -81,8 +83,8 @@ new #[Layout('layouts.admin')] class extends Component {
     </h2>
 </x-slot>
 
-<div class="py-12">
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+<div class="py-1">
+    <div class="w-full mx-auto">
         <!-- Section 1: Key Metrics Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <!-- Total Users -->
@@ -135,33 +137,13 @@ new #[Layout('layouts.admin')] class extends Component {
             <!-- Section 2: Daily Registrations Chart -->
             <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Daily Registrations (Last 30 Days)</h3>
-                <div id="dailyRegistrationsChart" class="h-80"></div>
+                <x-chart wire:model="dailyRegistrationsChart" class="h-80" />
             </div>
 
             <!-- Section 3: Event Status Distribution -->
             <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Event Status Distribution</h3>
-
-
                 <x-chart wire:model="eventStatusChart" class="h-80" />
-            </div>
-
-            <!-- Section 4: Event Timeline (Upcoming vs Past) -->
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Events Timeline</h3>
-                <div id="eventTimelineChart" class="h-80"></div>
-            </div>
-
-            <!-- Section 5: Registration Metrics (Top Events) -->
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Top Events by Registrations</h3>
-                <div id="registrationMetricsChart" class="h-80"></div>
-            </div>
-
-            <!-- Section 6: Attendance Status -->
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Attendance Status</h3>
-                <div id="attendanceStatusChart" class="h-80"></div>
             </div>
         </div>
 
@@ -219,171 +201,3 @@ new #[Layout('layouts.admin')] class extends Component {
         </div>
     </div>
 </div>
-
-
-<script src="https://cdn.jsdelivr.net/npm/apexcharts@latest"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const dashboardData = this.dashboardData
-        const isDark = document.documentElement.classList.contains('dark');
-        const textColor = isDark ? '#D1D5DB' : '#374151';
-        const gridColor = isDark ? '#374151' : '#E5E7EB';
-
-        if (dashboardData.dailyRegistrations.dates.length && document.querySelector('#dailyRegistrationsChart')) {
-            new ApexCharts(document.querySelector('#dailyRegistrationsChart'), {
-                chart: {
-                    type: 'area',
-                    toolbar: {
-                        show: true
-                    },
-                    background: isDark ? '#1F2937' : '#FFFFFF',
-                },
-                colors: ['#3B82F6'],
-                series: [{
-                    name: 'Registrations',
-                    data: dashboardData.dailyRegistrations.counts
-                }],
-                xaxis: {
-                    categories: dashboardData.dailyRegistrations.dates,
-                    labels: {
-                        style: {
-                            colors: textColor
-                        }
-                    }
-                },
-                yaxis: {
-                    labels: {
-                        style: {
-                            colors: textColor
-                        }
-                    }
-                },
-                grid: {
-                    borderColor: gridColor
-                },
-                stroke: {
-                    curve: 'smooth',
-                    width: 2
-                }
-            }).render();
-        }
-
-        if (dashboardData.eventStatus.labels.length && document.querySelector('#eventStatusChart')) {
-            new ApexCharts(document.querySelector('#eventStatusChart'), {
-                chart: {
-                    type: 'donut',
-                    background: isDark ? '#1F2937' : '#FFFFFF'
-                },
-                colors: ['#3B82F6', '#10B981', '#F59E0B', '#EF4444'],
-                labels: dashboardData.eventStatus.labels,
-                series: dashboardData.eventStatus.values,
-                legend: {
-                    labels: {
-                        colors: textColor
-                    }
-                },
-                plotOptions: {
-                    pie: {
-                        donut: {
-                            size: '65%'
-                        }
-                    }
-                }
-            }).render();
-        }
-
-        if (dashboardData.eventTimeline.labels.length && document.querySelector('#eventTimelineChart')) {
-            new ApexCharts(document.querySelector('#eventTimelineChart'), {
-                chart: {
-                    type: 'bar',
-                    background: isDark ? '#1F2937' : '#FFFFFF'
-                },
-                colors: ['#10B981', '#8B5CF6'],
-                series: [{
-                    name: 'Events',
-                    data: dashboardData.eventTimeline.values
-                }],
-                xaxis: {
-                    categories: dashboardData.eventTimeline.labels,
-                    labels: {
-                        style: {
-                            colors: textColor
-                        }
-                    }
-                },
-                yaxis: {
-                    labels: {
-                        style: {
-                            colors: textColor
-                        }
-                    }
-                },
-                grid: {
-                    borderColor: gridColor
-                },
-                plotOptions: {
-                    bar: {
-                        distributed: true,
-                        horizontal: false,
-                        columnWidth: '45%'
-                    }
-                }
-            }).render();
-        }
-
-        if (dashboardData.registrationMetrics.labels.length && document.querySelector('#registrationMetricsChart')) {
-            new ApexCharts(document.querySelector('#registrationMetricsChart'), {
-                chart: {
-                    type: 'bar',
-                    background: isDark ? '#1F2937' : '#FFFFFF'
-                },
-                colors: ['#8B5CF6'],
-                series: [{
-                    name: 'Registrations',
-                    data: dashboardData.registrationMetrics.values
-                }],
-                xaxis: {
-                    categories: dashboardData.registrationMetrics.labels,
-                    labels: {
-                        style: {
-                            colors: textColor
-                        }
-                    }
-                },
-                yaxis: {
-                    labels: {
-                        style: {
-                            colors: textColor
-                        }
-                    }
-                },
-                grid: {
-                    borderColor: gridColor
-                },
-                plotOptions: {
-                    bar: {
-                        horizontal: true,
-                        columnWidth: '45%'
-                    }
-                }
-            }).render();
-        }
-
-        if (dashboardData.attendanceStatus.labels.length && document.querySelector('#attendanceStatusChart')) {
-            new ApexCharts(document.querySelector('#attendanceStatusChart'), {
-                chart: {
-                    type: 'pie',
-                    background: isDark ? '#1F2937' : '#FFFFFF'
-                },
-                colors: ['#10B981', '#EF4444', '#F59E0B'],
-                labels: dashboardData.attendanceStatus.labels,
-                series: dashboardData.attendanceStatus.values,
-                legend: {
-                    labels: {
-                        colors: textColor
-                    }
-                }
-            }).render();
-        }
-    });
-</script>
