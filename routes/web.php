@@ -51,6 +51,7 @@ foreach (config('tenancy.central_domains') as $domain) {
 Route::livewire('/privacy', 'pages::site.privacy')->name('privacy');
 Route::livewire('/features', 'pages::site.features')->name('features');
 Route::livewire('/examples', 'pages::site.examples')->name('examples');
+Route::livewire('/demos', 'pages::site.demos')->name('demos');
 Route::livewire('/contact', 'pages::site.contact')->name('contact');
 Route::livewire('/pricing', 'pages::site.pricing')->name('pricing');
 Route::livewire('/support', 'pages::site.support')->name('support');

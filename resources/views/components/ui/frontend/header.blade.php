@@ -34,6 +34,9 @@
                         <a href="/examples" class="block font-medium text-[15px]">Usage Examples</a>
                     </li>
                     <li class="max-lg:border-b max-lg:border-gray-300 max-lg:py-3 px-3">
+                        <a href="/demos" class="block font-medium text-[15px]">Demo</a>
+                    </li>
+                    <li class="max-lg:border-b max-lg:border-gray-300 max-lg:py-3 px-3">
                         <a href="/pricing" class="block font-medium text-[15px]">Pricing</a>
                     </li>
                     <li class="max-lg:border-b max-lg:border-gray-300 max-lg:py-3 px-3">
