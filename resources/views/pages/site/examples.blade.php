@@ -32,18 +32,10 @@ new #[Layout('layouts.frontend')]  class extends Component {};
             <div
                 class="mb-10 lg:mb-16 flex justify-center items-center flex-col gap-x-0 gap-y-6 lg:gap-y-0 lg:flex-row lg:justify-between max-md:max-w-lg max-md:mx-auto">
                 <div class="relative w-full text-center lg:text-left lg:w-2/5">
-                    <Image
-                        class="mx-auto rounded-md w-full"
-                        widths={[400, 768, 1024, 2040]}
-                        sizes="(max-width: 767px) 400px, (max-width: 1023px) 768px, (max-width: 2039px) 1024px, 2040px"
-                        loading="eager"
-                        width={400}
-                        height={200}
-                        src={birthdayPartInvitations}
-                        alt="Power your events with EventAgile" />
+                    <img src="/assets/images/birthday-invitation.png" alt="Manage birthday party invitations" class="mx-auto rounded-md w-full" />
                 </div>
                 <div class="relative w-full text-center lg:text-left lg:w-3/5 px-4">
-                    <h2 class="text-4xl font-bold text-gray-900 leading-[3.25rem] lg:mb-6 mx-auto max-w-max lg:max-w-md lg:mx-0">Run a birthday party</h2>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-2">Manage birthday party invitations</h2>
                     <p class="text-lg font-normal text-gray-500 mb-5">
                         You are planning a private 40th birthday celebration and need to manage the guest list discreetly. You use EventAgile to create the
                         event page, setting the party details and a realistic RSVP deadline. Because it's a private gathering, you set the event to
@@ -62,7 +54,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
             <div
                 class="mb-10 lg:mb-16 flex justify-center items-center flex-col gap-x-0 gap-y-6 lg:gap-y-0 lg:flex-row lg:justify-between max-md:max-w-lg max-md:mx-auto">
                 <div class="relative w-full text-center lg:text-left lg:w-3/5">
-                    <h2 class="text-4xl font-bold text-gray-900 leading-[3.25rem] lg:mb-6 mx-auto max-w-max lg:max-w-md lg:mx-0">Charity organisations</h2>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-2">Charity organisations</h2>
 
                     <p class="text-lg font-normal text-gray-500 mb-5">
                         Imagine your local community non-profit is organizing a small, free "Awareness & Volunteer Drive" event. You use EventAgile to quickly
@@ -77,15 +69,8 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                     </p>
                 </div>
                 <div class="relative w-full text-center lg:text-left lg:w-2/5">
-                    <Image
-                        class="mx-auto rounded-md w-full"
-                        widths={[400, 768, 1024, 2040]}
-                        sizes="(max-width: 767px) 400px, (max-width: 1023px) 768px, (max-width: 2039px) 1024px, 2040px"
-                        loading="eager"
-                        width={460}
-                        height={220}
-                        src={charityEvent}
-                        alt="Power your events with EventAgile" />
+                    <img src="/assets/images/charity-event.jpg" alt="Power your events with EventAgile"
+                        class="mx-auto rounded-md w-full p-1" />
                 </div>
             </div>
         </div>
@@ -96,15 +81,8 @@ new #[Layout('layouts.frontend')]  class extends Component {};
             <div
                 class="mb-10 lg:mb-16 flex justify-center items-center flex-col gap-x-0 gap-y-6 lg:gap-y-0 lg:flex-row lg:justify-between max-md:max-w-lg max-md:mx-auto">
                 <div class="relative w-full text-center lg:text-left lg:w-2/6">
-                    <Image
-                        class="mx-auto rounded-md w-full"
-                        widths={[400, 768, 1024, 2040]}
-                        sizes="(max-width: 767px) 400px, (max-width: 1023px) 768px, (max-width: 2039px) 1024px, 2040px"
-                        loading="eager"
-                        width={460}
-                        height={220}
-                        src={weddingParties}
-                        alt="Power your events with EventAgile" />
+                    <img
+                        src="/assets/images/wedding-party.jpg" alt="Power your events with EventAgile" class="mx-auto rounded-md w-full p-1" />
                 </div>
                 <div class="relative w-full text-center lg:text-left lg:w-4/6 px-4">
                     <h2 class="text-4xl font-bold text-gray-900 leading-[3.25rem] lg:mb-6 mx-auto max-w-max lg:max-w-md lg:mx-0">Manage your wedding day</h2>
@@ -125,18 +103,12 @@ new #[Layout('layouts.frontend')]  class extends Component {};
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div
                 class="mb-10 lg:mb-16 flex justify-center items-center flex-col gap-x-0 gap-y-6 lg:gap-y-0 lg:flex-row lg:justify-between max-md:max-w-lg max-md:mx-auto">
-                <div class="relative w-full text-center lg:text-left lg:w-2/4">
-                    <Image
-                        class="mx-auto rounded-md w-full"
-                        widths={[400, 768, 1024, 2040]}
-                        sizes="(max-width: 767px) 400px, (max-width: 1023px) 768px, (max-width: 2039px) 1024px, 2040px"
-                        loading="eager"
-                        width={460}
-                        height={220}
-                        src={pessConf}
-                        alt="Power your events with EventAgile" />
+                <div class="relative w-full text-center lg:text-left lg:w-2/5">
+                    <img
+                        src="/assets/images/events-organization.jpg" alt="Power your events with EventAgile"
+                        class="mx-auto rounded-md w-full" />
                 </div>
-                <div class="relative w-full text-center lg:text-left lg:w-2/4">
+                <div class="relative w-full text-center lg:text-left lg:w-3/5 p-2">
                     <h2 class="text-4xl font-bold text-gray-900 leading-[3.25rem] lg:mb-6 mx-auto max-w-max lg:max-w-md lg:mx-0">Special day events</h2>
                     <p class="text-lg font-normal text-gray-500 mb-5">
                         EventAgile is the go-to tool for any organizer needing quick, reliable, and straightforward registration. The process begins when the
@@ -157,15 +129,9 @@ new #[Layout('layouts.frontend')]  class extends Component {};
             <div
                 class="mb-10 lg:mb-16 flex justify-center items-center flex-col gap-x-0 gap-y-6 lg:gap-y-0 lg:flex-row lg:justify-between max-md:max-w-lg max-md:mx-auto">
                 <div class="relative w-full text-center lg:text-left lg:w-2/6 self-start">
-                    <Image
-                        class="mx-auto rounded-md w-full mt-12"
-                        widths={[400, 768, 1024, 2040]}
-                        sizes="(max-width: 767px) 400px, (max-width: 1023px) 768px, (max-width: 2039px) 1024px, 2040px"
-                        loading="eager"
-                        width={400}
-                        height={220}
-                        src={registratioUpdate}
-                        alt="Power your events with EventAgile" />
+                    <img
+                        src="/assets/images/waiting-list.jpg" alt="Power your events with EventAgile"
+                        class="mx-auto rounded-md w-full mt-12" />
                 </div>
                 <div class="relative w-full text-center lg:text-left lg:w-4/6 px-4">
                     <h2 class="text-4xl font-bold text-gray-900 leading-[3.25rem] lg:mb-6 mx-auto max-w-max lg:max-w-md lg:mx-0">Manage waitlist guests</h2>

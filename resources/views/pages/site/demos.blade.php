@@ -16,13 +16,21 @@ new #[Layout('layouts.frontend')]  class extends Component {};
     <section class="py-10">
         <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <div class="mb-14 text-center">
-                <h2 class="text-4xl text-center font-bold text-gray-900 py-5">where and how you can put it to use</h2>
+                <h2 class="text-4xl text-center font-bold text-gray-900 py-5">How EventAgile Can Help You?</h2>
                 <p class="text-lg font-normal text-gray-500 max-w-12xl md:max-w-12xl mx-auto">
-                    EventAgile is the fast, simple, and reliable event management tool designed to cover all your small-scale scheduling needs. Whether you are
-                    a freelance fitness instructor organizing your weekly online classes, the leader of a community book club managing private monthly meetings,
-                    a small non-profit collecting sign-ups for a local workshop, or a corporate team manager scheduling internal training sessions, EventAgile
-                    provides a clean, stress-free platform to create events, manage all registrations, and keep your attendees fully informed. Use it for
-                    anything that needs a simple, professional sign-up system.
+                    Here it's a full working demo. The demo data is refreshing with random dataset daily. You can create your own event and test the features. The demo is open to everyone,
+                    so you can share the link with your friends and colleagues. We hope you enjoy using EventAgile and find it useful for your events.
+                    If you have any questions or feedback, please don't hesitate to contact us. We are always happy to hear from our users and improve our product.
+                </p>
+
+                <p class="text-lg font-normal text-gray-500 max-w-12xl md:max-w-12xl mx-auto my-5">
+                    <x-button label="Visit sample event site" link="https://acme.eventagile.com/" class="btn-info btn-md m-3" icon="o-arrow-right-circle" tooltip="Visit sample event site" />
+                    <x-button label="Manage the event site" link="https://acme.eventagile.com/admin" class="btn-success btn-md m-3" icon="o-cog-8-tooth" tooltip="Manage sample event site" />
+                    <br />
+
+                    Login: acme@example.com |
+
+                    Password: password
                 </p>
             </div>
         </div>
@@ -38,14 +46,12 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                         alt="Power your events with EventAgile" />
                 </div>
                 <div class="relative w-full text-center lg:text-left lg:w-3/5 px-4">
-                    <h2 class="text-4xl font-bold text-gray-900 leading-[3.25rem] lg:mb-6 mx-auto max-w-max lg:max-w-md lg:mx-0">Run a birthday party</h2>
+                    <h2 class="text-4xl font-bold text-gray-900 mb-2">Comfortable dashboard</h2>
                     <p class="text-lg font-normal text-gray-500 mb-5">
-                        You are planning a private 40th birthday celebration and need to manage the guest list discreetly. You use EventAgile to create the
-                        event page, setting the party details and a realistic RSVP deadline. Because it's a private gathering, you set the event to
-                        'Password-Protected,' choosing a simple password. You then copy the event link and the password and send them out with your digital
-                        invitations. As RSVPs arrive, you track the Basic Reporting dashboard to see the total headcount in real-time. The night before the
-                        party, you use the Export Registrations feature to download the final guest list to your phone for easy check-in at the door, ensuring
-                        only confirmed guests attend. EventAgile ensures your focus remains on celebrating, not chasing RSVPs.
+                        A snapshot of the EventAgile dashboard, showcasing its clean and intuitive interface.
+                        The dashboard provides a comprehensive overview of all your events, with key metrics and insights displayed prominently.
+                        From here, you can easily navigate to manage your events, view registrations, and access powerful reporting features.
+                        The design is focused on usability, ensuring that event organizers can quickly find the information they need and take action without any hassle. Whether you're tracking attendance, monitoring registration trends, or exporting data for analysis, the EventAgile dashboard is your central hub for all things event management.
                     </p>
                 </div>
             </div>
@@ -57,19 +63,19 @@ new #[Layout('layouts.frontend')]  class extends Component {};
             <div
                 class="mb-10 lg:mb-16 flex justify-center items-center flex-col gap-x-0 gap-y-6 lg:gap-y-0 lg:flex-row lg:justify-between max-md:max-w-lg max-md:mx-auto">
                 <div class="relative w-full text-center lg:text-left lg:w-3/5">
-                    <h2 class="text-4xl font-bold text-gray-900 leading-[3.25rem] lg:mb-6 mx-auto max-w-max lg:max-w-md lg:mx-0">Charity organisations</h2>
+                    <h2 class="text-4xl font-bold text-gray-900 leading-[3.25rem] mb-2">Advanced event managements</h2>
 
                     <p class="text-lg font-normal text-gray-500 mb-5">
-                        Imagine your local community non-profit is organizing a small, free "Awareness & Volunteer Drive" event. You use EventAgile to quickly
-                        create a public event page with the time, date, and a brief description of your mission. You set the capacity limit based on your venue
-                        size. You then share the public event link across your social media channels and email newsletter to encourage sign-ups.
+                        For your community fundraiser, you create a new event in EventAgile, setting the title, description, and a realistic capacity based on your venue size.
+                        You choose the "Public" visibility option to maximize outreach and share the event link across social media and local community boards.
+
+                        The dashboard provides real-time insights into registration trends, allowing you to adjust your marketing efforts as needed.
+                        For the final preparation, you use the Export Registrations feature to download a complete list of attendees and volunteers, ensuring you have accurate counts for seating arrangements, materials preparation, and follow-up communications.
+
+                        With EventAgile's streamlined workflow, you can focus on making your event a success while effortlessly managing all the logistics behind the scenes.
                     </p>
 
-                    <p class="text-lg font-normal text-gray-500 mb-5">
-                        As registrations come in, you monitor the Basic Reporting dashboard to track how close you are to capacity. For the final preparation,
-                        you use the Export Registrations feature to download a complete list of attendees and volunteers, ensuring you have accurate counts for
-                        seating, materials, and follow-up communications. EventAgile helps you maximize outreach with minimal administrative effort.
-                    </p>
+
                 </div>
                 <div class="relative w-full text-center lg:text-left lg:w-2/5">
                     <img
@@ -92,14 +98,12 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                         alt="Power your events with EventAgile" />
                 </div>
                 <div class="relative w-full text-center lg:text-left lg:w-4/6 px-4">
-                    <h2 class="text-4xl font-bold text-gray-900 leading-[3.25rem] lg:mb-6 mx-auto max-w-max lg:max-w-md lg:mx-0">Manage your wedding day</h2>
+                    <h2 class="text-4xl font-bold text-gray-900 mb-2">Detailed event page</h2>
                     <p class="text-lg font-normal text-gray-500 mb-5">
-                        For your wedding, EventAgile provides a clean, secure solution to handle RSVPs and guest list management. Organizers create a single,
-                        'Password-Protected' event page that acts as the digital RSVP form, sharing the private password only with invited guests via their
-                        physical or digital invitations. The dashboard instantly updates with a live headcount as guests respond. For the final planning stages,
-                        the organizer utilizes the Export Registrations feature to download the complete, final guest list into a spreadsheet. This file can
-                        then be effortlessly used by the wedding planner to finalize seating charts, confirm catering numbers, and produce place cards.
-                        EventAgile ensures guest tracking is seamless and stress-free, allowing the couple to focus entirely on their special day.
+                        The Event Detail page is designed to provide attendees with all the information they need about your event in a clear and engaging way.
+                        It features a clean layout that highlights the event title, date, time, and location at the top, making it easy for visitors to quickly grasp the essential details.
+
+
                     </p>
                 </div>
             </div>
@@ -110,22 +114,17 @@ new #[Layout('layouts.frontend')]  class extends Component {};
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div
                 class="mb-10 lg:mb-16 flex justify-center items-center flex-col gap-x-0 gap-y-6 lg:gap-y-0 lg:flex-row lg:justify-between max-md:max-w-lg max-md:mx-auto">
-                <div class="relative w-full text-center lg:text-left lg:w-2/4">
+                <div class="relative w-full text-center lg:text-left lg:w-2/5">
                     <img
                         class="mx-auto rounded-md w-full"
                         src="./assets/images/event-agile-export.png"
                         alt="Power your events with EventAgile" />
                 </div>
-                <div class="relative w-full text-center lg:text-left lg:w-2/4">
-                    <h2 class="text-4xl font-bold text-gray-900 leading-[3.25rem] lg:mb-6 mx-auto max-w-max lg:max-w-md lg:mx-0">Special day events</h2>
+                <div class="relative w-full text-center lg:text-left lg:w-3/5 px-2">
+                    <h2 class="text-4xl font-bold text-gray-900 leading-[3.25rem] lg:mb-6 mx-auto max-w-max lg:max-w-md lg:mx-0">Export registrations</h2>
                     <p class="text-lg font-normal text-gray-500 mb-5">
-                        EventAgile is the go-to tool for any organizer needing quick, reliable, and straightforward registration. The process begins when the
-                        organizer creates an event, quickly defining the title, description, and capacity. They then choose the event's visibility: Public for
-                        maximum exposure, Unlisted for private sharing via a direct link, or Password-Protected for secure, exclusive access. Once the link is
-                        shared, registrations flow in, and the organizer can monitor the Basic Reporting dashboard for a real-time headcount and status update.
-                        When ready for the event day, the organizer uses the Export Registrations feature to instantly download a comprehensive list of all
-                        confirmed attendees. This seamless, agile workflow eliminates manual data entry, reduces administrative overhead, and ensures the
-                        organizer always has accurate information at their fingertips.
+                        EventAgile allows you to easily export your event registrations in a convenient CSV format, making it simple to manage and analyze your attendee data.
+                        With just a few clicks, you can download a comprehensive list of all registered attendees, including their names, contact information, registration status, and any custom fields you've set up for your event. This feature is perfect for organizing your guest list, sending follow-up communications, or importing the data into other tools for further analysis. Whether you're preparing for a small gathering or a large conference, EventAgile's export functionality ensures you have all the information you need at your fingertips to make your event a success.
                     </p>
                 </div>
             </div>
@@ -143,41 +142,10 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                         alt="Power your events with EventAgile" />
                 </div>
                 <div class="relative w-full text-center lg:text-left lg:w-4/6 px-4">
-                    <h2 class="text-4xl font-bold text-gray-900 leading-[3.25rem] lg:mb-6 mx-auto max-w-max lg:max-w-md lg:mx-0">Manage waitlist guests</h2>
-                    <p class="text-lg font-normal text-gray-500 mb-5">
-                        The Waiting List feature transforms a "Sold Out" sign into a new opportunity, ensuring you never miss a potential attendee.
-                    </p>
-                    <p class="text-lg font-normal text-gray-500 mb-5">
-                        Here's how it works:
-                    <ul class="list-decimal px-4 mt-4 space-y-2 text-lg font-normal text-gray-500 mb-5">
-                        <li>
-                            Enabling the Waitlist: When setting up your event, the organizer simply sets the event's Maximum Capacity and then activates the
-                            Waiting List toggle. Once the capacity limit is reached, the public registration button automatically changes to "Join Waiting
-                            List."
-                        </li>
-                        <li>
-                            Attendee Joins the Queue: Prospective attendees can still submit their contact details, and their registration is securely
-                            logged with a "Waitlisted" status in the order they signed up.
-                        </li>
-                        <li>
-                            Organizer Management: When an approved registrant cancels, or when the organizer increases the event capacity, a spot opens up.
-                            The organizer views the Waiting List from their dashboard, which is sorted by the First-In, First-Out (FIFO) method.
-                        </li>
-                        <li>
-                            Converting a Spot: The organizer can then manually select the top person on the list and take one of two actions:
-                            <br />
-                            - Directly Register the user (if the event is free). <br />
-                            - Notify/Invite the user to complete their registration (if the event is paid or requires further action). <br />
-                            <br />
-                        </li>
-                        <li>
-                            Data for Future Events: The waiting list data can be exported and used as a highly engaged mailing list for future, similar
-                            events, maximizing the organizer's marketing efforts.
-                        </li>
+                    <h2 class="text-4xl font-bold text-gray-900mb-2">Manage registration and waitlist guests</h2>
 
-                        This feature ensures the organizer has complete control over who fills the newly available spot, maintaining the integrity and
-                        quality of their attendee list while capitalizing on high demand.
-                    </ul>
+                    <p class="text-lg font-normal text-gray-500 mb-5">
+                        When your event reaches capacity, interested attendees can join the waiting list with a simple click. As spots become available due to cancellations or no-shows, EventAgile automatically promotes guests from the waiting list to the registered attendees list, sending them an instant notification about their new status. This seamless process not only maximizes your event's attendance but also keeps your audience engaged and informed, turning potential disappointments into opportunities for success.
                     </p>
                 </div>
             </div>
