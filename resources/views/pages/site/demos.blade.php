@@ -24,8 +24,16 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                 </p>
 
                 <p class="text-lg font-normal text-gray-500 max-w-12xl md:max-w-12xl mx-auto my-5">
-                    <x-button label="Visit sample event site" link="https://acme.eventagile.com/" class="btn-info btn-md m-3" icon="o-arrow-right-circle" tooltip="Visit sample event site" />
-                    <x-button label="Manage the event site" link="https://acme.eventagile.com/dashboard" class="btn-success btn-md m-3" icon="o-cog-8-tooth" tooltip="Manage sample event site" />
+
+                    <a href="https://acme.eventagile.com/" class="px-4 py-2 text-sm rounded-full font-medium cursor-pointer tracking-wide btn-primary btn transition-all m-3" target="_blank">
+                        <x-icon name="o-arrow-right-circle" />
+                        Visit sample event site</a>
+
+
+                    <a href="https://acme.eventagile.com/dashboard" class="px-4 py-2 text-sm rounded-full font-medium cursor-pointer tracking-wide btn-success  btn transition-all m-3" target="_blank">
+                        <x-icon name="o-cog-8-tooth" />
+                        Manage the event site</a>
+
                     <br />
 
                     Login: acme@example.com |
