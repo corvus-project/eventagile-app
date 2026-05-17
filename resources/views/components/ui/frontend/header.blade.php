@@ -1,13 +1,15 @@
-    <header class="flex shadow-md py-4 px-4 sm:px-10 bg-white min-h-[70px] tracking-wide relative z-50">
+    <header x-data="{ mobileMenuOpen: false }" class="flex shadow-md py-4 px-4 sm:px-10 bg-white min-h-[70px] tracking-wide relative z-50">
         <div class="flex flex-wrap items-center justify-between gap-5 w-7xl mx-auto">
             <a href="/" class="header__logo text-2xl font-extrabold w-36">
                 <span>EventAgile</span>
             </a>
             <div
                 id="collapseMenu"
-                class="max-lg:hidden lg:!block max-lg:before:fixed max-lg:before:bg-black max-lg:before:opacity-50 max-lg:before:inset-0 max-lg:before:z-50">
+                :class="mobileMenuOpen ? 'block' : 'hidden'"
+                class="lg:block max-lg:before:fixed max-lg:before:bg-black max-lg:before:opacity-50 max-lg:before:inset-0 max-lg:before:z-50">
                 <button
                     id="toggleClose"
+                    @click="mobileMenuOpen = false"
                     class="lg:hidden fixed top-2 right-4 z-[100] rounded-full bg-white w-9 h-9 flex items-center justify-center border border-gray-200 cursor-pointer">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 fill-black" viewBox="0 0 320.591 320.591">
                         <path
@@ -28,22 +30,22 @@
                     </li>
 
                     <li class="max-lg:border-b max-lg:border-gray-300 max-lg:py-3 px-3">
-                        <a href="/features" class="block font-medium text-[15px]">Features</a>
+                        <a href="/features" @click="mobileMenuOpen = false" class="block font-medium text-[15px]">Features</a>
                     </li>
                     <li class="max-lg:border-b max-lg:border-gray-300 max-lg:py-3 px-3">
-                        <a href="/examples" class="block font-medium text-[15px]">Usage Examples</a>
+                        <a href="/examples" @click="mobileMenuOpen = false" class="block font-medium text-[15px]">Usage Examples</a>
                     </li>
                     <li class="max-lg:border-b max-lg:border-gray-300 max-lg:py-3 px-3">
-                        <a href="/demos" class="block font-medium text-[15px]">Demo</a>
+                        <a href="/demos" @click="mobileMenuOpen = false" class="block font-medium text-[15px]">Demo</a>
                     </li>
                     <li class="max-lg:border-b max-lg:border-gray-300 max-lg:py-3 px-3">
-                        <a href="/pricing" class="block font-medium text-[15px]">Pricing</a>
+                        <a href="/pricing" @click="mobileMenuOpen = false" class="block font-medium text-[15px]">Pricing</a>
                     </li>
                     <li class="max-lg:border-b max-lg:border-gray-300 max-lg:py-3 px-3">
-                        <a href="/support" class="block font-medium text-[15px]">Support</a>
+                        <a href="/support" @click="mobileMenuOpen = false" class="block font-medium text-[15px]">Support</a>
                     </li>
                     <li class="max-lg:border-b max-lg:border-gray-300 max-lg:py-3 px-3">
-                        <a href="/contact" class="block font-medium text-[15px]">Contact</a>
+                        <a href="/contact" @click="mobileMenuOpen = false" class="block font-medium text-[15px]">Contact</a>
                     </li>
                 </ul>
             </div>
@@ -65,7 +67,7 @@
 
                 <a href="{{ route('signup') }}" class="px-4 py-2 text-sm rounded-full font-medium cursor-pointer tracking-wide btn-primary btn transition-all">Signup</a>
                 @endif
-                <button id="toggleOpen" class="lg:hidden cursor-pointer">
+                <button id="toggleOpen" @click="mobileMenuOpen = true" class="lg:hidden cursor-pointer">
                     <svg class="w-7 h-7" fill="#000" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path
                             fill-rule="evenodd"
