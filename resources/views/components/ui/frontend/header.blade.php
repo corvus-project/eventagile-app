@@ -1,6 +1,6 @@
     <header x-data="{ mobileMenuOpen: false }" class="flex shadow-md py-4 px-4 sm:px-10 bg-white min-h-[70px] tracking-wide relative z-50">
-        <div class="flex flex-wrap items-center justify-between gap-5 w-7xl mx-auto">
-            <a href="/" class="header__logo text-2xl font-extrabold w-36">
+        <div class="flex flex-wrap items-center justify-between gap-5 w-full max-w-6xl mx-auto min-w-0">
+            <a href="/" class="header__logo text-2xl font-extrabold w-36 min-w-0">
                 <span>EventAgile</span>
             </a>
             <div
@@ -22,7 +22,7 @@
                 </button>
 
                 <ul
-                    class="lg:flex gap-x-4 max-lg:space-y-3 max-lg:fixed max-lg:bg-white max-lg:w-1/2 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50">
+                    class="lg:flex gap-x-4 max-lg:space-y-3 max-lg:fixed max-lg:bg-white max-lg:w-full max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50">
                     <li class="mb-6 hidden max-lg:block">
                         <a href="/" class="header__logo text-2xl font-extrabold  w-36">
                             <span>EventAgile</span>
@@ -50,7 +50,7 @@
                 </ul>
             </div>
 
-            <div class="flex max-lg:ml-auto space-x-4">
+            <div class="flex flex-wrap items-center max-lg:ml-auto space-x-4 min-w-0">
 
                 @auth()
                 <div class="flex items-center w-auto">

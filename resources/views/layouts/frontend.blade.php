@@ -15,7 +15,7 @@
     </div>
     @endif
 
-    <div class="mx-auto">
+    <div class="w-full max-w-6xl mx-auto px-4 sm:px-6">
         {{ $slot }}
     </div>
     <footer class="pt-8 pb-8 bg-gray-100 mt-8">
