@@ -31,6 +31,36 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                     <a href="https://eventagile.com/signup" class="btn btn-primary">Get Started</a>
 
                     <a href="/features" class="btn btn-secondary ml-4">Learn More</a>
+
+
+                </div>
+                <div class="py-10">
+                    <div class="mb-14 text-center">
+                        <h2 class="text-4xl text-center font-bold text-gray-900 py-5">How EventAgile Can Help You?</h2>
+                        <p class="text-lg font-normal text-gray-500 max-w-12xl md:max-w-12xl mx-auto">
+                            Here it's a full working demo. The demo data is refreshing with random dataset daily. You can create your own event and test the features. The demo is open to everyone,
+                            so you can share the link with your friends and colleagues. We hope you enjoy using EventAgile and find it useful for your events.
+                            If you have any questions or feedback, please don't hesitate to contact us. We are always happy to hear from our users and improve our product.
+                        </p>
+
+                        <p class="text-lg font-normal text-gray-500 max-w-12xl md:max-w-12xl mx-auto my-5">
+
+                            <a href="https://acme.eventagile.com/" class="px-4 py-2 text-sm rounded-full font-medium cursor-pointer tracking-wide btn-primary btn transition-all m-3" target="_blank">
+                                <x-icon name="o-arrow-right-circle" />
+                                Visit sample event site</a>
+
+
+                            <a href="https://acme.eventagile.com/dashboard" class="px-4 py-2 text-sm rounded-full font-medium cursor-pointer tracking-wide btn-success  btn transition-all m-3" target="_blank">
+                                <x-icon name="o-cog-8-tooth" />
+                                Manage the event site</a>
+
+                            <br />
+
+                            Login: acme@example.com |
+
+                            Password: password
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
