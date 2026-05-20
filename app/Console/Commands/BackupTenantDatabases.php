@@ -33,7 +33,8 @@ class BackupTenantDatabases extends Command
             $this->info("Backing up database for tenant: {$tenant->id}");
 
             if (file_exists(database_path($tenant->tenancy_db_name))) {
-                copy(database_path($tenant->tenancy_db_name), base_path("backups/{$tenant->tenancy_db_name}_" . now()->format('Y-m-d_H-i-s')));
+                @mkdir(base_path("backups/" . now()->format('Y-m-d_H-i-s')), 0755, true);
+                copy(database_path($tenant->tenancy_db_name), base_path("backups/" . now()->format('Y-m-d_H-i-s') . "/" . $tenant->tenancy_db_name));
             }
             $this->info("Backup completed for tenant: {$tenant->id}");
             Log::info("Backup completed for tenant: {$tenant->id}");
