@@ -58,7 +58,6 @@ new #[Layout('layouts.tenant')]  class extends Component
                 </a>
                 <p class="text-sm text-gray-600">
                     Date: {{ $eventRegistration->event->start_time->format('F j, Y H:i') }}
-                    Please register until {{ $eventRegistration->event-> $event->registration_deadline ? $eventRegistration->event-> $event->registration_deadline->format('F j, Y H:i') : 'N/A' }}.
                 </p>
                 <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
                     <x-icon name="o-envelope" /> Organizer: {{ $eventRegistration->event->organizer }}
