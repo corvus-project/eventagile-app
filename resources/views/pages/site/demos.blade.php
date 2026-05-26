@@ -9,7 +9,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
 ?>
 
 <x-slot name="title">
-    {{ 'Event Agile ~ Demo' }}
+    {{ 'Event Agile ~ Demo - Test drive your events' }}
 </x-slot>
 
 <div class="pb-5">
