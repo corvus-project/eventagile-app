@@ -34,7 +34,7 @@ class TenantInfolist
 
                                 // @TODO move the logic to a service and find the admin role in tenant db
                                 $tenant = Tenant::find($record->id);
-                                $redirectUrl = '/dashboard';
+                                $redirectUrl = 'dashboard';
                                 $token = tenancy()->impersonate($tenant, 1, $redirectUrl);
                                 $tenant_domain = $tenant->primary_domain;
                                 $domain = str_replace(['http://', 'https://'], '', config('app.url'));
