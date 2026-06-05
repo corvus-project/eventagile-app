@@ -15,6 +15,8 @@ use Filament\Tables\Table;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Facades\DB;
 use Override;
+use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Support\Facades\Log;
 
 class ListUsers extends Page implements HasTable
 {
@@ -30,7 +32,7 @@ class ListUsers extends Page implements HasTable
     }
 
     #[Override]
-    public function    getTitle(): string|Htmlable
+    public function  getTitle(): string|Htmlable
     {
         return  'Users: ' . $this->record->name;
     }
@@ -50,7 +52,10 @@ class ListUsers extends Page implements HasTable
                 TextColumn::make('roles.name'),
             ])
             ->filters([
-                //
-            ]);
+                SelectFilter::make('roles')
+                    ->label('Role')
+                    ->relationship('roles', 'name')
+
+            ])->defaultSort('id', 'desc');
     }
 }

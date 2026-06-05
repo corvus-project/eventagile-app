@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Tenants\Schemas;
 
 use App\Filament\Resources\Users\UserResource;
 use App\Models\Tenant;
+use App\Models\User;
 use Filament\Actions\Action;
 use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\TextEntry;
@@ -34,8 +35,11 @@ class TenantInfolist
 
                                 // @TODO move the logic to a service and find the admin role in tenant db
                                 $tenant = Tenant::find($record->id);
+                                config(['database.connections.template_tenant_connection.database' => database_path($tenant->tenancy_db_name)]);
+                                $user = User::on('template_tenant_connection')->with('roles')->whereHas('roles', fn($q) => $q->where('slug', 'admin'))->first();
+
                                 $redirectUrl = 'dashboard';
-                                $token = tenancy()->impersonate($tenant, 1, $redirectUrl);
+                                $token = tenancy()->impersonate($tenant, $user->id, $redirectUrl);
                                 $tenant_domain = $tenant->primary_domain;
                                 $domain = str_replace(['http://', 'https://'], '', config('app.url'));
 
@@ -60,6 +64,7 @@ class TenantInfolist
                         ->label('Email address'),
 
                 ])->columns(2),
+
 
 
                 RepeatableEntry::make('domains')

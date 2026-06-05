@@ -42,6 +42,16 @@ class Tenant extends BaseTenant implements TenantWithDatabase
         return $this->hasMany(Subscription::class);
     }
 
+    public function adminUsers()
+    {
+        return $this->run(function () {
+            $adminUsers = User::whereHas('roles', function ($query) {
+                $query->where('slug', 'admin');
+            })->get();
+            return $adminUsers;
+        });
+    }
+
     public function able($action)
     {
         Log::info('Checking ability for user ID: ' . $this->id . ' and action: ' . $action);
