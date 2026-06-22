@@ -53,16 +53,7 @@
             <div class="flex flex-wrap items-center max-lg:ml-auto space-x-4 min-w-0">
 
                 @auth()
-                <div class="flex items-center w-auto">
-                    @role('admin')
-                    <x-ui.button type="primary" submit="true" tag="a" href="{{ route('dashboard') }}">View Dashboard</x-ui.button>
-                    @endrole
-                    @role('user')
-                    <x-ui.button type="primary" submit="true" tag="a" href="{{ route('temporary') }}">My Page</x-ui.button>
 
-                    @endrole
-
-                </div>
                 @else
 
                 <a href="{{ route('signup') }}" class="px-4 py-2 text-sm rounded-full font-medium cursor-pointer tracking-wide btn-primary btn transition-all">Signup</a>

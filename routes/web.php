@@ -30,23 +30,19 @@ Route::get('/debug', function () {
     return Carbon::now()->toDateTimeString();
 })->name('welcome');
 
-foreach (config('tenancy.central_domains') as $domain) {
-    Route::domain($domain)->group(function () {
-        Route::livewire('/', 'pages::site.home')->name('home');
-        Route::livewire('/signup', 'pages::site.signup')->name('signup');
+Route::livewire('/', 'pages::site.home')->name('home');
+Route::livewire('/signup', 'pages::site.signup')->name('signup');
 
-        Route::livewire('/account-setup', 'pages::site.temporary')->name('temporary');
-        Route::middleware('auth')->group(function () {
+Route::livewire('/account-setup', 'pages::site.temporary')->name('temporary');
+Route::middleware('auth')->group(function () {
 
-            Route::get('email/verify/{id}/{hash}', EmailVerificationController::class)
-                ->middleware('signed')
-                ->name('verification.verify');
+    Route::get('email/verify/{id}/{hash}', EmailVerificationController::class)
+        ->middleware('signed')
+        ->name('verification.verify');
 
-            Route::post('logout', LogoutController::class)
-                ->name('logout');
-        });
-    });
-}
+    Route::post('logout', LogoutController::class)
+        ->name('logout');
+});
 
 Route::livewire('/privacy', 'pages::site.privacy')->name('privacy');
 Route::livewire('/features', 'pages::site.features')->name('features');

@@ -47,7 +47,6 @@ new #[Layout('layouts.auth')] class extends Component
         $response = Http::post('https://www.google.com/recaptcha/api/siteverify?' . $query);
         $captchaLevel = $response->json('score');
         $this->validate();
-        Log::debug('Captcha verification result', ['email' => $this->email, 'captchaToken' => $this->captchaToken, 'captcha_score' => $captchaLevel]);
         throw_if($captchaLevel <= 0.5, ValidationException::withMessages([
             'captchaToken' => __('Error on captcha verification. Please, refresh the page and try again.')
         ]));
@@ -64,7 +63,7 @@ new #[Layout('layouts.auth')] class extends Component
             'user_id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
-            'is_active' => false,
+            'is_active' => true,
         ]);
 
         $tenant->domains()->create([
