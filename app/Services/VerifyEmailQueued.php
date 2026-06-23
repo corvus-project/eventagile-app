@@ -27,7 +27,7 @@ class VerifyEmailQueued extends VerifyEmail
         Log::debug('Tenant URL: ' . Helper::tenantUrl());
 
         $url = URL::temporarySignedRoute(
-            'tenant.verification.verify',
+            'verification.verify',
             Carbon::now()->addMinutes(Config::get('auth.verification.expire', 60)),
             [
                 'id' => $notifiable->getKey(),

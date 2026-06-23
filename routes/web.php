@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\TenantEmailVerificationController;
 use App\Livewire\Account\AccountHome;
 use App\Livewire\Client\EventRegistration;
 use App\Livewire\Dashboard\DashboardHome;
@@ -39,6 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::get('email/verify/{id}/{hash}', EmailVerificationController::class)
         ->middleware('signed')
         ->name('verification.verify');
+
 
     Route::post('logout', LogoutController::class)
         ->name('logout');

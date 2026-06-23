@@ -15,7 +15,7 @@ jobs:
                 username: ${{ secrets.SSH_USERNAME }}
                 key: ${{ secrets.SSH_PRIVATE_KEY }}
                 script: |
-                    cd /home/ploi/eventagile.com
+                    cd /app/eventagile-website
                     git pull origin pre-release
                     composer install --optimize-autoloader
                     npm run build

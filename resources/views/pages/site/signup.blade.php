@@ -22,7 +22,7 @@ new #[Layout('layouts.auth')] class extends Component
     #[Validate('required|min:3|max:25|unique:domains,domain', message: 'Please, select a domain for your project!')]
     public string $domain = '';
 
-    #[Validate('required|email|unique:tenants,email')]
+    #[Validate('required|email|unique:users,email')]
     public string $email = '';
 
     #[Validate('required|min:8|same:passwordConfirmation')]
@@ -33,7 +33,10 @@ new #[Layout('layouts.auth')] class extends Component
 
     public function register($token = null)
     {
-        Log::debug('Starting registration process', ['email' => $this->email, 'domain' => $this->domain, 'token' => $token]);
+        Log::debug(
+            'Starting registration process',
+            ['email' => $this->email, 'domain' => $this->domain]
+        );
 
 
         if ($token) {

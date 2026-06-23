@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Illuminate\Support\Facades\App;
 use Stancl\Tenancy\Database\Models\Domain;
 
 $env = [];
