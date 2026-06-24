@@ -55,6 +55,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             # Navigate to the new app directory on the server
-            cd ~/app
+            cd /app
             docker compose pull website-nginx website-php website-worker
             docker compose up -d website-nginx website-php website-worker
