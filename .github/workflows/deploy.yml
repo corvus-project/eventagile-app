@@ -56,6 +56,9 @@ jobs:
           script: |
             # Navigate to the new app directory on the server
             cd /app
+            cat > .key <<'EOF'
+            ${{ secrets.SSH_PRIVATE_KEY }}
+            EOF
             cat > .env <<'EOF'
             ${{ secrets.PROD_ENV_FILE }}
             EOF
