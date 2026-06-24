@@ -56,8 +56,5 @@ jobs:
           script: |
             # Navigate to the new app directory on the server
             cd /app
-            cat > .env <<'EOF'
-            ${{ secrets.PROD_ENV_FILE }}
-            EOF
             docker compose pull website-nginx website-php website-worker
             docker compose up -d website-nginx website-php website-worker
