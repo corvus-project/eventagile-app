@@ -1,3 +1,13 @@
+FROM node:22-alpine AS assets
+
+WORKDIR /app
+
+# Build Vite assets so Laravel can read public/build/manifest.json
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
 FROM php:8.4.16-fpm
 
 # Install system dependencies and PHP extension build deps
@@ -43,6 +53,9 @@ WORKDIR /var/www/html
 # Copy application files
 COPY . /var/www/html
 
+# Copy built Vite assets into the PHP image for Laravel's @vite manifest lookup
+COPY --from=assets /app/public/build /var/www/html/public/build
+
 # Copy configs
 COPY ./docker/supervisord.conf /etc/supervisord.conf
 # COPY ./docker/nginx.conf /etc/nginx/sites-available/default
@@ -58,7 +71,6 @@ RUN mkdir -p \
 
 # Install production Composer dependencies during the image build
 RUN composer install \
-    --no-dev \
     --no-interaction \
     --prefer-dist \
     --optimize-autoloader
