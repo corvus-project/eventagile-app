@@ -47,13 +47,17 @@ COPY . /var/www/html
 COPY ./docker/supervisord.conf /etc/supervisord.conf
 # COPY ./docker/nginx.conf /etc/nginx/sites-available/default
 
+# Install production Composer dependencies during the image build
+RUN composer install \
+    --no-dev \
+    --no-interaction \
+    --prefer-dist \
+    --optimize-autoloader
+
 # Set permissions
 RUN mkdir -p /var/www/html/storage /var/www/html/bootstrap/cache \
     && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
     && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
-
-# Optional: run composer install during build
-# RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
 EXPOSE 9000
 
