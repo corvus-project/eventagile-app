@@ -47,6 +47,15 @@ COPY . /var/www/html
 COPY ./docker/supervisord.conf /etc/supervisord.conf
 # COPY ./docker/nginx.conf /etc/nginx/sites-available/default
 
+# Create Laravel writable directories before Composer runs artisan scripts
+RUN mkdir -p \
+    /var/www/html/storage/app \
+    /var/www/html/storage/framework/cache/data \
+    /var/www/html/storage/framework/sessions \
+    /var/www/html/storage/framework/views \
+    /var/www/html/storage/logs \
+    /var/www/html/bootstrap/cache
+
 # Install production Composer dependencies during the image build
 RUN composer install \
     --no-dev \
@@ -55,8 +64,7 @@ RUN composer install \
     --optimize-autoloader
 
 # Set permissions
-RUN mkdir -p /var/www/html/storage /var/www/html/bootstrap/cache \
-    && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
     && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
 EXPOSE 9000
