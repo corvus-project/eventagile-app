@@ -17,14 +17,14 @@ class VerifyEmailQueued extends VerifyEmail
 
     protected function verificationUrl($notifiable)
     {
-        Log::debug('Generating verification URL for user', ['user_id' => $notifiable->i, 'tenant_id' => tenant('id')]);
+        /*         Log::debug('Generating verification URL for user', ['user_id' => $notifiable->i, 'tenant_id' => tenant('id')]);
         if (static::$createUrlCallback) {
             return call_user_func(static::$createUrlCallback, $notifiable);
         }
         if (tenant('id'))
             URL::forceRootUrl(Helper::tenantUrl());
 
-        Log::debug('Tenant URL: ' . Helper::tenantUrl());
+        Log::debug('Tenant URL: ' . Helper::tenantUrl()); */
 
         $url = URL::temporarySignedRoute(
             'verification.verify',

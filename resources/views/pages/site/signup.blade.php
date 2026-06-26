@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\AccountSetup;
 use App\Models\Tenant;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -62,21 +63,19 @@ new #[Layout('layouts.auth')] class extends Component
         $userRole = config('roles.models.role')::where('name', '=', 'User')->first();
         $user->attachRole($userRole);
 
-        $tenant = Tenant::create([
+        AccountSetup::create([
             'user_id' => $user->id,
-            'name' => $user->name,
-            'email' => $user->email,
-            'is_active' => true,
-        ]);
-
-        $tenant->domains()->create([
+            'name' => $this->name,
+            'email' => $this->email,
             'domain' => str_slug($this->domain),
+            'action' => 'PRESETUP'
         ]);
 
-        Log::debug('Tenant Creation: ', [
-            'user' => $user->id,
-            'tenant' => $tenant->id,
-            'domain' =>  $this->domain
+        Log::debug('registered new user', [
+            'user_id' => $user->id,
+            'name' => $this->name,
+            'email' => $this->email,
+            'domain' => str_slug($this->domain),
         ]);
 
         event(new Registered($user));
