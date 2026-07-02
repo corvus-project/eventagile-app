@@ -10,6 +10,7 @@ use App\Livewire\Dashboard\DashboardHome;
 use App\Livewire\Dashboard\Events;
 use App\Models\Tenant;
 use App\Models\User;
+use App\Services\Helper;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -48,8 +49,8 @@ Route::middleware('auth')->group(function () {
 
 Route::livewire('/privacy', 'pages::site.privacy')->name('privacy');
 Route::livewire('/features', 'pages::site.features')->name('features');
-Route::livewire('/examples', 'pages::site.examples')->name('examples');
-Route::livewire('/demos', 'pages::site.demos')->name('demos');
+Route::livewire('/examples', 'pages::site.examples')->name('sample-usage');
+Route::livewire('/demo', 'pages::site.demos')->name('demo');
 Route::livewire('/contact', 'pages::site.contact')->name('contact');
 Route::livewire('/pricing', 'pages::site.pricing')->name('pricing');
 Route::livewire('/support', 'pages::site.support')->name('support');
