@@ -16,6 +16,7 @@
                 <li><a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'underline text-indigo-600' : 'hover:text-indigo-600' }}">Home</a></li>
                 <li><a href="{{ route('features') }}" class="{{ request()->routeIs('features') ? 'underline text-indigo-600' : 'hover:text-indigo-600' }}">Features</a></li>
                 <li><a href="{{ route('sample-usage') }}" class="{{ request()->routeIs('sample-usage') ? 'underline text-indigo-600' : 'hover:text-indigo-600' }}">Sample Usage</a></li>
+                <li><a href="{{ route('demo') }}" class="{{ request()->routeIs('demo') ? 'underline text-indigo-600' : 'hover:text-indigo-600' }}">Live Demo</a></li>
                 <li><a href="{{ route('pricing') }}" class="{{ request()->routeIs('pricing') ? 'underline text-indigo-600' : 'hover:text-indigo-600' }}">Pricing</a></li>
                 <li><a href="{{ route('support') }}" class="{{ request()->routeIs('support') ? 'underline text-indigo-600' : 'hover:text-indigo-600' }}">Support</a></li>
                 <li><a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'underline text-indigo-600' : 'hover:text-indigo-600' }}">Contact</a></li>
@@ -45,6 +46,7 @@
                 <li><a href="{{ route('home') }}" class="block py-2 min-h-[44px] flex items-center {{ request()->routeIs('home') ? 'underline text-indigo-600' : 'hover:text-indigo-600' }}">Home</a></li>
                 <li><a href="{{ route('features') }}" class="block py-2 min-h-[44px] flex items-center {{ request()->routeIs('features') ? 'underline text-indigo-600' : 'hover:text-indigo-600' }}">Features</a></li>
                 <li><a href="{{ route('sample-usage') }}" class="block py-2 min-h-[44px] flex items-center {{ request()->routeIs('sample-usage') ? 'underline text-indigo-600' : 'hover:text-indigo-600' }}">Sample Usage</a></li>
+                <li><a href="{{ route('demo') }}" class="block py-2 min-h-[44px] flex items-center {{ request()->routeIs('demo') ? 'underline text-indigo-600' : 'hover:text-indigo-600' }}">Live Demo</a></li>
                 <li><a href="{{ route('pricing') }}" class="block py-2 min-h-[44px] flex items-center {{ request()->routeIs('pricing') ? 'underline text-indigo-600' : 'hover:text-indigo-600' }}">Pricing</a></li>
                 <li><a href="{{ route('support') }}" class="block py-2 min-h-[44px] flex items-center {{ request()->routeIs('support') ? 'underline text-indigo-600' : 'hover:text-indigo-600' }}">Support</a></li>
                 <li><a href="{{ route('contact') }}" class="block py-2 min-h-[44px] flex items-center {{ request()->routeIs('contact') ? 'underline text-indigo-600' : 'hover:text-indigo-600' }}">Contact</a></li>

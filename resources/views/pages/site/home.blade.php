@@ -9,7 +9,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
 ?>
 
 <x-slot name="title">
-    {{ 'Event Agile ~ Alpha Release' }}
+    {{ 'EventAgile — Event Management Platform for Studios & Instructors' }}
 </x-slot>
 
 
@@ -41,12 +41,11 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                         All-in-One Event Management Platform
 
                     </div>
-
                     <h1 class="mt-8 text-5xl font-black tracking-tight leading-none text-slate-900 sm:text-6xl lg:text-7xl">
 
                         Event Management
 
-                        <span class="block bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-blue-600">
+                        <span class="block bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                             Simplified.
                         </span>
 
@@ -99,6 +98,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
 
                     <img
                         src="/assets/images/dashboard.webp"
+                        alt="EventAgile event management dashboard interface"
                         class="relative rounded-3xl border border-slate-200 shadow-[0_40px_120px_rgba(37,99,235,.18)]">
 
                 </div>
@@ -297,7 +297,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
         <div class="max-w-3xl mx-auto text-center">
             <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Ready to Simplify Your Event Management?</h2>
             <p class="text-base text-indigo-100 leading-relaxed mb-8">Join hundreds of instructors, studios, and event organisers who use EventAgile to save time and grow their bookings.</p>
-            <a href="contact.html" class="inline-block bg-white text-indigo-600 font-semibold px-6 py-3 rounded-lg hover:bg-indigo-50 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-white min-h-[44px]">Get Started Free</a>
+            <a href="{{ route('contact') }}" class="inline-block bg-white text-indigo-600 font-semibold px-6 py-3 rounded-lg hover:bg-indigo-50 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-white min-h-[44px]">Get Started Free</a>
         </div>
     </section>
 

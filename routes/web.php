@@ -48,6 +48,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::livewire('/privacy', 'pages::site.privacy')->name('privacy');
+Route::livewire('/terms', 'pages::site.terms')->name('terms');
+
 Route::livewire('/features', 'pages::site.features')->name('features');
 Route::livewire('/examples', 'pages::site.examples')->name('sample-usage');
 Route::livewire('/demo', 'pages::site.demos')->name('demo');

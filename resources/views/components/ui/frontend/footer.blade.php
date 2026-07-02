@@ -12,21 +12,22 @@
             <!-- Column 2: Page links -->
             <nav aria-label="Footer navigation">
                 <ul class="flex flex-wrap gap-x-4 gap-y-2 text-sm">
-                    <li><a href="index.html" class="hover:text-white">Home</a></li>
-                    <li><a href="features.html" class="hover:text-white">Features</a></li>
-                    <li><a href="sample-usage.html" class="hover:text-white">Sample Usage</a></li>
-                    <li><a href="pricing.html" class="hover:text-white">Pricing</a></li>
-                    <li><a href="support.html" class="hover:text-white">Support</a></li>
-                    <li><a href="contact.html" class="hover:text-white">Contact</a></li>
-                    <li><a href="privacy.html" class="hover:text-white">Privacy Policy</a></li>
-                    <li><a href="terms.html" class="hover:text-white">Terms of Service</a></li>
+                    <li><a href="{{ route('home') }}" class="hover:text-white">Home</a></li>
+                    <li><a href="{{ route('features') }}" class="hover:text-white">Features</a></li>
+                    <li><a href="{{ route('sample-usage') }}" class="hover:text-white">Sample Usage</a></li>
+                    <li><a href="{{ route('demo') }}" class="hover:text-white">Live Demo</a></li>
+                    <li><a href="{{ route('pricing') }}" class="hover:text-white">Pricing</a></li>
+                    <li><a href="{{ route('support') }}" class="hover:text-white">Support</a></li>
+                    <li><a href="{{ route('contact') }}" class="hover:text-white">Contact</a></li>
+                    <li><a href="{{ route('privacy') }}" class="hover:text-white">Privacy Policy</a></li>
+                    <li><a href="{{ route('terms') }}" class="hover:text-white">Terms of Service</a></li>
                 </ul>
             </nav>
 
             <!-- Column 3: Contact + Socials -->
             <div>
-                <a href="mailto:support@EventAgile.example"
-                    class="text-sm hover:text-white">support@EventAgile.example</a>
+                <a href="mailto:support@EventAgile.com"
+                    class="text-sm hover:text-white">support@EventAgile.com</a>
 
                 <!-- Social icon links -->
                 <div class="flex gap-4 mt-4">

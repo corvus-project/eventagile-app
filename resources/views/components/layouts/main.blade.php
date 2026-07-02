@@ -16,16 +16,15 @@
 
 
     <meta name="description"
-        content="Create and manage events, classes, and lessons with ease. Let your customers self-register online. Perfect for studios, clubs, and small businesses.">
-    <!-- 148 characters — within 120–160 ✓ -->
+        content="Create, promote, and manage events, classes, and lessons from one platform. Let customers self-register online. Perfect for studios, clubs, and small businesses.">
 
     <link rel="canonical" href="{{ config('app.url') }}">
 
     <!-- Open Graph tags -->
     <meta property="og:title" content="EventAgile — Event Management Made Simple">
-    <meta property="og:description" content="Create and manage events, classes, and lessons with ease. Let your customers self-register online. Perfect for studios, clubs, and small businesses.">
+    <meta property="og:description" content="Create, promote, and manage events, classes, and lessons from one platform. Let customers self-register online. Perfect for studios, clubs, and small businesses.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ config('app.url') }}/index.html">
+    <meta property="og:url" content="{{ config('app.url') }}">
     <meta property="og:image" content="{{ config('app.url') }}/assets/img/og-index.svg">
 
     <!--  CDN loading order — EXACT ORDER REQUIRED -->
@@ -38,7 +37,6 @@
     <!-- 5c. Alpine.js v3 — defer required -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
 
-    <!--  Schema.org JSON-LD — WebSite + SoftwareApplication -->
 
 </head>
 

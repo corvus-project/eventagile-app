@@ -19,10 +19,10 @@ new #[Layout('layouts.frontend')]  class extends Component {};
     <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
         <div class="max-w-7xl mx-auto text-center">
             <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 leading-tight">
-                See EventApp in Action
+                See EventAgile in Action
             </h1>
             <p class="text-base text-gray-600 leading-relaxed mt-4 max-w-2xl mx-auto">
-                Real-world examples of how instructors, studios, and organisers use EventApp to manage and sell
+                Real-world examples of how instructors, studios, and organisers use EventAgile to manage and sell
                 bookable events.
             </p>
         </div>
@@ -50,7 +50,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                         </div>
                     </div>
                     <p class="text-sm text-gray-600 leading-relaxed mb-4">Emma runs a yoga studio with 12 weekly
-                        classes. She uses EventApp to create recurring sessions, set capacity limits, and let
+                        classes. She uses EventAgile to create recurring sessions, set capacity limits, and let
                         members book online. Automated reminders cut her no-show rate by 40%.</p>
                     <div class="bg-indigo-50 rounded-lg p-4">
                         <p class="text-xs font-semibold text-indigo-700 uppercase tracking-wide">How it works</p>
@@ -80,7 +80,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                         </div>
                     </div>
                     <p class="text-sm text-gray-600 leading-relaxed mb-4">James runs a dance school with classes for
-                        children and adults. He uses EventApp to manage term-based courses, process registrations,
+                        children and adults. He uses EventAgile to manage term-based courses, process registrations,
                         and communicate with parents via automated emails.</p>
                     <div class="bg-indigo-50 rounded-lg p-4">
                         <p class="text-xs font-semibold text-indigo-700 uppercase tracking-wide">How it works</p>
@@ -110,7 +110,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                         </div>
                     </div>
                     <p class="text-sm text-gray-600 leading-relaxed mb-4">Local artist Priya sells places on her
-                        weekend pottery workshops. EventApp handles ticket sales, capacity limits, and waitlists so
+                        weekend pottery workshops. EventAgile handles ticket sales, capacity limits, and waitlists so
                         she never oversells a workshop.</p>
                     <div class="bg-indigo-50 rounded-lg p-4">
                         <p class="text-xs font-semibold text-indigo-700 uppercase tracking-wide">How it works</p>
@@ -139,7 +139,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                             <p class="text-sm text-gray-500">Kids &middot; Adults &middot; Private Events</p>
                         </div>
                     </div>
-                    <p class="text-sm text-gray-600 leading-relaxed mb-4">Parents use EventApp to send digital
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">Parents use EventAgile to send digital
                         invitations, collect RSVPs, and manage guest lists for birthday parties. No more chasing
                         replies — everything is tracked automatically.</p>
                     <div class="bg-indigo-50 rounded-lg p-4">
@@ -171,7 +171,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                     </div>
                     <p class="text-sm text-gray-600 leading-relaxed mb-4">A gymnastics club with 200+ members
                         manages multiple class levels, holiday camps, and competitive team tryouts — all from a
-                        single EventApp account.</p>
+                        single EventAgile account.</p>
                     <div class="bg-indigo-50 rounded-lg p-4">
                         <p class="text-xs font-semibold text-indigo-700 uppercase tracking-wide">How it works</p>
                         <ol class="mt-2 text-sm text-gray-700 list-decimal list-inside space-y-1">
@@ -200,7 +200,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                         </div>
                     </div>
                     <p class="text-sm text-gray-600 leading-relaxed mb-4">Community charities organise fundraising
-                        galas, volunteer days, and awareness workshops. EventApp's free Starter plan helps them keep
+                        galas, volunteer days, and awareness workshops. EventAgile's free Starter plan helps them keep
                         costs low while managing attendees efficiently.</p>
                     <div class="bg-indigo-50 rounded-lg p-4">
                         <p class="text-xs font-semibold text-indigo-700 uppercase tracking-wide">How it works</p>
@@ -230,7 +230,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                         </div>
                     </div>
                     <p class="text-sm text-gray-600 leading-relaxed mb-4">Instructors teaching anything from
-                        photography to languages use EventApp to publish courses, accept payments, and communicate
+                        photography to languages use EventAgile to publish courses, accept payments, and communicate
                         with students — all in one place.</p>
                     <div class="bg-indigo-50 rounded-lg p-4">
                         <p class="text-xs font-semibold text-indigo-700 uppercase tracking-wide">How it works</p>
@@ -259,7 +259,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                             <p class="text-sm text-gray-500">RSVPs &middot; Guest Lists &middot; Schedules</p>
                         </div>
                     </div>
-                    <p class="text-sm text-gray-600 leading-relaxed mb-4">Wedding planners use EventApp to create
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">Wedding planners use EventAgile to create
                         private event pages for couples, manage guest RSVPs with meal preferences, and coordinate
                         the wedding day timeline with vendors.</p>
                     <div class="bg-indigo-50 rounded-lg p-4">
@@ -282,7 +282,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
         <div class="max-w-3xl mx-auto text-center">
             <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Ready to Create Your Own Success Story?</h2>
             <p class="text-base text-indigo-100 leading-relaxed mb-8">Start your free trial today and see how
-                EventApp can transform the way you manage events.</p>
+                EventAgile can transform the way you manage events.</p>
             <a href="contact.html"
                 class="inline-block bg-white text-indigo-600 font-semibold px-6 py-3 rounded-lg hover:bg-indigo-50 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-white min-h-[44px]">Get
                 Started Free</a>
