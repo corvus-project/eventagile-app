@@ -12,167 +12,281 @@ new #[Layout('layouts.frontend')]  class extends Component {};
     {{ 'Event Agile ~ Example Usage' }}
 </x-slot>
 
-<div class="pb-5">
-    <section class="py-10">
-        <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <div class="mb-14 text-center">
-                <h2 class="text-4xl text-center font-bold text-gray-900 py-5">where and how you can put it to use</h2>
-                <p class="text-lg font-normal text-gray-500 max-w-12xl md:max-w-12xl mx-auto">
-                    EventAgile is the fast, simple, and reliable event management tool designed to cover all your small-scale scheduling needs. Whether you are
-                    a freelance fitness instructor organizing your weekly online classes, the leader of a community book club managing private monthly meetings,
-                    a small non-profit collecting sign-ups for a local workshop, or a corporate team manager scheduling internal training sessions, EventAgile
-                    provides a clean, stress-free platform to create events, manage all registrations, and keep your attendees fully informed. Use it for
-                    anything that needs a simple, professional sign-up system.
-                </p>
-            </div>
-        </div>
-    </section>
-    <section class="py-2">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div
-                class="mb-10 lg:mb-16 flex justify-center items-center flex-col gap-x-0 gap-y-6 lg:gap-y-0 lg:flex-row lg:justify-between max-md:max-w-lg max-md:mx-auto">
-                <div class="relative w-full text-center lg:text-left lg:w-2/5">
-                    <img src="/assets/images/birthday-invitation.png" alt="Manage birthday party invitations" class="mx-auto rounded-md w-full" />
-                </div>
-                <div class="relative w-full text-center lg:text-left lg:w-3/5 px-4">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-2">Manage birthday party invitations</h2>
-                    <p class="text-lg font-normal text-gray-500 mb-5">
-                        You are planning a private 40th birthday celebration and need to manage the guest list discreetly. You use EventAgile to create the
-                        event page, setting the party details and a realistic RSVP deadline. Because it's a private gathering, you set the event to
-                        'Password-Protected,' choosing a simple password. You then copy the event link and the password and send them out with your digital
-                        invitations. As RSVPs arrive, you track the Basic Reporting dashboard to see the total headcount in real-time. The night before the
-                        party, you use the Export Registrations feature to download the final guest list to your phone for easy check-in at the door, ensuring
-                        only confirmed guests attend. EventAgile ensures your focus remains on celebrating, not chasing RSVPs.
-                    </p>
-                </div>
-            </div>
+<!-- Main content -->
+<main id="main-content" tabindex="-1">
+
+    <!-- Page Header -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-7xl mx-auto text-center">
+            <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 leading-tight">
+                See EventAgile in Action
+            </h1>
+            <p class="text-base text-gray-600 leading-relaxed mt-4 max-w-2xl mx-auto">
+                Real-world examples of how instructors, studios, and organisers use EventAgile to manage and sell
+                bookable events.
+            </p>
         </div>
     </section>
 
-    <section class="py-2">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div
-                class="mb-10 lg:mb-16 flex justify-center items-center flex-col gap-x-0 gap-y-6 lg:gap-y-0 lg:flex-row lg:justify-between max-md:max-w-lg max-md:mx-auto">
-                <div class="relative w-full text-center lg:text-left lg:w-3/5">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-2">Charity organisations</h2>
+    <!-- Use Cases Grid -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
-                    <p class="text-lg font-normal text-gray-500 mb-5">
-                        Imagine your local community non-profit is organizing a small, free "Awareness & Volunteer Drive" event. You use EventAgile to quickly
-                        create a public event page with the time, date, and a brief description of your mission. You set the capacity limit based on your venue
-                        size. You then share the public event link across your social media channels and email newsletter to encourage sign-ups.
-                    </p>
+                <!-- Use Case 1: Fitness Class Booking -->
+                <div class="bg-white rounded-2xl shadow-md p-8">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div
+                            class="w-14 h-14 bg-indigo-100 rounded-full flex items-center justify-center flex-shrink-0">
+                            <svg aria-hidden="true" class="w-7 h-7 text-indigo-600" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 0 0 4.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 0 1-15.357-2m15.357 2H15" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold text-gray-900">Fitness Class Booking</h2>
+                            <p class="text-sm text-gray-500">Yoga &middot; Pilates &middot; HIIT</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">Emma runs a yoga studio with 12 weekly
+                        classes. She uses EventAgile to create recurring sessions, set capacity limits, and let
+                        members book online. Automated reminders cut her no-show rate by 40%.</p>
+                    <div class="bg-indigo-50 rounded-lg p-4">
+                        <p class="text-xs font-semibold text-indigo-700 uppercase tracking-wide">How it works</p>
+                        <ol class="mt-2 text-sm text-gray-700 list-decimal list-inside space-y-1">
+                            <li>Create a recurring class series once</li>
+                            <li>Share the unique booking link on social media</li>
+                            <li>Attendees self-register — no account needed</li>
+                            <li>Email reminders go out automatically 24 hours before</li>
+                        </ol>
+                    </div>
+                </div>
 
-                    <p class="text-lg font-normal text-gray-500 mb-5">
-                        As registrations come in, you monitor the Basic Reporting dashboard to track how close you are to capacity. For the final preparation,
-                        you use the Export Registrations feature to download a complete list of attendees and volunteers, ensuring you have accurate counts for
-                        seating, materials, and follow-up communications. EventAgile helps you maximize outreach with minimal administrative effort.
-                    </p>
+                <!-- Use Case 2: Dance Studios -->
+                <div class="bg-white rounded-2xl shadow-md p-8">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div
+                            class="w-14 h-14 bg-indigo-100 rounded-full flex items-center justify-center flex-shrink-0">
+                            <svg aria-hidden="true" class="w-7 h-7 text-indigo-600" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 19v-6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2zm0 0V9a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v10m-6 0a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2m0 0V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold text-gray-900">Dance Studios</h2>
+                            <p class="text-sm text-gray-500">Ballet &middot; Tap &middot; Modern</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">James runs a dance school with classes for
+                        children and adults. He uses EventAgile to manage term-based courses, process registrations,
+                        and communicate with parents via automated emails.</p>
+                    <div class="bg-indigo-50 rounded-lg p-4">
+                        <p class="text-xs font-semibold text-indigo-700 uppercase tracking-wide">How it works</p>
+                        <ol class="mt-2 text-sm text-gray-700 list-decimal list-inside space-y-1">
+                            <li>Set up a term as a multi-session course</li>
+                            <li>Enable guest check-in at the studio door</li>
+                            <li>Send term updates and reminders to all parents</li>
+                            <li>Track attendance and view reports per class</li>
+                        </ol>
+                    </div>
                 </div>
-                <div class="relative w-full text-center lg:text-left lg:w-2/5">
-                    <img src="/assets/images/charity-event.jpg" alt="Power your events with EventAgile"
-                        class="mx-auto rounded-md w-full p-1" />
+
+                <!-- Use Case 3: Art Class Management -->
+                <div class="bg-white rounded-2xl shadow-md p-8">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div
+                            class="w-14 h-14 bg-indigo-100 rounded-full flex items-center justify-center flex-shrink-0">
+                            <svg aria-hidden="true" class="w-7 h-7 text-indigo-600" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M7 21a4 4 0 0 1-4-4V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v12a4 4 0 0 1-4 4zm0 0h12a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 0 1 2.828 0l2.829 2.829a2 2 0 0 1 0 2.828l-8.486 8.485M7 17h.01" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold text-gray-900">Art & Craft Classes</h2>
+                            <p class="text-sm text-gray-500">Pottery &middot; Painting &middot; Workshops</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">Local artist Priya sells places on her
+                        weekend pottery workshops. EventAgile handles ticket sales, capacity limits, and waitlists so
+                        she never oversells a workshop.</p>
+                    <div class="bg-indigo-50 rounded-lg p-4">
+                        <p class="text-xs font-semibold text-indigo-700 uppercase tracking-wide">How it works</p>
+                        <ol class="mt-2 text-sm text-gray-700 list-decimal list-inside space-y-1">
+                            <li>Create a one-off workshop with a fixed price</li>
+                            <li>Set max capacity — waitlist activates automatically</li>
+                            <li>Collect payment at booking (Stripe integration)</li>
+                            <li>Export attendee list for workshop materials prep</li>
+                        </ol>
+                    </div>
                 </div>
+
+                <!-- Use Case 4: Birthday Parties -->
+                <div class="bg-white rounded-2xl shadow-md p-8">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div
+                            class="w-14 h-14 bg-indigo-100 rounded-full flex items-center justify-center flex-shrink-0">
+                            <svg aria-hidden="true" class="w-7 h-7 text-indigo-600" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 0 1-3 0 2.704 2.704 0 0 0-3 0 2.704 2.704 0 0 1-3 0 2.704 2.704 0 0 0-3 0 2.704 2.704 0 0 1-3 0A2.701 2.701 0 0 0 3 15.546V5.5a2.5 2.5 0 0 1 2.5-2.5h13a2.5 2.5 0 0 1 2.5 2.5v10.046z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold text-gray-900">Birthday Party Invitations</h2>
+                            <p class="text-sm text-gray-500">Kids &middot; Adults &middot; Private Events</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">Parents use EventAgile to send digital
+                        invitations, collect RSVPs, and manage guest lists for birthday parties. No more chasing
+                        replies — everything is tracked automatically.</p>
+                    <div class="bg-indigo-50 rounded-lg p-4">
+                        <p class="text-xs font-semibold text-indigo-700 uppercase tracking-wide">How it works</p>
+                        <ol class="mt-2 text-sm text-gray-700 list-decimal list-inside space-y-1">
+                            <li>Create a private event with invitation-only access</li>
+                            <li>Share the booking link with invited guests only</li>
+                            <li>Guests RSVP with dietary requirements or plus-ones</li>
+                            <li>Track who's coming in real time from the dashboard</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Use Case 5: Gymnastics Clubs -->
+                <div class="bg-white rounded-2xl shadow-md p-8">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div
+                            class="w-14 h-14 bg-indigo-100 rounded-full flex items-center justify-center flex-shrink-0">
+                            <svg aria-hidden="true" class="w-7 h-7 text-indigo-600" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold text-gray-900">Gymnastics Clubs</h2>
+                            <p class="text-sm text-gray-500">Recreational &middot; Competitive</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">A gymnastics club with 200+ members
+                        manages multiple class levels, holiday camps, and competitive team tryouts — all from a
+                        single EventAgile account.</p>
+                    <div class="bg-indigo-50 rounded-lg p-4">
+                        <p class="text-xs font-semibold text-indigo-700 uppercase tracking-wide">How it works</p>
+                        <ol class="mt-2 text-sm text-gray-700 list-decimal list-inside space-y-1">
+                            <li>Create separate event pages for each class level</li>
+                            <li>Set recurring weekly schedules for term-long classes</li>
+                            <li>Members book their regular slots in advance</li>
+                            <li>Waitlist fills cancellations automatically</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Use Case 6: Charity Organisations -->
+                <div class="bg-white rounded-2xl shadow-md p-8">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div
+                            class="w-14 h-14 bg-indigo-100 rounded-full flex items-center justify-center flex-shrink-0">
+                            <svg aria-hidden="true" class="w-7 h-7 text-indigo-600" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4.318 6.318a4.5 4.5 0 0 0 0 6.364L12 20.364l7.682-7.682a4.5 4.5 0 0 0-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 0 0-6.364 0z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold text-gray-900">Charity Organisations</h2>
+                            <p class="text-sm text-gray-500">Fundraisers &middot; Community Events</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">Community charities organise fundraising
+                        galas, volunteer days, and awareness workshops. EventAgile's free Starter plan helps them keep
+                        costs low while managing attendees efficiently.</p>
+                    <div class="bg-indigo-50 rounded-lg p-4">
+                        <p class="text-xs font-semibold text-indigo-700 uppercase tracking-wide">How it works</p>
+                        <ol class="mt-2 text-sm text-gray-700 list-decimal list-inside space-y-1">
+                            <li>Create a free fundraising event page</li>
+                            <li>Collect donations alongside registrations</li>
+                            <li>Send thank-you emails automatically after the event</li>
+                            <li>Download attendee data for donor follow-ups</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Use Case 7: General Course Booking -->
+                <div class="bg-white rounded-2xl shadow-md p-8">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div
+                            class="w-14 h-14 bg-indigo-100 rounded-full flex items-center justify-center flex-shrink-0">
+                            <svg aria-hidden="true" class="w-7 h-7 text-indigo-600" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold text-gray-900">General Course Booking</h2>
+                            <p class="text-sm text-gray-500">Workshops &middot; Seminars &middot; Classes</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">Instructors teaching anything from
+                        photography to languages use EventAgile to publish courses, accept payments, and communicate
+                        with students — all in one place.</p>
+                    <div class="bg-indigo-50 rounded-lg p-4">
+                        <p class="text-xs font-semibold text-indigo-700 uppercase tracking-wide">How it works</p>
+                        <ol class="mt-2 text-sm text-gray-700 list-decimal list-inside space-y-1">
+                            <li>Create a course with multiple dates or sessions</li>
+                            <li>Set pricing per session or for the full course</li>
+                            <li>Students browse available dates and book online</li>
+                            <li>Send course materials and updates before each session</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Use Case 8: Wedding Day Management -->
+                <div class="bg-white rounded-2xl shadow-md p-8">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div
+                            class="w-14 h-14 bg-indigo-100 rounded-full flex items-center justify-center flex-shrink-0">
+                            <svg aria-hidden="true" class="w-7 h-7 text-indigo-600" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4.318 6.318a4.5 4.5 0 0 0 0 6.364L12 20.364l7.682-7.682a4.5 4.5 0 0 0-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 0 0-6.364 0z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold text-gray-900">Wedding Day Management</h2>
+                            <p class="text-sm text-gray-500">RSVPs &middot; Guest Lists &middot; Schedules</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">Wedding planners use EventAgile to create
+                        private event pages for couples, manage guest RSVPs with meal preferences, and coordinate
+                        the wedding day timeline with vendors.</p>
+                    <div class="bg-indigo-50 rounded-lg p-4">
+                        <p class="text-xs font-semibold text-indigo-700 uppercase tracking-wide">How it works</p>
+                        <ol class="mt-2 text-sm text-gray-700 list-decimal list-inside space-y-1">
+                            <li>Create a private wedding event page</li>
+                            <li>Send invitation links to guests with plus-one options</li>
+                            <li>Collect meal preferences and dietary requirements</li>
+                            <li>Export final guest list and share with vendors</li>
+                        </ol>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <section class="py-2">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div
-                class="mb-10 lg:mb-16 flex justify-center items-center flex-col gap-x-0 gap-y-6 lg:gap-y-0 lg:flex-row lg:justify-between max-md:max-w-lg max-md:mx-auto">
-                <div class="relative w-full text-center lg:text-left lg:w-2/6">
-                    <img
-                        src="/assets/images/wedding-party.jpg" alt="Power your events with EventAgile" class="mx-auto rounded-md w-full p-1" />
-                </div>
-                <div class="relative w-full text-center lg:text-left lg:w-4/6 px-4">
-                    <h2 class="text-4xl font-bold text-gray-900 leading-[3.25rem] lg:mb-6 mx-auto max-w-max lg:max-w-md lg:mx-0">Manage your wedding day</h2>
-                    <p class="text-lg font-normal text-gray-500 mb-5">
-                        For your wedding, EventAgile provides a clean, secure solution to handle RSVPs and guest list management. Organizers create a single,
-                        'Password-Protected' event page that acts as the digital RSVP form, sharing the private password only with invited guests via their
-                        physical or digital invitations. The dashboard instantly updates with a live headcount as guests respond. For the final planning stages,
-                        the organizer utilizes the Export Registrations feature to download the complete, final guest list into a spreadsheet. This file can
-                        then be effortlessly used by the wedding planner to finalize seating charts, confirm catering numbers, and produce place cards.
-                        EventAgile ensures guest tracking is seamless and stress-free, allowing the couple to focus entirely on their special day.
-                    </p>
-                </div>
-            </div>
+    <!-- CTA Section -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-indigo-600">
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Ready to Create Your Own Success Story?</h2>
+            <p class="text-base text-indigo-100 leading-relaxed mb-8">Start your free trial today and see how
+                EventAgile can transform the way you manage events.</p>
+            <a href="contact.html"
+                class="inline-block bg-white text-indigo-600 font-semibold px-6 py-3 rounded-lg hover:bg-indigo-50 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-white min-h-[44px]">Get
+                Started Free</a>
         </div>
     </section>
 
-    <section class="py-2">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div
-                class="mb-10 lg:mb-16 flex justify-center items-center flex-col gap-x-0 gap-y-6 lg:gap-y-0 lg:flex-row lg:justify-between max-md:max-w-lg max-md:mx-auto">
-                <div class="relative w-full text-center lg:text-left lg:w-2/5">
-                    <img
-                        src="/assets/images/events-organization.jpg" alt="Power your events with EventAgile"
-                        class="mx-auto rounded-md w-full" />
-                </div>
-                <div class="relative w-full text-center lg:text-left lg:w-3/5 p-2">
-                    <h2 class="text-4xl font-bold text-gray-900 leading-[3.25rem] lg:mb-6 mx-auto max-w-max lg:max-w-md lg:mx-0">Special day events</h2>
-                    <p class="text-lg font-normal text-gray-500 mb-5">
-                        EventAgile is the go-to tool for any organizer needing quick, reliable, and straightforward registration. The process begins when the
-                        organizer creates an event, quickly defining the title, description, and capacity. They then choose the event's visibility: Public for
-                        maximum exposure, Unlisted for private sharing via a direct link, or Password-Protected for secure, exclusive access. Once the link is
-                        shared, registrations flow in, and the organizer can monitor the Basic Reporting dashboard for a real-time headcount and status update.
-                        When ready for the event day, the organizer uses the Export Registrations feature to instantly download a comprehensive list of all
-                        confirmed attendees. This seamless, agile workflow eliminates manual data entry, reduces administrative overhead, and ensures the
-                        organizer always has accurate information at their fingertips.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-2">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div
-                class="mb-10 lg:mb-16 flex justify-center items-center flex-col gap-x-0 gap-y-6 lg:gap-y-0 lg:flex-row lg:justify-between max-md:max-w-lg max-md:mx-auto">
-                <div class="relative w-full text-center lg:text-left lg:w-2/6 self-start">
-                    <img
-                        src="/assets/images/waiting-list.jpg" alt="Power your events with EventAgile"
-                        class="mx-auto rounded-md w-full mt-12" />
-                </div>
-                <div class="relative w-full text-center lg:text-left lg:w-4/6 px-4">
-                    <h2 class="text-4xl font-bold text-gray-900 leading-[3.25rem] lg:mb-6 mx-auto max-w-max lg:max-w-md lg:mx-0">Manage waitlist guests</h2>
-                    <p class="text-lg font-normal text-gray-500 mb-5">
-                        The Waiting List feature transforms a "Sold Out" sign into a new opportunity, ensuring you never miss a potential attendee.
-                    </p>
-                    <p class="text-lg font-normal text-gray-500 mb-5">
-                        Here's how it works:
-                    <ul class="list-decimal px-4 mt-4 space-y-2 text-lg font-normal text-gray-500 mb-5">
-                        <li>
-                            Enabling the Waitlist: When setting up your event, the organizer simply sets the event's Maximum Capacity and then activates the
-                            Waiting List toggle. Once the capacity limit is reached, the public registration button automatically changes to "Join Waiting
-                            List."
-                        </li>
-                        <li>
-                            Attendee Joins the Queue: Prospective attendees can still submit their contact details, and their registration is securely
-                            logged with a "Waitlisted" status in the order they signed up.
-                        </li>
-                        <li>
-                            Organizer Management: When an approved registrant cancels, or when the organizer increases the event capacity, a spot opens up.
-                            The organizer views the Waiting List from their dashboard, which is sorted by the First-In, First-Out (FIFO) method.
-                        </li>
-                        <li>
-                            Converting a Spot: The organizer can then manually select the top person on the list and take one of two actions:
-                            <br />
-                            - Directly Register the user (if the event is free). <br />
-                            - Notify/Invite the user to complete their registration (if the event is paid or requires further action). <br />
-                            <br />
-                        </li>
-                        <li>
-                            Data for Future Events: The waiting list data can be exported and used as a highly engaged mailing list for future, similar
-                            events, maximizing the organizer's marketing efforts.
-                        </li>
-
-                        This feature ensures the organizer has complete control over who fills the newly available spot, maintaining the integrity and
-                        quality of their attendee list while capitalizing on high demand.
-                    </ul>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-</div>
+</main>

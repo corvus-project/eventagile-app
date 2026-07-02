@@ -9,284 +9,296 @@ new #[Layout('layouts.frontend')]  class extends Component {};
 ?>
 
 <x-slot name="title">
-    {{ 'Event Agile ~ Alpha Release' }}
+    {{ 'EventAgile — Event Management Platform for Studios & Instructors' }}
 </x-slot>
 
-<div>
-    <div class="hero  min-h-screen">
-        <div class="hero-content text-center">
-            <div class="max-w-fit">
 
-                <img
-                    class="rounded-lg shadow-2xl"
-                    src='./assets/images/hero.png'
-                    alt="Power your events with EventAgile" />
+<!-- Main content — sections 4.2–4.6 will be added here -->
+<main id="main-content" tabindex="-1">
+    <section class="relative overflow-hidden bg-gradient-to-br from-white via-slate-50 to-blue-50">
+        <div class="mx-auto max-w-7xl px-6 py-20 lg:px-8">
+            <div class="grid items-center gap-16 lg:grid-cols-2 lg:grid-cols-[45%_55%]">
 
-                <div class="py-10">
+                <!-- Left -->
+                <div>
 
-                    <p class="py-6 text-2xl">
-                        Effortlessly organize, promote, and manage your events—all in one place. EventAgile gives you the tools to streamline registrations, track
-                        attendance, and engage your audience with ease.
+                    <!-- Badge -->
+
+                    <div class="inline-flex items-center rounded-full border border-blue-100 bg-blue-50 px-4 py-2 text-sm font-medium text-blue-600">
+                        <svg class="mr-2 h-5 w-5" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M8 7V3m8 4V3m-9
+                            8h10M5 21h14a2 2 0
+                            002-2V7a2 2 0
+                            00-2-2H5a2 2 0
+                            00-2 2v12a2 2 0
+                            002 2z" />
+                        </svg>
+
+                        All-in-One Event Management Platform
+
+                    </div>
+                    <h1 class="mt-8 text-5xl font-black tracking-tight leading-none text-slate-900 sm:text-6xl lg:text-7xl">
+
+                        Event Management
+
+                        <span class="block bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                            Simplified.
+                        </span>
+
+                    </h1>
+                    <p class="mt-6 max-w-xl text-lg leading-8 text-slate-600">
+                        Create, promote, and manage events from one intuitive platform.
+                        Accept registrations, sell tickets, track attendance, and engage
+                        your audience—all without the complexity.
                     </p>
-                    <a href="https://eventagile.com/signup" class="btn btn-primary">Get Started</a>
 
-                    <a href="/features" class="btn btn-secondary ml-4">Learn More</a>
+                    <div class="mt-10 flex flex-wrap gap-4">
 
+                        <a href="{{ route('signup') }}"
+                            class="inline-flex items-center justify-center rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white shadow-lg shadow-blue-600/20 transition hover:bg-blue-700">
+                            Start Free
+                        </a>
+
+                        <a href="{{ route('demo') }}"
+                            class="border-2 inline-flex items-center justify-center rounded-xl border-slate-300 bg-white px-6 py-3 font-semibold text-slate-700 transition hover:bg-slate-50">
+                            Test Online Demo
+                        </a>
+
+                    </div>
+
+                    <div class="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm text-slate-500">
+
+                        <div class="flex items-center gap-2">
+                            @svg('heroicon-o-check-circle','w-5 h-5 text-green-500')
+                            Free forever
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            @svg('heroicon-o-check-circle','w-5 h-5 text-green-500')
+                            No credit card
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            @svg('heroicon-o-check-circle','w-5 h-5 text-green-500')
+                            Setup in minutes
+                        </div>
+
+                    </div>
 
                 </div>
-                <div class="py-10">
-                    <div class="mb-14 text-center">
-                        <h2 class="text-4xl text-center font-bold text-gray-900 py-5">How EventAgile Can Help You?</h2>
-                        <p class="text-lg font-normal text-gray-500 max-w-12xl md:max-w-12xl mx-auto">
-                            Here it's a full working demo. The demo data is refreshing with random dataset daily. You can create your own event and test the features. The demo is open to everyone,
-                            so you can share the link with your friends and colleagues. We hope you enjoy using EventAgile and find it useful for your events.
-                            If you have any questions or feedback, please don't hesitate to contact us. We are always happy to hear from our users and improve our product.
-                        </p>
 
-                        <p class="text-lg font-normal text-gray-500 max-w-12xl md:max-w-12xl mx-auto my-5">
+                <!-- Right -->
+                <div class="relative mt-12 lg:mt-0">
 
-                            <a href="https://acme.eventagile.com/" class="px-4 py-2 text-sm rounded-full font-medium cursor-pointer tracking-wide btn-primary btn transition-all m-3" target="_blank">
-                                <x-icon name="o-arrow-right-circle" />
-                                Visit sample event site</a>
+                    <div class="absolute -inset-12 rounded-full bg-blue-200/40 blur-3xl"></div>
+
+                    <img
+                        src="/assets/images/dashboard.webp"
+                        alt="EventAgile event management dashboard interface"
+                        class="relative rounded-3xl border border-slate-200 shadow-[0_40px_120px_rgba(37,99,235,.18)]">
+
+                </div>
 
 
-                            <a href="https://acme.eventagile.com/dashboard" class="px-4 py-2 text-sm rounded-full font-medium cursor-pointer tracking-wide btn-success  btn transition-all m-3" target="_blank">
-                                <x-icon name="o-cog-8-tooth" />
-                                Manage the event site</a>
+            </div>
 
-                            <br />
 
-                            Login: acme@example.com |
+        </div>
 
-                            Password: password
-                        </p>
+    </section>
+
+    <section class="bg-gray-50 py-16">
+        <div class="mx-auto max-w-7xl px-6">
+
+            <div class="grid grid-cols-1 gap-6 lg:grid-cols-12">
+
+                <!-- Main Feature -->
+                <div class="lg:col-span-8">
+                    <div class="flex h-full items-start gap-6 rounded-2xl border border-gray-100 bg-white p-8 shadow-sm">
+
+                        <!-- Icon -->
+                        <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-blue-50">
+                            @svg('mdi-web', 'w-8 h-8 text-blue-600')
+                        </div>
+
+                        <!-- Content -->
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-900">
+                                Your Brand, Your Space
+                            </h3>
+
+                            <p class="mt-3 text-gray-600 leading-7">
+                                Give every client their own branded event portal with a
+                                dedicated subdomain. Customize colors, logos, and event
+                                pages while keeping your business front and center.
+                            </p>
+                        </div>
+
                     </div>
                 </div>
+
+                <!-- URL Card -->
+                <div class="lg:col-span-4">
+                    <div class="flex h-full flex-col justify-center rounded-2xl border border-blue-100 bg-gradient-to-br from-blue-50 to-white p-8">
+
+                        <span class="text-sm font-semibold uppercase tracking-wide text-blue-600">
+                            Example URL
+                        </span>
+
+                        <div class="mt-4 flex items-center gap-3 rounded-xl border border-blue-200 bg-white px-4 py-3 shadow-sm">
+                            @svg('heroicon-o-lock-closed', 'w-5 h-5 text-blue-500')
+                            <span class="font-medium text-gray-800">
+                                yourbrand.eventagile.com
+                            </span>
+                        </div>
+
+                        <p class="mt-4 text-sm text-gray-500">
+                            Every organizer gets a unique branded event URL.
+                        </p>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+    <!-- Key Features section (task 4.3) -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 text-center mb-12">Everything You Need to Run Great Events</h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                <!-- Card 1: Smart Event Builder -->
+                <div class="bg-white rounded-2xl shadow-md p-6">
+                    <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg aria-hidden="true" class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2zm6-7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 0v3" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Smart Event Builder</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Create and publish events in minutes with our step-by-step builder.</p>
+                </div>
+
+                <!-- Card 2: Online Booking Engine -->
+                <div class="bg-white rounded-2xl shadow-md p-6">
+                    <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg aria-hidden="true" class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.35 2.7A1 1 0 0 0 6.54 17H17m-10 0a2 2 0 1 0 4 0m6 0a2 2 0 1 0 4 0" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Online Booking Engine</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Let customers book their spot online, 24/7, from any device.</p>
+                </div>
+
+                <!-- Card 3: Automated Email Reminders -->
+                <div class="bg-white rounded-2xl shadow-md p-6">
+                    <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg aria-hidden="true" class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 0 0 2.22 0L21 8M5 19h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Automated Email Reminders</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Send automatic confirmations and reminders so attendees never miss a session.</p>
+                </div>
+
+                <!-- Card 4: Attendee Dashboard -->
+                <div class="bg-white rounded-2xl shadow-md p-6">
+                    <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg aria-hidden="true" class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2zm0 0V9a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v10m-6 0a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2m0 0V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Attendee Dashboard</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Track registrations, manage waitlists, and view attendance in real time.</p>
+                </div>
+
             </div>
         </div>
-    </div>
-    <div class="bg-slate-50 py-12 px-4">
-        <div class="max-w-screen-xl mx-auto">
-            <div class="max-w-3xl mx-auto mb-16 text-center">
-                <h2 class="text-dark text-3xl lg:text-4xl font-bold text-center mb-4 leading-relaxed">Discover Exclusive Features</h2>
-                <p class="text-slate-800 group-hover:text-slate-600 text-md leading-relaxed">
-                    Create the perfect registration experience with fully customizable, intuitive tools. Whether you need a simple sign-up or a multi-event
-                    registration flow, our system adapts to your unique needs.
-                </p>
-            </div>
-            <div class="grid lg:grid-cols-3 md:grid-cols-2 mx-auto">
-                <div class="rounded-xl group p-8 text-center hover:bg-white text-slate-800 hover:text-black hover:shadow-xl transition duration-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-8 mb-6 inline-block" viewBox="0 0 100 100">
-                        <path
-                            d="M65.156 4.42c-8.327 0-15.13 6.855-15.13 15.202s6.803 15.165 15.13 15.165c7.017 0 12.924-4.863 14.626-11.382h13.843a3.798 3.798 0 0 0 3.791-3.805 3.798 3.798 0 0 0-3.79-3.8h-13.86C78.053 9.294 72.16 4.42 65.156 4.42zM6.391 15.8a3.798 3.798 0 0 0-3.79 3.805 3.798 3.798 0 0 0 3.79 3.8h36.397c-.21-1.234-.348-2.493-.348-3.783 0-1.304.134-2.575.348-3.821zm28.47 18.987c-7.018 0-12.92 4.89-14.619 11.418H6.392a3.783 3.783 0 0 0-.363 0 3.801 3.801 0 0 0-3.52 4.062 3.798 3.798 0 0 0 3.882 3.535H20.25c1.71 6.511 7.604 11.382 14.61 11.382 8.328 0 15.167-6.848 15.167-15.195 0-8.347-6.84-15.202-15.166-15.202zm22.383 11.418c.21 1.234.347 2.494.347 3.784 0 1.3-.134 2.57-.347 3.813h36.381a3.795 3.795 0 0 0 3.874-3.714 3.796 3.796 0 0 0-3.874-3.883H57.244zm7.912 18.979c-8.327 0-15.13 6.855-15.13 15.202S56.83 95.58 65.157 95.58c7.007 0 12.907-4.87 14.618-11.382h13.851a3.796 3.796 0 0 0 3.706-3.883 3.795 3.795 0 0 0-3.706-3.714H79.782c-1.701-6.527-7.608-11.418-14.626-11.418zM6.029 76.602a3.801 3.801 0 0 0-3.52 4.062 3.798 3.798 0 0 0 3.882 3.535h36.412a22.541 22.541 0 0 1-.348-3.813c0-1.29.138-2.55.348-3.784H6.39a3.783 3.783 0 0 0-.362 0z"
-                            data-original="#000000"></path>
-                    </svg>
-                    <h3 class="text-lg font-semibold mb-3">Event Creation & Management</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed">
-                        Effortlessly build a registration form that fits your event. Our intuitive tools let you customize everything from a simple sign-up to a
-                        complex, multi-event flow—all in one place
-                    </p>
+    </section>
+
+    <!-- Who It's For section (task 4.4) -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 text-center mb-12">Who It's For</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- Fitness Studios -->
+                <div class="bg-white rounded-2xl shadow-md p-6 border border-gray-100">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Fitness Studios</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Perfect for yoga, pilates, and gym instructors who run regular classes and need simple online booking for their members.</p>
                 </div>
 
-                <div class="rounded-xl group p-8 text-center hover:bg-white text-slate-800 hover:text-black hover:shadow-xl transition duration-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-8 mb-6 inline-block" viewBox="0 0 682.667 682.667">
-                        <defs>
-                            <clipPath id="b" clipPathUnits="userSpaceOnUse">
-                                <path d="M0 512h512V0H0Z" data-original="#000000"></path>
-                            </clipPath>
-                        </defs>
-                        <mask id="a">
-                            <rect width="100%" height="100%" fill="#fff" data-original="#ffffff"></rect>
-                        </mask>
-                        <g mask="url(#a)">
-                            <g
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-miterlimit="10"
-                                stroke-width="30"
-                                clip-path="url(#b)"
-                                transform="matrix(1.33333 0 0 -1.33333 0 682.667)">
-                                <path
-                                    d="M458.172 372.633a533.882 533.882 0 0 0-.474 16.345c-.303 20.475-16.411 37.184-36.856 38.326-62.529 3.493-111.431 24.292-152.737 64.553-6.912 6.336-17.279 6.336-24.191 0-41.306-40.261-90.208-61.06-152.737-64.553-20.445-1.142-36.553-17.851-36.857-38.325a530.642 530.642 0 0 0-.473-16.346C51.549 251.97 48.104 86.598 248.803 16.615a22.014 22.014 0 0 1 2.942-.801l.01-.002a21.72 21.72 0 0 1 8.509 0c1.002.2 1.996.47 2.961.807C463.342 86.602 460.47 251.398 458.172 372.633Z"
-                                    data-original="#000000"></path>
-                                <path
-                                    d="M368.408 256c0-62.082-50.327-112.409-112.408-112.409S143.592 193.918 143.592 256c0 62.082 50.327 112.409 112.408 112.409S368.408 318.082 368.408 256Z"
-                                    data-original="#000000"></path>
-                                <path stroke-linecap="round" d="m303.227 284.952-69.785-69.785M206.773 241.834l26.668-26.668" data-original="#000000"></path>
-                            </g>
-                        </g>
-                    </svg>
-                    <h3 class="text-lg font-semibold mb-3">Simple Registration System</h3>
-                    <p class="text-slate-600  text-sm leading-relaxed">
-                        A streamlined and user-friendly process that allows attendees to register for an event with minimal effort, typically by providing just
-                        their name and email address.
-                    </p>
+                <!-- Dance Studios -->
+                <div class="bg-white rounded-2xl shadow-md p-6 border border-gray-100">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Dance Studios</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Manage weekly dance classes, recitals, and workshops with easy registration and automated reminders for students and parents.</p>
                 </div>
 
-                <div class="rounded-xl group p-8 text-center hover:bg-white text-slate-800 hover:text-black hover:shadow-xl transition duration-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-8 mb-6 inline-block" viewBox="0 0 512 512">
-                        <path
-                            d="M495.984 252.588c-17.119-14.109-44.177-15.319-61.936 3.74l-44.087 47.327c-5.7-18.319-22.809-31.658-42.977-31.658h-78.675c-5.97 0-7.969-2.28-18.339-10.269-39.538-34.468-98.924-34.358-138.342.33L82.71 287.516c-12.999-6.88-28.178-7.05-41.248-.52L8.294 303.575c-7.41 3.71-10.409 12.719-6.71 20.129l89.995 179.989c3.71 7.41 12.719 10.409 20.129 6.71l33.168-16.589c16.349-8.169 25.448-24.849 24.858-41.827h177.249c32.868 0 64.276-15.699 83.995-41.997l72.006-96.014c13.969-18.61 11.759-45.899-7-61.388zM131.456 466.985l-19.749 9.879-76.585-153.16 19.759-9.879c7.41-3.7 16.409-.71 20.119 6.71l63.166 126.332c3.7 7.409.7 16.408-6.71 20.118zm347.529-171.009L406.98 391.99c-14.089 18.789-36.518 29.998-59.996 29.998H159.265l-56.207-112.423 28.388-24.988c28.248-24.849 70.846-24.849 99.094 0 16.639 14.649 26.988 17.419 37.768 17.419h78.675c8.27 0 14.999 6.73 14.999 14.999s-6.73 14.999-14.999 14.999h-76.605c-8.28 0-14.999 6.72-14.999 14.999s6.72 14.999 14.999 14.999h86.655c12.449 0 24.449-5.22 32.928-14.329l66.036-70.886c6.04-6.48 15.299-5.94 20.979-.97 5.939 5.199 6.58 14.089 2.009 20.169zm-163.6-193.609c10.269-10.769 16.599-25.328 16.599-41.358 0-33.018-26.678-60.996-59.996-60.996-33.068 0-60.996 27.928-60.996 60.996 0 15.539 6.09 30.208 17.149 41.478-27.428 15.379-47.147 44.897-47.147 79.515v14.999c0 8.279 6.72 14.999 14.999 14.999h150.991c8.279 0 14.999-6.72 14.999-14.999v-14.999c-.001-33.938-18.668-63.916-46.598-79.635zm-43.397-72.355c16.259 0 29.998 14.199 29.998 30.998 0 16.539-13.459 29.998-29.998 29.998-16.799 0-30.998-13.739-30.998-29.998 0-16.509 14.489-30.998 30.998-30.998zm-60.996 151.99c0-33.068 27.928-60.996 60.996-60.996 33.078 0 59.996 27.358 59.996 60.996H210.992z"
-                            data-original="#000000"></path>
-                    </svg>
-                    <h3 class="text-lg font-semibold mb-3">Export the Registrations</h3>
-                    <p class="text-slate-600  text-sm leading-relaxed">
-                        The service allows organizers to download a comprehensive list of all registered attendees for a specific event into a standard format like
-                        a CSV or excel file.
-                    </p>
+                <!-- Art & Craft Classes -->
+                <div class="bg-white rounded-2xl shadow-md p-6 border border-gray-100">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Art &amp; Craft Classes</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Sell places on pottery, painting, or craft workshops with capacity controls and waitlist support built in.</p>
                 </div>
 
-                <div class="rounded-xl group p-8 text-center hover:bg-white text-slate-800 hover:text-black hover:shadow-xl transition duration-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-8 mb-6 inline-block" viewBox="0 0 512 512">
-                        <path
-                            d="M451 257v215c0 22.5-14.1 40-32.1 40H375c-18 0-32.1-17.6-32.1-40V257c0-22.5 14.1-40 32.1-40h43.9c17.9 0 32.1 17.6 32.1 40zm.7-126.1c-3 2.1-6.9 2.2-10.1.3l-30-18C362.2 195 292.5 272 157.9 272c-28.4 0-59.7-3.4-94.3-11-5-1.1-8.2-6-7.2-11.1 1-4.6 5.2-7.7 9.9-7.3 8.4.7 203.6 13.8 285.6-166.7L321.2 61c-4.6-2.2-6.6-7.8-4.4-12.4 1-2.1 2.7-3.7 4.8-4.6L423.5.7c4.7-2 10.2.2 12.2 4.9.3.7.5 1.4.6 2.1l19.3 113.9c.7 3.6-.9 7.3-3.9 9.3zM310.1 336v136c0 22.5-14.1 40-32.1 40h-44c-18 0-32.1-17.6-32.1-40V336c0-22.5 14.1-40 32.1-40h43.9c18.1-.1 32.2 17.5 32.2 40zm-137.8 65.8V472c0 22.4-14.1 40-32.1 40h-44c-18 0-32.1-17.6-32.1-40v-70.2c0-22.5 14.1-40 32.1-40h43.9c18.1-.1 32.2 17.5 32.2 40z"
-                            data-original="#000000"></path>
-                    </svg>
-                    <h3 class="text-lg font-semibold mb-3">Basic Reporting</h3>
-                    <p class="text-slate-600  text-sm leading-relaxed">
-                        Organizers with at-a-glance insights into their event's performance, such as the total number of registrations, which events have the most
-                        sign-ups, and the status of each event (e.g., published, in-draft).
-                    </p>
+                <!-- Sports Clubs -->
+                <div class="bg-white rounded-2xl shadow-md p-6 border border-gray-100">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Sports Clubs</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Handle gymnastics, tennis, and swimming club sessions with recurring schedules and real-time attendance tracking.</p>
                 </div>
 
-                <div class="rounded-xl group p-8 text-center hover:bg-white text-slate-800 hover:text-black hover:shadow-xl transition duration-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-8 mb-6 inline-block" viewBox="0 0 682.667 682.667">
-                        <defs>
-                            <clipPath id="a" clipPathUnits="userSpaceOnUse">
-                                <path d="M0 512h512V0H0Z" data-original="#000000"></path>
-                            </clipPath>
-                        </defs>
-                        <g
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-miterlimit="10"
-                            stroke-width="30"
-                            clip-path="url(#a)"
-                            transform="matrix(1.33333 0 0 -1.33333 0 682.667)">
-                            <path
-                                d="M75 467c0-16.568-13.432-30-30-30-16.568 0-30 13.432-30 30 0 16.568 13.432 30 30 30 16.568 0 30-13.432 30-30ZM75 45c0-16.568-13.432-30-30-30-16.568 0-30 13.432-30 30 0 16.568 13.432 30 30 30 16.568 0 30-13.432 30-30ZM497 467c0-16.568-13.432-30-30-30-16.568 0-30 13.432-30 30 0 16.568 13.432 30 30 30 16.568 0 30-13.432 30-30ZM497 45c0-16.568-13.432-30-30-30-16.568 0-30 13.432-30 30 0 16.568 13.432 30 30 30 16.568 0 30-13.432 30-30ZM406 256c0-82.843-67.157-150-150-150s-150 67.157-150 150 67.157 150 150 150 150-67.157 150-150Z"
-                                data-original="#000000"></path>
-                            <path
-                                d="M316 256c0-82.843-26.863-150-60-150s-60 67.157-60 150 26.863 150 60 150 60-67.157 60-150ZM106 256h300M66.213 445.787l83.721-83.721M445.787 445.787l-83.721-83.721M362.066 149.934l83.721-83.721M149.934 149.934 66.213 66.213"
-                                data-original="#000000"></path>
-                        </g>
-                    </svg>
-                    <h3 class="text-lg font-semibold mb-3">Always Up-to-Date</h3>
-                    <p class="text-slate-600  text-sm leading-relaxed">
-                        As a SaaS solution, the system is continuously maintained and hosted on our servers, which means users always have access to the latest
-                        version of the software.
-                    </p>
+                <!-- Birthday Parties -->
+                <div class="bg-white rounded-2xl shadow-md p-6 border border-gray-100">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Birthday Parties</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Send invitations, collect RSVPs, and manage guest lists for birthday parties and private celebrations effortlessly.</p>
                 </div>
 
-                <div class="rounded-xl group p-8 text-center hover:bg-white text-slate-800 hover:text-black hover:shadow-xl transition duration-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-8 mb-6 inline-block" viewBox="0 0 682.667 682.667">
-                        <defs>
-                            <clipPath id="a" clipPathUnits="userSpaceOnUse">
-                                <path d="M0 512h512V0H0Z" data-original="#000000"></path>
-                            </clipPath>
-                        </defs>
-                        <g
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-miterlimit="10"
-                            stroke-width="30"
-                            clip-path="url(#a)"
-                            transform="matrix(1.33 0 0 -1.33 0 682.667)">
-                            <path
-                                d="M226 15v60c0 16.568-13.432 30-30 30H76c-16.568 0-30-13.432-30-30V15Zm-45 165c0-24.853-20.147-45-45-45s-45 20.147-45 45 20.147 45 45 45 45-20.147 45-45ZM466 15v60c0 16.568-13.432 30-30 30H316c-16.568 0-30-13.432-30-30V15Zm-45 165c0-24.853-20.147-45-45-45s-45 20.147-45 45 20.147 45 45 45 45-20.147 45-45Zm-75 167v-50.294L286 347h-60.002L166 296.706V347h-15c-41.421 0-75 33.579-75 75s33.579 75 75 75h210c41.421 0 75-33.579 75-75s-33.579-75-75-75Zm-105 75h30m-90 0h30m90 0h30"
-                                data-original="#000000"></path>
-                        </g>
-                    </svg>
-                    <h3 class="text-lg font-semibold mb-3">Easy and Affordable Management</h3>
-                    <p class="text-slate-600  text-sm leading-relaxed">
-                        It allows users to manage events efficiently without needing extensive technical knowledge or a large budget.
-                    </p>
+                <!-- Charities & Community Groups -->
+                <div class="bg-white rounded-2xl shadow-md p-6 border border-gray-100">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Charities &amp; Community Groups</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Organise fundraising events, community workshops, and volunteer sessions with free-tier access available.</p>
                 </div>
+
             </div>
         </div>
-    </div>
-    <div class="p-6  bg-linear-to-b/lab from-sky-50 to-sky-200">
-        <div class="max-w-4xl mx-auto ">
-            <h2 class="sm:text-3xl text-2xl font-semibold text-slate-700 mb-12">Frequently Asked Questions</h2>
-            <div class="space-y-8">
-                <div class="flex items-start">
-                    <div class="flex-shrink-0">
-                        <svg class="h-6 w-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                        </svg>
-                    </div>
-                    <div class="ml-4">
-                        <h3 class="text-lg font-medium text-slate-900">What is EventAgile?</h3>
-                        <p class="text-[15px] text-slate-600 mt-4 leading-relaxed">
-                            EventAgile is a simple and affordable event management platform designed for small organizations, individuals, and community groups. It
-                            allows you to easily create events, manage registrations, and track attendees without the complexity or high cost of larger systems.
-                        </p>
-                    </div>
-                </div>
+    </section>
 
-                <div class="flex items-start">
-                    <div class="flex-shrink-0">
-                        <svg class="h-6 w-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                        </svg>
-                    </div>
-                    <div class="ml-4">
-                        <h3 class="text-lg font-medium text-slate-900">Who is EventAgile for?</h3>
-                        <p class="text-[15px] text-slate-600 mt-4 leading-relaxed">
-                            EventAgile is perfect for anyone who needs a simple solution to manage event sign-ups. This includes small clubs, community organizers,
-                            freelance trainers, workshop hosts, and anyone tired of managing event registrations with spreadsheets and manual emails.
-                        </p>
-                    </div>
-                </div>
+    <!-- Social Proof section (task 4.5) -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 text-center mb-12">What Our Customers Say</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
-                <div class="flex items-start">
-                    <div class="flex-shrink-0">
-                        <svg class="h-6 w-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                        </svg>
-                    </div>
-                    <div class="ml-4">
-                        <h3 class="text-lg font-medium text-slate-900">Is EventAgile a downloadable software?</h3>
-                        <p class="text-[15px] text-slate-600 mt-4 leading-relaxed">
-                            No, EventAgile is a cloud-based SaaS (Software as a Service) solution. There is nothing to download or install. You can access your
-                            account from any web browser on any device, anywhere in the world. EventAgile has limited featured open source code version which you
-                            can download and run on your own server.
-                        </p>
-                    </div>
-                </div>
+                <blockquote class="bg-white rounded-2xl shadow-md p-8">
+                    <p class="text-base text-gray-600 leading-relaxed italic">"EventAgile completely transformed how I manage my yoga classes. Booking used to take hours — now it's automatic."</p>
+                    <footer class="mt-4">
+                        <cite class="text-sm font-semibold text-gray-900 not-italic">Sarah M., Yoga Studio Owner</cite>
+                    </footer>
+                </blockquote>
 
-                <div class="flex items-start">
-                    <div class="flex-shrink-0">
-                        <svg class="h-6 w-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                        </svg>
-                    </div>
-                    <div class="ml-4">
-                        <h3 class="text-lg font-medium text-slate-900">How do I create my first event?</h3>
-                        <p class="text-[15px] text-slate-600 mt-4 leading-relaxed">
-                            Simply sign up for an account, and you will be guided to your dashboard. From there, you can fill out a straightforward form with your
-                            event's name, description, date, time, and location to get started in minutes.
-                        </p>
-                    </div>
-                </div>
+                <blockquote class="bg-white rounded-2xl shadow-md p-8">
+                    <p class="text-base text-gray-600 leading-relaxed italic">"We switched to EventAgile for our dance school last year and our no-show rate dropped by half thanks to the automated reminders."</p>
+                    <footer class="mt-4">
+                        <cite class="text-sm font-semibold text-gray-900 not-italic">James R., Dance Studio Director</cite>
+                    </footer>
+                </blockquote>
 
-                <div class="flex items-start">
-                    <div class="flex-shrink-0">
-                        <svg class="h-6 w-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                        </svg>
-                    </div>
-                    <div class="ml-4">
-                        <h3 class="text-lg font-medium text-slate-900">How do attendees register for my event?</h3>
-                        <p class="text-[15px] text-slate-600 mt-4 leading-relaxed">
-                            Once you publish your event, EventAgile generates a unique public page with all the details. You can share this link with your audience,
-                            and they can register by providing their name and email address. Attendees do not need to create an account.
-                        </p>
-                    </div>
-                </div>
             </div>
         </div>
-    </div>
-</div>
+    </section>
+
+    <!-- Secondary CTA Section (task 4.6) -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-indigo-600">
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Ready to Simplify Your Event Management?</h2>
+            <p class="text-base text-indigo-100 leading-relaxed mb-8">Join hundreds of instructors, studios, and event organisers who use EventAgile to save time and grow their bookings.</p>
+            <a href="{{ route('contact') }}" class="inline-block bg-white text-indigo-600 font-semibold px-6 py-3 rounded-lg hover:bg-indigo-50 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-white min-h-[44px]">Get Started Free</a>
+        </div>
+    </section>
+
+</main>

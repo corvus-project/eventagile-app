@@ -11,20 +11,27 @@ new #[Layout('layouts.frontend')]  class extends Component {};
 <x-slot name="title">
     {{ 'Event Agile ~ Features' }}
 </x-slot>
+<!-- Main content -->
+<main id="main-content" tabindex="-1">
 
-<div class="pb-5">
-    <section class="py-24">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div class="mb-14 text-center">
-                <h2 class="text-4xl text-center font-bold text-gray-900 py-5">Affordable Features</h2>
-                <p class="text-lg font-normal text-gray-500 max-w-md md:max-w-2xl mx-auto">
-                    Tired of rigid registration forms? Our intuitive tools give you complete control. Easily create simple sign-ups or detailed, multi-event
-                    registration flows—designed exactly the way you want.
-                </p>
-            </div>
-            <div
-                class="flex justify-center items-center gap-x-5 gap-y-8 lg:gap-y-0 flex-wrap md:flex-wrap lg:flex-nowrap lg:flex-row lg:justify-between lg:gap-x-8">
-                <div class="relative w-full text-center max-md:max-w-sm max-md:mx-auto group md:w-2/5 lg:w-1/4">
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-7xl mx-auto text-center">
+            <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 leading-tight">
+                Powerful Features for Event Management
+            </h1>
+            <p class="text-base text-gray-600 leading-relaxed mt-4 max-w-2xl mx-auto">
+                Tired of rigid registration forms? Our intuitive tools give you complete control. Easily create simple sign-ups or detailed, multi-event
+                registration flows—designed exactly the way you want.
+            </p>
+        </div>
+    </section>
+
+    <!-- Page Header -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-blue-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <div class="text-center group">
                     <div
                         class="bg-indigo-50 rounded-lg flex justify-center items-center mb-5 w-20 h-20 mx-auto cursor-pointer transition-all duration-500 group-hover:bg-indigo-600">
                         <svg
@@ -49,7 +56,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                     </p>
                 </div>
 
-                <div class="relative w-full text-center max-md:max-w-sm max-md:mx-auto group md:w-2/5 lg:w-1/4">
+                <div class="text-center group">
                     <div
                         class="bg-teal-50 rounded-lg flex justify-center items-center mb-5 w-20 h-20 mx-auto cursor-pointer transition-all duration-500 group-hover:bg-teal-600">
                         <svg
@@ -72,7 +79,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                         analytics dashboards.
                     </p>
                 </div>
-                <div class="relative w-full text-center max-md:max-w-sm max-md:mx-auto group md:w-2/5 lg:w-1/4">
+                <div class="text-center group">
                     <div
                         class="bg-orange-50 rounded-lg flex justify-center items-center mb-5 w-20 h-20 mx-auto cursor-pointer transition-all duration-500 group-hover:bg-orange-600">
                         <svg
@@ -95,10 +102,12 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                         version of the software.
                     </p>
                 </div>
+
             </div>
         </div>
     </section>
-    <section class="py-24">
+
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div
                 class="mb-10 lg:mb-16 flex justify-center items-center flex-col gap-x-0 gap-y-6 lg:gap-y-0 lg:flex-row lg:justify-between max-md:max-w-lg max-md:mx-auto">
@@ -115,80 +124,161 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                     </p>
                 </div>
             </div>
-            <div
-                class="flex justify-center items-center gap-x-5 gap-y-8 lg:gap-y-0 flex-wrap md:flex-wrap lg:flex-nowrap lg:flex-row lg:justify-between lg:gap-x-8">
-                <div
-                    class="group relative w-full bg-gray-100 rounded-2xl p-4 transition-all duration-500 max-md:max-w-md max-md:mx-auto md:w-2/5 md:h-64 xl:p-7 xl:w-1/4 hover:bg-indigo-600">
-                    <div class="bg-white rounded-full flex justify-center items-center mb-5 w-14 h-14">
-                        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M24.7222 11.6667V7.22225C24.7222 5.99495 23.7273 5 22.5 5H4.72222C3.49492 5 2.5 5.99492 2.5 7.22222V22.7778C2.5 24.0051 3.49492 25 4.72222 25H22.5C23.7273 25 24.7222 24.005 24.7222 22.7777V17.7778M20.8333 17.7778H25.2778C26.5051 17.7778 27.5 16.7829 27.5 15.5556V13.8889C27.5 12.6616 26.5051 11.6667 25.2778 11.6667H20.8333C19.606 11.6667 18.6111 12.6616 18.6111 13.8889V15.5556C18.6111 16.7829 19.606 17.7778 20.8333 17.7778Z"
-                                stroke="#4F46E5"
-                                stroke-width="2"></path>
+        </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- Feature 1: Smart Event Builder -->
+                <div class="bg-white rounded-2xl shadow-md p-6">
+                    <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg aria-hidden="true" class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2zm6-7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 0v3" />
                         </svg>
                     </div>
-                    <h4 class="text-xl font-semibold text-gray-900 mb-3 capitalize transition-all duration-500 group-hover:text-white">
-                        Approve the registration
-                    </h4>
-                    <p class="text-sm font-normal text-gray-500 transition-all duration-500 leading-5 group-hover:text-white">
-                        Approve registrations before attendees can participate in the event, ensuring that only eligible participants are allowed.
-                    </p>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Smart Event Builder</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Create and publish events in minutes with our
+                        step-by-step builder. Add dates, times, location, capacity, and pricing — all from one
+                        simple form.</p>
                 </div>
-                <div
-                    class="group relative w-full bg-gray-100 rounded-2xl p-4 transition-all duration-500 max-md:max-w-md max-md:mx-auto md:w-2/5 md:h-64 xl:p-7 xl:w-1/4 hover:bg-indigo-600">
-                    <div class="bg-white rounded-full flex justify-center items-center mb-5 w-14 h-14">
-                        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M14.375 15.8571C16.1009 15.8571 17.5 14.458 17.5 12.7321C17.5 11.0062 16.1009 9.6071 14.375 9.6071C12.6491 9.6071 11.25 11.0062 11.25 12.7321C11.25 14.458 12.6491 15.8571 14.375 15.8571ZM14.375 15.8571V20.8571M3.75 13.2264V15.2343C3.75 17.6868 3.75 18.9131 4.27747 19.9685C4.80493 21.0239 5.78567 21.76 7.74715 23.2322L8.57248 23.8516C11.4626 26.0208 12.9077 27.1054 14.5753 27.1054C16.243 27.1054 17.688 26.0208 20.5782 23.8516L21.4035 23.2322C23.365 21.76 24.3457 21.0239 24.8732 19.9685C25.4006 18.9131 25.4006 17.6868 25.4006 15.2343V13.2264C25.4006 9.95932 25.4006 8.32576 24.546 7.05852C23.6913 5.79128 22.1768 5.17918 19.1477 3.95499L18.3223 3.62144C16.4724 2.87381 15.5475 2.5 14.5753 2.5C13.6032 2.5 12.6782 2.87381 10.8283 3.62144L10.003 3.95499C6.97389 5.17919 5.45934 5.79128 4.60467 7.05852C3.75 8.32576 3.75 9.95932 3.75 13.2264Z"
-                                stroke="#4F46E5"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"></path>
+
+                <!-- Feature 2: Recurring Schedule Support -->
+                <div class="bg-white rounded-2xl shadow-md p-6">
+                    <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg aria-hidden="true" class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 4v5h.582m15.356 2A8.001 8.001 0 0 0 4.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 0 1-15.357-2m15.357 2H15" />
                         </svg>
                     </div>
-                    <h4 class="text-xl font-semibold text-gray-900 mb-3 capitalize transition-all duration-500 group-hover:text-white">Custom Event page</h4>
-                    <p class="text-sm font-normal text-gray-500 transition-all duration-500 leading-5 group-hover:text-white">
-                        A dedicated page for each event, allowing you to showcase event details, schedules, and other relevant information in a user-friendly
-                        format.
-                    </p>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Recurring Schedule Support</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Create weekly or monthly class series in one
+                        go. Attendees can book the full series or individual sessions, and all instances update
+                        automatically.</p>
                 </div>
-                <div
-                    class="group relative w-full bg-gray-100 rounded-2xl p-4 transition-all duration-500 max-md:max-w-md max-md:mx-auto md:w-2/5 md:h-64 xl:p-7 xl:w-1/4 hover:bg-indigo-600">
-                    <div class="bg-white rounded-full flex justify-center items-center mb-5 w-14 h-14">
-                        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M15.0067 10V15.6652C15.0067 16.0358 15.1712 16.3873 15.4556 16.6248L18.75 19.375M15 27.5C8.09644 27.5 2.5 21.9036 2.5 15C2.5 8.09644 8.09644 2.5 15 2.5C21.9036 2.5 27.5 8.09644 27.5 15C27.5 21.9036 21.9036 27.5 15 27.5Z"
-                                stroke="#4F46E5"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"></path>
+
+                <!-- Feature 3: Online Booking Engine -->
+                <div class="bg-white rounded-2xl shadow-md p-6">
+                    <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg aria-hidden="true" class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.35 2.7A1 1 0 0 0 6.54 17H17m-10 0a2 2 0 1 0 4 0m6 0a2 2 0 1 0 4 0" />
                         </svg>
                     </div>
-                    <h4 class="text-xl font-semibold text-gray-900 mb-3 capitalize transition-all duration-500 group-hover:text-white">Mobile Friendly</h4>
-                    <p class="text-sm font-normal text-gray-500 transition-all duration-500 leading-5 group-hover:text-white">
-                        Designed to be fully responsive, ensuring that users can easily navigate and register for events on their mobile devices without any
-                        issues.
-                    </p>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Online Booking Engine</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Let customers book their spot online, 24/7,
+                        from any device. Each event gets a unique booking page that you can share via link, email,
+                        or social media.</p>
                 </div>
-                <div
-                    class="group relative w-full bg-gray-100 rounded-2xl p-4 transition-all duration-500 max-md:max-w-md max-md:mx-auto md:w-2/5 md:h-64 xl:p-7 xl:w-1/4 hover:bg-indigo-600">
-                    <div class="bg-white rounded-full flex justify-center items-center mb-5 w-14 h-14">
-                        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M10 14.7875L13.0959 17.8834C13.3399 18.1274 13.7353 18.1275 13.9794 17.8838L20.625 11.25M15 27.5C8.09644 27.5 2.5 21.9036 2.5 15C2.5 8.09644 8.09644 2.5 15 2.5C21.9036 2.5 27.5 8.09644 27.5 15C27.5 21.9036 21.9036 27.5 15 27.5Z"
-                                stroke="#4F46E5"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"></path>
+
+                <!-- Feature 4: Guest Self-Registration -->
+                <div class="bg-white rounded-2xl shadow-md p-6">
+                    <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg aria-hidden="true" class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM3 20a6 6 0 0 1 12 0v1H3v-1z" />
                         </svg>
                     </div>
-                    <h4 class="text-xl font-semibold text-gray-900 mb-3 capitalize transition-all duration-500 group-hover:text-white">Archieving Events</h4>
-                    <p class="text-sm font-normal text-gray-500 transition-all duration-500 leading-5 group-hover:text-white">
-                        The ability to archive events allows you to keep a record of past events while keeping the current event list clean.
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Guest Self-Registration</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Attendees can register without creating an
+                        account. Just share the booking link and they can sign up in seconds — perfect for lowering
+                        friction and increasing conversions.</p>
+                </div>
+
+                <!-- Feature 5: Waitlist Management -->
+                <div class="bg-white rounded-2xl shadow-md p-6">
+                    <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg aria-hidden="true" class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Waitlist Management</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">When an event reaches capacity, new registrants
+                        are automatically added to a waitlist. If a spot opens up, they get notified instantly.</p>
+                </div>
+
+                <!-- Feature 6: Automated Email Reminders -->
+                <div class="bg-white rounded-2xl shadow-md p-6">
+                    <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg aria-hidden="true" class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 8l7.89 5.26a2 2 0 0 0 2.22 0L21 8M5 19h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Automated Email Reminders</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Send automatic confirmation and reminder emails
+                        so attendees never miss a session. Customise the schedule and messaging to match your brand.
                     </p>
                 </div>
+
+                <!-- Feature 7: SMS Notifications -->
+                <div class="bg-white rounded-2xl shadow-md p-6">
+                    <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg aria-hidden="true" class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 18h.01M8 21h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">SMS Notifications</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Reach attendees where they are with optional
+                        SMS reminders and alerts. Perfect for last-minute updates or urgent schedule changes.</p>
+                </div>
+
+                <!-- Feature 8: Attendee Dashboard -->
+                <div class="bg-white rounded-2xl shadow-md p-6">
+                    <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg aria-hidden="true" class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 19v-6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2zm0 0V9a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v10m-6 0a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2m0 0V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Attendee Dashboard</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Track registrations, manage waitlists, and view
+                        attendance in real time. Export attendee lists, send bulk messages, and check in guests at
+                        the door.</p>
+                </div>
+
+                <!-- Feature 9: Revenue & Analytics Reports -->
+                <div class="bg-white rounded-2xl shadow-md p-6">
+                    <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg aria-hidden="true" class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 19v-6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2zm0 0V9a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v10m-6 0a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2m0 0V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Revenue & Analytics Reports</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Understand your business with detailed reports
+                        on bookings, revenue, attendance trends, and customer demographics. Make data-driven
+                        decisions to grow.</p>
+                </div>
+
             </div>
         </div>
     </section>
 
-</div>
+    <!-- CTA Section -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-indigo-600">
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Ready to Try These Features?</h2>
+            <p class="text-base text-indigo-100 leading-relaxed mb-8">Start your free trial today — no credit card
+                required. Set up your first event in minutes.</p>
+            <a href="{{ route('signup') }}"
+                class="inline-block bg-white text-indigo-600 font-semibold px-6 py-3 rounded-lg hover:bg-indigo-50 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-white min-h-[44px]">Get
+                Started Free</a>
+        </div>
+    </section>
+
+</main>

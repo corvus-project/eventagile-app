@@ -2,28 +2,50 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--  Character set & viewport -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Used to add dark mode right away, adding here prevents any flicker -->
-    <script>
-        if (typeof(Storage) !== "undefined") {
-            if (localStorage.getItem('dark_mode') && localStorage.getItem('dark_mode') == 'true') {
-                document.documentElement.classList.add('dark');
-            }
-        }
-    </script>
+    <!--  Robots directive -->
+    <meta name="robots" content="index, follow">
 
+    <!--  Page identity -->
+    <title>{{ $title ?? config('app.name')}}</title>
+
+    <!-- 39 characters — under 60 ✓ -->
+
+
+    <meta name="description"
+        content="Create, promote, and manage events, classes, and lessons from one platform. Let customers self-register online. Perfect for studios, clubs, and small businesses.">
+
+    <link rel="canonical" href="{{ config('app.url') }}">
+
+    <!-- Open Graph tags -->
+    <meta property="og:title" content="EventAgile — Event Management Made Simple">
+    <meta property="og:description" content="Create, promote, and manage events, classes, and lessons from one platform. Let customers self-register online. Perfect for studios, clubs, and small businesses.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ config('app.url') }}">
+    <meta property="og:image" content="{{ config('app.url') }}/assets/img/og-index.svg">
+
+    <!--  CDN loading order — EXACT ORDER REQUIRED -->
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <title>{{ $title ?? config('app.name')}}</title>
+    <!-- 5b. Flowbite CSS CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css">
+
+    <!-- 5c. Alpine.js v3 — defer required -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+
 
 </head>
 
-<body class="min-h-screen antialiased bg-white dark:bg-gradient-to-b dark:from-gray-950 dark:to-gray-900">
+<body>
+
     {{ $slot }}
-    <x-toast />
+
+    <!-- ⑦ Flowbite JS CDN — must be last, just before </body> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 
 </body>
 
