@@ -21,7 +21,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
             </div>
             <div class="text-center p-12 m-12">
                 <span class="text-slate-900 text-lg font-semibold">For support, feedback, or general inquiries, please email us at
-                    <a href="mailto:support@eventagile.com" class="text-indigo-600 hover:text-indigo-800">support@eventagile.com</a>. We look forward to hearing from you!</span>
+                    <a href="mailto:support@eventagile.com" class="text-blue-600 hover:text-blue-800">support@eventagile.com</a>. We look forward to hearing from you!</span>
             </div>
         </div>
     </div>

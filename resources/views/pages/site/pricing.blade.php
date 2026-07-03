@@ -9,7 +9,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
 ?>
 
 <x-slot name="title">
-    <title>Pricing — EventAgile Plans & Pricing</title>
+    {{'Pricing — EventAgile Plans & Pricing'}}
 </x-slot>
 
 <main id="main-content" tabindex="-1">
@@ -81,26 +81,25 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                             Attendee dashboard
                         </li>
                     </ul>
-                    <a href="contact.html"
-                        class="mt-8 block w-full text-center px-4 py-3 border border-indigo-600 text-indigo-600 font-semibold rounded-lg hover:bg-indigo-50 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-indigo-600 min-h-[44px] flex items-center justify-center">
+                    <a href="{{ route('signup') }}"
+                        class="mt-8 block w-full text-center px-4 py-3 border border-blue-600 text-blue-600 font-semibold rounded-lg hover:bg-blue-50 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-blue-600 min-h-[44px] flex items-center justify-center">
                         Get Started Free
                     </a>
                 </div>
 
-                <!-- Professional Plan (Featured) -->
-                <div class="bg-white rounded-2xl shadow-md p-8 flex flex-col ring-2 ring-indigo-600 relative">
+                <!-- Professional Plan (Demo) -->
+                <div class="bg-blue-600 rounded-2xl shadow-md p-8 flex flex-col relative">
                     <span
-                        class="absolute -top-3 left-1/2 -translate-x-1/2 bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full">Most
-                        Popular</span>
-                    <h2 class="text-xl font-bold text-gray-900">Professional</h2>
-                    <p class="text-sm text-gray-500 mt-1">For growing studios and clubs</p>
+                        class="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-800 text-white text-xs font-bold px-3 py-1 rounded-full">Demo</span>
+                    <h2 class="text-xl font-bold text-white">Professional</h2>
+                    <p class="text-sm text-blue-200 mt-1">For growing studios and clubs</p>
                     <p class="mt-6">
-                        <span class="text-5xl font-bold text-gray-900">£19</span>
-                        <span class="text-base text-gray-500">/mo</span>
+                        <span class="text-5xl font-bold text-white">£0</span>
+                        <span class="text-base text-blue-200">/mo</span>
                     </p>
-                    <ul class="mt-8 space-y-3 text-sm text-gray-600 flex-1">
+                    <ul class="mt-8 space-y-3 text-sm text-blue-100 flex-1">
                         <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none"
+                            <svg class="w-5 h-5 text-blue-200 flex-shrink-0 mt-0.5" fill="none"
                                 stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 13l4 4L19 7" />
@@ -108,7 +107,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                             Unlimited active events
                         </li>
                         <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none"
+                            <svg class="w-5 h-5 text-blue-200 flex-shrink-0 mt-0.5" fill="none"
                                 stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 13l4 4L19 7" />
@@ -116,7 +115,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                             500 registrations per event
                         </li>
                         <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none"
+                            <svg class="w-5 h-5 text-blue-200 flex-shrink-0 mt-0.5" fill="none"
                                 stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 13l4 4L19 7" />
@@ -124,7 +123,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                             Custom booking page
                         </li>
                         <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none"
+                            <svg class="w-5 h-5 text-blue-200 flex-shrink-0 mt-0.5" fill="none"
                                 stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 13l4 4L19 7" />
@@ -132,7 +131,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                             Automated email reminders
                         </li>
                         <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none"
+                            <svg class="w-5 h-5 text-blue-200 flex-shrink-0 mt-0.5" fill="none"
                                 stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 13l4 4L19 7" />
@@ -140,7 +139,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                             Waitlist management
                         </li>
                         <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none"
+                            <svg class="w-5 h-5 text-blue-200 flex-shrink-0 mt-0.5" fill="none"
                                 stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 13l4 4L19 7" />
@@ -148,7 +147,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                             Recurring schedule support
                         </li>
                         <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none"
+                            <svg class="w-5 h-5 text-blue-200 flex-shrink-0 mt-0.5" fill="none"
                                 stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 13l4 4L19 7" />
@@ -156,23 +155,23 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                             Revenue & analytics reports
                         </li>
                     </ul>
-                    <a href="contact.html"
-                        class="mt-8 block w-full text-center px-4 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-indigo-600 min-h-[44px] flex items-center justify-center">
-                        Start Free Trial
+                    <a href="{{ route('contact') }}"
+                        class="mt-8 block w-full text-center px-4 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-blue-50 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-white min-h-[44px] flex items-center justify-center">
+                        Coming soon — Contact Sales
                     </a>
                 </div>
 
-                <!-- Business Plan -->
-                <div class="bg-white rounded-2xl shadow-md p-8 flex flex-col">
-                    <h2 class="text-xl font-bold text-gray-900">Business</h2>
-                    <p class="text-sm text-gray-500 mt-1">For multi-venue organisations</p>
+                <!-- Business Plan (Demo) -->
+                <div class="bg-blue-600 rounded-2xl shadow-md p-8 flex flex-col">
+                    <h2 class="text-xl font-bold text-white">Business</h2>
+                    <p class="text-sm text-blue-200 mt-1">For multi-venue organisations</p>
                     <p class="mt-6">
-                        <span class="text-5xl font-bold text-gray-900">£49</span>
-                        <span class="text-base text-gray-500">/mo</span>
+                        <span class="text-5xl font-bold text-white">£0</span>
+                        <span class="text-base text-blue-200">/mo</span>
                     </p>
-                    <ul class="mt-8 space-y-3 text-sm text-gray-600 flex-1">
+                    <ul class="mt-8 space-y-3 text-sm text-blue-100 flex-1">
                         <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none"
+                            <svg class="w-5 h-5 text-blue-200 flex-shrink-0 mt-0.5" fill="none"
                                 stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 13l4 4L19 7" />
@@ -180,7 +179,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                             Unlimited active events
                         </li>
                         <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none"
+                            <svg class="w-5 h-5 text-blue-200 flex-shrink-0 mt-0.5" fill="none"
                                 stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 13l4 4L19 7" />
@@ -188,7 +187,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                             Unlimited registrations
                         </li>
                         <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none"
+                            <svg class="w-5 h-5 text-blue-200 flex-shrink-0 mt-0.5" fill="none"
                                 stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 13l4 4L19 7" />
@@ -196,7 +195,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                             Multi-venue management
                         </li>
                         <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none"
+                            <svg class="w-5 h-5 text-blue-200 flex-shrink-0 mt-0.5" fill="none"
                                 stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 13l4 4L19 7" />
@@ -204,7 +203,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                             SMS notifications
                         </li>
                         <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none"
+                            <svg class="w-5 h-5 text-blue-200 flex-shrink-0 mt-0.5" fill="none"
                                 stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 13l4 4L19 7" />
@@ -212,7 +211,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                             Priority support
                         </li>
                         <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none"
+                            <svg class="w-5 h-5 text-blue-200 flex-shrink-0 mt-0.5" fill="none"
                                 stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 13l4 4L19 7" />
@@ -220,7 +219,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                             Team member accounts
                         </li>
                         <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none"
+                            <svg class="w-5 h-5 text-blue-200 flex-shrink-0 mt-0.5" fill="none"
                                 stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 13l4 4L19 7" />
@@ -228,7 +227,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                             API access & integrations
                         </li>
                         <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none"
+                            <svg class="w-5 h-5 text-blue-200 flex-shrink-0 mt-0.5" fill="none"
                                 stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 13l4 4L19 7" />
@@ -236,8 +235,8 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                             White-label booking pages
                         </li>
                     </ul>
-                    <a href="contact.html"
-                        class="mt-8 block w-full text-center px-4 py-3 border border-indigo-600 text-indigo-600 font-semibold rounded-lg hover:bg-indigo-50 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-indigo-600 min-h-[44px] flex items-center justify-center">
+                    <a href="{{ route('contact') }}"
+                        class="mt-8 block w-full text-center px-4 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-blue-50 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-white min-h-[44px] flex items-center justify-center">
                         Contact Sales
                     </a>
                 </div>
@@ -282,13 +281,13 @@ new #[Layout('layouts.frontend')]  class extends Component {};
     </section>
 
     <!-- CTA Section -->
-    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-indigo-600">
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-blue-600">
         <div class="max-w-3xl mx-auto text-center">
             <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Still Have Questions?</h2>
-            <p class="text-base text-indigo-100 leading-relaxed mb-8">Our team is here to help you find the right
+            <p class="text-base text-blue-100 leading-relaxed mb-8">Our team is here to help you find the right
                 plan for your needs.</p>
-            <a href="contact.html"
-                class="inline-block bg-white text-indigo-600 font-semibold px-6 py-3 rounded-lg hover:bg-indigo-50 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-white min-h-[44px]">Contact
+            <a href="{{ route('contact') }}"
+                class="inline-block bg-white text-blue-600 font-semibold px-6 py-3 rounded-lg hover:bg-blue-50 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-white min-h-[44px]">Contact
                 Us</a>
         </div>
     </section>

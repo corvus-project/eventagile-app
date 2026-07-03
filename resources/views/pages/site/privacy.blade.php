@@ -117,7 +117,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                 </ul>
                 <p class="mt-3">To exercise any of these rights, please contact us at <a
                         href="mailto:support@EventAgile.example"
-                        class="text-indigo-600 hover:underline">support@EventAgile.example</a>.</p>
+                        class="text-blue-600 hover:underline">support@EventAgile.example</a>.</p>
             </div>
 
             <div>
@@ -155,7 +155,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                     rights, please contact us:</p>
                 <p class="mt-2">
                     Email: <a href="mailto:support@EventAgile.com"
-                        class="text-indigo-600 hover:underline">support@EventAgile.com</a><br>
+                        class="text-blue-600 hover:underline">support@EventAgile.com</a><br>
                     Address: 123 Event Street, London, EC1A 1BB, United Kingdom
                 </p>
             </div>

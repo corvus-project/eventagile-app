@@ -92,30 +92,14 @@ new #[Layout('layouts.auth')] class extends Component
 </x-slot>
 
 <div class="flex min-h-screen">
-    <!-- Left Panel - Branding/Image -->
-    <div class="hidden lg:flex lg:w-2/5 items-center justify-center bg-linear-to-br from-blue-600 via-indigo-600 to-indigo-700 p-12">
-        <div class="w-full max-w-lg text-center">
-            <!--
-                ============================================
-                PLACE YOUR IMAGE / ILLUSTRATION HERE
-                ============================================
-                Example:
-                <img src="{{ asset('images/signup-illustration.svg') }}"
-                     alt="Event management illustration"
-                     class="w-full h-auto" />
-            -->
-            <div class="text-white/20 text-sm">Image placeholder</div>
-        </div>
-    </div>
-
-    <!-- Right Panel - Form -->
-    <div class="flex w-full lg:w-3/5 items-center justify-center p-6 sm:p-8 lg:p-12">
-        <div class="w-full max-auto">
+    <!-- Form Panel - Centered -->
+    <div class="flex w-full items-center justify-center p-6 sm:p-8 lg:p-12">
+        <div class="w-full max-w-3xl mx-auto">
 
             <!-- Logo -->
             <div class="mb-8 text-center">
                 <x-ui.link href="{{ route('home') }}">
-                    <span class="text-4xl font-bold text-indigo-600">EventAgile</span>
+                    <span class="text-4xl font-bold text-blue-600">EventAgile</span>
                 </x-ui.link>
             </div>
 
@@ -129,7 +113,7 @@ new #[Layout('layouts.auth')] class extends Component
                         Start building your event experience in minutes.
                     </p>
                     <div class="mt-3">
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-300">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300">
                             No credit card required
                         </span>
                     </div>
@@ -159,7 +143,7 @@ new #[Layout('layouts.auth')] class extends Component
                     </div>
 
                     <x-button type="primary"
-                        submit="true" class="bg-indigo-600 text-white hover:bg-indigo-700 border-none w-full btn-md">
+                        submit="true" class="bg-blue-600 text-white hover:bg-blue-700 border-none w-full btn-md">
                         Create your account
                     </x-button>
 
@@ -167,9 +151,9 @@ new #[Layout('layouts.auth')] class extends Component
 
                     <p class="text-xs text-gray-400 dark:text-gray-500 text-center leading-relaxed">
                         By creating an account, you agree to our
-                        <a href="{{ route('terms') }}" class="text-indigo-600 dark:text-indigo-400 hover:underline">Terms of Service</a>
+                        <a href="{{ route('terms') }}" class="text-blue-600 dark:text-blue-400 hover:underline">Terms of Service</a>
                         and
-                        <a href="{{ route('privacy') }}" class="text-indigo-600 dark:text-indigo-400 hover:underline">Privacy Policy</a>.
+                        <a href="{{ route('privacy') }}" class="text-blue-600 dark:text-blue-400 hover:underline">Privacy Policy</a>.
                     </p>
                 </form>
                 <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.public_key') }}"></script>

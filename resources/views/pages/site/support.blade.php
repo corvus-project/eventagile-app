@@ -16,7 +16,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
     <section class="py-24">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mb-16">
-                <h6 class="text-lg text-indigo-600 font-medium text-center mb-2">FAQs</h6>
+                <h6 class="text-lg text-blue-600 font-medium text-center mb-2">FAQs</h6>
                 <h2 class="text-4xl font-manrope text-center font-bold text-gray-900 leading-[3.25rem]">Frequently asked questions</h2>
             </div>
 
