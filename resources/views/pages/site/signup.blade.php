@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\AccountSetup;
-use App\Models\Tenant;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -89,61 +88,109 @@ new #[Layout('layouts.auth')] class extends Component
 ?>
 
 <x-slot name="title">
-    Create a new account
+    Create your EventAgile account
 </x-slot>
-<div class="flex flex-col items-stretch justify-center w-screen min-h-screen py-10 sm:items-center">
 
-    <div class="sm:mx-auto sm:w-full sm:max-w-md">
-        <x-ui.link href="{{ route('home') }}">
-            <x-ui.logo class="w-auto h-10 mx-auto text-gray-700 fill-current dark:text-gray-100" />
-        </x-ui.link>
-        <h2 class="mt-5 text-2xl font-extrabold leading-9 text-center text-gray-800 dark:text-gray-200">Create a new
-            account</h2>
-
+<div class="flex min-h-screen">
+    <!-- Left Panel - Branding/Image -->
+    <div class="hidden lg:flex lg:w-2/5 items-center justify-center bg-linear-to-br from-blue-600 via-indigo-600 to-indigo-700 p-12">
+        <div class="w-full max-w-lg text-center">
+            <!--
+                ============================================
+                PLACE YOUR IMAGE / ILLUSTRATION HERE
+                ============================================
+                Example:
+                <img src="{{ asset('images/signup-illustration.svg') }}"
+                     alt="Event management illustration"
+                     class="w-full h-auto" />
+            -->
+            <div class="text-white/20 text-sm">Image placeholder</div>
+        </div>
     </div>
 
-    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div class="px-10 py-0 sm:py-8 sm:shadow-sm sm:bg-white dark:sm:bg-gray-950/50 dark:border-gray-200/10 sm:border sm:rounded-lg border-gray-200/60">
+    <!-- Right Panel - Form -->
+    <div class="flex w-full lg:w-3/5 items-center justify-center p-6 sm:p-8 lg:p-12">
+        <div class="w-full max-auto">
 
-            @error('captchaToken')
-            <div class="bg-red-300 text-red-700 p-3 rounded">{{ $message }}</div>
-            @enderror
-
-
-            @if (session()->has('message'))
-            <div class="alert alert-success my-5 ">
-                {{ session('message') }}
+            <!-- Logo -->
+            <div class="mb-8 text-center">
+                <x-ui.link href="{{ route('home') }}">
+                    <span class="text-4xl font-bold text-indigo-600">EventAgile</span>
+                </x-ui.link>
             </div>
-            @endif
+
+            <!-- Form Card -->
+            <div class="bg-white dark:bg-gray-950 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 p-8">
+
+                <!-- Header -->
+                <div class="mb-8">
+                    <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Create your account</h1>
+                    <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                        Start building your event experience in minutes.
+                    </p>
+                    <div class="mt-3">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-300">
+                            No credit card required
+                        </span>
+                    </div>
+                </div>
+
+                @error('captchaToken')
+                <div class="mb-5 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 px-4 py-3 rounded-lg text-sm">{{ $message }}</div>
+                @enderror
+
+                @if (session()->has('message'))
+                <div class="mb-5 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 px-4 py-3 rounded-lg text-sm">
+                    {{ session('message') }}
+                </div>
+                @endif
+
+                <form onsubmit="handleSubmit(event)" class="space-y-5">
+                    <x-input label="Domain" type="text" id="domain" name="domain" wire:model="domain" icon="o-globe-alt" placeholder="your-domain" />
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <x-input label="Full name" type="text" id="name" name="name" wire:model="name" icon="o-user" placeholder="John Doe" />
+                        <x-input label="Email address" type="email" id="email" name="email" wire:model="email" icon="o-envelope" placeholder="john@example.com" />
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <x-input label="Password" type="password" id="password" name="password" wire:model="password" icon="o-lock-closed" placeholder="••••••••" />
+                        <x-input label="Confirm password" type="password" id="password_confirmation" name="password_confirmation" wire:model="passwordConfirmation" icon="o-lock-closed" placeholder="••••••••" />
+                    </div>
+
+                    <x-button type="primary"
+                        submit="true" class="bg-indigo-600 text-white hover:bg-indigo-700 border-none w-full btn-md">
+                        Create your account
+                    </x-button>
 
 
-            <form onsubmit="handleSubmit(event)" class="space-y-6">
-                <x-input label="Domain" type="text" id="domain" name="domain" wire:model="domain" />
-                <x-input label="Name" type="text" id="name" name="name" wire:model="name" />
-                <x-input label="Email address" type="email" id="email" name="email" wire:model="email" />
-                <x-input label="Password" type="password" id="password" name="password" wire:model="password" />
-                <x-input label="Confirm Password" type="password" id="password_confirmation" name="password_confirmation" wire:model="passwordConfirmation" />
 
+                    <p class="text-xs text-gray-400 dark:text-gray-500 text-center leading-relaxed">
+                        By creating an account, you agree to our
+                        <a href="{{ route('terms') }}" class="text-indigo-600 dark:text-indigo-400 hover:underline">Terms of Service</a>
+                        and
+                        <a href="{{ route('privacy') }}" class="text-indigo-600 dark:text-indigo-400 hover:underline">Privacy Policy</a>.
+                    </p>
+                </form>
+                <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.public_key') }}"></script>
+                <script>
+                    function handleSubmit(event) {
+                        event.preventDefault();
+                        grecaptcha.ready(function() {
+                            grecaptcha.execute('{{ config("services.recaptcha.public_key") }}', {
+                                    action: 'register'
+                                })
+                                .then(function(token) {
+                                    @this.call('register', token);
+                                });
+                        })
+                    }
+                </script>
 
-                <x-button label="Register" rounded="md" class="btn-primary"
-                    type="primary"
-                    submit="true" />
-            </form>
-            <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.public_key') }}"></script>
-            <script>
-                function handleSubmit(event) {
-                    event.preventDefault();
-                    grecaptcha.ready(function() {
-                        grecaptcha.execute('{{ config("services.recaptcha.public_key") }}', {
-                                action: 'register'
-                            })
-                            .then(function(token) {
-                                @this.call('register', token);
-                            });
-                    })
-                }
-            </script>
+                <div class="mt-6 pt-6 border-t border-gray-100 dark:border-gray-800 text-center">
 
+                </div>
+            </div>
         </div>
     </div>
 </div>
