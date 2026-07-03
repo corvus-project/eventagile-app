@@ -21,7 +21,7 @@
 
 </head>
 
-<body class="min-h-screen antialiased bg-white dark:bg-gradient-to-b dark:from-gray-950 dark:to-gray-900">
+<body class="min-h-screen antialiased bg-gradient-to-br from-white via-slate-50 to-blue-50 dark:bg-gradient-to-br dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
     {{ $slot }}
     <x-toast />
 </body>
