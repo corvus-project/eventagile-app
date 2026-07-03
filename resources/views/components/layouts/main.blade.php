@@ -31,11 +31,6 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <!-- 5b. Flowbite CSS CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css">
-
-    <!-- 5c. Alpine.js v3 — defer required -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
 
 
 </head>
@@ -44,8 +39,6 @@
 
     {{ $slot }}
 
-    <!-- ⑦ Flowbite JS CDN — must be last, just before </body> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 
 </body>
 

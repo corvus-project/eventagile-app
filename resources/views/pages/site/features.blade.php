@@ -33,9 +33,9 @@ new #[Layout('layouts.frontend')]  class extends Component {};
 
                 <div class="text-center group">
                     <div
-                        class="bg-indigo-50 rounded-lg flex justify-center items-center mb-5 w-20 h-20 mx-auto cursor-pointer transition-all duration-500 group-hover:bg-indigo-600">
+                        class="bg-blue-50 rounded-lg flex justify-center items-center mb-5 w-20 h-20 mx-auto cursor-pointer transition-all duration-500 group-hover:bg-blue-600">
                         <svg
-                            class="stroke-indigo-600 transition-all duration-500 group-hover:stroke-white"
+                            class="stroke-blue-600 transition-all duration-500 group-hover:stroke-white"
                             width="30"
                             height="30"
                             viewBox="0 0 30 30"
@@ -134,8 +134,8 @@ new #[Layout('layouts.frontend')]  class extends Component {};
 
                 <!-- Feature 1: Smart Event Builder -->
                 <div class="bg-white rounded-2xl shadow-md p-6">
-                    <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
-                        <svg aria-hidden="true" class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor"
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg aria-hidden="true" class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2zm6-7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 0v3" />
@@ -149,8 +149,8 @@ new #[Layout('layouts.frontend')]  class extends Component {};
 
                 <!-- Feature 2: Recurring Schedule Support -->
                 <div class="bg-white rounded-2xl shadow-md p-6">
-                    <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
-                        <svg aria-hidden="true" class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor"
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg aria-hidden="true" class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M4 4v5h.582m15.356 2A8.001 8.001 0 0 0 4.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 0 1-15.357-2m15.357 2H15" />
@@ -164,8 +164,8 @@ new #[Layout('layouts.frontend')]  class extends Component {};
 
                 <!-- Feature 3: Online Booking Engine -->
                 <div class="bg-white rounded-2xl shadow-md p-6">
-                    <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
-                        <svg aria-hidden="true" class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor"
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg aria-hidden="true" class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.35 2.7A1 1 0 0 0 6.54 17H17m-10 0a2 2 0 1 0 4 0m6 0a2 2 0 1 0 4 0" />
@@ -179,8 +179,8 @@ new #[Layout('layouts.frontend')]  class extends Component {};
 
                 <!-- Feature 4: Guest Self-Registration -->
                 <div class="bg-white rounded-2xl shadow-md p-6">
-                    <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
-                        <svg aria-hidden="true" class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor"
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg aria-hidden="true" class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM3 20a6 6 0 0 1 12 0v1H3v-1z" />
@@ -194,8 +194,8 @@ new #[Layout('layouts.frontend')]  class extends Component {};
 
                 <!-- Feature 5: Waitlist Management -->
                 <div class="bg-white rounded-2xl shadow-md p-6">
-                    <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
-                        <svg aria-hidden="true" class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor"
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg aria-hidden="true" class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" />
@@ -208,8 +208,8 @@ new #[Layout('layouts.frontend')]  class extends Component {};
 
                 <!-- Feature 6: Automated Email Reminders -->
                 <div class="bg-white rounded-2xl shadow-md p-6">
-                    <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
-                        <svg aria-hidden="true" class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor"
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg aria-hidden="true" class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M3 8l7.89 5.26a2 2 0 0 0 2.22 0L21 8M5 19h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2z" />
@@ -223,8 +223,8 @@ new #[Layout('layouts.frontend')]  class extends Component {};
 
                 <!-- Feature 7: SMS Notifications -->
                 <div class="bg-white rounded-2xl shadow-md p-6">
-                    <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
-                        <svg aria-hidden="true" class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor"
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg aria-hidden="true" class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M12 18h.01M8 21h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2z" />
@@ -237,8 +237,8 @@ new #[Layout('layouts.frontend')]  class extends Component {};
 
                 <!-- Feature 8: Attendee Dashboard -->
                 <div class="bg-white rounded-2xl shadow-md p-6">
-                    <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
-                        <svg aria-hidden="true" class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor"
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg aria-hidden="true" class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M9 19v-6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2zm0 0V9a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v10m-6 0a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2m0 0V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2z" />
@@ -252,8 +252,8 @@ new #[Layout('layouts.frontend')]  class extends Component {};
 
                 <!-- Feature 9: Revenue & Analytics Reports -->
                 <div class="bg-white rounded-2xl shadow-md p-6">
-                    <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
-                        <svg aria-hidden="true" class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor"
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg aria-hidden="true" class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M9 19v-6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2zm0 0V9a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v10m-6 0a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2m0 0V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2z" />
@@ -270,13 +270,13 @@ new #[Layout('layouts.frontend')]  class extends Component {};
     </section>
 
     <!-- CTA Section -->
-    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-indigo-600">
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-blue-600">
         <div class="max-w-3xl mx-auto text-center">
             <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Ready to Try These Features?</h2>
-            <p class="text-base text-indigo-100 leading-relaxed mb-8">Start your free trial today — no credit card
+            <p class="text-base text-blue-100 leading-relaxed mb-8">Start your free trial today — no credit card
                 required. Set up your first event in minutes.</p>
             <a href="{{ route('signup') }}"
-                class="inline-block bg-white text-indigo-600 font-semibold px-6 py-3 rounded-lg hover:bg-indigo-50 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-white min-h-[44px]">Get
+                class="inline-block bg-white text-blue-600 font-semibold px-6 py-3 rounded-lg hover:bg-blue-50 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-white min-h-[44px]">Get
                 Started Free</a>
         </div>
     </section>

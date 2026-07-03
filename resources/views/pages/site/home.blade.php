@@ -45,7 +45,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
 
                         Event Management
 
-                        <span class="block bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                        <span class="block bg-linear-to-r from-blue-600 to-blue-600 bg-clip-text text-transparent">
                             Simplified.
                         </span>
 
@@ -176,8 +176,8 @@ new #[Layout('layouts.frontend')]  class extends Component {};
 
                 <!-- Card 1: Smart Event Builder -->
                 <div class="bg-white rounded-2xl shadow-md p-6">
-                    <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
-                        <svg aria-hidden="true" class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg aria-hidden="true" class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2zm6-7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 0v3" />
                         </svg>
                     </div>
@@ -187,8 +187,8 @@ new #[Layout('layouts.frontend')]  class extends Component {};
 
                 <!-- Card 2: Online Booking Engine -->
                 <div class="bg-white rounded-2xl shadow-md p-6">
-                    <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
-                        <svg aria-hidden="true" class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg aria-hidden="true" class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.35 2.7A1 1 0 0 0 6.54 17H17m-10 0a2 2 0 1 0 4 0m6 0a2 2 0 1 0 4 0" />
                         </svg>
                     </div>
@@ -198,8 +198,8 @@ new #[Layout('layouts.frontend')]  class extends Component {};
 
                 <!-- Card 3: Automated Email Reminders -->
                 <div class="bg-white rounded-2xl shadow-md p-6">
-                    <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
-                        <svg aria-hidden="true" class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg aria-hidden="true" class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 0 0 2.22 0L21 8M5 19h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2z" />
                         </svg>
                     </div>
@@ -209,8 +209,8 @@ new #[Layout('layouts.frontend')]  class extends Component {};
 
                 <!-- Card 4: Attendee Dashboard -->
                 <div class="bg-white rounded-2xl shadow-md p-6">
-                    <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
-                        <svg aria-hidden="true" class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg aria-hidden="true" class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2zm0 0V9a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v10m-6 0a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2m0 0V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2z" />
                         </svg>
                     </div>
@@ -293,11 +293,11 @@ new #[Layout('layouts.frontend')]  class extends Component {};
     </section>
 
     <!-- Secondary CTA Section (task 4.6) -->
-    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-indigo-600">
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-blue-600">
         <div class="max-w-3xl mx-auto text-center">
             <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Ready to Simplify Your Event Management?</h2>
-            <p class="text-base text-indigo-100 leading-relaxed mb-8">Join hundreds of instructors, studios, and event organisers who use EventAgile to save time and grow their bookings.</p>
-            <a href="{{ route('contact') }}" class="inline-block bg-white text-indigo-600 font-semibold px-6 py-3 rounded-lg hover:bg-indigo-50 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-white min-h-[44px]">Get Started Free</a>
+            <p class="text-base text-blue-100 leading-relaxed mb-8">Join hundreds of instructors, studios, and event organisers who use EventAgile to save time and grow their bookings.</p>
+            <a href="{{ route('contact') }}" class="inline-block bg-white text-blue-600 font-semibold px-6 py-3 rounded-lg hover:bg-blue-50 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-white min-h-[44px]">Get Started Free</a>
         </div>
     </section>
 

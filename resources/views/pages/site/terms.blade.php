@@ -154,7 +154,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                 <p>If you have any questions about these Terms of Service, please contact us:</p>
                 <p class="mt-2">
                     Email: <a href="mailto:support@EventAgile.com"
-                        class="text-indigo-600 hover:underline">support@EventAgile.com</a><br>
+                        class="text-blue-600 hover:underline">support@EventAgile.com</a><br>
                     Address: 123 Event Street, London, EC1A 1BB, United Kingdom
                 </p>
             </div>
