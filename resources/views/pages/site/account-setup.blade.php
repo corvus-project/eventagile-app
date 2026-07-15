@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\AccountSetup;
 use App\Models\Tenant;
 use Illuminate\Http\Request;
 use Livewire\Component;
@@ -8,7 +9,25 @@ use Illuminate\Support\Facades\Auth;
 
 new #[Layout('layouts.frontend')]  class extends Component {
 
-    public function mount(Request $request) {}
+    public string $domain;
+    public string $action;
+    public function mount(Request $request)
+    {
+        $accountSetup = AccountSetup::where('user_id', auth()->user()->id)->latest('created_at')->first();
+        if ($accountSetup) {
+            $this->action = $accountSetup->action;
+            $this->domain = 'https://' . str_slug($accountSetup->domain) . '.' . parse_url(config('app.url'), PHP_URL_HOST);
+        }
+    }
+
+    public function checkStatus()
+    {
+        $accountSetup = AccountSetup::where('user_id', auth()->user()->id)->latest('created_at')->first();
+        if ($accountSetup) {
+            $this->action = $accountSetup->action;
+            $this->domain = 'https://' . str_slug($accountSetup->domain) . '.' . parse_url(config('app.url'), PHP_URL_HOST);
+        }
+    }
 };
 
 ?>
@@ -17,21 +36,45 @@ new #[Layout('layouts.frontend')]  class extends Component {
     {{ 'Event Agile ~ Waiting for verification' }}
 </x-slot>
 
-<div class="pb-5 h-screen">
-    <div class="m-12 mb-5 bg-white border-b border-gray-200/80 dark:border-gray-200/10 dark:bg-gray-900/40">
-        <div class="py-6 mx-auto max-w-6xl sm:px-6 lg:px-12">
+<!-- Main content -->
+<main id="main-content" tabindex="-1">
 
-            @if (auth()->user()?->hasVerifiedEmail())
+    <!-- Page Header -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-7xl mx-auto text-center ">
+            <div class="py-6 mx-auto max-w-6xl sm:px-6 lg:px-12">
 
-            <h1 class="text-3xl font-bold mb-4">Email Verified</h1>
-            <p class="mb-4">Thank you for verifying your email address! Your account is now active and you can start using Event Agile to manage your events efficiently. Explore our features and create your first event today!</p>
+                @if (auth()->user()?->hasVerifiedEmail())
 
+                <h1 class="text-3xl font-bold mb-4">Email Verified</h1>
+                <p class="mb-4">Thank you for verifying your email address! </p>
+                <p class="mb-4">Now we're creating your website, while processing the account, explore the features and plan your first event! </p>
 
-            @else
-            <h1 class="text-3xl font-bold mb-4">Waiting for verification</h1>
+                <div wire:poll.35s="checkStatus">
 
-            <p class="mb-4">Your account is currently pending verification. Please check your email for a verification link. If you haven't received the email, please check your spam folder or contact support for assistance.</p>
-            @endif
+                    @if($this->action === 'FINISHED')
+                    <p class="mb-4"> it's done, you may browse to your new site!</p>
+                    <div class="text-2xl font-bold bg-blue-500 text-center text-amber-50 w-full p-1 m-2 rounded-md"
+                        <a href="{{ $this->domain}}">{{ $this->domain}}</a></div>
+                    @else
+
+                    <p class="mb-4  mt-10 text-red-500"> The site and account setup may take 5 minutes, you may revisit this page or try to your websire later.</p>
+
+                    <div class="text-2xl font-bold bg-blue-500 text-center text-gray-50 w-full p-1 m-2 rounded-md"
+                        <span>{{$this->domain}}</span></div>
+                    @endif
+                </div>
+
+                @else
+                <h1 class="text-3xl font-bold mb-4">Waiting for verification</h1>
+
+                <p class="mb-4">Your account is currently pending verification. Please check your email for a verification link. If you haven't received the email, please check your spam folder or contact support for assistance.</p>
+                @endif
+            </div>
         </div>
-
-    </div>
+    </section>
+    <!-- Use Cases Grid -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50 ">
+        <div class="flex flex-col h-screen w-full"></div>
+    </section>
+</main>
