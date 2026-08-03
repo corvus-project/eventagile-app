@@ -25,8 +25,11 @@ echo "Deploying artifact: $ARTIFACT_PATH to $RELEASE_DIR"
 
 # Ensure directories
 mkdir -p "$RELEASE_DIR"
-mkdir -p "$SHARED_DIR/storage"
-mkdir -p "$SHARED_DIR/logs"
+mkdir -p "$SHARED_DIR/storage/framework/cache/data"
+mkdir -p "$SHARED_DIR/storage/framework/sessions"
+mkdir -p "$SHARED_DIR/storage/framework/views"
+mkdir -p "$SHARED_DIR/storage/app/public"
+mkdir -p "$SHARED_DIR/storage/logs"
 
 # Extract artifact into release dir
 tar -xzf "$ARTIFACT_PATH" -C "$RELEASE_DIR"
@@ -52,6 +55,10 @@ chmod -R ug+rwx "$RELEASE_DIR/storage"
 if [ -x "$RELEASE_DIR/artisan" ]; then
   echo "Running artisan migrate and caches"
   cd "$RELEASE_DIR"
+  # Ensure public storage symlink exists for Laravel file storage
+  if [ ! -e public/storage ]; then
+    php artisan storage:link || true
+  fi
   # warm caches (config:cache will read .env)
   php artisan migrate --force || { echo "Migration failed"; exit 3; }
   php artisan config:clear || true
