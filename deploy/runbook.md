@@ -37,7 +37,26 @@ sudo chmod -R 775 $DEPLOY_PATH/shared
 # Place your .env in $DEPLOY_PATH/shared/.env (do NOT commit to repo)
 
 # Install certbot for SSL
-sudo apt -y install certbot python3-certbot-nginx
+sudo apt -y install certbot python3-certbot-nginx python3-certbot-dns-cloudflare
+
+# Cloudflare DNS and SSL setup
+# 1) In Cloudflare DNS, create records for your origin server:
+#    - A record: eventagile.com -> <server-ip> (orange cloud enabled)
+#    - CNAME record: www -> eventagile.com (orange cloud enabled)
+#    - CNAME record: app -> eventagile.com (orange cloud enabled)
+#    - Optional wildcard DNS for tenant subdomains:
+#      * -> eventagile.com (DNS only if wildcard proxy is unavailable)
+# 2) In Cloudflare SSL/TLS, choose Full (strict) and install an origin certificate on the server.
+# 3) To issue a wildcard certificate from Let's Encrypt, use the DNS Cloudflare plugin:
+#    - Create /etc/letsencrypt/cloudflare.ini with Cloudflare API token:
+#      dns_cloudflare_api_token = <your-token>
+#    - Protect the file: sudo chmod 600 /etc/letsencrypt/cloudflare.ini
+#    - Run:
+#      sudo certbot certonly --dns-cloudflare --dns-cloudflare-credentials /etc/letsencrypt/cloudflare.ini \
+#        -d eventagile.com -d '*.eventagile.com' --agree-tos --noninteractive --email you@example.com
+# 4) Use the generated cert files in Nginx:
+#      /etc/letsencrypt/live/eventagile.com/fullchain.pem
+#      /etc/letsencrypt/live/eventagile.com/privkey.pem
 
 # Place files from templates into appropriate locations:
 # - nginx server block: /etc/nginx/sites-available/eventagile-app
