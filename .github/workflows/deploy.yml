@@ -60,9 +60,10 @@ jobs:
         run: |
           ARTIFACT_NAME="eventagile-artifact-${GITHUB_RUN_NUMBER}.tar.gz"
           mkdir -p release
-          # Prefer using git archive to capture tracked source files (reliable and avoids empty release)
-          git archive --format=tar HEAD -o /tmp/source.tar || true
-          tar -xf /tmp/source.tar -C release || true
+
+          # Copy tracked files into release using git ls-files + cp --parents
+          # This is robust in CI and avoids empty archives when git archive behaves unexpectedly
+          git ls-files -z | xargs -0 --no-run-if-empty cp --parents -t release || true
 
           # include vendor (built on Actions) so server doesn't need to run composer
           if [ -d vendor ]; then
