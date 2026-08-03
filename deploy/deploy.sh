@@ -9,54 +9,17 @@
 set -euo pipefail
 
 if [ -z "${1-}" ]; then
-  echo "Usage: $0 /path/to/artifact.tar.gz [site]"
-  echo "  site can be: website|tenant|management or a full DEPLOY_PATH"
+  echo "Usage: $0 /path/to/artifact.tar.gz"
   exit 2
 fi
 
 ARTIFACT_PATH="$1"
-SITE_ARG="${2-}"
-
-# Default deployment base paths (adjust if your server uses different locations)
-DEFAULT_WEBSITE_PATH="/var/www/eventagile-website"
-DEFAULT_TENANT_PATH="/var/www/eventagile-tenant"
-DEFAULT_MANAGEMENT_PATH="/var/www/eventagile-management"
-
-# Determine DEPLOY_PATH:
-if [ -n "$SITE_ARG" ]; then
-  case "$SITE_ARG" in
-    website)
-      DEPLOY_PATH="${DEPLOY_PATH:-$DEFAULT_WEBSITE_PATH}"
-      ;;
-    tenant)
-      DEPLOY_PATH="${DEPLOY_PATH:-$DEFAULT_TENANT_PATH}"
-      ;;
-    management)
-      DEPLOY_PATH="${DEPLOY_PATH:-$DEFAULT_MANAGEMENT_PATH}"
-      ;;
-    /*)
-      # absolute path provided
-      DEPLOY_PATH="$SITE_ARG"
-      ;;
-    *)
-      # treat as a custom relative or absolute path
-      DEPLOY_PATH="$SITE_ARG"
-      ;;
-  esac
-else
-  # If no site arg provided, assume current working directory (backwards compatible)
-  DEPLOY_PATH="${DEPLOY_PATH:-$(pwd)}"
-fi
-
+DEPLOY_PATH="$(pwd)"
 RELEASES_DIR="$DEPLOY_PATH/releases"
 SHARED_DIR="$DEPLOY_PATH/shared"
 TIMESTAMP=$(date +%Y%m%d%H%M%S)
 RELEASE_DIR="$RELEASES_DIR/$TIMESTAMP"
 KEEP=${DEPLOY_KEEP_RELEASES:-5}
-
-echo "Deploying artifact: $ARTIFACT_PATH"
-echo "Target deploy path: $DEPLOY_PATH"
-echo "Release directory: $RELEASE_DIR"
 
 echo "Deploying artifact: $ARTIFACT_PATH to $RELEASE_DIR"
 
