@@ -103,6 +103,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
@@ -121,16 +124,12 @@ jobs:
           find . -maxdepth 3 -type f | sort
           echo "Shell glob test for release-artifact/*.tar.gz:"
           ls release-artifact/*.tar.gz || true
-          echo "Copying artifact to workspace root"
-          mkdir -p artifact-root
-          cp release-artifact/*.tar.gz artifact-root/ || true
-          ls -la artifact-root
 
       - name: Upload artifact to server
         run: |
-          echo "Artifact files:"
-          ls -la artifact-root
-          scp -o StrictHostKeyChecking=no artifact-root/*.tar.gz "${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_PATH }}/releases/"
+          echo "Artifact files in release-artifact:"
+          ls -la release-artifact
+          scp -o StrictHostKeyChecking=no release-artifact/*.tar.gz "${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_PATH }}/releases/"
 
       - name: Upload deploy helper to server
         run: |
