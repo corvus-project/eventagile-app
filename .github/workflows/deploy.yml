@@ -108,7 +108,7 @@ jobs:
         uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
+          username: ${{ secrets.SSH_USERNAME }}
           port: ${{ secrets.SSH_PORT || '22' }}
           source: "./deploy/deploy.sh"
           target: "${{ secrets.DEPLOY_PATH }}"
@@ -117,7 +117,7 @@ jobs:
         uses: appleboy/ssh-action@v0.1.8
         with:
           host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
+          username: ${{ secrets.SSH_USERNAME }}
           port: ${{ secrets.SSH_PORT || '22' }}
           script: |
             set -euo pipefail
