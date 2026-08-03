@@ -28,7 +28,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'
+          php-version: '8.4'
           extensions: mbstring, xml, bcmath, curl, gd, intl, zip, pdo_mysql
 
       - name: Setup Node
@@ -41,10 +41,13 @@ jobs:
           composer install --no-dev --prefer-dist --optimize-autoloader --no-progress
 
       - name: Build front-end (if applicable)
-        if: fileExists('package.json')
         run: |
-          npm ci
-          npm run build
+          if [ -f package.json ]; then
+            npm ci
+            npm run build
+          else
+            echo "No package.json found — skipping frontend build"
+          fi
 
       - name: Prepare artifact
         id: create-artifact
@@ -101,7 +104,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           port: ${{ secrets.SSH_PORT || '22' }}
-          source: "./deploy.sh"
+          source: "./deploy/deploy.sh"
           target: "${{ secrets.DEPLOY_PATH }}"
 
       - name: Run remote deploy script
