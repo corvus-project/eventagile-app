@@ -27,7 +27,7 @@ server {
 
     location ~ \.php$ {
         include fastcgi_params;
-        fastcgi_pass unix:/var/run/php/php8.1-fpm.sock; # adjust php socket
+        fastcgi_pass unix:/var/run/php/php8.4-fpm.sock; # adjust php socket
         fastcgi_index index.php;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         fastcgi_param PATH_INFO $fastcgi_path_info;

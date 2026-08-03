@@ -65,10 +65,10 @@ fi
 ln -sfn "$RELEASE_DIR" "$DEPLOY_PATH/current"
 
 # Restart PHP-FPM (graceful) and queue worker
-# Adjust php-fpm service name if needed (php8.1-fpm vs php8.0-fpm)
+# Adjust php-fpm service name if needed (php8.4-fpm vs php8.3-fpm)
 if command -v systemctl >/dev/null 2>&1; then
   echo "Reloading php-fpm and nginx"
-  systemctl reload php8.1-fpm || systemctl reload php8.0-fpm || true
+  systemctl reload php8.4-fpm || true
   systemctl reload nginx || true
   # Restart supervisor workers (if configured)
   supervisorctl reread || true
