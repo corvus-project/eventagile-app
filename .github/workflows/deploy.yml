@@ -2,7 +2,7 @@
 # Place this as .github/workflows/deploy.yml in the repository (adjust paths as needed)
 # Required repository secrets:
 # - SSH_PRIVATE_KEY
-# - SSH_USER
+# - SSH_USER (or SSH_USERNAME if you prefer; update the variables below accordingly)
 # - SSH_HOST
 # - SSH_PORT (optional, default 22)
 # - DEPLOY_PATH (e.g., /var/www/eventagile-app)
@@ -34,7 +34,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '22.12'
+          node-version: '18'
 
       - name: Install composer dependencies
         run: |
@@ -90,7 +90,7 @@ jobs:
         with:
           name: release-artifact
 
-      - name: Setup SSH key
+      - name: Setup SSH key (agent)
         uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -99,7 +99,8 @@ jobs:
         uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT || '22' }}
           source: "./*.tar.gz"
           target: "${{ secrets.DEPLOY_PATH }}/releases/"
@@ -108,7 +109,8 @@ jobs:
         uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT || '22' }}
           source: "./deploy/deploy.sh"
           target: "${{ secrets.DEPLOY_PATH }}"
@@ -117,7 +119,8 @@ jobs:
         uses: appleboy/ssh-action@v0.1.8
         with:
           host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT || '22' }}
           script: |
             set -euo pipefail
