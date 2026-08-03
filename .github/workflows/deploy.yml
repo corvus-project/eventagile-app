@@ -108,6 +108,11 @@ jobs:
         with:
           name: release-artifact
 
+      - name: Setup SSH key (agent)
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
       - name: Inspect downloaded artifact
         run: |
           echo "PWD=$(pwd)"
@@ -120,46 +125,20 @@ jobs:
           cp release-artifact/*.tar.gz artifact-root/ || true
           ls -la artifact-root
 
-      - name: Setup SSH key (agent)
-        uses: webfactory/ssh-agent@v0.7.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Upload artifact to server
+        run: |
+          echo "Artifact files:"
+          ls -la artifact-root
+          scp -o StrictHostKeyChecking=no artifact-root/*.tar.gz "${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_PATH }}/releases/"
 
-      - name: Copy artifact to server
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SSH_PORT || '22' }}
-          source: "artifact-root/*.tar.gz"
-          target: "${{ secrets.DEPLOY_PATH }}/releases/"
-
-      - name: Copy deploy helper (deploy.sh) to server
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SSH_PORT || '22' }}
-          source: "./deploy/deploy.sh"
-          target: "${{ secrets.DEPLOY_PATH }}"
+      - name: Upload deploy helper to server
+        run: |
+          scp -o StrictHostKeyChecking=no deploy/deploy.sh "${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_PATH }}/"
 
       - name: Run remote deploy script
-        uses: appleboy/ssh-action@v0.1.8
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SSH_PORT || '22' }}
-          script: |
-            set -euo pipefail
-            cd "${{ secrets.DEPLOY_PATH }}"
-            # Ensure deploy.sh is executable
-            chmod +x deploy.sh
-            # Run deploy script with artifact name and deploy path
-            ARTIFACT=$(ls -1 releases/*.tar.gz | tail -n1)
-            ./deploy.sh "$ARTIFACT"
+        run: |
+          ssh -o StrictHostKeyChecking=no "${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}" \
+            "cd '${{ secrets.DEPLOY_PATH }}' && chmod +x deploy.sh && ARTIFACT=\$(ls -1 releases/*.tar.gz | tail -n1) && ./deploy.sh \"\$ARTIFACT\""
 
       - name: Post-deploy smoke test
         run: |
