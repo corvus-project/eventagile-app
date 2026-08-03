@@ -107,6 +107,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: release-artifact
+          path: release-artifact
 
       - name: Setup SSH key (agent)
         uses: webfactory/ssh-agent@v0.7.0
@@ -115,7 +116,7 @@ jobs:
 
       - name: Inspect downloaded artifact
         run: |
-          echo "PWD=$(pwd)"
+          echo "******"
           ls -la
           find . -maxdepth 3 -type f | sort
           echo "Shell glob test for release-artifact/*.tar.gz:"
