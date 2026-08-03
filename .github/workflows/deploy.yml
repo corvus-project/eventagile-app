@@ -43,7 +43,13 @@ jobs:
       - name: Build front-end (if applicable)
         run: |
           if [ -f package.json ]; then
-            npm ci
+            # Prefer npm ci for reproducible installs when package-lock.json exists
+            if [ -f package-lock.json ]; then
+              npm ci
+            else
+              echo "package-lock.json not found — using npm install (consider committing package-lock.json for reproducible builds)"
+              npm install
+            fi
             npm run build
           else
             echo "No package.json found — skipping frontend build"
