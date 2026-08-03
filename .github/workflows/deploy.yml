@@ -2,7 +2,7 @@
 # Place this as .github/workflows/deploy.yml in the repository (adjust paths as needed)
 # Required repository secrets:
 # - SSH_PRIVATE_KEY
-# - SSH_USER (or SSH_USERNAME if you prefer; update the variables below accordingly)
+# - SSH_USERNAME (name of the SSH user account on the server)
 # - SSH_HOST
 # - SSH_PORT (optional, default 22)
 # - DEPLOY_PATH (e.g., /var/www/eventagile-app)
@@ -116,7 +116,7 @@ jobs:
         uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
+          username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT || '22' }}
           source: "./*.tar.gz"
@@ -126,7 +126,7 @@ jobs:
         uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
+          username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT || '22' }}
           source: "./deploy/deploy.sh"
@@ -136,7 +136,7 @@ jobs:
         uses: appleboy/ssh-action@v0.1.8
         with:
           host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
+          username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT || '22' }}
           script: |
