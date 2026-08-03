@@ -1,0 +1,132 @@
+# GitHub Actions workflow for building artifact and deploying to a single server via SSH
+# Place this as .github/workflows/deploy.yml in the repository (adjust paths as needed)
+# Required repository secrets:
+# - SSH_PRIVATE_KEY
+# - SSH_USER
+# - SSH_HOST
+# - SSH_PORT (optional, default 22)
+# - DEPLOY_PATH (e.g., /var/www/eventagile-app)
+# - DEPLOY_KEEP_RELEASES (optional, default 5)
+
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build artifact
+    runs-on: ubuntu-latest
+    outputs:
+      artifact-name: ${{ steps.create-artifact.outputs.artifact }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: mbstring, xml, bcmath, curl, gd, intl, zip, pdo_mysql
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install composer dependencies
+        run: |
+          composer install --no-dev --prefer-dist --optimize-autoloader --no-progress
+
+      - name: Build front-end (if applicable)
+        if: fileExists('package.json')
+        run: |
+          npm ci
+          npm run build
+
+      - name: Prepare artifact
+        id: create-artifact
+        run: |
+          ARTIFACT_NAME="eventagile-artifact-${GITHUB_RUN_NUMBER}.tar.gz"
+          mkdir -p release
+          # Copy project files (exclude node_modules if large, but include built public files and vendor)
+          rsync -a --exclude '.git' --exclude 'tests' --exclude '.github' --exclude 'storage' --exclude 'node_modules' ./ release/
+          # include vendor (built on Actions) so server doesn't need to run composer
+          cp -R vendor release/vendor
+          # include built public assets
+          if [ -d public ]; then
+            cp -R public release/public
+          fi
+          # include artisan (for server-run commands)
+          tar -czf "$ARTIFACT_NAME" -C release .
+          mkdir -p ./artifacts
+          mv "$ARTIFACT_NAME" ./artifacts/
+          echo "artifact=$ARTIFACT_NAME" >> $GITHUB_OUTPUT
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-artifact
+          path: ./artifacts/
+
+  deploy:
+    name: Deploy to server
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: release-artifact
+
+      - name: Setup SSH key
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Copy artifact to server
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          port: ${{ secrets.SSH_PORT || '22' }}
+          source: "./*.tar.gz"
+          target: "${{ secrets.DEPLOY_PATH }}/releases/"
+
+      - name: Copy deploy helper (deploy.sh) to server
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          port: ${{ secrets.SSH_PORT || '22' }}
+          source: "./deploy.sh"
+          target: "${{ secrets.DEPLOY_PATH }}"
+
+      - name: Run remote deploy script
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          port: ${{ secrets.SSH_PORT || '22' }}
+          script: |
+            set -euo pipefail
+            cd "${{ secrets.DEPLOY_PATH }}"
+            # Ensure deploy.sh is executable
+            chmod +x deploy.sh
+            # Run deploy script with artifact name and deploy path
+            ARTIFACT=$(ls -1 releases/*.tar.gz | tail -n1)
+            ./deploy.sh "$ARTIFACT"
+
+      - name: Post-deploy smoke test
+        run: |
+          echo "Waiting 5s for services to settle..."
+          sleep 5
+          # Replace with your health endpoint
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://YOUR_DOMAIN/)
+          if [ "$HTTP_STATUS" != "200" ]; then
+            echo "Health check failed with status $HTTP_STATUS"
+            exit 1
+          fi
+          echo "Deployment looks healthy"
