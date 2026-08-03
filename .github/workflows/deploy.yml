@@ -1,60 +1,135 @@
-name: Deploy Website
+# GitHub Actions workflow for building artifact and deploying to a single server via SSH
+# Place this as .github/workflows/deploy.yml in the repository (adjust paths as needed)
+# Required repository secrets:
+# - SSH_PRIVATE_KEY
+# - SSH_USER
+# - SSH_HOST
+# - SSH_PORT (optional, default 22)
+# - DEPLOY_PATH (e.g., /var/www/eventagile-app)
+# - DEPLOY_KEEP_RELEASES (optional, default 5)
+
+name: Build and Deploy
 
 on:
   push:
     branches:
-      - pre-release
-
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME_PHP: ${{ github.repository_owner }}/eventagile-app-php
-  IMAGE_NAME_NGINX: ${{ github.repository_owner }}/eventagile-app-nginx
+      - main
 
 jobs:
-  build-and-deploy:
+  build:
+    name: Build artifact
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-
+    outputs:
+      artifact-name: ${{ steps.create-artifact.outputs.artifact }}
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Log in to the Container registry
-        uses: docker/login-action@v3
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
         with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          php-version: '8.4'
+          extensions: mbstring, xml, bcmath, curl, gd, intl, zip, pdo_mysql
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Build and push PHP image
-        uses: docker/build-push-action@v5
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          context: .
-          file: docker/php.Dockerfile
-          push: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_PHP }}:latest
+          node-version: '18'
 
-      - name: Build and push Nginx image
-        uses: docker/build-push-action@v5
+      - name: Install composer dependencies
+        run: |
+          composer install --no-dev --prefer-dist --optimize-autoloader --no-progress
+
+      - name: Build front-end (if applicable)
+        run: |
+          if [ -f package.json ]; then
+            npm ci
+            npm run build
+          else
+            echo "No package.json found — skipping frontend build"
+          fi
+
+      - name: Prepare artifact
+        id: create-artifact
+        run: |
+          ARTIFACT_NAME="eventagile-artifact-${GITHUB_RUN_NUMBER}.tar.gz"
+          mkdir -p release
+          # Copy project files (exclude node_modules if large, but include built public files and vendor)
+          rsync -a --exclude '.git' --exclude 'tests' --exclude '.github' --exclude 'storage' --exclude 'node_modules' ./ release/
+          # include vendor (built on Actions) so server doesn't need to run composer
+          cp -R vendor release/vendor
+          # include built public assets
+          if [ -d public ]; then
+            cp -R public release/public
+          fi
+          # include artisan (for server-run commands)
+          tar -czf "$ARTIFACT_NAME" -C release .
+          mkdir -p ./artifacts
+          mv "$ARTIFACT_NAME" ./artifacts/
+          echo "artifact=$ARTIFACT_NAME" >> $GITHUB_OUTPUT
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
         with:
-          context: .
-          file: docker/nginx.Dockerfile
-          push: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_NGINX }}:latest
+          name: release-artifact
+          path: ./artifacts/
 
-      - name: Deploy to Server
-        uses: appleboy/ssh-action@master
+  deploy:
+    name: Deploy to server
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: release-artifact
+
+      - name: Setup SSH key
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Copy artifact to server
+        uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          username: ${{ secrets.SSH_USER }}
+          port: ${{ secrets.SSH_PORT || '22' }}
+          source: "./*.tar.gz"
+          target: "${{ secrets.DEPLOY_PATH }}/releases/"
+
+      - name: Copy deploy helper (deploy.sh) to server
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          port: ${{ secrets.SSH_PORT || '22' }}
+          source: "./deploy/deploy.sh"
+          target: "${{ secrets.DEPLOY_PATH }}"
+
+      - name: Run remote deploy script
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          port: ${{ secrets.SSH_PORT || '22' }}
           script: |
-            # Navigate to the new app directory on the server
-            cd /app
-            docker compose pull website-nginx website-php website-worker
-            docker compose up -d website-nginx website-php website-worker
+            set -euo pipefail
+            cd "${{ secrets.DEPLOY_PATH }}"
+            # Ensure deploy.sh is executable
+            chmod +x deploy.sh
+            # Run deploy script with artifact name and deploy path
+            ARTIFACT=$(ls -1 releases/*.tar.gz | tail -n1)
+            ./deploy.sh "$ARTIFACT"
+
+      - name: Post-deploy smoke test
+        run: |
+          echo "Waiting 5s for services to settle..."
+          sleep 5
+          # Replace with your health endpoint
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://YOUR_DOMAIN/)
+          if [ "$HTTP_STATUS" != "200" ]; then
+            echo "Health check failed with status $HTTP_STATUS"
+            exit 1
+          fi
+          echo "Deployment looks healthy"
