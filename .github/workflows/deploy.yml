@@ -2,7 +2,7 @@
 # Place this as .github/workflows/deploy.yml in the repository (adjust paths as needed)
 # Required repository secrets:
 # - SSH_PRIVATE_KEY
-# - SSH_USER
+# - SSH_USERNAME
 # - SSH_HOST
 # - SSH_PORT (optional, default 22)
 # - DEPLOY_PATH (e.g., /var/www/eventagile-app)
