@@ -2,7 +2,7 @@
 # Place this as .github/workflows/deploy.yml in the repository (adjust paths as needed)
 # Required repository secrets:
 # - SSH_PRIVATE_KEY
-# - SSH_USERNAME
+# - SSH_USER (or SSH_USERNAME if you prefer; update the variables below accordingly)
 # - SSH_HOST
 # - SSH_PORT (optional, default 22)
 # - DEPLOY_PATH (e.g., /var/www/eventagile-app)
@@ -34,7 +34,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '22.12'
+          node-version: '18'
 
       - name: Install composer dependencies
         run: |
@@ -60,15 +60,32 @@ jobs:
         run: |
           ARTIFACT_NAME="eventagile-artifact-${GITHUB_RUN_NUMBER}.tar.gz"
           mkdir -p release
-          # Copy project files (exclude node_modules if large, but include built public files and vendor)
-          rsync -a --exclude '.git' --exclude 'tests' --exclude '.github' --exclude 'storage' --exclude 'node_modules' ./ release/
+          # Prefer using git archive to capture tracked source files (reliable and avoids empty release)
+          git archive --format=tar HEAD -o /tmp/source.tar || true
+          tar -xf /tmp/source.tar -C release || true
+
           # include vendor (built on Actions) so server doesn't need to run composer
-          cp -R vendor release/vendor
-          # include built public assets
+          if [ -d vendor ]; then
+            cp -R vendor release/vendor
+          fi
+
+          # include built public assets if present
           if [ -d public ]; then
             cp -R public release/public
           fi
-          # include artisan (for server-run commands)
+
+          # Debug / fail fast if release dir is empty
+          if [ -z "$(ls -A release || true)" ]; then
+            echo "Error: release directory is empty — cannot create artifact"
+            echo "Working directory: $(pwd)"
+            echo "Git tracked files:" 
+            git ls-files || true
+            echo "Filesystem listing:" 
+            ls -la || true
+            exit 1
+          fi
+
+          # create archive from release dir
           tar -czf "$ARTIFACT_NAME" -C release .
           mkdir -p ./artifacts
           mv "$ARTIFACT_NAME" ./artifacts/
