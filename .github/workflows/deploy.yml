@@ -108,6 +108,18 @@ jobs:
         with:
           name: release-artifact
 
+      - name: Inspect downloaded artifact
+        run: |
+          echo "PWD=$(pwd)"
+          ls -la
+          find . -maxdepth 3 -type f | sort
+          echo "Shell glob test for release-artifact/*.tar.gz:"
+          ls release-artifact/*.tar.gz || true
+          echo "Copying artifact to workspace root"
+          mkdir -p artifact-root
+          cp release-artifact/*.tar.gz artifact-root/ || true
+          ls -la artifact-root
+
       - name: Setup SSH key (agent)
         uses: webfactory/ssh-agent@v0.7.0
         with:
@@ -120,7 +132,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT || '22' }}
-          source: "release-artifact/*.tar.gz"
+          source: "artifact-root/*.tar.gz"
           target: "${{ secrets.DEPLOY_PATH }}/releases/"
 
       - name: Copy deploy helper (deploy.sh) to server
