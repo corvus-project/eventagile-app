@@ -43,9 +43,10 @@ sudo apt -y install certbot python3-certbot-nginx python3-certbot-dns-cloudflare
 # 1) In Cloudflare DNS, create records for your origin server:
 #    - A record: eventagile.com -> <server-ip> (orange cloud enabled)
 #    - CNAME record: www -> eventagile.com (orange cloud enabled)
-#    - CNAME record: app -> eventagile.com (orange cloud enabled)
-#    - Optional wildcard DNS for tenant subdomains:
-#      * -> eventagile.com (DNS only if wildcard proxy is unavailable)
+#    - CNAME record: app -> eventagile.com (orange cloud enabled) if you plan to proxy the management site later
+#    - Optional wildcard record: *.eventagile.com -> eventagile.com
+#      * On Cloudflare free plan, wildcard records are typically DNS-only, not proxied.
+#      * If you want Cloudflare proxying for tenants, create explicit DNS records per tenant instead.
 # 2) In Cloudflare SSL/TLS, choose Full (strict) and install an origin certificate on the server.
 # 3) To issue a wildcard certificate from Let's Encrypt, use the DNS Cloudflare plugin:
 #    - Create /etc/letsencrypt/cloudflare.ini with Cloudflare API token:
@@ -57,7 +58,14 @@ sudo apt -y install certbot python3-certbot-nginx python3-certbot-dns-cloudflare
 # 4) Use the generated cert files in Nginx:
 #      /etc/letsencrypt/live/eventagile.com/fullchain.pem
 #      /etc/letsencrypt/live/eventagile.com/privkey.pem
-
+#
+# Separate Laravel applications and deploy paths:
+#    /var/www/eventagile-website/releases
+#    /var/www/eventagile-website/shared
+#    /var/www/eventagile-tenant/releases
+#    /var/www/eventagile-tenant/shared
+#    /var/www/eventagile-management/releases  # later
+#
 # Place files from templates into appropriate locations:
 # - nginx server block: /etc/nginx/sites-available/eventagile-app
 # - php-fpm pool: /etc/php/8.1/fpm/pool.d/www.conf (replace existing or adjust)
