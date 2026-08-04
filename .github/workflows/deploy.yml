@@ -5,7 +5,7 @@
 # - SSH_USERNAME (name of the SSH user account on the server)
 # - SSH_HOST
 # - SSH_PORT (optional, default 22)
-# - DEPLOY_PATH (e.g., /var/www/eventagile-app)
+# - DEPLOY_PATH (e.g., /var/www/eventagile-website)
 # - DEPLOY_KEEP_RELEASES (optional, default 5)
 
 name: Build and Deploy
