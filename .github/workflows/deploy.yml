@@ -145,7 +145,7 @@ jobs:
           echo "Waiting 5s for services to settle..."
           sleep 5
           # Replace with your health endpoint
-          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://YOUR_DOMAIN/)
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://eventagile.com/)
           if [ "$HTTP_STATUS" != "200" ]; then
             echo "Health check failed with status $HTTP_STATUS"
             exit 1
