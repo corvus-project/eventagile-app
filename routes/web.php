@@ -32,6 +32,10 @@ Route::get('/debug', function () {
     return Carbon::now()->toDateTimeString();
 })->name('debug');
 
+Route::get('/v', function () {
+    return '1.0.0';
+})->name('version');
+
 Route::livewire('/', 'pages::site.home')->name('home');
 Route::livewire('/signup', 'pages::site.signup')->name('signup');
 
