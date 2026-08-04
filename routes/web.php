@@ -30,7 +30,7 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
 Route::get('/debug', function () {
     return Carbon::now()->toDateTimeString();
-})->name('welcome');
+})->name('debug');
 
 Route::livewire('/', 'pages::site.home')->name('home');
 Route::livewire('/signup', 'pages::site.signup')->name('signup');

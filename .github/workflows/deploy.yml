@@ -71,8 +71,33 @@ jobs:
           fi
 
           # include built public assets if present
-          if [ -d public ]; then
-            cp -R public release/public
+          # Some setups place the Vite build under public/build, others under public/public/build
+          mkdir -p release/public
+          if [ -d public/build ]; then
+            echo "Including public/build -> release/public/build"
+            cp -R public/build release/public/build
+          fi
+          if [ -d public/public/build ]; then
+            echo "Including public/public/build -> release/public/build"
+            mkdir -p release/public/public
+            cp -R public/public/build release/public/build
+          fi
+
+          # Debug: show what we included
+          echo "Release folder contents (top-level):"
+          ls -la release || true
+          echo "Release/public contents:"
+          ls -la release/public || true
+
+          # Ensure Vite manifest is present — fail fast if not
+          if [ ! -f release/public/build/manifest.json ]; then
+            echo "Error: Vite manifest not found at release/public/build/manifest.json"
+            echo "Listing public/build (if present):"
+            ls -la public/build || true
+            echo "Listing public/public/build (if present):"
+            ls -la public/public/build || true
+            echo "Aborting artifact creation to avoid deploying broken assets."
+            exit 1
           fi
 
           # Debug / fail fast if release dir is empty
