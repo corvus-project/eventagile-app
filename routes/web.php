@@ -12,6 +12,7 @@ use App\Models\Tenant;
 use App\Models\User;
 use App\Services\Helper;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
@@ -29,6 +30,8 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 */
 
 Route::get('/debug', function () {
+
+
     return Carbon::now()->toDateTimeString();
 })->name('debug');
 
@@ -49,6 +52,14 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', LogoutController::class)
         ->name('logout');
+
+
+
+    Route::get('out', function () {
+        Auth::logout();
+        return redirect()->route('home');
+    })
+        ->name('home.logout');
 });
 
 Route::livewire('/privacy', 'pages::site.privacy')->name('privacy');

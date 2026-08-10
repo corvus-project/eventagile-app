@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Tenant;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
@@ -44,7 +45,7 @@ class UserPolicy
      */
     public function delete(User $user, User $model): bool
     {
-        return $user->hasRole('admin') || $user->account_id === $model->account_id;
+        return $user->hasRole('admin') && $model->hasRole('user') && Tenant::where('user_id', $model->id)->doesntExist();
     }
 
     /**

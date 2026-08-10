@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Tenants\Schemas;
 
 use App\Filament\Resources\Users\UserResource;
+use App\Models\AccountSetup;
 use App\Models\Tenant;
 use App\Models\User;
 use Filament\Actions\Action;
@@ -28,6 +29,24 @@ class TenantInfolist
                         ->label('Tenant Database Name'),
 
                     Actions::make([
+
+                        Action::make('setup-account')
+                            ->modalDescription('Would you like to login to this tenant?')
+                            ->requiresConfirmation()
+                            ->color('danger')
+                            ->action(function ($record) {
+
+                                // @TODO move the logic to a service and find the admin role in tenant db
+                                $tenant = Tenant::find($record->id);
+                                $user = User::find($record->user_id);
+                                AccountSetup::create([
+                                    'user_id' => $user->id,
+                                    'name' => $tenant->name,
+                                    'email' => $tenant->email,
+                                    'domain' => str_slug($tenant->domain),
+                                    'action' => 'RESETUP'
+                                ]);
+                            }),
                         Action::make('login-account')
                             ->modalDescription('Would you like to login to this tenant?')
                             ->requiresConfirmation()
