@@ -58,10 +58,6 @@ class User extends Authenticatable  implements MustVerifyEmail, FilamentUser
         ];
     }
 
-    public function account()
-    {
-        return $this->belongsTo(Account::class);
-    }
 
     public function tenants()
     {
