@@ -39,11 +39,12 @@ class TenantInfolist
                                 // @TODO move the logic to a service and find the admin role in tenant db
                                 $tenant = Tenant::find($record->id);
                                 $user = User::find($record->user_id);
+                                $tenant_domain = $tenant->primary_domain;
                                 AccountSetup::create([
                                     'user_id' => $user->id,
                                     'name' => $tenant->name,
                                     'email' => $tenant->email,
-                                    'domain' => str_slug($tenant->domain),
+                                    'domain' => $tenant_domain,
                                     'action' => 'RESETUP'
                                 ]);
                             }),
