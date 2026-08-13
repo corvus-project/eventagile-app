@@ -54,7 +54,12 @@ class TenantInfolist
 
                                 // @TODO move the logic to a service and find the admin role in tenant db
                                 $tenant = Tenant::find($record->id);
-                                config(['database.connections.template_tenant_connection.database' => database_path($tenant->tenancy_db_name)]);
+                                //config(['database.connections.template_tenant_connection.database' => database_path($tenant->tenancy_db_name)]);
+
+                                // fix it later
+                                $path = '/var/www/eventagile-tenant/shared/database/tenants/' . $tenant->tenancy_db_name;
+                                config(['database.connections.template_tenant_connection.database' => $path]);
+
                                 $user = User::on('template_tenant_connection')->with('roles')->whereHas('roles', fn($q) => $q->where('slug', 'admin'))->first();
 
                                 $redirectUrl = 'dashboard';
