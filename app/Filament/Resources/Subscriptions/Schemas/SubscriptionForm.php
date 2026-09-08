@@ -18,7 +18,8 @@ class SubscriptionForm
             ->components([
                 Section::make('Subscription Details')->schema([
                     Select::make('tenant_id')
-                        ->relationship('tenant', 'id')
+                        ->relationship('tenant', 'name')
+
                         ->searchable()
                         ->preload()
                         ->required(),
