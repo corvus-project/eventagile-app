@@ -7,11 +7,15 @@ use App\Models\AccountSetup;
 use App\Models\Tenant;
 use App\Models\User;
 use Filament\Actions\Action;
-use Filament\Infolists\Components\RepeatableEntry;
-use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Actions;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
+
+
+use Filament\Infolists\Components\IconEntry;
+use Filament\Infolists\Components\RepeatableEntry;
+use Filament\Infolists\Components\RepeatableEntry\TableColumn;
+use Filament\Infolists\Components\TextEntry;
 
 class TenantInfolist
 {
@@ -102,10 +106,30 @@ class TenantInfolist
 
                 RepeatableEntry::make('subscriptions')
                     ->label('Subscriptions')
+                    ->table(
+                        [
+                            TableColumn::make('Plan'),
+                            TableColumn::make('status'),
+                            TableColumn::make('starts_at'),
+                            TableColumn::make('ends_at'),
+                        ]
+                    )
                     ->schema([
-                        TextEntry::make('domain')->label('Domain'),
+
+                        TextEntry::make('plan.name')->label('Plan'),
+                        TextEntry::make('status')->label('Status'),
+                        TextEntry::make('starts_at')->label('Starts At'),
+                        TextEntry::make('ends_at')->label('Ends At')
+                            ->suffixAction(
+                                Action::make('View Subscription')
+                                    ->icon('heroicon-o-eye')
+                                    ->url(fn($record) => route('filament.cp.resources.subscriptions.view', ['record' => $record->id]))
+
+                            ),
+
                     ])
-                    ->columns(1)
+
+                    ->columns(4)
 
             ])
 
