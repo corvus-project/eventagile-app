@@ -74,7 +74,7 @@ class TenantInfolist
                                     $ssl = 'https://';
                                 }
 
-                                return redirect("{$ssl}{$tenant_domain}.{$domain}impersonate/{$token->token}");
+                                return redirect("{$ssl}{$tenant_domain}/impersonate/{$token->token}");
                             })
                     ]),
                 ])->columns(2),
