@@ -35,9 +35,13 @@ return [
         ],
     ],
 
-     'recaptcha' => [
+    'recaptcha' => [
         'public_key' => env('RECAPTCHA_PUBLIC_KEY'),
         'secret_key' => env('RECAPTCHA_SECRET_KEY'),
+    ],
+
+    'tenancy' => [
+        'db_path' => env('TENANCY_DB_PATH', '/var/www/eventagile-tenant/shared/database/tenants/'),
     ],
 
 ];

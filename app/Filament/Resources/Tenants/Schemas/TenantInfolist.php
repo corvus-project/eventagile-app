@@ -39,11 +39,12 @@ class TenantInfolist
                                 // @TODO move the logic to a service and find the admin role in tenant db
                                 $tenant = Tenant::find($record->id);
                                 $user = User::find($record->user_id);
+                                $tenant_domain = $tenant->primary_domain;
                                 AccountSetup::create([
                                     'user_id' => $user->id,
                                     'name' => $tenant->name,
                                     'email' => $tenant->email,
-                                    'domain' => str_slug($tenant->domain),
+                                    'domain' => $tenant_domain,
                                     'action' => 'RESETUP'
                                 ]);
                             }),
@@ -54,12 +55,12 @@ class TenantInfolist
 
                                 // @TODO move the logic to a service and find the admin role in tenant db
                                 $tenant = Tenant::find($record->id);
-                                //config(['database.connections.template_tenant_connection.database' => database_path($tenant->tenancy_db_name)]);
 
-                                // fix it later
-                                $path = '/var/www/eventagile-tenant/shared/database/tenants/' . $tenant->tenancy_db_name;
-                                config(['database.connections.template_tenant_connection.database' => $path]);
+                                // Set the database connection for the tenant
 
+                                $tenancy_db_name = config('services.tenancy.db_path') . $tenant->tenancy_db_name;
+
+                                config(['database.connections.template_tenant_connection.database' => $tenancy_db_name]);
                                 $user = User::on('template_tenant_connection')->with('roles')->whereHas('roles', fn($q) => $q->where('slug', 'admin'))->first();
 
                                 $redirectUrl = 'dashboard';
