@@ -55,7 +55,12 @@ class TenantInfolist
 
                                 // @TODO move the logic to a service and find the admin role in tenant db
                                 $tenant = Tenant::find($record->id);
-                                config(['database.connections.template_tenant_connection.database' => database_path($tenant->tenancy_db_name)]);
+
+                                // Set the database connection for the tenant
+
+                                $tenancy_db_name = config('services.tenancy.db_path') . $tenant->tenancy_db_name;
+
+                                config(['database.connections.template_tenant_connection.database' => $tenancy_db_name]);
                                 $user = User::on('template_tenant_connection')->with('roles')->whereHas('roles', fn($q) => $q->where('slug', 'admin'))->first();
 
                                 $redirectUrl = 'dashboard';

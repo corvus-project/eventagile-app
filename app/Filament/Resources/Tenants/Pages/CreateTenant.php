@@ -20,10 +20,12 @@ class CreateTenant extends CreateRecord
             'name' => $data['name'],
             'email' => $data['email'],
             'domain' => str_slug($data['domain']),
-            'action' => 'RESETUP'
+            'action' => 'SETUP'
         ]);
         return new Tenant();
     }
+
+
 
     protected function getRedirectUrl(): string
     {
