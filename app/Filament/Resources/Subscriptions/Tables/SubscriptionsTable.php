@@ -8,6 +8,7 @@ use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Schemas\Components\View;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class SubscriptionsTable
@@ -45,7 +46,16 @@ class SubscriptionsTable
 
             ])
             ->filters([
-                //
+                SelectFilter::make('status')
+                    ->options([
+                        'active' => 'Active',
+                        'canceled' => 'Canceled',
+                        'expired' => 'Expired',
+                        'on_trial' => 'On Trial',
+                    ]),
+                SelectFilter::make('plan')
+                    ->relationship('plan', 'name'),
+
             ])
             ->recordActions([
                 EditAction::make(),
