@@ -67,12 +67,16 @@ class PlanForm
                 Section::make('Features')->schema([
                     CodeEditor::make('features')
                         ->language(Language::Json)
+                        ->formatStateUsing(fn ($state) => blank($state) ? null : (is_array($state) ? json_encode($state, JSON_PRETTY_PRINT) : $state))
+                        ->dehydrateStateUsing(fn ($state) => blank($state) ? null : json_decode($state, true))
                         ->columnSpanFull(),
                 ])->columns(1),
 
                 Section::make('Limitations')->schema([
                     CodeEditor::make('limitations')
                         ->language(Language::Json)
+                        ->formatStateUsing(fn ($state) => blank($state) ? null : (is_array($state) ? json_encode($state, JSON_PRETTY_PRINT) : $state))
+                        ->dehydrateStateUsing(fn ($state) => blank($state) ? null : json_decode($state, true))
                         ->columnSpanFull(),
                 ])->columns(1),
             ])->columns(1);
