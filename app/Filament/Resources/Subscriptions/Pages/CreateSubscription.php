@@ -15,6 +15,9 @@ class CreateSubscription extends CreateRecord
 
         $data['plan_features'] = $plan->features;
         $data['plan_limitations'] = $plan->limitations;
+
+        $data['plan_name'] = $plan->name;
+        $data['plan_description'] = $plan->description;
         return $data;
     }
 }
