@@ -148,7 +148,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
                     </ul>
                     <a href="{{ route('contact') }}"
                         class="mt-8 block w-full text-center px-4 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-blue-50 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-white min-h-[44px] flex items-center justify-center">
-                        Coming soon — Contact Sales
+                        Coming soon
                     </a>
                 </div>
 
