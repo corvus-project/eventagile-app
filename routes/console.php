@@ -1,11 +1,11 @@
 <?php
 
-use App\Console\Commands\BackupTenantDatabases;
-use App\Console\Commands\DemoData;
 use Illuminate\Foundation\Console\ClosureCommand;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;
+
+Schedule::command('renew-subscription')->daily();
 
 Artisan::command('inspire', function () {
     /** @var ClosureCommand $this */
