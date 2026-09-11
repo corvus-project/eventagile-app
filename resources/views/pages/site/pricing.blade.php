@@ -89,8 +89,7 @@ new #[Layout('layouts.frontend')]  class extends Component {};
 
                 <!-- Professional Plan (Demo) -->
                 <div class="bg-blue-600 rounded-2xl shadow-md p-8 flex flex-col relative">
-                    <span
-                        class="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-800 text-white text-xs font-bold px-3 py-1 rounded-full">Demo</span>
+                     
                     <h2 class="text-xl font-bold text-white">Professional</h2>
                     <p class="text-sm text-blue-200 mt-1">For growing studios and clubs</p>
                     <p class="mt-6">
