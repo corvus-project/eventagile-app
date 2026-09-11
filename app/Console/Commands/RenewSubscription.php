@@ -33,6 +33,7 @@ class RenewSubscription extends Command
 
         $renewed = 0;
         foreach ($subscriptions as $subscription) {
+            echo "Renewing subscription ID: {$subscription->id} for tenant ID: {$subscription->tenant_id}\n";
             if ($subscription->renew()) {
                 $renewed++;
             }

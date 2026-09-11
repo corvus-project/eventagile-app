@@ -6,6 +6,7 @@ use App\Models\Subscription;
 use App\Models\Tenant;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Str;
 
 uses(RefreshDatabase::class);
 
@@ -20,7 +21,7 @@ afterEach(function () {
 function createTenantAndPlan(): array
 {
     $tenant = Tenant::create([
-        'id' => 'test-tenant',
+        'id' => Str::uuid()->toString(),
         'name' => 'Test Tenant',
         'email' => 'tenant@example.com',
         'is_active' => true,
