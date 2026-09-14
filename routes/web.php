@@ -30,7 +30,7 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 */
 
 Route::get('/debug', function () {
-
+    Auth::logout();
 
     return Carbon::now()->toDateTimeString();
 })->name('debug');

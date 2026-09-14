@@ -80,7 +80,9 @@ class TenancyServiceProvider extends ServiceProvider
             ],
 
             Events\BootstrappingTenancy::class => [],
-            Events\TenancyBootstrapped::class => [],
+            Events\TenancyBootstrapped::class => [
+                \App\Listeners\EnsureSubscriptionActive::class,
+            ],
             Events\RevertingToCentralContext::class => [],
             Events\RevertedToCentralContext::class => [],
 
