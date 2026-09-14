@@ -67,7 +67,7 @@ new #[Layout('layouts.auth')] class extends Component
             'name' => $this->name,
             'email' => $this->email,
             'domain' => str_slug($this->domain),
-            'action' => 'PRESETUP'
+            'action' => 'NOTVERIFIED'
         ]);
 
         Log::debug('registered new user', [

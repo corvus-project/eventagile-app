@@ -3,8 +3,6 @@
 namespace App\Services;
 
 use Illuminate\Auth\Notifications\VerifyEmail;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
