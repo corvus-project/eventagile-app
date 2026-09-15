@@ -54,11 +54,8 @@ class UserInfolist
                                     ->url(fn($record) => route('filament.cp.resources.tenants.view', ['record' => $record->id]))
 
                             ),
-
                     ])
-
                     ->columns(4)
-
 
 
             ])->columns(1);

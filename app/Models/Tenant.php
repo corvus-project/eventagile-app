@@ -34,7 +34,7 @@ class Tenant extends BaseTenant implements TenantWithDatabase
 
     public function user()
     {
-        return $this->hasOne(User::class, 'id', 'user_id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function subscriptions()
@@ -51,7 +51,6 @@ class Tenant extends BaseTenant implements TenantWithDatabase
             return $adminUsers;
         });
     }
-
 
     public function getPrimaryDomainAttribute()
     {
