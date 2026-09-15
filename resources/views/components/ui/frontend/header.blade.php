@@ -13,13 +13,13 @@
 
             <!-- Desktop links (hidden below md) -->
             <ul class="hidden md:flex gap-6 text-sm font-medium text-gray-700">
-                <li><a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'underline text-blue-600' : 'hover:text-blue-600' }}">Home</a></li>
-                <li><a href="{{ route('features') }}" class="{{ request()->routeIs('features') ? 'underline text-blue-600' : 'hover:text-blue-600' }}">Features</a></li>
-                <li><a href="{{ route('sample-usage') }}" class="{{ request()->routeIs('sample-usage') ? 'underline text-blue-600' : 'hover:text-blue-600' }}">Sample Usage</a></li>
-                <li><a href="{{ route('demo') }}" class="{{ request()->routeIs('demo') ? 'underline text-blue-600' : 'hover:text-blue-600' }}">Live Demo</a></li>
-                <li><a href="{{ route('pricing') }}" class="{{ request()->routeIs('pricing') ? 'underline text-blue-600' : 'hover:text-blue-600' }}">Pricing</a></li>
-                <li><a href="{{ route('support') }}" class="{{ request()->routeIs('support') ? 'underline text-blue-600' : 'hover:text-blue-600' }}">Support</a></li>
-                <li><a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'underline text-blue-600' : 'hover:text-blue-600' }}">Contact</a></li>
+                <li><a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? ' text-blue-600' : 'hover:text-blue-600' }}">Home</a></li>
+                <li><a href="{{ route('features') }}" class="{{ request()->routeIs('features') ? ' text-blue-600' : 'hover:text-blue-600' }}">Features</a></li>
+                <li><a href="{{ route('sample-usage') }}" class="{{ request()->routeIs('sample-usage') ? ' text-blue-600' : 'hover:text-blue-600' }}">Sample Usage</a></li>
+                <li><a href="{{ route('demo') }}" class="{{ request()->routeIs('demo') ? ' text-blue-600' : 'hover:text-blue-600' }}">Live Demo</a></li>
+                <li><a href="{{ route('pricing') }}" class="{{ request()->routeIs('pricing') ? ' text-blue-600' : 'hover:text-blue-600' }}">Pricing</a></li>
+                <li><a href="{{ route('support') }}" class="{{ request()->routeIs('support') ? ' text-blue-600' : 'hover:text-blue-600' }}">Support</a></li>
+                <li><a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? ' text-blue-600' : 'hover:text-blue-600' }}">Contact</a></li>
             </ul>
 
             <!-- CTA + hamburger -->
