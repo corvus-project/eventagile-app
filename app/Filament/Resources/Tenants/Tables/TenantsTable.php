@@ -19,9 +19,9 @@ class TenantsTable
     {
         return $table
             ->columns([
-                TextColumn::make('id')->sortable(),
-                TextColumn::make('name'),
-                TextColumn::make('email'),
+                TextColumn::make('id')->sortable()->searchable(),
+                TextColumn::make('name')->searchable(),
+                TextColumn::make('email')->searchable(),
 
                 IconColumn::make('is_active')
                     ->icon(fn(string $state): Heroicon => match ($state) {
@@ -34,12 +34,18 @@ class TenantsTable
                         '0' => 'warning',
                         '1' => 'success',
                     })
-                    ->label('Active')->sortable()
+                    ->label('Active')->sortable(),
 
+
+                TextColumn::make('domains')
+                    ->label('Domain')
+                    ->getStateUsing(fn($record) => $record->domains->pluck('domain')->implode(', '))
+                    ->searchable(),
+                TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
             ])
-            ->filters([
-                //
-            ])
+            ->filters([])
             ->recordActions([
                 Action::make('users')
                     ->label('Users')

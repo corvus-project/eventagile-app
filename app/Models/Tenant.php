@@ -52,14 +52,9 @@ class Tenant extends BaseTenant implements TenantWithDatabase
         });
     }
 
-    public function able($action)
-    {
-        Log::info('Checking ability for user ID: ' . $this->id . ' and action: ' . $action);
-        return app(SubscriptionService::class)->can($this, $action);
-    }
 
     public function getPrimaryDomainAttribute()
     {
-        return $this->domains()->first()->domain;
+        return $this->domains()->first()?->domain;
     }
 }

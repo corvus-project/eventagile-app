@@ -26,8 +26,12 @@ class TenantForm
                         ->label('Email address')
                         ->email()
                         ->required()->columnSpanFull(),
-
-
+                    TextInput::make('domain')
+                        ->label('Domain')
+                        ->disabledOn('edit')
+                        ->required()
+                        ->visibleOn('create')
+                        ->columnSpanFull(),
                     Toggle::make('is_active')
                         ->label('Is Active')
                         ->default(true),
