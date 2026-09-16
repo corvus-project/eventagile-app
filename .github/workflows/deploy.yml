@@ -124,6 +124,7 @@ jobs:
         with:
           name: release-artifact
           path: ./artifacts/
+          retention-days: 1
 
   deploy:
     name: Deploy to server
