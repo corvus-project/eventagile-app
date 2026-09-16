@@ -3,5 +3,5 @@
 return [
     App\Providers\AppServiceProvider::class,
     App\Providers\Filament\CpPanelProvider::class,
-App\Providers\TenancyServiceProvider::class, 
+    App\Providers\TenancyServiceProvider::class, 
 ];

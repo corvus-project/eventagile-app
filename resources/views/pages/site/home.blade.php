@@ -12,11 +12,10 @@ new #[Layout('layouts.frontend')]  class extends Component {};
     {{ 'EventAgile — Event Management Platform for Studios & Instructors' }}
 </x-slot>
 
-
 <!-- Main content — sections 4.2–4.6 will be added here -->
 <main id="main-content" tabindex="-1">
     <section class="relative overflow-hidden bg-gradient-to-br from-white via-slate-50 to-blue-50">
-        <div class="mx-auto max-w-7xl px-6 py-20 lg:px-8">
+        <div class="mx-auto max-w-7xl px-1 py-8 lg:px-2">
             <div class="grid items-center gap-16 lg:grid-cols-2 lg:grid-cols-[45%_55%]">
 
                 <!-- Left -->

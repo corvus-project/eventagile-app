@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Tenants\Schemas;
 
+use App\Filament\Resources\Domains\DomainResource;
 use App\Filament\Resources\Users\UserResource;
 use App\Models\AccountSetup;
 use App\Models\Tenant;
@@ -10,12 +11,10 @@ use Filament\Actions\Action;
 use Filament\Schemas\Components\Actions;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
-
-
-use Filament\Infolists\Components\IconEntry;
 use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\RepeatableEntry\TableColumn;
 use Filament\Infolists\Components\TextEntry;
+use Filament\Support\Enums\Alignment;
 
 class TenantInfolist
 {
@@ -98,8 +97,22 @@ class TenantInfolist
 
                 RepeatableEntry::make('domains')
                     ->label('Domains')
+                    ->table(
+                        [
+                            TableColumn::make('Domain'),
+                            TableColumn::make('Created at')->alignment(Alignment::Right),
+                        ]
+                    )
                     ->schema([
-                        TextEntry::make('domain')->label('Domain'),
+                        TextEntry::make('domain'),
+                        TextEntry::make('created_at')->alignment(Alignment::Right)
+                            ->suffixAction(
+                                Action::make('Edit Domain')
+                                    ->icon('heroicon-o-pencil')
+                                    ->url(
+                                        fn($record) => DomainResource::getUrl('edit', ['record' => $record->id])
+                                    )
+                            ),
 
                     ])
                     ->columns(1),
@@ -115,20 +128,18 @@ class TenantInfolist
                         ]
                     )
                     ->schema([
-
                         TextEntry::make('plan.name')->label('Plan'),
                         TextEntry::make('status')->label('Status'),
                         TextEntry::make('starts_at')->label('Starts At'),
                         TextEntry::make('ends_at')->label('Ends At')
                             ->suffixAction(
-                                Action::make('View Subscription')
-                                    ->icon('heroicon-o-eye')
-                                    ->url(fn($record) => route('filament.cp.resources.subscriptions.view', ['record' => $record->id]))
+                                Action::make('Edit Subscription')
+                                    ->icon('heroicon-o-pencil')
+                                    ->url(fn($record) => route('filament.cp.resources.subscriptions.edit', ['record' => $record->id]))
 
                             ),
 
                     ])
-
                     ->columns(4)
 
             ])
