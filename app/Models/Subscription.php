@@ -25,6 +25,7 @@ class Subscription extends Model
         'plan_features',
         'plan_name',
         'plan_description',
+        'usage'
     ];
 
     protected $casts = [
@@ -32,6 +33,7 @@ class Subscription extends Model
         'ends_at' => 'datetime',
         'plan_limitations' => 'array',
         'plan_features' => 'array',
+        'usage' => 'array'
     ];
 
     public function tenant()

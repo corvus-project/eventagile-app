@@ -53,8 +53,6 @@ return new class extends Migration
             $table->string('plan_features')->nullable(); // JSON or comma-separated features
             $table->json('plan_limitations')->nullable(); // JSON or comma-separated limitations
 
-
-
             $table->string('renewal_status')->nullable(); // e.g., pending, completed
             $table->string('renewal_date')->nullable();
             $table->string('cancellation_date')->nullable();
