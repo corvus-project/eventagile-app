@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Services\SubscriptionService;
-use Illuminate\Support\Facades\Log;
 use Stancl\Tenancy\Database\Models\Tenant as BaseTenant;
 use Stancl\Tenancy\Contracts\TenantWithDatabase;
 use Stancl\Tenancy\Database\Concerns\HasDatabase;
