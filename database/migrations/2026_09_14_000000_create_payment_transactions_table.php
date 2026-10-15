@@ -11,7 +11,10 @@ return new class extends Migration
     {
         Schema::create('payment_transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('tenant_id')->nullable()->constrained()->nullOnDelete();
+
+            $table->string('tenant_id');
+            $table->foreign('tenant_id')->references('id')->on('tenants')->onUpdate('cascade')->onDelete('cascade');
+
             $table->foreignId('subscription_id')->nullable()->constrained()->nullOnDelete();
             $table->string('transaction_id')->unique();
             $table->string('type');
